@@ -123,6 +123,24 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+
+    /* Hero real-life photo marquee: continuous right-to-left, pauses on hover */
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: hero-marquee 55s linear infinite;
+      will-change: transform;
+    }
+    .marquee-wrapper:hover .marquee-track {
+      animation-play-state: paused;
+    }
+    @keyframes hero-marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-33.3333%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track { animation: none; }
+    }
   </style>
 </head>
 <body class="bg-paper-base text-ink-primary antialiased relative">
@@ -251,8 +269,7 @@
         
         <!-- Left: Punchy Sensory Copy & Low-Cost Philosophy -->
         <div class="lg:col-span-6 space-y-6">
-                  <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent-sage-soft border border-accent-sage/30 text-accent-sage text-xs font-medium mb-8"
-            data-i18n="hero_status">
+                  <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent-sage-soft border border-accent-sage/30 text-accent-sage text-xs font-medium mb-8">
           <span class="w-2 h-2 rounded-full bg-accent-sage animate-pulse"></span>
           <span data-i18n-html="hero_status_txt">Rev A manufacturing complete &bull; Awaiting delivery to Mexico for hands-on evaluation &amp; Rev B design</span>
         </div>
@@ -354,41 +371,113 @@
 
     </div>
   
-      <!-- Hero Image Carousel: featured build -->
-      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 border-t border-paper-border/60">
-        <div class="flex flex-col lg:flex-row items-center justify-between gap-6 mb-6">
-          <div>
-            <h3 class="text-xl font-serif font-semibold text-ink-primary" data-i18n="carousel_title">Featured Build &mdash; Rev A Production Units</h3>
-            <p class="text-sm text-ink-secondary mt-1 leading-relaxed" data-i18n="carousel_caption">
-              Matte black ENIG PCB with Van Gogh silkscreen, bottom-mounted SMD (30x HAL403SO, 4x TMUX1308, AO3401A), and
-              the ambidextrous dual trackpad headers.
-            </p>
+      <!-- Project Status: Road to Rev B -->
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 pb-12">
+        <div class="rounded-3xl border border-paper-border bg-paper-surface/70 p-6 lg:p-8 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
+            <div>
+              <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold" data-i18n="progress_eyebrow">Project Status</span>
+              <h3 class="text-xl lg:text-2xl font-serif font-semibold text-ink-primary mt-1" data-i18n="progress_title">From hand-soldered prototypes to Rev B</h3>
+              <p class="text-sm text-ink-secondary mt-1" data-i18n="progress_current">Now: Rev A in transit to Mexico for hands-on evaluation.</p>
+            </div>
+            <div class="text-right shrink-0">
+              <div class="text-4xl font-serif text-accent-terracotta leading-none">70%</div>
+              <div class="text-xs text-ink-muted mt-1" data-i18n="progress_pct_label">of the road to Rev B</div>
+            </div>
           </div>
-          <div class="flex gap-2" id="carouselDots"></div>
+
+          <!-- Progress bar -->
+          <div class="relative h-3 w-full rounded-full bg-paper-border/40 overflow-hidden">
+            <div class="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-accent-sage to-accent-terracotta" style="width:70%"></div>
+          </div>
+          <div class="mt-1.5 flex justify-end">
+            <span class="text-xs font-mono uppercase tracking-wider text-accent-terracotta/80">Rev B &middot; Medici</span>
+          </div>
+
+          <!-- Milestones -->
+          <div class="mt-5 grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <div class="rounded-2xl border border-accent-sage/30 bg-accent-sage-soft/50 p-3">
+              <div class="flex items-center gap-2 text-accent-sage text-xs font-semibold">
+                <span class="shrink-0">&#10003;</span><span data-i18n="progress_m1">Hand-soldered R&amp;D prototypes</span>
+              </div>
+            </div>
+            <div class="rounded-2xl border border-accent-sage/30 bg-accent-sage-soft/50 p-3">
+              <div class="flex items-center gap-2 text-accent-sage text-xs font-semibold">
+                <span class="shrink-0">&#10003;</span><span data-i18n="progress_m2">3D-printed designs validated</span>
+              </div>
+            </div>
+            <div class="rounded-2xl border border-accent-sage/30 bg-accent-sage-soft/50 p-3">
+              <div class="flex items-center gap-2 text-accent-sage text-xs font-semibold">
+                <span class="shrink-0">&#10003;</span><span data-i18n="progress_m3">PCB Rev A manufactured</span>
+              </div>
+            </div>
+            <div class="rounded-2xl border border-dashed border-accent-terracotta/50 bg-white/40 p-3">
+              <div class="flex items-center gap-2 text-accent-terracotta text-xs font-semibold">
+                <span class="shrink-0">&rarr;</span><span data-i18n="progress_m4">Rev B design (Medici grant)</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div id="carouselWrapper" class="relative h-80 lg:h-96 rounded-3xl overflow-hidden border border-paper-border shadow-sm group cursor-pointer">
-          <div id="carouselTrack" class="flex h-full transition-transform duration-700 ease-in-out">
-            <div class="flex-shrink-0 w-full h-full bg-[#141414] flex items-center justify-center p-4">
-              <img src="assets/img/pcb_top_transparent.png" alt="PCB Rev A Top" class="max-h-full max-w-full object-contain">
-            </div>
-            <div class="flex-shrink-0 w-full h-full bg-[#141414] flex items-center justify-center p-4">
-              <img src="assets/img/pcb_iso.png" alt="PCB Rev A Isometric" class="max-h-full max-w-full object-contain">
-            </div>
-            <div class="flex-shrink-0 w-full h-full bg-white flex items-center justify-center p-4 border border-paper-border/50">
-              <img src="assets/img/switch_v5_exploded.png" alt="FloatForce Exploded" class="max-h-full max-w-full object-contain p-3">
-            </div>
-            <div class="flex-shrink-0 w-full h-full bg-white flex items-center justify-center p-4 border border-paper-border/50">
-              <img src="assets/img/switch_v5_assembled.png" alt="FloatForce Assembled" class="max-h-full max-w-full object-contain p-3">
-            </div>
-            <div class="flex-shrink-0 w-full h-full bg-white flex items-center justify-center p-4 border border-paper-border/50">
-              <img src="assets/img/keycaps_wasd_v3_2.png" alt="Keycaps V3.2 WASD" class="max-h-full max-w-full object-contain p-3">
-            </div>
-            <div class="flex-shrink-0 w-full h-full bg-paper-surface flex items-center justify-center p-4">
-              <img src="assets/img/real_macropad_16key_perspective.jpg" alt="16-Key Macropad" class="max-h-full max-w-full object-cover">
-            </div>
+      </div>
+
+      <!-- Hero Real-Life Marquee: continuous right-to-left, pauses on hover -->
+      <div class="py-10 border-t border-paper-border/60">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 mb-5">
+          <h3 class="text-xl font-serif font-semibold text-ink-primary" data-i18n="marquee_title">From the workbench &mdash; real prototypes, not renders</h3>
+        </div>
+        <div class="marquee-wrapper relative overflow-hidden py-2">
+          <div class="marquee-track">
+            <figure class="relative w-[300px] sm:w-[360px] h-[220px] sm:h-[240px] flex-shrink-0 mr-5 rounded-2xl overflow-hidden border border-paper-border shadow-sm">
+              <img src="assets/img/real/real_macropad_16key_perspective.jpg" alt="16-key macropad prototype" class="w-full h-full object-cover">
+              <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-xs text-white/90 font-medium" data-i18n="marquee_c1">16-key macropad — hand-wired and fully functional</figcaption>
+            </figure>
+            <figure class="relative w-[300px] sm:w-[360px] h-[220px] sm:h-[240px] flex-shrink-0 mr-5 rounded-2xl overflow-hidden border border-paper-border shadow-sm">
+              <img src="assets/img/real/real_protoboard_sensors_wiring.jpg" alt="Hand-soldered Hall sensor rig" class="w-full h-full object-cover">
+              <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-xs text-white/90 font-medium" data-i18n="marquee_c2">Hand-soldered R&amp;D rig — 15 Hall sensors + MUX</figcaption>
+            </figure>
+            <figure class="relative w-[300px] sm:w-[360px] h-[220px] sm:h-[240px] flex-shrink-0 mr-5 rounded-2xl overflow-hidden border border-paper-border shadow-sm">
+              <img src="assets/img/real/real_3d_switch_housing_magnets.jpg" alt="3D-printed switch housing with magnet sockets" class="w-full h-full object-cover">
+              <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-xs text-white/90 font-medium" data-i18n="marquee_c3">3D-printed switch housing — magnet sockets</figcaption>
+            </figure>
+            <figure class="relative w-[300px] sm:w-[360px] h-[220px] sm:h-[240px] flex-shrink-0 mr-5 rounded-2xl overflow-hidden border border-paper-border shadow-sm">
+              <img src="assets/img/real/real_macropad_16key_top.jpg" alt="Macropad top view" class="w-full h-full object-cover">
+              <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-xs text-white/90 font-medium" data-i18n="marquee_c4">Macropad top — continuous analog depth sensing</figcaption>
+            </figure>
+            <figure class="relative w-[300px] sm:w-[360px] h-[220px] sm:h-[240px] flex-shrink-0 mr-5 rounded-2xl overflow-hidden border border-paper-border shadow-sm">
+              <img src="assets/img/real/real_macropad_16key_perspective.jpg" alt="16-key macropad prototype" class="w-full h-full object-cover">
+              <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-xs text-white/90 font-medium" data-i18n="marquee_c1">16-key macropad — hand-wired and fully functional</figcaption>
+            </figure>
+            <figure class="relative w-[300px] sm:w-[360px] h-[220px] sm:h-[240px] flex-shrink-0 mr-5 rounded-2xl overflow-hidden border border-paper-border shadow-sm">
+              <img src="assets/img/real/real_protoboard_sensors_wiring.jpg" alt="Hand-soldered Hall sensor rig" class="w-full h-full object-cover">
+              <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-xs text-white/90 font-medium" data-i18n="marquee_c2">Hand-soldered R&amp;D rig — 15 Hall sensors + MUX</figcaption>
+            </figure>
+            <figure class="relative w-[300px] sm:w-[360px] h-[220px] sm:h-[240px] flex-shrink-0 mr-5 rounded-2xl overflow-hidden border border-paper-border shadow-sm">
+              <img src="assets/img/real/real_3d_switch_housing_magnets.jpg" alt="3D-printed switch housing with magnet sockets" class="w-full h-full object-cover">
+              <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-xs text-white/90 font-medium" data-i18n="marquee_c3">3D-printed switch housing — magnet sockets</figcaption>
+            </figure>
+            <figure class="relative w-[300px] sm:w-[360px] h-[220px] sm:h-[240px] flex-shrink-0 mr-5 rounded-2xl overflow-hidden border border-paper-border shadow-sm">
+              <img src="assets/img/real/real_macropad_16key_top.jpg" alt="Macropad top view" class="w-full h-full object-cover">
+              <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-xs text-white/90 font-medium" data-i18n="marquee_c4">Macropad top — continuous analog depth sensing</figcaption>
+            </figure>
+            <figure class="relative w-[300px] sm:w-[360px] h-[220px] sm:h-[240px] flex-shrink-0 mr-5 rounded-2xl overflow-hidden border border-paper-border shadow-sm">
+              <img src="assets/img/real/real_macropad_16key_perspective.jpg" alt="16-key macropad prototype" class="w-full h-full object-cover">
+              <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-xs text-white/90 font-medium" data-i18n="marquee_c1">16-key macropad — hand-wired and fully functional</figcaption>
+            </figure>
+            <figure class="relative w-[300px] sm:w-[360px] h-[220px] sm:h-[240px] flex-shrink-0 mr-5 rounded-2xl overflow-hidden border border-paper-border shadow-sm">
+              <img src="assets/img/real/real_protoboard_sensors_wiring.jpg" alt="Hand-soldered Hall sensor rig" class="w-full h-full object-cover">
+              <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-xs text-white/90 font-medium" data-i18n="marquee_c2">Hand-soldered R&amp;D rig — 15 Hall sensors + MUX</figcaption>
+            </figure>
+            <figure class="relative w-[300px] sm:w-[360px] h-[220px] sm:h-[240px] flex-shrink-0 mr-5 rounded-2xl overflow-hidden border border-paper-border shadow-sm">
+              <img src="assets/img/real/real_3d_switch_housing_magnets.jpg" alt="3D-printed switch housing with magnet sockets" class="w-full h-full object-cover">
+              <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-xs text-white/90 font-medium" data-i18n="marquee_c3">3D-printed switch housing — magnet sockets</figcaption>
+            </figure>
+            <figure class="relative w-[300px] sm:w-[360px] h-[220px] sm:h-[240px] flex-shrink-0 mr-5 rounded-2xl overflow-hidden border border-paper-border shadow-sm">
+              <img src="assets/img/real/real_macropad_16key_top.jpg" alt="Macropad top view" class="w-full h-full object-cover">
+              <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-xs text-white/90 font-medium" data-i18n="marquee_c4">Macropad top — continuous analog depth sensing</figcaption>
+            </figure>
           </div>
-          <button onclick="carouselPrev()" class="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/70 backdrop-blur text-ink-primary hover:bg-white shadow-md transition-all flex items-center justify-center text-xl font-serif">&lsaquo;</button>
-          <button onclick="carouselNext()" class="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/70 backdrop-blur text-ink-primary hover:bg-white shadow-md transition-all flex items-center justify-center text-xl font-serif">&rsaquo;</button>
+          <div class="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-20 bg-gradient-to-r from-paper-base to-transparent"></div>
+          <div class="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-20 bg-gradient-to-l from-paper-base to-transparent"></div>
         </div>
       </div>
 
@@ -2541,9 +2630,9 @@
         art_desc_1: "When ordering our PCB Rev A from JLCPCB, we chose Matte Black solder mask with Pure White silkscreen.",
         art_desc_2: "The vector art etched into the front copper and silkscreen is Van Gogh’s famous Langlois drawbridge in southern France. We chose this masterpiece because a bridge represents the quintessential union of structural civil engineering and profound human emotion—just as this keyboard bridges electronics with human expression.",
 
-        roadmap_eyebrow: "Rev B Direction &mdash; Not Yet Designed",
+        roadmap_eyebrow: "Rev B Direction — Not Yet Designed",
         roadmap_title: "Rev B: Medici Grant Direction (Exploratory)",
-        roadmap_desc: "Rev A validated the analog front-end and physical mechanics. Rev B is a Medici grant direction &mdash; it has not been designed yet. These are the exploration areas, not Rev A specs:",
+        roadmap_desc: "Rev A validated the analog front-end and physical mechanics. Rev B is a Medici grant direction — it has not been designed yet. These are the exploration areas, not Rev A specs:",
 
         real_eyebrow: "Physical Proof • Working Hardware",
         real_title: "¿What’s actually real?",
@@ -2570,12 +2659,22 @@
         grant_eyebrow: "The Pitch",
         grant_title: "1517 Fund Medici Grant Allocation",
         grant_builder_title: "The Autodidactic Builder Journey",
-        roadmap_status: "Rev B not yet designed &mdash; grant direction only",
+        roadmap_status: "Rev B not yet designed — grant direction only",
 
-        hero_status: "Rev A manufacturing complete &mdash; awaiting delivery to Mexico",
-        hero_status_txt: "Rev A manufacturing complete &bull; Awaiting delivery to Mexico for hands-on evaluation &amp; Rev B design",
-        carousel_title: "Featured Build &mdash; Rev A Production Units",
-        carousel_caption: "Matte black ENIG PCB with Van Gogh silkscreen, bottom-mounted SMD (30x HAL403SO, 4x TMUX1308, AO3401A), and ambidextrous dual trackpad headers.",
+        hero_status_txt: "Rev A manufacturing complete • Awaiting delivery to Mexico for hands-on evaluation & Rev B design",
+        progress_eyebrow: "Project Status",
+        progress_title: "From hand-soldered prototypes to Rev B",
+        progress_current: "Now: Rev A in transit to Mexico for hands-on evaluation.",
+        progress_pct_label: "of the road to Rev B",
+        progress_m1: "Hand-soldered R&D prototypes",
+        progress_m2: "3D-printed designs validated",
+        progress_m3: "PCB Rev A manufactured",
+        progress_m4: "Rev B design (Medici grant)",
+        marquee_title: "From the workbench — real prototypes, not renders",
+        marquee_c1: "16-key macropad — hand-wired and fully functional",
+        marquee_c2: "Hand-soldered R&D rig — 15 Hall sensors + MUX",
+        marquee_c3: "3D-printed switch housing — magnet sockets",
+        marquee_c4: "Macropad top — continuous analog depth sensing",
 
         gallery_eyebrow: "Open Engineering Archive",
         gallery_title: "Curated Asset Gallery"
@@ -2626,9 +2725,9 @@
         art_desc_1: "Al ordenar nuestra PCB Rev A en JLCPCB, elegimos máscara de soldadura Negro Mate con serigrafía Blanco Puro.",
         art_desc_2: "El arte vectorial grabado en el cobre frontal y la serigrafía es el famoso puente levadizo Langlois de Van Gogh en Arlés. Elegimos esta obra maestra porque un puente representa la unión perfecta entre la ingeniería estructural y la emoción humana, al igual que este teclado une la electrónica con la expresión.",
 
-        roadmap_eyebrow: "Dirección Rev B &mdash; Aún no diseñada",
+        roadmap_eyebrow: "Dirección Rev B — Aún no diseñada",
         roadmap_title: "Rev B: Dirección Medici (exploratoria)",
-        roadmap_desc: "Rev A validó la etapa analógica y la mecánica física. Rev B es una dirección Medici &mdash; aún no está diseñada. Estas son áreas de exploración, no especificaciones de Rev A:",
+        roadmap_desc: "Rev A validó la etapa analógica y la mecánica física. Rev B es una dirección Medici — aún no está diseñada. Estas son áreas de exploración, no especificaciones de Rev A:",
 
         real_eyebrow: "Prueba Física • Hardware Funcional",
         real_title: "¿Qué es realmente real?",
@@ -2655,12 +2754,22 @@
         grant_eyebrow: "La Propuesta",
         grant_title: "Asignación de la Beca Medici de 1517 Fund",
         grant_builder_title: "La Trayectoria del Creador Autodidacta",
-        roadmap_status: "Rev B aún no diseñada &mdash; solo dirección de grant",
+        roadmap_status: "Rev B aún no diseñada — solo dirección de grant",
 
-        hero_status: "Rev A: manufactura completa &mdash; awaiting delivery to Mexico",
-        hero_status_txt: "Rev A: manufactura completa &bull; Esperando entrega en M&eacute;xico para evaluaci&oacute;n pr&aacute;ctica y dise&ntildeo del Rev B",
-        carousel_title: "Construcci&oacute;n Destacada &mdash; Unidades de Producci&oacute;n Rev A",
-        carousel_caption: "PCB Rev A en negro mate ENIG con serigraf&iacute;a de Van Gogh, SMD en cara inferior (30x HAL403SO, 4x TMUX1308, AO3401A) y cabeceras de trackpad ambidiestras dobles.",
+        hero_status_txt: "Rev A: manufactura completa • Esperando entrega en México para evaluación práctica y diseño del Rev B",
+        progress_eyebrow: "Estado del Proyecto",
+        progress_title: "De prototipos soldados a mano a la Rev B",
+        progress_current: "Ahora: Rev A en tránsito a México para evaluación práctica.",
+        progress_pct_label: "del camino a la Rev B",
+        progress_m1: "Prototipos de I+D soldados a mano",
+        progress_m2: "Diseños 3D validados en impresora",
+        progress_m3: "PCB Rev A fabricada",
+        progress_m4: "Diseño Rev B (beca Medici)",
+        marquee_title: "Desde el banco de trabajo — prototipos reales, no renders",
+        marquee_c1: "Macropad de 16 teclas — cableado a mano y funcional",
+        marquee_c2: "Banco de I+D soldado a mano — 15 sensores Hall + MUX",
+        marquee_c3: "Housing de switch impreso en 3D — sockets de imán",
+        marquee_c4: "Parte superior del macropad — sensado analógico continuo",
 
         gallery_eyebrow: "Archivo de Ingeniería Abierto",
         gallery_title: "Galería de Recursos Seleccionados"
@@ -2711,9 +2820,9 @@
         art_desc_1: "Lors de la commande du circuit imprimé Rev A chez JLCPCB, nous avons choisi un vernis épargne Noir Mat et une sérigraphie Blanc Pur.",
         art_desc_2: "Le tracé vectoriel gravé sur la face avant représente le célèbre pont-levis de Langlois peint par Van Gogh à Arles. Nous avons choisi ce chef-d'œuvre car un pont incarne l'union entre génie civil et émotion humaine.",
 
-        roadmap_eyebrow: "Direction Rev B &mdash; Pas encore conçue",
+        roadmap_eyebrow: "Direction Rev B — Pas encore conçue",
         roadmap_title: "Rev B : Direction Medici (exploratoire)",
-        roadmap_desc: "La révision A a validé l'étage analogique et la mécanique. La révision B est une direction Medici &mdash; elle n'est pas encore conçue. Ce sont des domaines d'exploration, pas des spécifications de la révision A :",
+        roadmap_desc: "La révision A a validé l'étage analogique et la mécanique. La révision B est une direction Medici — elle n'est pas encore conçue. Ce sont des domaines d'exploration, pas des spécifications de la révision A :",
 
         real_eyebrow: "Preuve Physique • Matériel Fonctionnel",
         real_title: "Qu'est-ce qui est réellement fait ?",
@@ -2740,12 +2849,22 @@
         grant_eyebrow: "La Proposition",
         grant_title: "Allocation de la Bourse Médicis du Fonds 1517",
         grant_builder_title: "Le Parcours d'un Créateur Autodidacte",
-        roadmap_status: "Rev B pas encore conçue &mdash; direction de grant uniquement",
+        roadmap_status: "Rev B pas encore conçue — direction de grant uniquement",
 
-        hero_status: "Rev A fabriqu&eacute;e &mdash; en attente de livraison au Mexique",
-        hero_status_txt: "Rev A fabriqu&eacute;e &bull; En attente de livraison au Mexique pour &eacute;valuation pratique et conception Rev B",
-        carousel_title: "Construction en Vedette &mdash; Unit&e9s de Production Rev A",
-        carousel_caption: "PCB Rev A noir mat ENIG avec sérigraphie Van Gogh, SMD en face inférieure (30x HAL403SO, 4x TMUX1308, AO3401A), et doubles connecteurs de trackpad ambidextres.",
+        hero_status_txt: "Rev A fabriquée • En attente de livraison au Mexique pour évaluation pratique et conception Rev B",
+        progress_eyebrow: "État du Projet",
+        progress_title: "Des prototypes soudés à la main à la Rev B",
+        progress_current: "Maintenant : Rev A en transit vers le Mexique pour évaluation pratique.",
+        progress_pct_label: "du chemin vers la Rev B",
+        progress_m1: "Prototypes R&D soudés à la main",
+        progress_m2: "Conceptions 3D validées",
+        progress_m3: "PCB Rev A fabriquée",
+        progress_m4: "Conception Rev B (bourse Médicis)",
+        marquee_title: "Depuis l'établi — de vrais prototypes, pas des rendus",
+        marquee_c1: "Macropad 16 touches — câblé à la main et fonctionnel",
+        marquee_c2: "Banc R&D soudé à la main — 15 capteurs Hall + MUX",
+        marquee_c3: "Boîtier de switch imprimé en 3D — logements d'aimants",
+        marquee_c4: "Dessus du macropad — détection analogique continue",
 
         gallery_eyebrow: "Archives d'Ingénierie Ouvertes",
         gallery_title: "Galerie de Ressources Sélectionnées"
@@ -2796,9 +2915,9 @@
         art_desc_1: "Für unsere PCB Rev A bei JLCPCB wählten wir mattschwarzen Lötstopplack mit reinweißem Siebdruck.",
         art_desc_2: "Das Vektorgemälde zeigt Van Goghs berühmte Zugbrücke von Langlois. Wir haben dieses Meisterwerk gewählt, weil eine Brücke die vollendete Verbindung von Ingenieurbau und menschlichem Empfinden darstellt.",
 
-        roadmap_eyebrow: "Rev B Richtung &mdash; Noch nicht gestaltet",
+        roadmap_eyebrow: "Rev B Richtung — Noch nicht gestaltet",
         roadmap_title: "Rev B: Medici-Richtung (explorativ)",
-        roadmap_desc: "Rev A hat die analoge Erfassung und die Mechanik validiert. Rev B ist eine Medici-Richtung &mdash; sie ist noch nicht gestaltet. Dies sind Explorationsbereiche, keine Rev-A-Spezifikationen:",
+        roadmap_desc: "Rev A hat die analoge Erfassung und die Mechanik validiert. Rev B ist eine Medici-Richtung — sie ist noch nicht gestaltet. Dies sind Explorationsbereiche, keine Rev-A-Spezifikationen:",
 
         real_eyebrow: "Physischer Beweis • Funktionierende Hardware",
         real_title: "Was ist wirklich real?",
@@ -2825,12 +2944,22 @@
         grant_eyebrow: "Der Pitch",
         grant_title: "Verwendung des 1517 Fund Medici-Stipendiums",
         grant_builder_title: "Der Weg eines autodidaktischen Entwicklers",
-        roadmap_status: "Rev B noch nicht gestaltet &mdash; nur Medici-Richtung",
+        roadmap_status: "Rev B noch nicht gestaltet — nur Medici-Richtung",
 
-        hero_status: "Rev A-Fertigstellung abgeschlossen &mdash; Auslieferung nach Mexiko steht aus",
-        hero_status_txt: "Rev A-Fertigstellung abgeschlossen &bull; Auslieferung nach Mexiko steht aus, dann Auswertung und Rev B-Design",
-        carousel_title: "Vorgestellter Build &mdash; Rev A-Produktionsunits",
-        carousel_caption: "Matte schwarze ENIG-PCB mit Van Gogh-Siebdruck, SMD auf der Unterseite (30x HAL403SO, 4x TMUX1308, AO3401A) und ambidextre Dual-Trackpad-Header.",
+        hero_status_txt: "Rev A-Fertigstellung abgeschlossen • Auslieferung nach Mexiko steht aus, dann Auswertung und Rev B-Design",
+        progress_eyebrow: "Projektstatus",
+        progress_title: "Von handgelöteten Prototypen zu Rev B",
+        progress_current: "Jetzt: Rev A auf dem Weg nach Mexiko zur praktischen Auswertung.",
+        progress_pct_label: "des Weges zu Rev B",
+        progress_m1: "Handgelötete R&D-Prototypen",
+        progress_m2: "3D-gedruckte Designs validiert",
+        progress_m3: "PCB Rev A gefertigt",
+        progress_m4: "Rev B-Design (Medici-Stipendium)",
+        marquee_title: "Von der Werkbank — echte Prototypen, keine Renderings",
+        marquee_c1: "16-Tasten-Macropad — handverdrahtet und funktionsfähig",
+        marquee_c2: "Handgelöteter R&D-Aufbau — 15 Hall-Sensoren + MUX",
+        marquee_c3: "3D-gedrucktes Switch-Gehäuse — Magnethalterungen",
+        marquee_c4: "Macropad-Oberseite — kontinuierliche analoge Tiefenerkennung",
 
         gallery_eyebrow: "Offenes Engineering-Archiv",
         gallery_title: "Kuratierte Projektgalerie"
@@ -2887,45 +3016,7 @@
 
 
 <script>
-  (function(){
-    const track = document.getElementById('carouselTrack');
-    const dotsContainer = document.getElementById('carouselDots');
-    if(!track || !dotsContainer) return;
-    const n = track.children.length;
-    let idx = 0;
-    let timer = null;
-    function buildDots(){
-      dotsContainer.innerHTML='';
-      for(let i=0;i<n;i++){
-        const d=document.createElement('button');
-        d.className='w-2 h-2 rounded-full transition-all '+(i===0?'bg-accent-terracotta':'bg-paper-border/50 hover:bg-paper-border');
-        d.onclick=()=>goTo(i);
-        dotsContainer.appendChild(d);
-      }
-      updateDots();
-    }
-    function updateDots(){
-      [...dotsContainer.children].forEach((d,i)=>{
-        d.className='w-2 h-2 rounded-full transition-all '+(i===idx?'bg-accent-terracotta':'bg-paper-border/50 hover:bg-paper-border');
-      });
-    }
-    function goTo(i){
-      idx=((i%n)+n)%n;
-      track.style.transform='translateX(-'+(idx*100)+'%)';
-      updateDots();
-      resetTimer();
-    }
-    window.carouselNext=function(){goTo(idx+1);};
-    window.carouselPrev=function(){goTo(idx-1);};
-    function start(){timer=setInterval(()=>goTo(idx+1),4500);}
-    function resetTimer(){clearInterval(timer);start();}
-    const wrap=document.getElementById('carouselWrapper');
-    if(wrap){
-      wrap.addEventListener('mouseenter',()=>clearInterval(timer));
-      wrap.addEventListener('mouseleave',start);
-    }
-    buildDots();start();
-  })();
+  // Marquee is pure CSS (see .marquee-track). No JS required.
 </script>
 </body>
 
