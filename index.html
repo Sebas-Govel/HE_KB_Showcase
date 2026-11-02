@@ -126,7 +126,7 @@
   <!-- ================================================================= -->
   
   <!-- Left Margin Rail: 9 Dynamic Vertical Mini-Switches -->
-  <aside id="leftSwitchRail" class="fixed left-3 top-24 bottom-8 z-30 hidden xl:flex flex-col justify-between items-center w-12 pointer-events-none select-none py-4" aria-hidden="true">
+  <aside id="leftSwitchRail" class="fixed left-2 xl:left-3 top-24 bottom-8 z-30 hidden lg:flex flex-col justify-between items-center w-12 pointer-events-none select-none py-4" aria-hidden="true">
     <div class="text-xs font-mono text-ink-muted uppercase tracking-widest rotate-180 [writing-mode:vertical-lr] opacity-70 mb-2">
       Continuous Analog Array
     </div>
@@ -139,7 +139,7 @@
   </aside>
 
   <!-- Right Margin Rail: 7 Geometric Morphing Nodes -->
-  <aside id="rightMorphRail" class="fixed right-3 top-24 bottom-8 z-30 hidden xl:flex flex-col justify-between items-center w-12 pointer-events-none select-none py-4" aria-hidden="true">
+  <aside id="rightMorphRail" class="fixed right-2 xl:right-3 top-24 bottom-8 z-30 hidden lg:flex flex-col justify-between items-center w-12 pointer-events-none select-none py-4" aria-hidden="true">
     <div class="text-xs font-mono text-ink-muted uppercase tracking-widest [writing-mode:vertical-lr] opacity-70 mb-2">
       Kinematic Flux
     </div>
@@ -152,15 +152,15 @@
   </aside>
 
   <!-- Mobile/Tablet Compact Analog Strip (Below Header) -->
-  <div class="xl:hidden w-full bg-paper-surface/90 border-b border-paper-border py-1.5 px-4 flex items-center justify-between text-xs font-mono text-ink-muted">
+  <div class="lg:hidden w-full bg-paper-surface/90 border-b border-paper-border py-1.5 px-4 flex items-center justify-between text-xs font-mono text-ink-muted">
     <span class="flex items-center gap-1.5">
       <span class="w-2 h-2 rounded-full bg-accent-terracotta animate-pulse"></span>
-      Analog Displacement
+      Continuous Analog Array
     </span>
     <div class="flex items-center gap-2" id="mobileAnalogDots">
-      <span class="w-3 h-1.5 rounded-full bg-accent-sage"></span>
-      <span class="w-3 h-1.5 rounded-full bg-accent-ochre"></span>
-      <span class="w-3 h-1.5 rounded-full bg-accent-terracotta"></span>
+      <span class="w-3 h-1.5 rounded-full bg-accent-sage transition-transform duration-100"></span>
+      <span class="w-3 h-1.5 rounded-full bg-accent-ochre transition-transform duration-100"></span>
+      <span class="w-3 h-1.5 rounded-full bg-accent-terracotta transition-transform duration-100"></span>
     </div>
   </div>
 
@@ -2103,8 +2103,9 @@
     }, { passive: true });
 
     function updateMarginRails(now) {
-      const dt = Math.min(0.05, (now - lastFrameTime) / 1000);
-      lastFrameTime = now;
+      const currentTime = (typeof now === 'number' && !isNaN(now)) ? now : performance.now();
+      const dt = lastFrameTime ? Math.max(0.001, Math.min(0.05, (currentTime - lastFrameTime) / 1000)) : 0.016;
+      lastFrameTime = currentTime;
 
       // Amortiguación independiente de FPS
       scrollSpeedBoost *= Math.pow(0.04, dt);
@@ -2156,19 +2157,31 @@
         m.style.borderColor = col;
       });
 
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       if (railFluxBadge) {
-        const scrollPct = Math.round(((window.scrollY || 0) / (document.documentElement.scrollHeight - window.innerHeight || 1)) * 100);
+        const scrollPct = Math.round(((window.scrollY || 0) / maxScroll) * 100);
         railFluxBadge.innerText = `FLUX ${scrollPct}%`;
       }
 
       // AS5600 Header Rotary Dial sync
-      const scrollPctTotal = (window.scrollY || 0) / (document.documentElement.scrollHeight - window.innerHeight || 1);
+      const scrollPctTotal = (window.scrollY || 0) / maxScroll;
       const degrees = Math.round(scrollPctTotal * 360 * 2);
       const encoderIcon = document.getElementById('headerEncoder');
       const angleText = document.getElementById('encoderAngle');
       if (encoderIcon && angleText) {
         encoderIcon.style.transform = `rotate(${degrees}deg)`;
         angleText.innerText = `${(degrees % 360).toString().padStart(3, '0')}°`;
+      }
+
+      // Sync mobile dots when visible
+      const mobileDots = document.getElementById('mobileAnalogDots');
+      if (mobileDots && mobileDots.children.length >= 3) {
+        const d1 = Math.sin(railPhase) * 0.5 + 0.5;
+        const d2 = Math.sin(railPhase - 0.8) * 0.5 + 0.5;
+        const d3 = Math.sin(railPhase - 1.6) * 0.5 + 0.5;
+        mobileDots.children[0].style.transform = `scale(${0.75 + d1 * 0.5})`;
+        mobileDots.children[1].style.transform = `scale(${0.75 + d2 * 0.5})`;
+        mobileDots.children[2].style.transform = `scale(${0.75 + d3 * 0.5})`;
       }
 
       requestAnimationFrame(updateMarginRails);
@@ -2443,7 +2456,7 @@
         nav_gallery: "Gallery",
 
         hero_badge: "1517 Fund • Medici Project Candidate • Open Hardware Built in Mexico",
-        hero_title: "Humans express far more than 1 and 0,<br><span class="italic font-normal text-accent-terracotta">FloatForce</span> gives everyone a way to feel everything in between.",
+        hero_title: 'Humans express far more than 1 and 0,<br><span class="italic font-normal text-accent-terracotta">FloatForce</span> gives everyone a way to feel everything in between.',
         hero_p1: "Meet the low-cost, open-source split keyboard where every key floats on magnets instead of metal springs—turning continuous physical depth into expressive music, 360° analog game vectors, and effortless tactile typing.",
         hero_p2: "Engineered from scratch for affordable fabrication: a low-cost standard PCBA architecture, 100% support-free 3D printing on everyday desktop printers, and lifted like an architectural drawbridge for natural ergonomic comfort.",
         hero_btn_watch: "Watch It Open & Play ↓",
@@ -2522,7 +2535,7 @@
         nav_gallery: "Galería",
 
         hero_badge: "1517 Fund • Candidato al Proyecto Medici • Hardware Abierto Hecho en México",
-        hero_title: "Los humanos expresan mucho más que 1 y 0,<br><span class="italic font-normal text-accent-terracotta">FloatForce</span> le da a todos una forma de sentir todo lo que hay en medio.",
+        hero_title: 'Los humanos expresan mucho más que 1 y 0,<br><span class="italic font-normal text-accent-terracotta">FloatForce</span> le da a todos una forma de sentir todo lo que hay en medio.',
         hero_p1: "Conoce el teclado dividido de bajo costo y código abierto donde cada tecla flota sobre imanes en lugar de resortes metálicos, convirtiendo la profundidad física continua en música expresiva, vectores analógicos de 360° para videojuegos y una escritura táctil sin esfuerzo.",
         hero_p2: "Diseñado desde cero para una fabricación económica: arquitectura PCBA estándar de bajo costo, impresión 3D 100% libre de soportes en impresoras comunes y elevado como un puente levadizo para un confort ergonómico natural.",
         hero_btn_watch: "Míralo Abrir y Jugar ↓",
@@ -2601,7 +2614,7 @@
         nav_gallery: "Galerie",
 
         hero_badge: "Fonds 1517 • Candidat au Projet Médicis • Matériel Libre Conçu au Mexique",
-        hero_title: "Les humains expriment bien plus que des 1 et des 0,<br><span class="italic font-normal text-accent-terracotta">FloatForce</span> offre à chacun le moyen de ressentir tout ce qui se trouve entre les deux.",
+        hero_title: 'Les humains expriment bien plus que des 1 et des 0,<br><span class="italic font-normal text-accent-terracotta">FloatForce</span> offre à chacun le moyen de ressentir tout ce qui se trouve entre les deux.',
         hero_p1: "Découvrez le clavier ergonomique scindé open-source et accessible où chaque touche flotte sur des aimants au lieu de ressorts métalliques, transformant la profondeur physique en musique expressive, vecteurs analogiques 360° pour les jeux et frappe tactile sans effort.",
         hero_p2: "Conçu pour une fabrication économique : circuit imprimé standard économique, impression 3D 100% sans supports sur imprimantes grand public et inclinaison en pont-levis pour un confort ergonomique naturel.",
         hero_btn_watch: "Voir le pont s'ouvrir ↓",
@@ -2680,7 +2693,7 @@
         nav_gallery: "Galerie",
 
         hero_badge: "1517 Fund • Medici-Projekt-Kandidat • Open Hardware Entwickelt in Mexiko",
-        hero_title: "Menschen drücken weit mehr aus als 1 und 0,<br><span class="italic font-normal text-accent-terracotta">FloatForce</span> gibt jedem die Möglichkeit, alles dazwischen zu fühlen.",
+        hero_title: 'Menschen drücken weit mehr aus als 1 und 0,<br><span class="italic font-normal text-accent-terracotta">FloatForce</span> gibt jedem die Möglichkeit, alles dazwischen zu fühlen.',
         hero_p1: "Das kostengünstige, quelloffene Split-Keyboard, bei dem jede Taste auf Magneten statt Metallfedern schwebt – und kontinuierliche Tiefe in ausdrucksstarke Musik, 360°-Analogvektoren für Gaming und müheloses taktiles Tippen verwandelt.",
         hero_p2: "Entwickelt für erschwingliche Fertigung: Standard-PCBA-Architektur zu geringen Kosten, 100% stützstrukturfreier 3D-Druck auf handelsüblichen Druckern und wie eine Zugbrücke für ergonomischen Komfort geneigt.",
         hero_btn_watch: "Öffnen & Spielen ansehen ↓",
