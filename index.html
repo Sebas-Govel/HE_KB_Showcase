@@ -1388,8 +1388,8 @@
 
       const w = container.clientWidth;
       const h = container.clientHeight;
-      heroCamera = new THREE.PerspectiveCamera(38, w / h, 1, 2000);
-      heroCamera.position.set(0, 240, 420);
+      heroCamera = new THREE.PerspectiveCamera(36, w / h, 1, 2000);
+      heroCamera.position.set(0, 185, 410);
 
       heroRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       heroRenderer.setSize(w, h);
@@ -1408,7 +1408,7 @@
       heroControls.dampingFactor = 0.05;
       heroControls.minDistance = 180;
       heroControls.maxDistance = 750;
-      heroControls.target.set(0, 15, 0);
+      heroControls.target.set(0, 20, 0);
 
       // Studio Lighting
       const hemi = new THREE.HemisphereLight(0xFFFAF2, 0xE5DEC9, 0.7);
@@ -1441,14 +1441,22 @@
         heroLeftHalf = gltf.scene;
         heroRightHalf = heroLeftHalf.clone();
 
-        // Left half setup (splayed gently)
-        heroLeftHalf.position.set(-105, 0, 0);
-        heroLeftHalf.rotation.set(0, THREE.MathUtils.degToRad(8), THREE.MathUtils.degToRad(6));
+        // Left half setup: elevated drawbridge tenting (outer edge on desk, inner edge lifted ~38mm)
+        heroLeftHalf.position.set(-115, 20, 0);
+        heroLeftHalf.rotation.set(
+          THREE.MathUtils.degToRad(3),
+          THREE.MathUtils.degToRad(12),
+          THREE.MathUtils.degToRad(14)
+        );
         heroScene.add(heroLeftHalf);
 
-        // Right half setup (mirrored position, splayed gently)
-        heroRightHalf.position.set(105, 0, 0);
-        heroRightHalf.rotation.set(0, THREE.MathUtils.degToRad(-8), THREE.MathUtils.degToRad(-6));
+        // Right half setup: symmetric elevated drawbridge tenting
+        heroRightHalf.position.set(115, 20, 0);
+        heroRightHalf.rotation.set(
+          THREE.MathUtils.degToRad(3),
+          THREE.MathUtils.degToRad(-12),
+          THREE.MathUtils.degToRad(-14)
+        );
         heroScene.add(heroRightHalf);
 
         const loaderEl = document.getElementById('heroLoadingIndicator');
