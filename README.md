@@ -39,10 +39,10 @@ Hardware engineering is also a canvas for human expression. The PCB Rev A featur
 
 ---
 
-## 🧲 FloatForce V5.0 Switch Architecture & Community Attribution
+## 🧲 FloatForce Switch (V5.0) Architecture & Community Attribution
 The switch mechanism uses a springless **3-magnet repulsion/attraction suspension** that yields a progressive force curve, eliminating metal fatigue and scratchiness:
 - **Community Attribution:** The fundamental concept of using 3 opposing neodymium magnets in a mechanical keyboard switch was inspired by pioneering open-source explorations by maker **Riskable**.
-- **FloatForce V5.0 Innovations:** The mechanical architecture was engineered, simulated, and tolerance-calibrated 100% from scratch:
+- **FloatForce Switch (V5.0) Innovations:** The mechanical architecture (monolithic U-Body, Keyed SideWall, and closed-front flat-printed stem) was engineered, simulated with Magpylib, and tolerance-calibrated 100% from scratch:
   - **U-Body Housing:** Single-piece base with keyed SideWall for easy assembly.
   - **Closed-Front Stem:** Eliminates wobble and ensures 0.0000 mm³ collision margin across 2.36 mm travel (+33% over earlier designs).
   - **Calibrated Bambu Lab A1 Tolerances:** Exact press-fit sockets (Ø4.06 mm / Ø4.16 mm) with bottom knockout holes.

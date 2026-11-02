@@ -13,7 +13,7 @@ The computer keyboard is humanity's primary cognitive gateway to digital reality
 This project is an open-source, human-centered redesign of the computer keyboard from first principles. Rather than chasing competitive gaming marketing hype, our mission focuses on **postural health, expressive multimodal interaction, radical affordability, and global accessibility through 3D printing and AI-assisted engineering**.
 
 ### Community Attribution:
-The foundational idea of using a 3-magnet repulsive/attractive configuration was inspired by open-source maker explorations (notably Riskable). Building upon that inspiration, the **FloatForce V5.0** mechanical architecture (monolithic U-Body, Keyed SideWall, and closed-front flat-printed stem) was modeled, simulated with Magpylib, and calibrated 100% from scratch.
+The foundational idea of using a 3-magnet repulsive/attractive configuration was inspired by open-source maker explorations (notably Riskable). Building upon that inspiration, the **FloatForce Switch (V5.0)** mechanical architecture (monolithic U-Body, Keyed SideWall, and closed-front flat-printed stem) was modeled, simulated with Magpylib, and calibrated 100% from scratch.
 
 ### Art Meets Engineering:
 The front silkscreen of PCB Rev A features a high-resolution vector trace of **"The Langlois Bridge at Arles" (1888) by Vincent van Gogh**, manufactured in matte black solder mask with pure white silkscreen. We chose this bridge because it embodies the intersection of structural engineering and deeply human artistic expression.
@@ -103,9 +103,9 @@ Traditional mechanical switches provide a single binary state (0 or 1) determine
 
 ---
 
-## 5. Mechanical Engineering: FloatForce Switch V5.0 & Calibrated Keycaps
+## 5. Mechanical Engineering: FloatForce Switch (V5.0) & Calibrated Keycaps
 
-### 5.1 Kinematic Specifications (FloatForce Switch V5.0 "U-Body + Keyed SideWall + Closed-Front Stem")
+### 5.1 Kinematic Specifications (FloatForce Switch (V5.0) "U-Body + Keyed SideWall + Closed-Front Stem")
 
 | Parameter | Value | Engineering Notes |
 |:---|:---:|:---|
