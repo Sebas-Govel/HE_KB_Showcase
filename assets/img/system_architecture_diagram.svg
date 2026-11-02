@@ -1,0 +1,208 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="1200" height="680" style="background-color: #0b0f17; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161e2e"/>
+      <stop offset="100%" stop-color="#0e1522"/>
+    </linearGradient>
+    <linearGradient id="cyanGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="amberGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+    <linearGradient id="purpleGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+    <linearGradient id="greenGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Grid Background Pattern -->
+  <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#1f293d" stroke-width="0.5" stroke-opacity="0.6"/>
+  </pattern>
+  <rect width="1200" height="680" fill="url(#grid)" />
+
+  <!-- Header Title -->
+  <text x="50" y="50" fill="#f8fafc" font-size="24" font-weight="700" letter-spacing="-0.5px">SYSTEM ARCHITECTURE &amp; ANALOG TOPOLOGY</text>
+  <text x="50" y="75" fill="#94a3b8" font-size="13" font-mono="true">HE-KEYBOARD REV A &#8226; DUAL-CHANNEL MULTIPLEXED HALL-EFFECT MATRIX</text>
+  <line x1="50" y1="92" x2="1150" y2="92" stroke="#1e293b" stroke-width="1.5" />
+
+  <!-- 1. POWER DOMAIN / GATING -->
+  <g transform="translate(50, 115)">
+    <rect width="240" height="490" rx="10" fill="url(#cardBg)" stroke="#334155" stroke-width="1"/>
+    <rect x="0" y="0" width="240" height="4" rx="2" fill="url(#amberGlow)"/>
+    
+    <text x="20" y="32" fill="#fbbf24" font-size="12" font-weight="700" letter-spacing="1px">POWER MANAGEMENT</text>
+    <text x="20" y="52" fill="#f8fafc" font-size="16" font-weight="600">Dynamic Power Gating</text>
+    <text x="20" y="72" fill="#64748b" font-size="11">Star-Topology Rail Isolation</text>
+
+    <!-- Sub-block: 3.3V VCC Input -->
+    <rect x="20" y="90" width="200" height="65" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="32" y="112" fill="#38bdf8" font-size="12" font-weight="600">SuperMini VCC (3.3V)</text>
+    <text x="32" y="130" fill="#94a3b8" font-size="10">Single Regulated Rail</text>
+    <text x="32" y="144" fill="#64748b" font-size="10">0.0V to 3.3V absolute max</text>
+
+    <!-- Sub-block: Analog Rail -->
+    <rect x="20" y="170" width="200" height="80" rx="6" fill="#0f172a" stroke="#0284c7" stroke-dasharray="3,3"/>
+    <text x="32" y="192" fill="#38bdf8" font-size="12" font-weight="600">3V3_A (Clean Analog Rail)</text>
+    <text x="32" y="210" fill="#94a3b8" font-size="10">Always-on Star Feed</text>
+    <text x="32" y="226" fill="#64748b" font-size="10">Filtered for Sensors &amp; MUX</text>
+    <text x="32" y="240" fill="#38bdf8" font-size="10">I_load ≈ 42 mA typ (30x Hall)</text>
+
+    <!-- Sub-block: Switched LED Rail -->
+    <rect x="20" y="270" width="200" height="125" rx="6" fill="#0f172a" stroke="#dc2626" stroke-dasharray="3,3"/>
+    <text x="32" y="292" fill="#f87171" font-size="12" font-weight="600">AO3401A P-MOSFET (Q1)</text>
+    <text x="32" y="310" fill="#94a3b8" font-size="10">Gate driven by LED_EN (P0.08)</text>
+    <text x="32" y="326" fill="#94a3b8" font-size="10">R_DS(on) &lt; 85 mΩ @ -2.5V</text>
+    <text x="32" y="346" fill="#ef4444" font-size="11" font-weight="600">Switched 3V3_LED Rail</text>
+    <text x="32" y="364" fill="#64748b" font-size="10">Cuts 18-30 mA static idle</text>
+    <text x="32" y="380" fill="#10b981" font-size="10">0 µA sleep draw when off</text>
+
+    <!-- Battery / Sleep metric -->
+    <rect x="20" y="415" width="200" height="55" rx="6" fill="#111827" stroke="#374151"/>
+    <text x="32" y="435" fill="#94a3b8" font-size="10" font-weight="600">DEEP STANDBY DRAW</text>
+    <text x="32" y="456" fill="#34d399" font-size="18" font-weight="700">&lt; 20 µA</text>
+  </g>
+
+  <!-- 2. HALL EFFECT SENSOR MATRIX -->
+  <g transform="translate(320, 115)">
+    <rect width="240" height="490" rx="10" fill="url(#cardBg)" stroke="#334155" stroke-width="1"/>
+    <rect x="0" y="0" width="240" height="4" rx="2" fill="url(#cyanGlow)"/>
+    
+    <text x="20" y="32" fill="#38bdf8" font-size="12" font-weight="700" letter-spacing="1px">ANALOG SENSING LAYER</text>
+    <text x="20" y="52" fill="#f8fafc" font-size="16" font-weight="600">30x HAL403SO Sensors</text>
+    <text x="20" y="72" fill="#64748b" font-size="11">100% Springless Magnetic Matrix</text>
+
+    <!-- Sensor Specs Box -->
+    <rect x="20" y="90" width="200" height="145" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="32" y="112" fill="#38bdf8" font-size="12" font-weight="600">Sensor Specs (per key)</text>
+    <text x="32" y="132" fill="#cbd5e1" font-size="11">&#8226; I_DD: <tspan fill="#34d399" font-weight="700">1.4 mA</tspan> (vs 6mA SS49E)</text>
+    <text x="32" y="150" fill="#cbd5e1" font-size="11">&#8226; Sensitivity: <tspan fill="#f8fafc">4.1 mV/G</tspan> @ 3.3V</text>
+    <text x="32" y="168" fill="#cbd5e1" font-size="11">&#8226; Output Imp: <tspan fill="#f8fafc">R_out = 10 kΩ</tspan></text>
+    <text x="32" y="186" fill="#cbd5e1" font-size="11">&#8226; Linear Range: <tspan fill="#f8fafc">&#177;390 Gauss</tspan></text>
+    <text x="32" y="204" fill="#cbd5e1" font-size="11">&#8226; Bypass Cap: <tspan fill="#38bdf8">100 nF &#8804; 2mm</tspan></text>
+    <text x="32" y="222" fill="#64748b" font-size="10">SOT-23-3 on B.Cu (bottom)</text>
+
+    <!-- Switch Mechanics Box -->
+    <rect x="20" y="250" width="200" height="135" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="32" y="272" fill="#a78bfa" font-size="12" font-weight="600">3D MagLev Switch V5.0</text>
+    <text x="32" y="292" fill="#cbd5e1" font-size="11">&#8226; Stroke: <tspan fill="#a78bfa" font-weight="700">2.36 mm</tspan> (+33%)</text>
+    <text x="32" y="310" fill="#cbd5e1" font-size="11">&#8226; Levitation: 3 Neodymium array</text>
+    <text x="32" y="328" fill="#cbd5e1" font-size="11">&#8226; Magnetic Barriers: 0.45 mm</text>
+    <text x="32" y="346" fill="#cbd5e1" font-size="11">&#8226; Force Profile: Progressive non-linear</text>
+    <text x="32" y="364" fill="#cbd5e1" font-size="11">&#8226; Zero metal spring wear</text>
+
+    <!-- Signal Lines -->
+    <rect x="20" y="400" width="200" height="70" rx="6" fill="#111827" stroke="#374151"/>
+    <text x="32" y="422" fill="#94a3b8" font-size="10" font-weight="600">ANALOG CHANNELS</text>
+    <text x="32" y="442" fill="#38bdf8" font-size="13" font-weight="700">30 Analog Lines</text>
+    <text x="32" y="458" fill="#64748b" font-size="10">Routed to 4x 8:1 MUX banks</text>
+  </g>
+
+  <!-- 3. ANALOG MULTIPLEXER STAGE -->
+  <g transform="translate(590, 115)">
+    <rect width="240" height="490" rx="10" fill="url(#cardBg)" stroke="#334155" stroke-width="1"/>
+    <rect x="0" y="0" width="240" height="4" rx="2" fill="url(#purpleGlow)"/>
+    
+    <text x="20" y="32" fill="#c084fc" font-size="12" font-weight="700" letter-spacing="1px">SIGNAL ROUTING</text>
+    <text x="20" y="52" fill="#f8fafc" font-size="16" font-weight="600">4x TMUX1308PWR</text>
+    <text x="20" y="72" fill="#64748b" font-size="11">Dual 16:1 Partitioned Topology</text>
+
+    <!-- MUX Performance Box -->
+    <rect x="20" y="90" width="200" height="145" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="32" y="112" fill="#c084fc" font-size="12" font-weight="600">Switch Characteristics</text>
+    <text x="32" y="132" fill="#cbd5e1" font-size="11">&#8226; R_on: <tspan fill="#34d399" font-weight="700">59 Ω</tspan> typ (120Ω @ 3.3V)</text>
+    <text x="32" y="150" fill="#cbd5e1" font-size="11">&#8226; Switch Capacitance: <tspan fill="#f8fafc">9-11 pF</tspan></text>
+    <text x="32" y="168" fill="#cbd5e1" font-size="11">&#8226; Transition Speed: <tspan fill="#f8fafc">t_pd ~ 40 ns</tspan></text>
+    <text x="32" y="186" fill="#cbd5e1" font-size="11">&#8226; Address Bus: <tspan fill="#c084fc">A0, A1, A2</tspan></text>
+    <text x="32" y="204" fill="#cbd5e1" font-size="11">&#8226; Enable: Active-Low EN0..EN3</text>
+    <text x="32" y="222" fill="#64748b" font-size="10">High-Z state when unselected</text>
+
+    <!-- Split SAADC Return Paths -->
+    <rect x="20" y="250" width="200" height="135" rx="6" fill="#0f172a" stroke="#8b5cf6" stroke-dasharray="3,3"/>
+    <text x="32" y="272" fill="#c084fc" font-size="12" font-weight="600">Split ADC Output Bus</text>
+    <text x="32" y="292" fill="#cbd5e1" font-size="11">&#8226; Bank A (U1+U2): 16 keys</text>
+    <text x="32" y="308" fill="#38bdf8" font-size="10">&#8594; MUX_OUT &#8594; AIN7 (P0.31)</text>
+    <text x="32" y="328" fill="#cbd5e1" font-size="11">&#8226; Bank B (U3+U4): 14 keys + 2 GND</text>
+    <text x="32" y="344" fill="#38bdf8" font-size="10">&#8594; MUX_OUT_B &#8594; AIN5 (P0.29)</text>
+    <text x="32" y="366" fill="#34d399" font-size="10" font-weight="600">&#8226; 34% line capacitance reduction</text>
+
+    <!-- Zero calibration channels -->
+    <rect x="20" y="400" width="200" height="70" rx="6" fill="#111827" stroke="#374151"/>
+    <text x="32" y="422" fill="#94a3b8" font-size="10" font-weight="600">HARDWARE REFERENCE</text>
+    <text x="32" y="442" fill="#f8fafc" font-size="12" font-weight="600">2x Hard-GND Channels</text>
+    <text x="32" y="458" fill="#64748b" font-size="10">Real-time noise floor / offset nulling</text>
+  </g>
+
+  <!-- 4. PROCESSING & CONNECTIVITY -->
+  <g transform="translate(860, 115)">
+    <rect width="290" height="490" rx="10" fill="url(#cardBg)" stroke="#334155" stroke-width="1"/>
+    <rect x="0" y="0" width="290" height="4" rx="2" fill="url(#greenGlow)"/>
+    
+    <text x="20" y="32" fill="#34d399" font-size="12" font-weight="700" letter-spacing="1px">COMPUTE &amp; FIRMWARE</text>
+    <text x="20" y="52" fill="#f8fafc" font-size="16" font-weight="600">SuperMini nRF52840</text>
+    <text x="20" y="72" fill="#64748b" font-size="11">ARM Cortex-M4F @ 64 MHz &#8226; Zephyr RTOS</text>
+
+    <!-- ADC & DSP Box -->
+    <rect x="20" y="90" width="250" height="145" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="32" y="112" fill="#34d399" font-size="12" font-weight="600">12-bit SAADC Engine</text>
+    <text x="32" y="132" fill="#cbd5e1" font-size="11">&#8226; Ratiometric VDD/4 reference</text>
+    <text x="32" y="150" fill="#cbd5e1" font-size="11">&#8226; Cancels 3.3V power supply ripple</text>
+    <text x="32" y="168" fill="#cbd5e1" font-size="11">&#8226; Settling Time: <tspan fill="#38bdf8">50 µs</tspan> per channel</text>
+    <text x="32" y="186" fill="#cbd5e1" font-size="11">&#8226; Moving Average: <tspan fill="#34d399">4-sample filter</tspan></text>
+    <text x="32" y="204" fill="#cbd5e1" font-size="11">&#8226; Noise Floor: <tspan fill="#34d399">&lt; &#177;8 mV</tspan> (&lt;10 counts)</text>
+    <text x="32" y="222" fill="#64748b" font-size="10">Cyclic sequential scan synchronization</text>
+
+    <!-- Key Features & Rapid Trigger -->
+    <rect x="20" y="250" width="250" height="135" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="32" y="272" fill="#38bdf8" font-size="12" font-weight="600">Firmware Algorithms</text>
+    <text x="32" y="292" fill="#cbd5e1" font-size="11">&#8226; Dynamic Rapid Trigger (sub-0.1mm)</text>
+    <text x="32" y="310" fill="#cbd5e1" font-size="11">&#8226; Per-key independent actuation points</text>
+    <text x="32" y="328" fill="#cbd5e1" font-size="11">&#8226; HID Safe Boot Mode (0 phantom taps)</text>
+    <text x="32" y="346" fill="#cbd5e1" font-size="11">&#8226; Ambidextrous software side mapping</text>
+    <text x="32" y="364" fill="#cbd5e1" font-size="11">&#8226; Non-Volatile Flash Config (NVS)</text>
+
+    <!-- Transports -->
+    <rect x="20" y="400" width="250" height="70" rx="6" fill="#111827" stroke="#374151"/>
+    <text x="32" y="420" fill="#94a3b8" font-size="10" font-weight="600">DUAL TRANSPORTS</text>
+    <text x="32" y="440" fill="#f8fafc" font-size="13" font-weight="600">Bluetooth LE 5.3 &#8226; USB HID</text>
+    <text x="32" y="458" fill="#38bdf8" font-size="10">Web Serial VIA Configurator @ 15 Hz</text>
+  </g>
+
+  <!-- CONNECTING ARROWS & LABELS -->
+  <!-- Arrow 1: Power -> Sensors -->
+  <path d="M 290 280 L 320 280" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)" />
+  <circle cx="305" cy="280" r="3" fill="#38bdf8"/>
+  <text x="293" y="270" fill="#38bdf8" font-size="9" font-weight="600">3V3_A</text>
+
+  <!-- Arrow 2: Sensors -> MUX -->
+  <path d="M 560 360 L 590 360" stroke="#c084fc" stroke-width="2.5" />
+  <circle cx="575" cy="360" r="3" fill="#c084fc"/>
+  <text x="563" y="350" fill="#c084fc" font-size="9" font-weight="600">30x OUT</text>
+
+  <!-- Arrow 3: MUX -> MCU -->
+  <path d="M 830 320 L 860 320" stroke="#34d399" stroke-width="2.5" />
+  <path d="M 830 380 L 860 380" stroke="#38bdf8" stroke-width="2.5" />
+  <text x="833" y="312" fill="#34d399" font-size="9" font-weight="600">AIN7</text>
+  <text x="833" y="372" fill="#38bdf8" font-size="9" font-weight="600">AIN5</text>
+
+  <!-- Arrow Feedback: Control Bus (MCU -> MUX & Power) -->
+  <path d="M 860 480 L 590 480" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,3" />
+  <text x="680" y="472" fill="#94a3b8" font-size="9">Address Bus (A0..A2) + EN0..EN3</text>
+  <path d="M 860 520 L 290 520" stroke="#f87171" stroke-width="1.5" stroke-dasharray="4,3" />
+  <text x="420" y="512" fill="#f87171" font-size="9">Power Gating Control (LED_EN = P0.08)</text>
+
+  <!-- Footer Tag -->
+  <text x="50" y="645" fill="#475569" font-size="11">1517 Fund &#8226; Medici Project Pitch Documentation &#8226; PCB Rev A &#8226; Hardware + Firmware Architecture</text>
+  <text x="1080" y="645" fill="#475569" font-size="11" text-anchor="end">Open-Source Engineering Spec</text>
+</svg>

@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HE-Keyboard Rev A — Ultra-Low Power Magnetic Levitation Keyboard</title>
+  <meta name="description" content="Open-source ultra-low power wireless Hall Effect mechanical keyboard with 3D-printed magnetic levitation switches. Project Pitch for the 1517 Fund Medici Project.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+          },
+          colors: {
+            pitch: {
+              base: '#070a10',
+              surface: '#0d131f',
+              card: '#121a2b',
+              border: '#1f2d47',
+              accent: '#38bdf8',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              purple: '#a855f7'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #070a10;
+      color: #e2e8f0;
+      font-family: 'Inter', sans-serif;
+      selection-background-color: #38bdf8;
+    }
+    .grid-bg {
+      background-image: radial-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .glow-cyan {
+      box-shadow: 0 0 35px -5px rgba(56, 189, 248, 0.25);
+    }
+    .glow-card:hover {
+      box-shadow: 0 0 25px -5px rgba(56, 189, 248, 0.2);
+      border-color: #38bdf8;
+    }
+    .badge-pulse {
+      animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.75; transform: scale(0.98); }
+    }
+  </style>
+</head>
+<body class="bg-pitch-base text-slate-200 antialiased selection:bg-sky-500/30 selection:text-sky-200">
+
+  <!-- Header / Navigation -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-pitch-base/85 border-b border-pitch-border/70 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Logo & System Tag -->
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-400 to-indigo-600 flex items-center justify-center font-mono font-black text-white text-xs shadow-lg shadow-sky-500/20">
+          HE
+        </div>
+        <div>
+          <span class="font-mono text-sm font-bold tracking-tight text-white flex items-center gap-2">
+            HE_KEYBOARD <span class="text-xs px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">REV_A</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Quick Nav Links -->
+      <nav class="hidden md:flex items-center space-x-6 text-xs font-mono text-slate-400">
+        <a href="#problem" class="hover:text-sky-400 transition-colors">01. The Problem</a>
+        <a href="#architecture" class="hover:text-sky-400 transition-colors">02. Architecture</a>
+        <a href="#gallery" class="hover:text-sky-400 transition-colors">03. 3D & Schematics</a>
+        <a href="#specs" class="hover:text-sky-400 transition-colors">04. Deep Specs</a>
+        <a href="#grant" class="hover:text-sky-400 transition-colors text-amber-400 font-semibold">05. 1517 Grant ($1K)</a>
+      </nav>
+
+      <!-- Status Badges & CTAs -->
+      <div class="flex items-center space-x-3">
+        <div class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 badge-pulse"></span>
+          Fabrication @ JLCPCB
+        </div>
+        <a href="https://github.com/Sebas-Govel/HE_KB_Showcase" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-mono transition-all flex items-center gap-1.5">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span class="hidden md:inline">GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative pt-16 pb-20 overflow-hidden grid-bg border-b border-pitch-border/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Medici Pitch Pill -->
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-950/60 border border-indigo-500/30 text-indigo-300 text-xs font-mono mb-6">
+        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+        1517 Fund &bull; Medici Project Candidate Pitch &bull; Hardware Grant Application
+      </div>
+
+      <!-- Main Headline -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7 space-y-6">
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+            Ultra-Low Power Wireless <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-indigo-400">Hall Effect Mechanical Keyboard</span> with 3D MagLev Switches
+          </h1>
+          <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
+            Commercial analog keyboards are cord-tethered desktop devices that consume upwards of <strong class="text-red-400 font-mono">350–1200 mA</strong>. 
+            We engineered an open-source, ambidextrous keyboard architecture that cuts active sensing current down to <strong class="text-emerald-400 font-mono">1.4 mA/sensor</strong>, isolates parasitic idle drain with <strong class="text-sky-400 font-mono">P-MOSFET power gating</strong>, and eliminates friction with <strong class="text-purple-400 font-mono">springless 3-magnet levitation switches</strong>.
+          </p>
+
+          <!-- Core Metric Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 font-mono text-left">
+            <div class="p-3.5 rounded-xl bg-pitch-card border border-pitch-border/70">
+              <div class="text-xs text-slate-400">SENSOR CURRENT</div>
+              <div class="text-xl font-bold text-emerald-400 mt-1">1.4 mA <span class="text-xs text-slate-400 font-normal">typ</span></div>
+              <div class="text-[10px] text-slate-400 mt-0.5">>4.3x less than SS49E</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-pitch-card border border-pitch-border/70">
+              <div class="text-xs text-slate-400">SWITCH TRAVEL</div>
+              <div class="text-xl font-bold text-sky-400 mt-1">2.36 mm</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">100% springless MagLev</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-pitch-card border border-pitch-border/70">
+              <div class="text-xs text-slate-400">MUX RESISTANCE</div>
+              <div class="text-xl font-bold text-purple-400 mt-1">59 &Omega; <span class="text-xs text-slate-400 font-normal">typ</span></div>
+              <div class="text-[10px] text-slate-400 mt-0.5">TI TMUX1308 (40ns delay)</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-pitch-card border border-pitch-border/70">
+              <div class="text-xs text-slate-400">NOISE FLOOR</div>
+              <div class="text-xl font-bold text-teal-400 mt-1">&lt; &plusmn;8 mV</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">&lt;10 counts (4096 SAADC)</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-pitch-card border border-pitch-border/70">
+              <div class="text-xs text-slate-400">SLEEP POWER</div>
+              <div class="text-xl font-bold text-indigo-400 mt-1">&lt; 20 &micro;A</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">AO3401A power gating</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-pitch-card border border-pitch-border/70">
+              <div class="text-xs text-slate-400">VERIFICATION</div>
+              <div class="text-xl font-bold text-amber-400 mt-1">0 DRC/ERC</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">KiCad 10 & PCBA ready</div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap gap-3 pt-4 font-mono text-xs">
+            <a href="#architecture" class="px-5 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold transition-all shadow-lg shadow-sky-500/25 flex items-center gap-2">
+              Explore Technical Architecture &darr;
+            </a>
+            <a href="ENGINEERING_FACT_SHEET.md" target="_blank" class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all flex items-center gap-2">
+              <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              View Full Engineering Fact Sheet (MD)
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Hero Graphic: Isometric PCB Raytrace Preview -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative rounded-2xl p-1 bg-gradient-to-b from-sky-500/30 via-pitch-border to-transparent glow-cyan">
+            <div class="rounded-2xl bg-pitch-card p-4 overflow-hidden border border-pitch-border/70">
+              <div class="flex items-center justify-between text-xs font-mono text-slate-400 pb-3 border-b border-pitch-border/50">
+                <span class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
+                  HE_KB_RevA_Isometric.png
+                </span>
+                <span class="text-sky-400">Raytraced 3D Render</span>
+              </div>
+              <div class="mt-3 relative aspect-[16/10] bg-pitch-base/60 rounded-xl overflow-hidden flex items-center justify-center group cursor-pointer" onclick="openModal('assets/img/pcb_iso.png', 'PCB Rev A — Isometric SMT Assembly Raytrace (Bottom & Top Components)')">
+                <img src="assets/img/pcb_iso.png" alt="PCB Rev A Isometric 3D Render" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute bottom-2 right-2 px-2 py-1 rounded bg-black/75 text-[10px] font-mono text-slate-300 backdrop-blur">
+                  Click to Expand &bull; 1920x1080
+                </div>
+              </div>
+              <div class="mt-3 text-xs text-slate-400 font-mono flex justify-between items-center">
+                <span>Ambidextrous 30-Key Split Grid</span>
+                <span class="text-emerald-400">Bottom-Mount SMT Array</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 1: The Problem & The Non-Consensus Insight -->
+  <section id="problem" class="py-20 border-b border-pitch-border/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="sm:flex sm:items-end sm:justify-between mb-12">
+        <div>
+          <span class="text-xs font-mono text-sky-400 uppercase tracking-widest">Section 01</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">The Problem & The Non-Consensus Insight</h2>
+        </div>
+        <p class="text-xs sm:text-sm font-mono text-slate-400 mt-2 sm:mt-0">
+          First-Principles Analysis &bull; Thermodynamics &amp; Power Physics
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- The Conventional Reality -->
+        <div class="p-8 rounded-2xl bg-pitch-surface border border-red-500/20 relative">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 text-red-400 text-xs font-mono mb-4 border border-red-500/20">
+            Current Industry Status Quo
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Why Commercial HE Keyboards Cannot Be Wireless</h3>
+          <p class="text-slate-300 text-sm leading-relaxed mb-4">
+            Commercial analog keyboards (Wooting 60HE, Razer Huntsman V3, SteelSeries Apex Pro) have revolutionized esports with Rapid Trigger (<0.1mm dynamic reset), but are strictly cord-bound.
+          </p>
+          <ul class="space-y-3 text-xs text-slate-300 font-mono">
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 font-bold">&times;</span>
+              <span><strong>Linear Hall sensors (e.g. SS49E):</strong> Draw 6.0–10.0 mA continuously per key. A 60% board draws 360–600 mA purely for idling magnetic sensing.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 font-bold">&times;</span>
+              <span><strong>Parasitic RGB static idle:</strong> Commercial boards leave per-key WS2812/SK6812 controllers continuously energized. Even at 0% brightness, static idle draws 40–80 mA.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 font-bold">&times;</span>
+              <span><strong>Mechanical steel springs:</strong> Rely on physical coil springs that suffer from hysteresis, leaf friction, and magnetic distortion when operating within 2 mm of a Hall sensor.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 font-bold">&times;</span>
+              <span><strong>Result:</strong> A 1000 mAh LiPo battery dies in ~1.5 hours. Commercial vendors simply give up on wireless.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- The Non-Consensus Insight -->
+        <div class="p-8 rounded-2xl bg-pitch-surface border border-sky-500/30 relative">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 text-xs font-mono mb-4 border border-sky-500/20">
+            Our Core Engineering Solution
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">The Rev A Architecture: 4 Pillars of Ultra-Low Power</h3>
+          <p class="text-slate-300 text-sm leading-relaxed mb-4">
+            We rejected the assumption that magnetic keyboards must be power hogs by redesigning the analog signal path and switch kinematics from scratch.
+          </p>
+          <ul class="space-y-3 text-xs text-slate-300 font-mono">
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">&check;</span>
+              <span><strong>HAL403SO Ratiometric Sensors:</strong> Operating at 1.4 mA typ @ 3.3V, dropping active sensing power by >75% while providing 4.1 mV/Gauss native sensitivity.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">&check;</span>
+              <span><strong>Hard P-MOSFET Power Gating:</strong> An AO3401A switches the entire 3V3_LED digital rail via GPIO. In stealth mode, static idle drops to <strong>0.00 µA</strong>.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">&check;</span>
+              <span><strong>Dual-Bank Split SAADC Multiplexing:</strong> Partitioning 30 keys into two 16-channel banks (TI TMUX1308) reduces line capacitance by 34%, shortening settling times to <20 µs.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">&check;</span>
+              <span><strong>3-Magnet MagLev Suspension:</strong> 100% springless 3D-printed switch (V5.0) utilizing repulsive and attractive neodymium forces ($F \propto 1/d^4$) for a smooth, progressive glide.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2: System Architecture Diagram & Topology -->
+  <section id="architecture" class="py-20 border-b border-pitch-border/50 bg-pitch-surface/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="sm:flex sm:items-end sm:justify-between mb-8">
+        <div>
+          <span class="text-xs font-mono text-sky-400 uppercase tracking-widest">Section 02</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">System Architecture &amp; Analog Topology</h2>
+        </div>
+        <div class="text-xs font-mono text-slate-400">
+          Power Gating &rarr; 30x Sensors &rarr; 4x TMUX1308 &rarr; Dual SAADC &rarr; BLE 5.3
+        </div>
+      </div>
+
+      <!-- Vector Architecture SVG Diagram Container -->
+      <div class="rounded-2xl p-1 bg-gradient-to-r from-sky-500/20 via-pitch-border to-indigo-500/20 border border-pitch-border/70 overflow-hidden shadow-2xl">
+        <div class="bg-pitch-base rounded-2xl p-4 sm:p-6">
+          <div class="flex flex-wrap items-center justify-between pb-4 border-b border-pitch-border/50 text-xs font-mono text-slate-400 gap-2">
+            <span class="text-sky-400 font-bold flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              COMPLETE HARDWARE SIGNAL FLOW (VECTOR SCHEMATIC)
+            </span>
+            <div class="flex gap-2">
+              <a href="assets/img/system_architecture_diagram.svg" target="_blank" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">Open Raw SVG</a>
+              <button onclick="openModal('assets/img/system_architecture_diagram.png', 'Complete System Architecture: Power Gating, 30x HAL403SO, 4x TMUX1308, and nRF52840 SAADC')" class="px-2.5 py-1 rounded bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-500/30">View High-Res PNG</button>
+            </div>
+          </div>
+
+          <!-- Embedded Architecture SVG -->
+          <div class="mt-4 overflow-x-auto">
+            <img src="assets/img/system_architecture_diagram.svg" alt="System Architecture Block Diagram" class="w-full min-w-[750px] h-auto object-contain rounded-xl">
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6 pt-6 border-t border-pitch-border/50 text-xs font-mono">
+            <div>
+              <div class="text-sky-400 font-bold">1. Star-Topology Rail</div>
+              <p class="text-slate-400 text-[11px] mt-1">Split at SuperMini VCC into isolated 3V3_A (clean analog) and switched 3V3_LED rails.</p>
+            </div>
+            <div>
+              <div class="text-teal-400 font-bold">2. Dual SAADC Partition</div>
+              <p class="text-slate-400 text-[11px] mt-1">U1+U2 routed to AIN7 (P0.31), U3+U4 routed to AIN5 (P0.29). Drops line capacitance by 34%.</p>
+            </div>
+            <div>
+              <div class="text-purple-400 font-bold">3. Auto-Zero Reference</div>
+              <p class="text-slate-400 text-[11px] mt-1">Channels S7 tied to analog GND for dynamic per-scan baseline drift nulling.</p>
+            </div>
+            <div>
+              <div class="text-indigo-400 font-bold">4. Zephyr RTOS DSP</div>
+              <p class="text-slate-400 text-[11px] mt-1">50 µs settle delay + 4-sample moving average filter suppresses noise below &plusmn;8 mV.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 3: Visual Hardware Gallery (Interactive Tabbed Renders) -->
+  <section id="gallery" class="py-20 border-b border-pitch-border/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="sm:flex sm:items-end sm:justify-between mb-8">
+        <div>
+          <span class="text-xs font-mono text-sky-400 uppercase tracking-widest">Section 03</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Interactive Hardware &amp; CAD Gallery</h2>
+        </div>
+        <p class="text-xs sm:text-sm font-mono text-slate-400 mt-2 sm:mt-0">
+          Raytraced 3D Renders &bull; KiCad 10 High-Res Schematics &bull; Kinematic Sweeps
+        </p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="flex flex-wrap gap-2 mb-8 font-mono text-xs" id="galleryTabs">
+        <button onclick="filterGallery('all')" class="tab-btn px-4 py-2 rounded-lg bg-sky-500 text-white font-bold transition-all shadow-lg shadow-sky-500/20" data-filter="all">All Assets (12)</button>
+        <button onclick="filterGallery('pcb')" class="tab-btn px-4 py-2 rounded-lg bg-pitch-card hover:bg-slate-800 text-slate-300 border border-pitch-border transition-all" data-filter="pcb">PCB Rev A (3)</button>
+        <button onclick="filterGallery('switch')" class="tab-btn px-4 py-2 rounded-lg bg-pitch-card hover:bg-slate-800 text-slate-300 border border-pitch-border transition-all" data-filter="switch">MagLev Switch V5.0 (4)</button>
+        <button onclick="filterGallery('schematic')" class="tab-btn px-4 py-2 rounded-lg bg-pitch-card hover:bg-slate-800 text-slate-300 border border-pitch-border transition-all" data-filter="schematic">KiCad Schematics (3)</button>
+        <button onclick="filterGallery('case')" class="tab-btn px-4 py-2 rounded-lg bg-pitch-card hover:bg-slate-800 text-slate-300 border border-pitch-border transition-all" data-filter="case">Case &amp; Keycaps (2)</button>
+      </div>
+
+      <!-- Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
+        
+        <!-- Card 1: PCB Isometric -->
+        <div class="gallery-item pcb p-4 rounded-2xl bg-pitch-card border border-pitch-border/70 glow-card transition-all cursor-pointer" onclick="openModal('assets/img/pcb_iso.png', 'PCB Rev A Isometric SMT Assembly — 30-key ambidextrous layout with under-OLED auxiliary bay.')">
+          <div class="aspect-[16/10] bg-pitch-base/60 rounded-xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/pcb_iso.png" alt="PCB Isometric" class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
+            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30 text-[10px] font-mono">PCB Raytrace</span>
+          </div>
+          <div class="mt-3">
+            <h4 class="text-sm font-bold text-white font-mono">PCB Rev A Isometric View</h4>
+            <p class="text-xs text-slate-400 mt-1">Full 3D raytraced assembly showing ambidextrous layout, dual trackpad headers, and bottom-mounted SMT passives.</p>
+          </div>
+        </div>
+
+        <!-- Card 2: PCB Top View -->
+        <div class="gallery-item pcb p-4 rounded-2xl bg-pitch-card border border-pitch-border/70 glow-card transition-all cursor-pointer" onclick="openModal('assets/img/pcb_top.png', 'PCB Rev A Top Surface — 100% flat FR4 top surface under switches. Sensors mount strictly on bottom copper.')">
+          <div class="aspect-[16/10] bg-pitch-base/60 rounded-xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/pcb_top.png" alt="PCB Top Surface" class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
+            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30 text-[10px] font-mono">PCB Top</span>
+          </div>
+          <div class="mt-3">
+            <h4 class="text-sm font-bold text-white font-mono">PCB Rev A Top Surface (Flat)</h4>
+            <p class="text-xs text-slate-400 mt-1">Zero top-mounted SMDs under switches. 1.6 mm FR4 provides optimal physical clearance to prevent magnetic saturation.</p>
+          </div>
+        </div>
+
+        <!-- Card 3: PCB Bottom SMT -->
+        <div class="gallery-item pcb p-4 rounded-2xl bg-pitch-card border border-pitch-border/70 glow-card transition-all cursor-pointer" onclick="openModal('assets/img/pcb_bottom.png', 'PCB Rev A Bottom Copper (B.Cu) — 30x HAL403SO SOT-23-3 sensors, 4x TMUX1308, AO3401A MOSFET, and 80 decoupling caps.')">
+          <div class="aspect-[16/10] bg-pitch-base/60 rounded-xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/pcb_bottom.png" alt="PCB Bottom View" class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
+            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-mono">Bottom SMT</span>
+          </div>
+          <div class="mt-3">
+            <h4 class="text-sm font-bold text-white font-mono">PCB Bottom SMT Assembly</h4>
+            <p class="text-xs text-slate-400 mt-1">All 30 HAL403SO sensors centered under switches, 4× TMUX1308 in under-OLED bay, with ground plane shielding.</p>
+          </div>
+        </div>
+
+        <!-- Card 4: Switch V5 Exploded -->
+        <div class="gallery-item switch p-4 rounded-2xl bg-pitch-card border border-pitch-border/70 glow-card transition-all cursor-pointer" onclick="openModal('assets/img/switch_v5_exploded.png', 'Switch V5.0 Exploded Assembly — U-Housing, Keyed SideWall, Closed-Front Stem, 3 Neodymium Magnets, and 3mm Plate.')">
+          <div class="aspect-[16/10] bg-pitch-base/60 rounded-xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/switch_v5_exploded.png" alt="Switch V5 Exploded" class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
+            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[10px] font-mono">Switch 3D</span>
+          </div>
+          <div class="mt-3">
+            <h4 class="text-sm font-bold text-white font-mono">Switch V5.0 Exploded Assembly</h4>
+            <p class="text-xs text-slate-400 mt-1">Monolithic U-Body + Keyed SideWall. Calibrated dual-jaw S2 cradle, bed-printed flat -Y stem wall, and zero non-manifold edges.</p>
+          </div>
+        </div>
+
+        <!-- Card 5: Switch V5 Cross Section -->
+        <div class="gallery-item switch p-4 rounded-2xl bg-pitch-card border border-pitch-border/70 glow-card transition-all cursor-pointer" onclick="openModal('assets/img/switch_v5_section.png', 'Switch V5.0 Section Cut (XZ) — Demonstrates 2.36mm stroke, 0.45mm thinned magnetic barriers, and 3-magnet repulsive/attractive kinematics.')">
+          <div class="aspect-[16/10] bg-pitch-base/60 rounded-xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/switch_v5_section.png" alt="Switch V5 Section Cut" class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
+            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[10px] font-mono">Section Cut</span>
+          </div>
+          <div class="mt-3">
+            <h4 class="text-sm font-bold text-white font-mono">Switch V5.0 Internal Section Cut</h4>
+            <p class="text-xs text-slate-400 mt-1">Direct view of 3-magnet levitation chamber. 0.45 mm magnetic barrier amplifies magnetic spring force by 25–35%.</p>
+          </div>
+        </div>
+
+        <!-- Card 6: Magpylib Simulation -->
+        <div class="gallery-item switch p-4 rounded-2xl bg-pitch-card border border-pitch-border/70 glow-card transition-all cursor-pointer" onclick="openModal('assets/img/slingshot_simulation.png', '3D Magpylib Finite Element Magnetic Simulation — Vector flux lines and gradient density across the 2.36mm travel stroke.')">
+          <div class="aspect-[16/10] bg-pitch-base/60 rounded-xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/slingshot_simulation.png" alt="Magnetic Simulation" class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
+            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[10px] font-mono">Magpylib Sim</span>
+          </div>
+          <div class="mt-3">
+            <h4 class="text-sm font-bold text-white font-mono">3D Magnetic Flux Simulation</h4>
+            <p class="text-xs text-slate-400 mt-1">Python Magpylib model of flux density ($B_z$) reaching the HAL403SO sensor across the full 2.36 mm dynamic actuation curve.</p>
+          </div>
+        </div>
+
+        <!-- Card 7: Switch V5 Assembled in Plate -->
+        <div class="gallery-item switch p-4 rounded-2xl bg-pitch-card border border-pitch-border/70 glow-card transition-all cursor-pointer" onclick="openModal('assets/img/switch_v5_assembled.png', 'Switch V5.0 Assembled in 3.0mm Plate — Positive Z alignment lugs lock the sidewall rigidly into the plate frame.')">
+          <div class="aspect-[16/10] bg-pitch-base/60 rounded-xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/switch_v5_assembled.png" alt="Switch Assembled" class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
+            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[10px] font-mono">Assembled</span>
+          </div>
+          <div class="mt-3">
+            <h4 class="text-sm font-bold text-white font-mono">Switch V5.0 Assembled in Plate</h4>
+            <p class="text-xs text-slate-400 mt-1">Integrated into the 3.0 mm 3D-printed switch plate. No plate flex, zero switch wobble, 8.05 mm square stem connector.</p>
+          </div>
+        </div>
+
+        <!-- Card 8: KiCad Analog Bus Schematic -->
+        <div class="gallery-item schematic p-4 rounded-2xl bg-pitch-card border border-pitch-border/70 glow-card transition-all cursor-pointer" onclick="openModal('assets/img/schematic_analog_bus.png', 'KiCad 10 Schematic: 4x TMUX1308PWR Analog Multiplexers wired to SuperMini nRF52840 AIN7 and AIN5 ADCs.')">
+          <div class="aspect-[16/10] bg-pitch-base/60 rounded-xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/schematic_analog_bus.png" alt="Analog Bus Schematic" class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
+            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[10px] font-mono">Schematic: Bus</span>
+          </div>
+          <div class="mt-3">
+            <h4 class="text-sm font-bold text-white font-mono">4× TMUX1308 &amp; nRF52840 Bus</h4>
+            <p class="text-xs text-slate-400 mt-1">KiCad high-res schematic of the 4 multiplexers, 3-bit address bus A0–A2, enable lines EN0..EN3, and dual SAADC lines.</p>
+          </div>
+        </div>
+
+        <!-- Card 9: KiCad Power Gating Schematic -->
+        <div class="gallery-item schematic p-4 rounded-2xl bg-pitch-card border border-pitch-border/70 glow-card transition-all cursor-pointer" onclick="openModal('assets/img/schematic_power_gating.png', 'KiCad 10 Schematic: AO3401A P-MOSFET Power Gating Block driven by LED_EN (P0.08) switching the 3V3_LED rail.')">
+          <div class="aspect-[16/10] bg-pitch-base/60 rounded-xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/schematic_power_gating.png" alt="Power Gating Schematic" class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
+            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[10px] font-mono">Schematic: Power</span>
+          </div>
+          <div class="mt-3">
+            <h4 class="text-sm font-bold text-white font-mono">AO3401A Power Gating Block</h4>
+            <p class="text-xs text-slate-400 mt-1">P-MOSFET power switch cutting 18–30 mA of static LED quiescent draw with active-low GPIO control and pull-up bias.</p>
+          </div>
+        </div>
+
+        <!-- Card 10: KiCad Hall Sensor Sheet -->
+        <div class="gallery-item schematic p-4 rounded-2xl bg-pitch-card border border-pitch-border/70 glow-card transition-all cursor-pointer" onclick="openModal('assets/img/schematic_hall_sensor_unit.png', 'KiCad 10 Schematic: key.kicad_sch Hierarchical Sheet — HAL403SO Hall Sensor, 100nF decoupling, and reverse-mount SK6812MINI-E.')">
+          <div class="aspect-[16/10] bg-pitch-base/60 rounded-xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/schematic_hall_sensor_unit.png" alt="Hall Sensor Unit Schematic" class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
+            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[10px] font-mono">Schematic: Sensor</span>
+          </div>
+          <div class="mt-3">
+            <h4 class="text-sm font-bold text-white font-mono">Hierarchical Key Unit Sheet</h4>
+            <p class="text-xs text-slate-400 mt-1">Hierarchical sheet instanced 30×. HAL403SO SOT-23 sensor with local 100 nF bypass cap and reverse-mount SK6812MINI-E.</p>
+          </div>
+        </div>
+
+        <!-- Card 11: Keycaps Ultimate V3.2 -->
+        <div class="gallery-item case p-4 rounded-2xl bg-pitch-card border border-pitch-border/70 glow-card transition-all cursor-pointer" onclick="openModal('assets/img/keycaps_wasd_v3_2.png', 'Keycaps Ultimate V3.2 WASD Family — Spherical dish Ø10.6mm, 4-way reinforced HE socket, extruded legends, and support-free 62° print bed angle.')">
+          <div class="aspect-[16/10] bg-pitch-base/60 rounded-xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/keycaps_wasd_v3_2.png" alt="Keycaps Ultimate V3.2" class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
+            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30 text-[10px] font-mono">Keycaps V3.2</span>
+          </div>
+          <div class="mt-3">
+            <h4 class="text-sm font-bold text-white font-mono">Ultimate Keycaps V3.2 (WASD)</h4>
+            <p class="text-xs text-slate-400 mt-1">Ergonomic spherical dish with tactile homing. 4-way buttressed socket prevents layer splitting during press-fit.</p>
+          </div>
+        </div>
+
+        <!-- Card 12: Unibody Case Assembly -->
+        <div class="gallery-item case p-4 rounded-2xl bg-pitch-card border border-pitch-border/70 glow-card transition-all cursor-pointer" onclick="openModal('assets/img/case_exploded.png', 'Unibody Keyboard Case Exploded Assembly — Ergonomic palm rest, integrated plate recess, OLED bezel, and dual trackpad bays.')">
+          <div class="aspect-[16/10] bg-pitch-base/60 rounded-xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/case_exploded.png" alt="Case Exploded Assembly" class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
+            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30 text-[10px] font-mono">Case 3D</span>
+          </div>
+          <div class="mt-3">
+            <h4 class="text-sm font-bold text-white font-mono">Unibody Case Exploded 3D</h4>
+            <p class="text-xs text-slate-400 mt-1">Ambidextrous case accommodating either left or right hand. Integrated trackpad recess and OLED display enclosure.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 4: Deep Technical Breakdown & Comparison Tables -->
+  <section id="specs" class="py-20 border-b border-pitch-border/50 bg-pitch-surface/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="sm:flex sm:items-end sm:justify-between mb-12">
+        <div>
+          <span class="text-xs font-mono text-sky-400 uppercase tracking-widest">Section 04</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Deep Engineering Specifications</h2>
+        </div>
+        <p class="text-xs sm:text-sm font-mono text-slate-400 mt-2 sm:mt-0">
+          Rigorous Electrical, Mechanical &amp; Firmware Parameters
+        </p>
+      </div>
+
+      <!-- Comparative Engineering Table -->
+      <div class="rounded-2xl bg-pitch-card border border-pitch-border/70 overflow-hidden mb-12">
+        <div class="p-6 border-b border-pitch-border/50">
+          <h3 class="text-lg font-bold text-white font-mono flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-sky-400"></span>
+            Comprehensive Comparison: Industry Standard HE vs Rev A Architecture
+          </h3>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs font-mono">
+            <thead class="bg-pitch-surface text-slate-400 border-b border-pitch-border/50">
+              <tr>
+                <th class="py-3 px-4">ENGINEERING PARAMETER</th>
+                <th class="py-3 px-4 text-red-400">COMMERCIAL HE (Wooting / Apex)</th>
+                <th class="py-3 px-4 text-sky-400">OUR REVA KEYBOARD</th>
+                <th class="py-3 px-4 text-emerald-400">PHYSICAL RATIONALE</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-pitch-border/40 text-slate-300">
+              <tr class="hover:bg-slate-800/30">
+                <td class="py-3.5 px-4 font-semibold text-white">Active Sensor Current (per key)</td>
+                <td class="py-3.5 px-4 text-red-300">6.0 – 9.0 mA (SS49E / custom)</td>
+                <td class="py-3.5 px-4 text-emerald-300 font-bold">1.4 mA typ (HAL403SO)</td>
+                <td class="py-3.5 px-4 text-slate-400">> 4.3× reduction in active current draw</td>
+              </tr>
+              <tr class="hover:bg-slate-800/30">
+                <td class="py-3.5 px-4 font-semibold text-white">30-Key Active Matrix Draw</td>
+                <td class="py-3.5 px-4 text-red-300">180 – 270 mA continuous</td>
+                <td class="py-3.5 px-4 text-emerald-300 font-bold">42 mA typ</td>
+                <td class="py-3.5 px-4 text-slate-400">Allows continuous Bluetooth LE scanning</td>
+              </tr>
+              <tr class="hover:bg-slate-800/30">
+                <td class="py-3.5 px-4 font-semibold text-white">RGB Static Quiescent Power</td>
+                <td class="py-3.5 px-4 text-red-300">30 – 80 mA (always un-gated)</td>
+                <td class="py-3.5 px-4 text-emerald-300 font-bold">0.00 µA (AO3401A Gated)</td>
+                <td class="py-3.5 px-4 text-slate-400">P-MOSFET completely isolates LED VDD rail</td>
+              </tr>
+              <tr class="hover:bg-slate-800/30">
+                <td class="py-3.5 px-4 font-semibold text-white">Analog Multiplexing Topology</td>
+                <td class="py-3.5 px-4 text-red-300">Single bus / high capacitance</td>
+                <td class="py-3.5 px-4 text-emerald-300 font-bold">Dual-Bank 16:1 (TI TMUX1308)</td>
+                <td class="py-3.5 px-4 text-slate-400">Cuts node capacitance by 34% (160pF &rarr; ~80pF)</td>
+              </tr>
+              <tr class="hover:bg-slate-800/30">
+                <td class="py-3.5 px-4 font-semibold text-white">Multiplexer On-Resistance (R_on)</td>
+                <td class="py-3.5 px-4 text-red-300">~150–250 &Omega; (CD74HC4067)</td>
+                <td class="py-3.5 px-4 text-emerald-300 font-bold">59 &Omega; typ (TMUX1308)</td>
+                <td class="py-3.5 px-4 text-slate-400">Ultra-fast settling (&tau; &approx; 1.7 &micro;s)</td>
+              </tr>
+              <tr class="hover:bg-slate-800/30">
+                <td class="py-3.5 px-4 font-semibold text-white">Switch Suspension Mechanism</td>
+                <td class="py-3.5 px-4 text-red-300">Metal coil spring (hysteresis)</td>
+                <td class="py-3.5 px-4 text-emerald-300 font-bold">100% Springless 3-Magnet Levitation</td>
+                <td class="py-3.5 px-4 text-slate-400">No metallic spring fatigue or friction noise</td>
+              </tr>
+              <tr class="hover:bg-slate-800/30">
+                <td class="py-3.5 px-4 font-semibold text-white">Dynamic Rapid Trigger Reset</td>
+                <td class="py-3.5 px-4 text-slate-200">0.1 mm</td>
+                <td class="py-3.5 px-4 text-emerald-300 font-bold">&lt; 0.1 mm (sub-0.08 mm floor)</td>
+                <td class="py-3.5 px-4 text-slate-400">4-sample moving average filter (&lt; &plusmn;8 mV noise)</td>
+              </tr>
+              <tr class="hover:bg-slate-800/30">
+                <td class="py-3.5 px-4 font-semibold text-white">Standby Sleep Current</td>
+                <td class="py-3.5 px-4 text-red-300">> 30 mA (no sleep mode)</td>
+                <td class="py-3.5 px-4 text-emerald-300 font-bold">&lt; 20 &micro;A</td>
+                <td class="py-3.5 px-4 text-slate-400">Weeks of shelf life on 500 mAh battery</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3 Engineering Pillars Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+        
+        <!-- Card 1 -->
+        <div class="p-6 rounded-2xl bg-pitch-card border border-pitch-border/70">
+          <div class="text-sky-400 font-bold text-sm mb-2 flex items-center gap-2">
+            <span>&bull;</span> ANALOG SIGNAL INTEGRITY
+          </div>
+          <p class="text-slate-300 leading-relaxed text-[11px] mb-3">
+            To prevent capacitive crosstalk across multiplexed channels with 10 k&Omega; output impedance, Zephyr firmware enforces a calibrated <strong>50 &micro;s settling delay</strong> between MUX address assertion and SAADC conversion.
+          </p>
+          <div class="p-3 rounded-lg bg-pitch-base/60 text-slate-400 text-[10px] space-y-1">
+            <div>&bull; &tau; = R_total &times; C_total &approx; 1.7 &micro;s</div>
+            <div>&bull; 5 &tau; &approx; 8.5 &micro;s (voltage settles to 99.3%)</div>
+            <div>&bull; 50 &micro;s safety margin: 0 crosstalk</div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="p-6 rounded-2xl bg-pitch-card border border-pitch-border/70">
+          <div class="text-purple-400 font-bold text-sm mb-2 flex items-center gap-2">
+            <span>&bull;</span> MAGLEV KINEMATICS (V5.0)
+          </div>
+          <p class="text-slate-300 leading-relaxed text-[11px] mb-3">
+            Switch V5.0 incorporates thinned magnetic barriers of <strong>0.45 mm</strong>. Since magnetic force scales as $F \propto 1/d^4$ between close dipole magnets, thinning by 0.30 mm yields a <strong>+25% to 35% gain</strong> in levitation force without increasing magnet mass.
+          </p>
+          <div class="p-3 rounded-lg bg-pitch-base/60 text-slate-400 text-[10px] space-y-1">
+            <div>&bull; Stroke: 2.36 mm (+33% over V4)</div>
+            <div>&bull; Calibrated Bambu A1 press-fits</div>
+            <div>&bull; S2 open dual-jaw cradle (&ge;0.84mm)</div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="p-6 rounded-2xl bg-pitch-card border border-pitch-border/70">
+          <div class="text-emerald-400 font-bold text-sm mb-2 flex items-center gap-2">
+            <span>&bull;</span> REAL-TIME DSP &amp; ZERO NOISE
+          </div>
+          <p class="text-slate-300 leading-relaxed text-[11px] mb-3">
+            Hardware references on channels 7 of U3 and U4 connect directly to analog GND. Dynamic baseline sampling combined with cyclic sequential scans cancels thermal drift and power rail bounce across all 30 keys.
+          </p>
+          <div class="p-3 rounded-lg bg-pitch-base/60 text-slate-400 text-[10px] space-y-1">
+            <div>&bull; SAADC Ratiometric Ref: VDD/4</div>
+            <div>&bull; Moving average: 4 samples (~4ms)</div>
+            <div>&bull; Resting delta: &Delta; &le; 10 counts</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 5: 1517 Fund Medici Project Grant Allocation ($1,000 USD) -->
+  <section id="grant" class="py-20 border-b border-pitch-border/50 bg-pitch-card/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="sm:flex sm:items-end sm:justify-between mb-12">
+        <div>
+          <span class="text-xs font-mono text-amber-400 uppercase tracking-widest">Section 05 &bull; The Pitch</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">1517 Fund Medici Grant Allocation</h2>
+        </div>
+        <div class="text-xs font-mono text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-lg mt-2 sm:mt-0">
+          Total Grant Request: $1,000 USD &bull; Zero Overhead
+        </div>
+      </div>
+
+      <!-- Founder Manifesto Box -->
+      <div class="p-8 rounded-2xl bg-gradient-to-r from-amber-500/10 via-pitch-card to-indigo-500/10 border border-amber-500/30 mb-10">
+        <h3 class="text-lg font-bold text-white mb-2 font-mono">Why 1517 Medici Project? The Autodidactic Builder Ethos</h3>
+        <p class="text-sm text-slate-300 leading-relaxed">
+          I am not a corporate electrical engineering team with a $50,000 lab. Working as an independent builder with less than 5 hours per week of available time and a self-funded budget under $500, I designed, simulated, routed, and verified a complete 30-key analog keyboard architecture from scratch—combining custom 3D magnetic physics, Zephyr RTOS firmware, and KiCad 10 hardware.
+          The <strong>$1,000 USD Medici grant</strong> will provide the exact high-precision measurement tools and engineering polymers needed to bridge the gap from working prototype to production-grade reliability.
+        </p>
+      </div>
+
+      <!-- Itemized Budget Table -->
+      <div class="rounded-2xl bg-pitch-card border border-pitch-border/70 overflow-hidden mb-8">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs font-mono">
+            <thead class="bg-pitch-surface text-slate-400 border-b border-pitch-border/50">
+              <tr>
+                <th class="py-3 px-4">ITEM &amp; CATEGORY</th>
+                <th class="py-3 px-4">COST (USD)</th>
+                <th class="py-3 px-4">PURPOSE &amp; ENGINEERING IMPACT</th>
+                <th class="py-3 px-4">DELIVERABLE</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-pitch-border/40 text-slate-300">
+              <tr class="hover:bg-slate-800/30">
+                <td class="py-4 px-4 font-bold text-sky-400">
+                  1. High-Bandwidth Logic Analyzer &amp; Differential Oscilloscope
+                  <div class="text-[10px] text-slate-400 font-normal">Rigol DHO804 / Kingst LA2016 + active probes</div>
+                </td>
+                <td class="py-4 px-4 font-bold text-white text-sm">$400.00</td>
+                <td class="py-4 px-4 text-slate-300">
+                  Direct capture of 40 ns TMUX switching transients, SAADC input charge injection, and ringing. Allows optimizing Zephyr MUX settle timer down to sub-10 µs.
+                </td>
+                <td class="py-4 px-4 text-emerald-400">Sub-10µs scan frame rate</td>
+              </tr>
+              <tr class="hover:bg-slate-800/30">
+                <td class="py-4 px-4 font-bold text-purple-400">
+                  2. Technical Low-Friction Polymers &amp; 8K SLA Resins
+                  <div class="text-[10px] text-slate-400 font-normal">Self-lubricating POM (Delrin), PTFE-infused resin, UHMWPE</div>
+                </td>
+                <td class="py-4 px-4 font-bold text-white text-sm">$250.00</td>
+                <td class="py-4 px-4 text-slate-300">
+                  Produce stem and housing guide channels in self-lubricating POM / 8K micro-SLA resin, eliminating all layer-line friction for an effortless, glass-like magnetic glide.
+                </td>
+                <td class="py-4 px-4 text-emerald-400">Frictionless MagLev glide</td>
+              </tr>
+              <tr class="hover:bg-slate-800/30">
+                <td class="py-4 px-4 font-bold text-emerald-400">
+                  3. PCB Rev B Fabrication &amp; Integrated Wireless PCBA
+                  <div class="text-[10px] text-slate-400 font-normal">JLCPCB Rev B spin, LiPo PMIC fuel gauge, custom solder stencils</div>
+                </td>
+                <td class="py-4 px-4 font-bold text-white text-sm">$350.00</td>
+                <td class="py-4 px-4 text-slate-300">
+                  Next iteration integrating on-board LiPo battery charging/fuel gauge circuitry, ultra-compact split wireless interconnects, and an initial pilot batch of 5 complete keyboards.
+                </td>
+                <td class="py-4 px-4 text-emerald-400">Rev B Wireless Pilot Batch</td>
+              </tr>
+              <tr class="bg-pitch-surface/80 font-bold text-white">
+                <td class="py-4 px-4 text-amber-400">TOTAL GRANT ALLOCATION</td>
+                <td class="py-4 px-4 text-amber-400 text-base">$1,000.00</td>
+                <td class="py-4 px-4 text-slate-400" colspan="2">100% Direct Hardware &amp; Tooling &bull; 0% Overhead</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Roadmap Timeline -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 font-mono text-xs">
+        <div class="p-4 rounded-xl bg-pitch-card border border-emerald-500/30">
+          <div class="text-emerald-400 font-bold text-[11px]">PHASE 1 (COMPLETED)</div>
+          <div class="text-white font-bold mt-1">Protoboard Validation</div>
+          <p class="text-slate-400 text-[10px] mt-1">15x SS49E sensors, CD74HC4067, Zephyr RTOS firmware v0.3.1, Web Serial monitor verified.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-pitch-card border border-sky-500/30">
+          <div class="text-sky-400 font-bold text-[11px]">PHASE 2 (CURRENT)</div>
+          <div class="text-white font-bold mt-1">PCB Rev A Fabrication</div>
+          <p class="text-slate-400 text-[10px] mt-1">Ambidextrous KiCad 10 board, 4x TMUX1308, HAL403SO array sent to JLCPCB SMT production.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-pitch-card border border-amber-500/30">
+          <div class="text-amber-400 font-bold text-[11px]">PHASE 3 (MEDICI GRANT)</div>
+          <div class="text-white font-bold mt-1">Precision Lab Bring-Up</div>
+          <p class="text-slate-400 text-[10px] mt-1">Transient analysis with logic analyzer, POM resin switch production, sub-0.08mm Rapid Trigger tuning.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-pitch-card border border-purple-500/30">
+          <div class="text-purple-400 font-bold text-[11px]">PHASE 4 (NEXT)</div>
+          <div class="text-white font-bold mt-1">Rev B Integrated Wireless</div>
+          <p class="text-slate-400 text-[10px] mt-1">Full LiPo PMIC power management, custom injection-molded POM housing, and open-source public release.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-pitch-base border-t border-pitch-border/70 text-xs font-mono text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <div>
+        <div class="flex items-center gap-2 text-white font-bold text-sm">
+          <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
+          HE-KEYBOARD // OPEN-SOURCE ANALOG HARDWARE
+        </div>
+        <p class="text-slate-500 text-[11px] mt-1">Designed with KiCad 10, Blender, and Zephyr RTOS. Licensed under CERN-OHL-P &bull; 2026</p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-6">
+        <a href="https://github.com/Sebas-Govel/HE_KB_Showcase" target="_blank" class="hover:text-sky-400 transition-colors flex items-center gap-1.5">
+          <span>GitHub Repo</span>
+        </a>
+        <a href="ENGINEERING_FACT_SHEET.md" target="_blank" class="hover:text-sky-400 transition-colors">
+          Fact Sheet (MD)
+        </a>
+        <a href="assets/img/system_architecture_diagram.svg" target="_blank" class="hover:text-sky-400 transition-colors">
+          Architecture SVG
+        </a>
+        <a href="mailto:contact@example.com" class="text-sky-400 hover:text-sky-300 font-bold">
+          Contact Founder &rarr;
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Interactive Lightbox Modal -->
+  <div id="imageModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-md flex items-center justify-center p-4" onclick="closeModal()">
+    <div class="relative max-w-5xl w-full bg-pitch-card border border-pitch-border rounded-2xl overflow-hidden shadow-2xl" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between p-4 border-b border-pitch-border/70 bg-pitch-surface">
+        <span id="modalCaption" class="text-xs font-mono text-slate-200 font-bold truncate pr-4"></span>
+        <button onclick="closeModal()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono">
+          &times; Close [ESC]
+        </button>
+      </div>
+      <div class="p-4 flex items-center justify-center max-h-[80vh] overflow-auto bg-pitch-base/80">
+        <img id="modalImage" src="" alt="Modal View" class="max-w-full max-h-[75vh] object-contain rounded-lg">
+      </div>
+      <div class="p-3 border-t border-pitch-border/50 bg-pitch-surface/60 flex justify-between items-center text-[11px] font-mono text-slate-400">
+        <span>Click anywhere outside to dismiss</span>
+        <a id="modalDownload" href="" target="_blank" class="text-sky-400 hover:underline">Open Raw File &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client-side Scripts -->
+  <script>
+    // Gallery Filtering
+    function filterGallery(category) {
+      const items = document.querySelectorAll('.gallery-item');
+      const buttons = document.querySelectorAll('#galleryTabs .tab-btn');
+      
+      buttons.forEach(btn => {
+        if (btn.getAttribute('data-filter') === category) {
+          btn.className = "tab-btn px-4 py-2 rounded-lg bg-sky-500 text-white font-bold transition-all shadow-lg shadow-sky-500/20";
+        } else {
+          btn.className = "tab-btn px-4 py-2 rounded-lg bg-pitch-card hover:bg-slate-800 text-slate-300 border border-pitch-border transition-all";
+        }
+      });
+
+      items.forEach(item => {
+        if (category === 'all' || item.classList.contains(category)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // Modal Lightbox
+    function openModal(src, caption) {
+      const modal = document.getElementById('imageModal');
+      const img = document.getElementById('modalImage');
+      const cap = document.getElementById('modalCaption');
+      const dl = document.getElementById('modalDownload');
+      
+      img.src = src;
+      cap.innerText = caption;
+      dl.href = src;
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+
+</body>
+</html>
