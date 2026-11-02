@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HE-Keyboard — Open-Source FloatForce Interface</title>
   <meta name="description" content="Your fingers aren’t binary. Neither is FloatForce. Open-source split ergonomic keyboard with magnetic levitation switches, 360° analog motion, and Van Gogh drawbridge tenting.">
+  <meta property="og:title" content="HE-Keyboard — Open-Source FloatForce Interface">
+  <meta property="og:description" content="Open-source split ergonomic keyboard with magnetic levitation switches, 360° analog motion, and Van Gogh drawbridge tenting. Designed and built in Mexico.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sebas-govel.github.io/HE_KB_Showcase/">
+  <meta property="og:image" content="https://sebas-govel.github.io/HE_KB_Showcase/assets/img/vangogh_bridge_1888.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   
   <!-- Editorial Fonts: Fraunces (Serif) + Plus Jakarta Sans + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -245,7 +251,12 @@
         
         <!-- Left: Punchy Sensory Copy & Low-Cost Philosophy -->
         <div class="lg:col-span-6 space-y-6">
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif text-ink-primary tracking-tight leading-[1.12]" data-i18n-html="hero_title">
+                  <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent-sage-soft border border-accent-sage/30 text-accent-sage text-xs font-medium mb-8"
+            data-i18n="hero_status">
+          <span class="w-2 h-2 rounded-full bg-accent-sage animate-pulse"></span>
+          <span data-i18n-html="hero_status_txt">Rev A manufacturing complete &bull; Awaiting delivery to Mexico for hands-on evaluation &amp; Rev B design</span>
+        </div>
+<h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif text-ink-primary tracking-tight leading-[1.12]" data-i18n-html="hero_title">
             Humans express far more than 1 and 0.<br>
             <span class="italic font-normal text-accent-terracotta">FloatForce</span> gives everyone a way to feel everything in between.
           </h1>
@@ -320,7 +331,7 @@
               <div class="absolute inset-0 pointer-events-none rounded-3xl ring-1 ring-inset ring-white/10"></div>
               
               <!-- Overlay Textual flotante -->
-              <div class="absolute bottom-4 inset-x-6 z-20 flex items-center justify-between text-[11px] font-mono text-white/80 pointer-events-none">
+              <div class="absolute bottom-4 inset-x-6 z-20 flex items-center justify-between text-xs font-mono text-white/80 pointer-events-none">
                 <span class="bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10" id="heroOverlayStatus">
                   Mode: PCB Rev A (Matte Black + Pure White Silkscreen)
                 </span>
@@ -342,9 +353,46 @@
       </div>
 
     </div>
-  </section>
+  
+      <!-- Hero Image Carousel: featured build -->
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 border-t border-paper-border/60">
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-6 mb-6">
+          <div>
+            <h3 class="text-xl font-serif font-semibold text-ink-primary" data-i18n="carousel_title">Featured Build &mdash; Rev A Production Units</h3>
+            <p class="text-sm text-ink-secondary mt-1 leading-relaxed" data-i18n="carousel_caption">
+              Matte black ENIG PCB with Van Gogh silkscreen, bottom-mounted SMD (30x HAL403SO, 4x TMUX1308, AO3401A), and
+              the ambidextrous dual trackpad headers.
+            </p>
+          </div>
+          <div class="flex gap-2" id="carouselDots"></div>
+        </div>
+        <div id="carouselWrapper" class="relative h-80 lg:h-96 rounded-3xl overflow-hidden border border-paper-border shadow-sm group cursor-pointer">
+          <div id="carouselTrack" class="flex h-full transition-transform duration-700 ease-in-out">
+            <div class="flex-shrink-0 w-full h-full bg-[#141414] flex items-center justify-center p-4">
+              <img src="assets/img/pcb_top_transparent.png" alt="PCB Rev A Top" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="flex-shrink-0 w-full h-full bg-[#141414] flex items-center justify-center p-4">
+              <img src="assets/img/pcb_iso.png" alt="PCB Rev A Isometric" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="flex-shrink-0 w-full h-full bg-white flex items-center justify-center p-4 border border-paper-border/50">
+              <img src="assets/img/switch_v5_exploded.png" alt="FloatForce Exploded" class="max-h-full max-w-full object-contain p-3">
+            </div>
+            <div class="flex-shrink-0 w-full h-full bg-white flex items-center justify-center p-4 border border-paper-border/50">
+              <img src="assets/img/switch_v5_assembled.png" alt="FloatForce Assembled" class="max-h-full max-w-full object-contain p-3">
+            </div>
+            <div class="flex-shrink-0 w-full h-full bg-white flex items-center justify-center p-4 border border-paper-border/50">
+              <img src="assets/img/keycaps_wasd_v3_2.png" alt="Keycaps V3.2 WASD" class="max-h-full max-w-full object-contain p-3">
+            </div>
+            <div class="flex-shrink-0 w-full h-full bg-paper-surface flex items-center justify-center p-4">
+              <img src="assets/img/real_macropad_16key_perspective.jpg" alt="16-Key Macropad" class="max-h-full max-w-full object-cover">
+            </div>
+          </div>
+          <button onclick="carouselPrev()" class="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/70 backdrop-blur text-ink-primary hover:bg-white shadow-md transition-all flex items-center justify-center text-xl font-serif">&lsaquo;</button>
+          <button onclick="carouselNext()" class="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/70 backdrop-blur text-ink-primary hover:bg-white shadow-md transition-all flex items-center justify-center text-xl font-serif">&rsaquo;</button>
+        </div>
+      </div>
 
-  <!-- ================================================================= -->
+      </section>  <!-- ================================================================= -->
   <!-- 02 · LIKE VAN GOGH’S DRAWBRIDGE: SPLIT & TENTING ERGONOMICS       -->
   <!-- ================================================================= -->
   <section id="tenting-section" class="py-24 border-b border-paper-border bg-paper-base">
@@ -990,7 +1038,7 @@
             <div class="aspect-[4/3] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center cursor-pointer group border border-white/5" onclick="openModal('assets/img/pcb_top_transparent.png', 'PCB Rev A Top View — Matte Black with Van Gogh Langlois Bridge Silkscreen & Gold ENIG')">
               <img src="assets/img/pcb_top_transparent.png" alt="PCB Rev A Top View Van Gogh Silkscreen" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500 filter drop-shadow-md">
             </div>
-            <div class="mt-3 px-1 text-xs text-ink-secondary text-center font-mono text-[11px]">
+            <div class="mt-3 px-1 text-xs text-ink-secondary text-center font-mono text-xs">
               PCB Rev A &mdash; Matte Black + Pure White Silk + Gold ENIG
             </div>
           </div>
@@ -1001,395 +1049,6 @@
     </div>
   </section>
 
-
-  <!-- ================================================================= -->
-  <!-- 07 · HARDWARE REV B: VERTICAL INTEGRATION                         -->
-  <!-- ================================================================= -->
-  <section id="roadmap" class="py-24 border-b border-paper-border bg-paper-surface/40">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      
-      <div class="max-w-3xl mb-16">
-        <span class="text-xs font-mono uppercase tracking-widest text-accent-sage font-semibold" data-i18n="roadmap_eyebrow">Architecture Roadmap</span>
-        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2" data-i18n="roadmap_title">Hardware Rev B: True Vertical Integration</h2>
-        <p class="text-base text-ink-secondary mt-3 leading-relaxed" data-i18n="roadmap_desc">
-          Rev A validated the analog front-end and physical mechanics. Rev B eliminates prototyping compromises through full vertical miniaturization:
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        
-        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-2">
-          <div class="text-accent-terracotta font-mono font-semibold text-xs">01 &bull; ON-PCB TOUCHPAD</div>
-          <h3 class="text-lg font-serif font-semibold text-ink-primary">Custom Capacitive Trackpad Copper Grid</h3>
-          <p class="text-sm text-ink-secondary leading-relaxed">
-            Instead of buying off-the-shelf breakout modules, Rev B etches the capacitive X/Y sensor electrode grid directly into our PCB copper layers, soldering only the raw Azoteq controller IC in JLCPCB.
-          </p>
-        </div>
-
-        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-2">
-          <div class="text-accent-sage font-mono font-semibold text-xs">02 &bull; ASYMMETRIC ERGONOMICS</div>
-          <h3 class="text-lg font-serif font-semibold text-ink-primary">Dedicated Left &amp; Right PCBs</h3>
-          <p class="text-sm text-ink-secondary leading-relaxed">
-            Moving beyond the reversible ambidextrous compromise used in Rev A (which minimized early prototyping costs) to dedicated asymmetric Left and Right PCB layouts with perfected thumb cluster sweeps.
-          </p>
-        </div>
-
-        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-2">
-          <div class="text-accent-ochre font-mono font-semibold text-xs">03 &bull; BARE-METAL MCU</div>
-          <h3 class="text-lg font-serif font-semibold text-ink-primary">On-Board Bare-Metal nRF52840 SoC</h3>
-          <p class="text-sm text-ink-secondary leading-relaxed">
-            Transitioning from the SuperMini daughterboard module to mounting the bare nRF52840 SoC, crystal network, and ceramic antenna directly onto the main keyboard PCB.
-          </p>
-        </div>
-
-        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-2">
-          <div class="text-ink-primary font-mono font-semibold text-xs">04 &bull; BATTERY OPTIMIZATION</div>
-          <h3 class="text-lg font-serif font-semibold text-ink-primary">Synchronized Sensor Power Gating</h3>
-          <p class="text-sm text-ink-secondary leading-relaxed">
-            Strobing the analog sensor rail (3V3_A) for ~20 µs during conversion drops active sensing draw below 1.5 mA, unlocking multi-week shelf life with under 20 µA deep sleep.
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ================================================================= -->
-  <!-- 08 · PHYSICAL VALIDATION: ¿WHAT'S ACTUALLY REAL?                 -->
-  <!-- ================================================================= -->
-  <section id="real-life" class="py-24 border-b border-paper-border bg-paper-surface/40">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      
-      <!-- Section Header -->
-      <div class="max-w-3xl mb-14">
-        <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold" data-i18n="real_eyebrow">Physical Proof &bull; Working Hardware</span>
-        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2" data-i18n="real_title">
-          &iquest;What&rsquo;s actually real?
-        </h2>
-        <p class="text-base sm:text-lg text-ink-secondary mt-3 leading-relaxed font-light" data-i18n="real_desc">
-          FloatForce was not conceived in pure theory or ungrounded CAD software. Over months of hands-on physical prototyping in Mexico, every kinematic dimension, magnetic gap, and analog sensor response was tested by hand. Below is the unvarnished physical laboratory proof: working prototypes, live switch actuation, and the 16-key macropad that proves this technology works in the real world.
-        </p>
-      </div>
-
-      <!-- Feature Card 01: The 16-Key Functional Macropad -->
-      <div class="rounded-3xl bg-paper-surface border border-paper-border p-6 sm:p-8 mb-12 shadow-sm">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          
-          <!-- Left: Macropad Video Player (Autoplay, Loop, Muted) -->
-          <div class="lg:col-span-7">
-            <div class="rounded-2xl overflow-hidden bg-black/80 border border-paper-border shadow-lg relative aspect-[16/10] sm:aspect-[16/9] flex items-center justify-center">
-              <video src="assets/video/macropad_16key_demo.mp4" class="w-full h-full object-cover" autoplay loop muted playsinline preload="metadata">
-                Your browser does not support the video tag.
-              </video>
-              <div class="absolute top-3 left-3 flex items-center gap-2">
-                <span class="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur text-[11px] font-mono text-white/90 border border-white/10 flex items-center gap-1.5">
-                  <span class="w-1.5 h-1.5 rounded-full bg-accent-sage animate-pulse"></span>
-                  <span data-i18n="real_video_badge_1">Live Physical Macropad</span>
-                </span>
-              </div>
-              <div class="absolute bottom-3 right-3 pointer-events-none">
-                <span class="px-2 py-0.5 rounded bg-black/60 backdrop-blur text-[10px] font-mono text-white/70">
-                  Continuous Analog Demo &bull; No Audio &bull; Loop
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right: Deep Narrative Explanation -->
-          <div class="lg:col-span-5 space-y-4">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-terracotta-soft border border-accent-terracotta/20 text-accent-terracotta text-xs font-mono font-medium">
-              <span class="w-2 h-2 rounded-full bg-accent-terracotta"></span>
-              <span data-i18n="real_macropad_badge">Master Proof of Concept</span>
-            </div>
-            
-            <h3 class="text-xl sm:text-2xl font-serif text-ink-primary font-semibold" data-i18n="real_macropad_title">
-              The 16-Key Functional Macropad: Proving FloatForce in the Real World
-            </h3>
-
-            <p class="text-sm text-ink-secondary leading-relaxed" data-i18n="real_macropad_desc_1">
-              Before committing personal savings to full PCB manufacturing, we hand-built this 16-key functional macropad to physically validate switch travel, keycap retention, and magnetic repulsion. Working keys confirmed that the 3-magnet repulsive suspension produces smooth vertical travel without spring wear or mechanical binding.
-            </p>
-
-            <p class="text-sm text-ink-secondary leading-relaxed" data-i18n="real_macropad_desc_2">
-              Crucially, this physical prototype exposed real analog engineering challenges: hand-wired lines and protoboards suffered from stray parasitic capacitance, line-to-line crosstalk, and signal drift due to missing per-sensor decoupling capacitors. These exact bench lessons directly drove the architecture of PCB Rev A—incorporating dedicated 100 nF bypass caps at every HAL403SO, a dual-bank TMUX1308 multiplexer split that slashes bus capacitance by 34%, and unbroken ground planes.
-            </p>
-
-            <!-- Technical Verification Badges -->
-            <div class="pt-3 border-t border-paper-border/80 flex flex-wrap gap-2 text-xs font-mono text-ink-muted">
-              <span class="px-2.5 py-1 rounded-lg bg-paper-card border border-paper-border text-ink-primary font-medium">16 Working Switches</span>
-              <span class="px-2.5 py-1 rounded-lg bg-paper-card border border-paper-border text-accent-terracotta font-medium">Continuous Hall Sensing</span>
-              <span class="px-2.5 py-1 rounded-lg bg-paper-card border border-paper-border text-accent-sage font-medium">Multiplexed ADC</span>
-              <span class="px-2.5 py-1 rounded-lg bg-paper-card border border-paper-border text-ink-primary font-medium">Zero Metal Springs</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Secondary Video Row: Switch Physical Actuation Loops -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-14">
-        
-        <!-- Video 02: Tactile Travel & Levitation -->
-        <div class="rounded-3xl bg-paper-surface border border-paper-border p-6 shadow-sm flex flex-col justify-between space-y-4">
-          <div class="rounded-2xl overflow-hidden bg-black/80 border border-paper-border relative aspect-[9/14] sm:aspect-[4/5] flex items-center justify-center">
-            <video src="assets/video/switch_physical_action_1.mp4" class="w-full h-full object-cover" autoplay loop muted playsinline preload="metadata">
-              Your browser does not support the video tag.
-            </video>
-            <div class="absolute top-3 left-3">
-              <span class="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur text-[11px] font-mono text-white/90 border border-white/10">
-                Switch Kinematics &bull; Physical Stroke
-              </span>
-            </div>
-          </div>
-          <div>
-            <h4 class="text-lg font-serif font-semibold text-ink-primary" data-i18n="real_switch_title_1">
-              Zero-Friction Magnetic Levitation
-            </h4>
-            <p class="text-xs sm:text-sm text-ink-secondary mt-1.5 leading-relaxed" data-i18n="real_switch_desc_1">
-              Close-up physical test of the 3-magnet repulsive suspension. Watch how the stem glides vertically with zero metallic friction, spring crunch, or binding, producing a naturally smooth, progressive force curve.
-            </p>
-          </div>
-        </div>
-
-        <!-- Video 03: Magnetic Snap & Return -->
-        <div class="rounded-3xl bg-paper-surface border border-paper-border p-6 shadow-sm flex flex-col justify-between space-y-4">
-          <div class="rounded-2xl overflow-hidden bg-black/80 border border-paper-border relative aspect-[9/14] sm:aspect-[4/5] flex items-center justify-center">
-            <video src="assets/video/switch_physical_action_2.mp4" class="w-full h-full object-cover" autoplay loop muted playsinline preload="metadata">
-              Your browser does not support the video tag.
-            </video>
-            <div class="absolute top-3 left-3">
-              <span class="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur text-[11px] font-mono text-white/90 border border-white/10">
-                Snap Reset &bull; High-Speed Return
-              </span>
-            </div>
-          </div>
-          <div>
-            <h4 class="text-lg font-serif font-semibold text-ink-primary" data-i18n="real_switch_title_2">
-              Instant Snap Return &amp; Tactile Stability
-            </h4>
-            <p class="text-xs sm:text-sm text-ink-secondary mt-1.5 leading-relaxed" data-i18n="real_switch_desc_2">
-              Demonstrating the rapid magnetic snap upon release. The magnetic field naturally accelerates the stem back to its home position, ensuring instantaneous key resets with zero mechanical rebound chatter.
-            </p>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Laboratory Bench Gallery Grid -->
-      <div>
-        <div class="flex items-center justify-between mb-6">
-          <h3 class="text-xl sm:text-2xl font-serif text-ink-primary font-semibold" data-i18n="real_gallery_title">
-            Laboratory Bench &amp; Physical Assembly Log
-          </h3>
-          <span class="text-xs font-mono text-ink-muted">4 Archived Photos</span>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          
-          <!-- Photo 1: Macropad Perspective -->
-          <div class="rounded-2xl bg-paper-surface border border-paper-border p-3 shadow-sm group">
-            <div class="rounded-xl overflow-hidden bg-paper-card aspect-square border border-paper-border relative mb-3">
-              <img src="assets/img/real/real_macropad_16key_perspective.jpg" alt="16-key macropad functional prototype" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
-            </div>
-            <h5 class="text-sm font-serif font-medium text-ink-primary" data-i18n="real_g1_title">16-Key Assembled Bed</h5>
-            <p class="text-xs text-ink-secondary mt-1 leading-normal" data-i18n="real_g1_desc">
-              Functional prototype validating plate stability, switch retention, and keycap ergonomics under typing load.
-            </p>
-          </div>
-
-          <!-- Photo 2: Macropad Top View -->
-          <div class="rounded-2xl bg-paper-surface border border-paper-border p-3 shadow-sm group">
-            <div class="rounded-xl overflow-hidden bg-paper-card aspect-square border border-paper-border relative mb-3">
-              <img src="assets/img/real/real_macropad_16key_top.jpg" alt="16-key macropad top view" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
-            </div>
-            <h5 class="text-sm font-serif font-medium text-ink-primary" data-i18n="real_g2_title">Ergonomic 18 &times; 17 mm Pitch</h5>
-            <p class="text-xs text-ink-secondary mt-1 leading-normal" data-i18n="real_g2_desc">
-              Compact Choc-spaced grid reducing finger travel distance while maintaining complete magnetic isolation between adjacent sensors.
-            </p>
-          </div>
-
-          <!-- Photo 3: Protoboard Sensors Wiring -->
-          <div class="rounded-2xl bg-paper-surface border border-paper-border p-3 shadow-sm group">
-            <div class="rounded-xl overflow-hidden bg-paper-card aspect-square border border-paper-border relative mb-3">
-              <img src="assets/img/real/real_protoboard_sensors_wiring.jpg" alt="Protoboard sensor validation matrix" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
-            </div>
-            <h5 class="text-sm font-serif font-medium text-ink-primary" data-i18n="real_g3_title">Analog Sensor Array Rig</h5>
-            <p class="text-xs text-ink-secondary mt-1 leading-normal" data-i18n="real_g3_desc">
-              Hand-soldered Hall sensor matrix validating settling times, decoupling capacitors, and ADC noise floor.
-            </p>
-          </div>
-
-          <!-- Photo 4: 3D Switch Housing & Magnets -->
-          <div class="rounded-2xl bg-paper-surface border border-paper-border p-3 shadow-sm group">
-            <div class="rounded-xl overflow-hidden bg-paper-card aspect-square border border-paper-border relative mb-3">
-              <img src="assets/img/real/real_3d_switch_housing_magnets.jpg" alt="3D printed switch housing and magnet sockets" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
-            </div>
-            <h5 class="text-sm font-serif font-medium text-ink-primary" data-i18n="real_g4_title">FDM Monolithic U-Body</h5>
-            <p class="text-xs text-ink-secondary mt-1 leading-normal" data-i18n="real_g4_desc">
-              Calibrated press-fit neodymium magnet sockets with zero print supports on everyday desktop 3D printers.
-            </p>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ================================================================= -->
-  <!-- 09 · 1517 FUND MEDICI PITCH: $1,000 USD GRANT ALLOCATION          -->
-  <!-- ================================================================= -->
-  <section id="grant" class="py-24 border-b border-paper-border bg-paper-base">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      
-      <div class="sm:flex sm:items-end sm:justify-between mb-12">
-        <div>
-          <span class="text-xs font-mono uppercase tracking-widest text-accent-ochre font-semibold" data-i18n="grant_eyebrow">The Pitch</span>
-          <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2" data-i18n="grant_title">1517 Fund Medici Grant Allocation</h2>
-        </div>
-        <div class="text-xs font-mono text-ink-primary bg-accent-ochre-soft border border-accent-ochre/30 px-3.5 py-1.5 rounded-xl mt-2 sm:mt-0 font-medium">
-          Total Request: &#36;1,000.00 USD &bull; 100% Direct Product R&amp;D
-        </div>
-      </div>
-
-      <div class="p-8 rounded-3xl bg-paper-surface border border-paper-border mb-12 shadow-sm">
-        <h3 class="text-lg font-serif font-semibold text-ink-primary mb-3" data-i18n="grant_builder_title">The Autodidactic Builder Journey</h3>
-        <p class="text-base text-ink-secondary leading-relaxed font-light">
-          I am an independent maker based in Mexico. Outside of corporate labs, I have personally self-funded 100% of the initial research, 3D printing tolerance iterations, protoboard validation, and the first manufactured SMT production batch (Rev A) using my personal savings. By leveraging Artificial Intelligence for parametric CAD, magnetic physics simulation, and PCB design, I proved that a non-expert can architect complex physical hardware from first principles.
-        </p>
-        <p class="text-sm text-ink-secondary mt-4 leading-relaxed">
-          The &#36;1,000.00 USD Medici grant will sustain our research runway, fund the Rev B iteration with integrated interactivity, and expand open-source educational build guides for creators worldwide.
-        </p>
-      </div>
-
-      <!-- Itemized Budget Table -->
-      <div class="rounded-3xl bg-paper-card border border-paper-border overflow-hidden mb-12 shadow-sm">
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm">
-            <thead class="bg-paper-surface text-ink-secondary border-b border-paper-border text-xs font-medium">
-              <tr>
-                <th class="py-4 px-6">ITEM &amp; CATEGORY</th>
-                <th class="py-4 px-6">COST (USD)</th>
-                <th class="py-4 px-6">PURPOSE &amp; ENGINEERING IMPACT</th>
-                <th class="py-4 px-6">DELIVERABLE</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-paper-border text-ink-secondary">
-              <tr class="hover:bg-paper-surface/60 transition-colors">
-                <td class="py-4 px-6">
-                  <span class="font-semibold text-ink-primary">1. R&amp;D Seed Capital Recovery &amp; Continuity Runway</span>
-                  <div class="text-xs text-ink-muted mt-0.5">Re-investing personal savings spent on prototypes, early tooling &amp; first PCBA batch</div>
-                </td>
-                <td class="py-4 px-6 font-mono font-bold text-ink-primary text-sm">&#36;450.00</td>
-                <td class="py-4 px-6 text-xs text-ink-secondary">
-                  Replenishing project working capital to absorb physical testing iterations between Rev A and Rev B without stalling development momentum.
-                </td>
-                <td class="py-4 px-6 text-xs font-medium text-accent-sage">Rev A &rarr; Rev B Continuity Runway</td>
-              </tr>
-              <tr class="hover:bg-paper-surface/60 transition-colors">
-                <td class="py-4 px-6">
-                  <span class="font-semibold text-ink-primary">2. PCB Rev B Fabrication &amp; Interactivity Modules</span>
-                  <div class="text-xs text-ink-muted mt-0.5">JLCPCB Rev B run (Azoteq trackpad ICs, OLEDs, encoders, LiPo batteries &amp; N52 magnets)</div>
-                </td>
-                <td class="py-4 px-6 font-mono font-bold text-ink-primary text-sm">&#36;350.00</td>
-                <td class="py-4 px-6 text-xs text-ink-secondary">
-                  Direct cost of manufacturing the second PCB iteration, purchasing OLED displays, I2C touchpads, rotary encoders, LiPo batteries, and N52 magnets for 3 to 5 full units.
-                </td>
-                <td class="py-4 px-6 text-xs font-medium text-accent-sage">Rev B Complete Working Units</td>
-              </tr>
-              <tr class="hover:bg-paper-surface/60 transition-colors">
-                <td class="py-4 px-6">
-                  <span class="font-semibold text-ink-primary">3. Open-Source Ecosystem, 3D Printing Filaments &amp; Build Guides</span>
-                  <div class="text-xs text-ink-muted mt-0.5">Tenting stands, multilingual keycaps, step-by-step guides &amp; AI tutorials</div>
-                </td>
-                <td class="py-4 px-6 font-mono font-bold text-ink-primary text-sm">&#36;200.00</td>
-                <td class="py-4 px-6 text-xs text-ink-secondary">
-                  3D printing filaments to iterate ergonomic tenting stands, custom keycap sets, and open step-by-step build guides for AI-assisted hardware creation.
-                </td>
-                <td class="py-4 px-6 text-xs font-medium text-accent-sage">Open-Source Build Guides &amp; CAD</td>
-              </tr>
-              <tr class="bg-paper-surface font-semibold text-ink-primary">
-                <td class="py-4 px-6 text-accent-ochre">TOTAL GRANT ALLOCATION</td>
-                <td class="py-4 px-6 font-mono text-accent-ochre text-sm font-bold">&#36;1,000.00</td>
-                <td class="py-4 px-6 text-xs text-ink-muted" colspan="2">100% Direct Product R&amp;D &bull; 0% Overhead</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Roadmap Timeline -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
-        <div class="p-6 rounded-3xl bg-paper-card border border-paper-border shadow-sm">
-          <div class="text-accent-sage font-mono font-semibold text-xs mb-1">PHASE 1 (DONE)</div>
-          <div class="text-ink-primary font-serif font-semibold text-base">Protoboard Rig</div>
-          <p class="text-ink-secondary text-xs mt-1.5 leading-relaxed">15x sensors, CD74HC4067, Zephyr RTOS firmware v0.3.1 verified.</p>
-        </div>
-        <div class="p-6 rounded-3xl bg-paper-card border border-paper-border shadow-sm">
-          <div class="text-accent-terracotta font-mono font-semibold text-xs mb-1">PHASE 2 (CURRENT)</div>
-          <div class="text-ink-primary font-serif font-semibold text-base">PCB Rev A SMT</div>
-          <p class="text-ink-secondary text-xs mt-1.5 leading-relaxed">Matte Black board with Van Gogh art sent to JLCPCB SMT production.</p>
-        </div>
-        <div class="p-6 rounded-3xl bg-paper-card border border-paper-border shadow-sm">
-          <div class="text-accent-ochre font-mono font-semibold text-xs mb-1">PHASE 3 (MEDICI)</div>
-          <div class="text-ink-primary font-serif font-semibold text-base">Rev B Vertical Integration</div>
-          <p class="text-ink-secondary text-xs mt-1.5 leading-relaxed">On-PCB Azoteq trackpad, dedicated L/R boards, and sensor power gating.</p>
-        </div>
-        <div class="p-6 rounded-3xl bg-paper-card border border-paper-border shadow-sm">
-          <div class="text-ink-primary font-mono font-semibold text-xs mb-1">PHASE 4 (NEXT)</div>
-          <div class="text-ink-primary font-serif font-semibold text-base">The Prusa Model</div>
-          <p class="text-ink-secondary text-xs mt-1.5 leading-relaxed">Founding an open-source hardware peripherals company in Mexico.</p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ================================================================= -->
-  <!-- 09 · EPILOGUE: BEYOND THE KEYBOARD (FUTURE HCI)                   -->
-  <!-- ================================================================= -->
-  <section id="hci" class="py-24 border-b border-paper-border bg-paper-surface/50">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      
-      <div class="max-w-3xl mb-16">
-        <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold">Future HCI</span>
-        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2">Beyond the Keyboard: The Future of Human Interaction</h2>
-        <p class="text-base text-ink-secondary mt-3 leading-relaxed">
-          This keyboard is only the first chapter. Our broader vision reimagines how humans interact with machines through three foundational vectors:
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        
-        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-3">
-          <div class="text-xs font-mono uppercase text-accent-terracotta font-semibold">Vector 01</div>
-          <h3 class="text-xl font-serif font-semibold text-ink-primary">Frictionless Analog Mice</h3>
-          <p class="text-sm text-ink-secondary leading-relaxed">
-            Applying FloatForce magnetic sensing to ergonomic mice. Continuous pressure-sensitive analog scrolling and frictionless switch actuation without microswitch mechanical failure or contact bounce.
-          </p>
-        </div>
-
-        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-3">
-          <div class="text-xs font-mono uppercase text-accent-sage font-semibold">Vector 02</div>
-          <h3 class="text-xl font-serif font-semibold text-ink-primary">Spatial Bezel-Tracking Eye Glasses</h3>
-          <p class="text-sm text-ink-secondary leading-relaxed">
-            Lightweight glasses that track pupil gaze while outward miniature sensors detect physical monitor bezels, mapping natural gaze coordinates seamlessly across multi-screen setups without head turns.
-          </p>
-        </div>
-
-        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-3">
-          <div class="text-xs font-mono uppercase text-accent-ochre font-semibold">Vector 03</div>
-          <h3 class="text-xl font-serif font-semibold text-ink-primary">Bio-Subtle Micro Interfaces</h3>
-          <p class="text-sm text-ink-secondary leading-relaxed">
-            Exploring minimal-effort biological input (such as ear-canal pressure or micro-facial twitch sensing) to provide effortless, hands-free computing for accessibility and ambient workflows.
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
 
   <!-- ================================================================= -->
   <!-- 10 · CURATED ASSET GALLERY: HIGH-RES HARDWARE & SCHEMATICS        -->
@@ -1552,6 +1211,399 @@
           </div>
 
         </div>
+    </div>
+  </section>
+
+  <!-- ================================================================= -->
+  <!-- 08 · PHYSICAL VALIDATION: ¿WHAT'S ACTUALLY REAL?                 -->
+  <!-- ================================================================= -->
+  <section id="real-life" class="py-24 border-b border-paper-border bg-paper-surface/40">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="max-w-3xl mb-14">
+        <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold" data-i18n="real_eyebrow">Physical Proof &bull; Working Hardware</span>
+        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2" data-i18n="real_title">
+          &iquest;What&rsquo;s actually real?
+        </h2>
+        <p class="text-base sm:text-lg text-ink-secondary mt-3 leading-relaxed font-light" data-i18n="real_desc">
+          FloatForce was not conceived in pure theory or ungrounded CAD software. Over months of hands-on physical prototyping in Mexico, every kinematic dimension, magnetic gap, and analog sensor response was tested by hand. Below is the unvarnished physical laboratory proof: working prototypes, live switch actuation, and the 16-key macropad that proves this technology works in the real world.
+        </p>
+      </div>
+
+      <!-- Feature Card 01: The 16-Key Functional Macropad -->
+      <div class="rounded-3xl bg-paper-surface border border-paper-border p-6 sm:p-8 mb-12 shadow-sm">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          <!-- Left: Macropad Video Player (Autoplay, Loop, Muted) -->
+          <div class="lg:col-span-7">
+            <div class="rounded-2xl overflow-hidden bg-black/80 border border-paper-border shadow-lg relative aspect-[16/10] sm:aspect-[16/9] flex items-center justify-center">
+              <video src="assets/video/macropad_16key_demo.mp4" poster="assets/img/real/real_macropad_16key_perspective.jpg" class="w-full h-full object-cover" autoplay loop muted playsinline preload="metadata">
+                Your browser does not support the video tag.
+              </video>
+              <div class="absolute top-3 left-3 flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur text-xs font-mono text-white/90 border border-white/10 flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-accent-sage animate-pulse"></span>
+                  <span data-i18n="real_video_badge_1">Live Physical Macropad</span>
+                </span>
+              </div>
+              <div class="absolute bottom-3 right-3 pointer-events-none">
+                <span class="px-2 py-0.5 rounded bg-black/60 backdrop-blur text-[10px] font-mono text-white/70">
+                  Continuous Analog Demo &bull; No Audio &bull; Loop
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Deep Narrative Explanation -->
+          <div class="lg:col-span-5 space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-terracotta-soft border border-accent-terracotta/20 text-accent-terracotta text-xs font-mono font-medium">
+              <span class="w-2 h-2 rounded-full bg-accent-terracotta"></span>
+              <span data-i18n="real_macropad_badge">Master Proof of Concept</span>
+            </div>
+            
+            <h3 class="text-xl sm:text-2xl font-serif text-ink-primary font-semibold" data-i18n="real_macropad_title">
+              The 16-Key Functional Macropad: Proving FloatForce in the Real World
+            </h3>
+
+            <p class="text-sm text-ink-secondary leading-relaxed" data-i18n="real_macropad_desc_1">
+              Before committing personal savings to full PCB manufacturing, we hand-built this 16-key functional macropad to physically validate switch travel, keycap retention, and magnetic repulsion. Working keys confirmed that the 3-magnet repulsive suspension produces smooth vertical travel without spring wear or mechanical binding.
+            </p>
+
+            <p class="text-sm text-ink-secondary leading-relaxed" data-i18n="real_macropad_desc_2">
+              Crucially, this physical prototype exposed real analog engineering challenges: hand-wired lines and protoboards suffered from stray parasitic capacitance, line-to-line crosstalk, and signal drift due to missing per-sensor decoupling capacitors. These exact bench lessons directly drove the architecture of PCB Rev A—incorporating dedicated 100 nF bypass caps at every HAL403SO, a dual-bank TMUX1308 multiplexer split that slashes bus capacitance by 34%, and unbroken ground planes.
+            </p>
+
+            <!-- Technical Verification Badges -->
+            <div class="pt-3 border-t border-paper-border/80 flex flex-wrap gap-2 text-xs font-mono text-ink-muted">
+              <span class="px-2.5 py-1 rounded-lg bg-paper-card border border-paper-border text-ink-primary font-medium">16 Working Switches</span>
+              <span class="px-2.5 py-1 rounded-lg bg-paper-card border border-paper-border text-accent-terracotta font-medium">Continuous Hall Sensing</span>
+              <span class="px-2.5 py-1 rounded-lg bg-paper-card border border-paper-border text-accent-sage font-medium">Multiplexed ADC</span>
+              <span class="px-2.5 py-1 rounded-lg bg-paper-card border border-paper-border text-ink-primary font-medium">Zero Metal Springs</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Secondary Video Row: Switch Physical Actuation Loops -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-14">
+        
+        <!-- Video 02: Tactile Travel & Levitation -->
+        <div class="rounded-3xl bg-paper-surface border border-paper-border p-6 shadow-sm flex flex-col justify-between space-y-4">
+          <div class="rounded-2xl overflow-hidden bg-black/80 border border-paper-border relative aspect-[9/14] sm:aspect-[4/5] flex items-center justify-center">
+            <video src="assets/video/switch_physical_action_1.mp4" poster="assets/img/switch_v5_section.png" class="w-full h-full object-cover" autoplay loop muted playsinline preload="metadata">
+              Your browser does not support the video tag.
+            </video>
+            <div class="absolute top-3 left-3">
+              <span class="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur text-xs font-mono text-white/90 border border-white/10">
+                Switch Kinematics &bull; Physical Stroke
+              </span>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-lg font-serif font-semibold text-ink-primary" data-i18n="real_switch_title_1">
+              Zero-Friction Magnetic Levitation
+            </h4>
+            <p class="text-xs sm:text-sm text-ink-secondary mt-1.5 leading-relaxed" data-i18n="real_switch_desc_1">
+              Close-up physical test of the 3-magnet repulsive suspension. Watch how the stem glides vertically with zero metallic friction, spring crunch, or binding, producing a naturally smooth, progressive force curve.
+            </p>
+          </div>
+        </div>
+
+        <!-- Video 03: Magnetic Snap & Return -->
+        <div class="rounded-3xl bg-paper-surface border border-paper-border p-6 shadow-sm flex flex-col justify-between space-y-4">
+          <div class="rounded-2xl overflow-hidden bg-black/80 border border-paper-border relative aspect-[9/14] sm:aspect-[4/5] flex items-center justify-center">
+            <video src="assets/video/switch_physical_action_2.mp4" poster="assets/img/switch_v5_exploded.png" class="w-full h-full object-cover" autoplay loop muted playsinline preload="metadata">
+              Your browser does not support the video tag.
+            </video>
+            <div class="absolute top-3 left-3">
+              <span class="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur text-xs font-mono text-white/90 border border-white/10">
+                Snap Reset &bull; High-Speed Return
+              </span>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-lg font-serif font-semibold text-ink-primary" data-i18n="real_switch_title_2">
+              Instant Snap Return &amp; Tactile Stability
+            </h4>
+            <p class="text-xs sm:text-sm text-ink-secondary mt-1.5 leading-relaxed" data-i18n="real_switch_desc_2">
+              Demonstrating the rapid magnetic snap upon release. The magnetic field naturally accelerates the stem back to its home position, ensuring instantaneous key resets with zero mechanical rebound chatter.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Laboratory Bench Gallery Grid -->
+      <div>
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-xl sm:text-2xl font-serif text-ink-primary font-semibold" data-i18n="real_gallery_title">
+            Laboratory Bench &amp; Physical Assembly Log
+          </h3>
+          <span class="text-xs font-mono text-ink-muted">4 Archived Photos</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Photo 1: Macropad Perspective -->
+          <div class="rounded-2xl bg-paper-surface border border-paper-border p-3 shadow-sm group">
+            <div class="rounded-xl overflow-hidden bg-paper-card aspect-square border border-paper-border relative mb-3">
+              <img src="assets/img/real/real_macropad_16key_perspective.jpg" alt="16-key macropad functional prototype" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            </div>
+            <h5 class="text-sm font-serif font-medium text-ink-primary" data-i18n="real_g1_title">16-Key Assembled Bed</h5>
+            <p class="text-xs text-ink-secondary mt-1 leading-normal" data-i18n="real_g1_desc">
+              Functional prototype validating plate stability, switch retention, and keycap ergonomics under typing load.
+            </p>
+          </div>
+
+          <!-- Photo 2: Macropad Top View -->
+          <div class="rounded-2xl bg-paper-surface border border-paper-border p-3 shadow-sm group">
+            <div class="rounded-xl overflow-hidden bg-paper-card aspect-square border border-paper-border relative mb-3">
+              <img src="assets/img/real/real_macropad_16key_top.jpg" alt="16-key macropad top view" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            </div>
+            <h5 class="text-sm font-serif font-medium text-ink-primary" data-i18n="real_g2_title">Ergonomic 18 &times; 17 mm Pitch</h5>
+            <p class="text-xs text-ink-secondary mt-1 leading-normal" data-i18n="real_g2_desc">
+              Compact Choc-spaced grid reducing finger travel distance while maintaining complete magnetic isolation between adjacent sensors.
+            </p>
+          </div>
+
+          <!-- Photo 3: Protoboard Sensors Wiring -->
+          <div class="rounded-2xl bg-paper-surface border border-paper-border p-3 shadow-sm group">
+            <div class="rounded-xl overflow-hidden bg-paper-card aspect-square border border-paper-border relative mb-3">
+              <img src="assets/img/real/real_protoboard_sensors_wiring.jpg" alt="Protoboard sensor validation matrix" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            </div>
+            <h5 class="text-sm font-serif font-medium text-ink-primary" data-i18n="real_g3_title">Analog Sensor Array Rig</h5>
+            <p class="text-xs text-ink-secondary mt-1 leading-normal" data-i18n="real_g3_desc">
+              Hand-soldered Hall sensor matrix validating settling times, decoupling capacitors, and ADC noise floor.
+            </p>
+          </div>
+
+          <!-- Photo 4: 3D Switch Housing & Magnets -->
+          <div class="rounded-2xl bg-paper-surface border border-paper-border p-3 shadow-sm group">
+            <div class="rounded-xl overflow-hidden bg-paper-card aspect-square border border-paper-border relative mb-3">
+              <img src="assets/img/real/real_3d_switch_housing_magnets.jpg" alt="3D printed switch housing and magnet sockets" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            </div>
+            <h5 class="text-sm font-serif font-medium text-ink-primary" data-i18n="real_g4_title">FDM Monolithic U-Body</h5>
+            <p class="text-xs text-ink-secondary mt-1 leading-normal" data-i18n="real_g4_desc">
+              Calibrated press-fit neodymium magnet sockets with zero print supports on everyday desktop 3D printers.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================= -->
+  <!-- 07 · HARDWARE REV B: VERTICAL INTEGRATION                         -->
+  <!-- ================================================================= -->
+  <section id="roadmap" class="py-24 border-b border-paper-border bg-paper-surface/40">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      
+      <div class="max-w-3xl mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-terracotta-soft text-accent-terracotta text-xs font-mono font-medium mb-6" data-i18n="roadmap_status">
+          <span class="w-2 h-2 rounded-full bg-accent-terracotta animate-pulse"></span>
+          Rev B not yet designed &mdash; grant direction only
+        </div>
+        <span class="text-xs font-mono uppercase tracking-widest text-accent-sage font-semibold" data-i18n="roadmap_eyebrow">Rev B Direction &mdash; Not Yet Designed</span>
+        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2" data-i18n="roadmap_title">Rev B: Medici Grant Direction (Exploratory)</h2>
+        <p class="text-base text-ink-secondary mt-3 leading-relaxed" data-i18n="roadmap_desc">
+          Rev A validated the analog front-end and physical mechanics. Rev B is a Medici grant direction &mdash; <strong class="text-ink-primary">it has not been designed yet</strong>. These are the exploration areas, not Rev A specs:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-2">
+          <div class="text-accent-terracotta font-mono font-semibold text-xs">01 &bull; ON-PCB TOUCHPAD</div>
+          <h3 class="text-lg font-serif font-semibold text-ink-primary">Custom Capacitive Trackpad Copper Grid</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
+            Explore etching the capacitive X/Y electrode grid directly into PCB copper, assembling only the raw Azoteq controller IC (breakout-free direction).
+          </p>
+        </div>
+
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-2">
+          <div class="text-accent-sage font-mono font-semibold text-xs">02 &bull; ASYMMETRIC ERGONOMICS</div>
+          <h3 class="text-lg font-serif font-semibold text-ink-primary">Dedicated Left &amp; Right PCBs</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
+            Explore dedicated asymmetric Left and Right PCBs with perfected thumb clusters, moving beyond Rev A's reversible ambidextrous compromise.
+          </p>
+        </div>
+
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-2">
+          <div class="text-accent-ochre font-mono font-semibold text-xs">03 &bull; BARE-METAL MCU</div>
+          <h3 class="text-lg font-serif font-semibold text-ink-primary">On-Board Bare-Metal nRF52840 SoC</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
+            Evaluate mounting the bare nRF52840 SoC, crystal network, and ceramic antenna on the main PCB (replacing the SuperMini daughterboard).
+          </p>
+        </div>
+
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-2">
+          <div class="text-ink-primary font-mono font-semibold text-xs">04 &bull; POWER EXPLORATION</div>
+          <h3 class="text-lg font-serif font-semibold text-ink-primary">Synchronized Sensor Power Gating</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
+            Explore gating the analog sensor rail (3V3_A) during SAADC conversion windows &mdash; targets of &lt; 1.5 mA avg active and &lt; 20 µA deep sleep are <strong class="text-accent-terracotta">objectives, not measured Rev A specs</strong>.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================= -->
+  <!-- 09 · 1517 FUND MEDICI PITCH: $1,000 USD GRANT ALLOCATION          -->
+  <!-- ================================================================= -->
+  <section id="grant" class="py-24 border-b border-paper-border bg-paper-base">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      
+      <div class="sm:flex sm:items-end sm:justify-between mb-12">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-widest text-accent-ochre font-semibold" data-i18n="grant_eyebrow">The Pitch</span>
+          <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2" data-i18n="grant_title">1517 Fund Medici Grant Allocation</h2>
+        </div>
+        <div class="text-xs font-mono text-ink-primary bg-accent-ochre-soft border border-accent-ochre/30 px-3.5 py-1.5 rounded-xl mt-2 sm:mt-0 font-medium">
+          Total Request: &#36;1,000.00 USD &bull; 100% Direct Product R&amp;D
+        </div>
+      </div>
+
+      <div class="p-8 rounded-3xl bg-paper-surface border border-paper-border mb-12 shadow-sm">
+        <h3 class="text-lg font-serif font-semibold text-ink-primary mb-3" data-i18n="grant_builder_title">The Autodidactic Builder Journey</h3>
+        <p class="text-base text-ink-secondary leading-relaxed font-light">
+          I am an independent maker based in Mexico. Outside of corporate labs, I have personally self-funded 100% of the initial research, 3D printing tolerance iterations, protoboard validation, and the first manufactured SMT production batch (Rev A) using my personal savings. By leveraging Artificial Intelligence for parametric CAD, magnetic physics simulation, and PCB design, I proved that a non-expert can architect complex physical hardware from first principles.
+        </p>
+        <p class="text-sm text-ink-secondary mt-4 leading-relaxed">
+          The &#36;1,000.00 USD Medici grant will sustain our research runway, fund the Rev B direction once it is designed, and expand open-source educational build guides for creators worldwide.
+        </p>
+      </div>
+
+      <!-- Itemized Budget Table -->
+      <div class="rounded-3xl bg-paper-card border border-paper-border overflow-hidden mb-12 shadow-sm">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-paper-surface text-ink-secondary border-b border-paper-border text-xs font-medium">
+              <tr>
+                <th class="py-4 px-6">ITEM &amp; CATEGORY</th>
+                <th class="py-4 px-6">COST (USD)</th>
+                <th class="py-4 px-6">PURPOSE &amp; ENGINEERING IMPACT</th>
+                <th class="py-4 px-6">DELIVERABLE</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-paper-border text-ink-secondary">
+              <tr class="hover:bg-paper-surface/60 transition-colors">
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-ink-primary">1. R&amp;D Seed Capital Recovery &amp; Continuity Runway</span>
+                  <div class="text-xs text-ink-muted mt-0.5">Re-investing personal savings spent on prototypes, early tooling &amp; first PCBA batch</div>
+                </td>
+                <td class="py-4 px-6 font-mono font-bold text-ink-primary text-sm">&#36;450.00</td>
+                <td class="py-4 px-6 text-xs text-ink-secondary">
+                  Replenishing project working capital to absorb physical testing iterations between Rev A and Rev B without stalling development momentum.
+                </td>
+                <td class="py-4 px-6 text-xs font-medium text-accent-sage">Rev A &rarr; Rev B Continuity Runway</td>
+              </tr>
+              <tr class="hover:bg-paper-surface/60 transition-colors">
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-ink-primary">2. Rev B Direction &amp; Interactivity Modules</span>
+                  <div class="text-xs text-ink-muted mt-0.5">Contingent on Rev B design: JLCPCB Rev B iteration, sensors, OLEDs, encoders, LiPos &amp; magnets</div>
+                </td>
+                <td class="py-4 px-6 font-mono font-bold text-ink-primary text-sm">&#36;350.00</td>
+                <td class="py-4 px-6 text-xs text-ink-secondary">
+                  Rev B has <strong>not been designed yet</strong>. If funded, targets a JLCPCB Rev B iteration (sensor power gating on `3V3_A`, battery divider, slide switch) plus parts for 3 to 5 working units.
+                </td>
+                <td class="py-4 px-6 text-xs font-medium text-accent-sage">Rev B Direction (to be designed)</td>
+              </tr>
+              <tr class="hover:bg-paper-surface/60 transition-colors">
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-ink-primary">3. Open-Source Ecosystem, 3D Printing Filaments &amp; Build Guides</span>
+                  <div class="text-xs text-ink-muted mt-0.5">Tenting stands, multilingual keycaps, step-by-step guides &amp; AI tutorials</div>
+                </td>
+                <td class="py-4 px-6 font-mono font-bold text-ink-primary text-sm">&#36;200.00</td>
+                <td class="py-4 px-6 text-xs text-ink-secondary">
+                  3D printing filaments to iterate ergonomic tenting stands, custom keycap sets, and open step-by-step build guides for AI-assisted hardware creation.
+                </td>
+                <td class="py-4 px-6 text-xs font-medium text-accent-sage">Open-Source Build Guides &amp; CAD</td>
+              </tr>
+              <tr class="bg-paper-surface font-semibold text-ink-primary">
+                <td class="py-4 px-6 text-accent-ochre">TOTAL GRANT ALLOCATION</td>
+                <td class="py-4 px-6 font-mono text-accent-ochre text-sm font-bold">&#36;1,000.00</td>
+                <td class="py-4 px-6 text-xs text-ink-muted" colspan="2">100% Direct Product R&amp;D &bull; 0% Overhead</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Roadmap Timeline -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+        <div class="p-6 rounded-3xl bg-paper-card border border-paper-border shadow-sm">
+          <div class="text-accent-sage font-mono font-semibold text-xs mb-1">PHASE 1 (DONE)</div>
+          <div class="text-ink-primary font-serif font-semibold text-base">Protoboard Rig</div>
+          <p class="text-ink-secondary text-xs mt-1.5 leading-relaxed">15x sensors, CD74HC4067, Zephyr RTOS firmware v0.3.1 verified.</p>
+        </div>
+        <div class="p-6 rounded-3xl bg-paper-card border border-paper-border shadow-sm">
+          <div class="text-accent-terracotta font-mono font-semibold text-xs mb-1">PHASE 2 (CURRENT)</div>
+          <div class="text-ink-primary font-serif font-semibold text-base">PCB Rev A SMT</div>
+          <p class="text-ink-secondary text-xs mt-1.5 leading-relaxed">Matte Black board with Van Gogh art sent to JLCPCB SMT production.</p>
+        </div>
+        <div class="p-6 rounded-3xl bg-paper-card border border-paper-border shadow-sm">
+          <div class="text-accent-ochre font-mono font-semibold text-xs mb-1">PHASE 3 (MEDICI &mdash; NOT DESIGNED)</div>
+          <div class="text-ink-primary font-serif font-semibold text-base">Rev B Direction</div>
+          <p class="text-ink-secondary text-xs mt-1.5 leading-relaxed">On-PCB Azoteq trackpad, dedicated L/R boards, and sensor power gating &mdash; grant direction only.</p>
+        </div>
+        <div class="p-6 rounded-3xl bg-paper-card border border-paper-border shadow-sm">
+          <div class="text-ink-primary font-mono font-semibold text-xs mb-1">PHASE 4 (NEXT)</div>
+          <div class="text-ink-primary font-serif font-semibold text-base">The Prusa Model</div>
+          <p class="text-ink-secondary text-xs mt-1.5 leading-relaxed">Founding an open-source hardware peripherals company in Mexico.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================= -->
+  <!-- 09 · EPILOGUE: BEYOND THE KEYBOARD (FUTURE HCI)                   -->
+  <!-- ================================================================= -->
+  <section id="hci" class="py-24 border-b border-paper-border bg-paper-surface/50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      
+      <div class="max-w-3xl mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold">Future HCI</span>
+        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2">Beyond the Keyboard: The Future of Human Interaction</h2>
+        <p class="text-base text-ink-secondary mt-3 leading-relaxed">
+          This keyboard is only the first chapter. Our broader vision reimagines how humans interact with machines through three foundational vectors:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-3">
+          <div class="text-xs font-mono uppercase text-accent-terracotta font-semibold">Vector 01</div>
+          <h3 class="text-xl font-serif font-semibold text-ink-primary">Frictionless Analog Mice</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
+            Applying FloatForce magnetic sensing to ergonomic mice. Continuous pressure-sensitive analog scrolling and frictionless switch actuation without microswitch mechanical failure or contact bounce.
+          </p>
+        </div>
+
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-3">
+          <div class="text-xs font-mono uppercase text-accent-sage font-semibold">Vector 02</div>
+          <h3 class="text-xl font-serif font-semibold text-ink-primary">Spatial Bezel-Tracking Eye Glasses</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
+            Lightweight glasses that track pupil gaze while outward miniature sensors detect physical monitor bezels, mapping natural gaze coordinates seamlessly across multi-screen setups without head turns.
+          </p>
+        </div>
+
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-3">
+          <div class="text-xs font-mono uppercase text-accent-ochre font-semibold">Vector 03</div>
+          <h3 class="text-xl font-serif font-semibold text-ink-primary">Bio-Subtle Micro Interfaces</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
+            Exploring minimal-effort biological input (such as ear-canal pressure or micro-facial twitch sensing) to provide effortless, hands-free computing for accessibility and ambient workflows.
+          </p>
+        </div>
+
+      </div>
+
     </div>
   </section>
 
@@ -2489,9 +2541,9 @@
         art_desc_1: "When ordering our PCB Rev A from JLCPCB, we chose Matte Black solder mask with Pure White silkscreen.",
         art_desc_2: "The vector art etched into the front copper and silkscreen is Van Gogh’s famous Langlois drawbridge in southern France. We chose this masterpiece because a bridge represents the quintessential union of structural civil engineering and profound human emotion—just as this keyboard bridges electronics with human expression.",
 
-        roadmap_eyebrow: "Architecture Roadmap",
-        roadmap_title: "Hardware Rev B: True Vertical Integration",
-        roadmap_desc: "Rev A validated the analog front-end and physical mechanics. Rev B eliminates prototyping compromises through full vertical miniaturization:",
+        roadmap_eyebrow: "Rev B Direction &mdash; Not Yet Designed",
+        roadmap_title: "Rev B: Medici Grant Direction (Exploratory)",
+        roadmap_desc: "Rev A validated the analog front-end and physical mechanics. Rev B is a Medici grant direction &mdash; it has not been designed yet. These are the exploration areas, not Rev A specs:",
 
         real_eyebrow: "Physical Proof • Working Hardware",
         real_title: "¿What’s actually real?",
@@ -2518,6 +2570,12 @@
         grant_eyebrow: "The Pitch",
         grant_title: "1517 Fund Medici Grant Allocation",
         grant_builder_title: "The Autodidactic Builder Journey",
+        roadmap_status: "Rev B not yet designed &mdash; grant direction only",
+
+        hero_status: "Rev A manufacturing complete &mdash; awaiting delivery to Mexico",
+        hero_status_txt: "Rev A manufacturing complete &bull; Awaiting delivery to Mexico for hands-on evaluation &amp; Rev B design",
+        carousel_title: "Featured Build &mdash; Rev A Production Units",
+        carousel_caption: "Matte black ENIG PCB with Van Gogh silkscreen, bottom-mounted SMD (30x HAL403SO, 4x TMUX1308, AO3401A), and ambidextrous dual trackpad headers.",
 
         gallery_eyebrow: "Open Engineering Archive",
         gallery_title: "Curated Asset Gallery"
@@ -2568,9 +2626,9 @@
         art_desc_1: "Al ordenar nuestra PCB Rev A en JLCPCB, elegimos máscara de soldadura Negro Mate con serigrafía Blanco Puro.",
         art_desc_2: "El arte vectorial grabado en el cobre frontal y la serigrafía es el famoso puente levadizo Langlois de Van Gogh en Arlés. Elegimos esta obra maestra porque un puente representa la unión perfecta entre la ingeniería estructural y la emoción humana, al igual que este teclado une la electrónica con la expresión.",
 
-        roadmap_eyebrow: "Hoja de Ruta de Arquitectura",
-        roadmap_title: "Hardware Rev B: Verdadera Integración Vertical",
-        roadmap_desc: "Rev A validó la etapa analógica y la mecánica física. Rev B elimina los compromisos del prototipo mediante una miniaturización vertical completa:",
+        roadmap_eyebrow: "Dirección Rev B &mdash; Aún no diseñada",
+        roadmap_title: "Rev B: Dirección Medici (exploratoria)",
+        roadmap_desc: "Rev A validó la etapa analógica y la mecánica física. Rev B es una dirección Medici &mdash; aún no está diseñada. Estas son áreas de exploración, no especificaciones de Rev A:",
 
         real_eyebrow: "Prueba Física • Hardware Funcional",
         real_title: "¿Qué es realmente real?",
@@ -2597,6 +2655,12 @@
         grant_eyebrow: "La Propuesta",
         grant_title: "Asignación de la Beca Medici de 1517 Fund",
         grant_builder_title: "La Trayectoria del Creador Autodidacta",
+        roadmap_status: "Rev B aún no diseñada &mdash; solo dirección de grant",
+
+        hero_status: "Rev A: manufactura completa &mdash; awaiting delivery to Mexico",
+        hero_status_txt: "Rev A: manufactura completa &bull; Esperando entrega en M&eacute;xico para evaluaci&oacute;n pr&aacute;ctica y dise&ntildeo del Rev B",
+        carousel_title: "Construcci&oacute;n Destacada &mdash; Unidades de Producci&oacute;n Rev A",
+        carousel_caption: "PCB Rev A en negro mate ENIG con serigraf&iacute;a de Van Gogh, SMD en cara inferior (30x HAL403SO, 4x TMUX1308, AO3401A) y cabeceras de trackpad ambidiestras dobles.",
 
         gallery_eyebrow: "Archivo de Ingeniería Abierto",
         gallery_title: "Galería de Recursos Seleccionados"
@@ -2647,9 +2711,9 @@
         art_desc_1: "Lors de la commande du circuit imprimé Rev A chez JLCPCB, nous avons choisi un vernis épargne Noir Mat et une sérigraphie Blanc Pur.",
         art_desc_2: "Le tracé vectoriel gravé sur la face avant représente le célèbre pont-levis de Langlois peint par Van Gogh à Arles. Nous avons choisi ce chef-d'œuvre car un pont incarne l'union entre génie civil et émotion humaine.",
 
-        roadmap_eyebrow: "Feuille de Route d'Architecture",
-        roadmap_title: "Matériel Rev B : Intégration Verticale Totale",
-        roadmap_desc: "La révision A a validé l'étage analogique et la mécanique. La révision B élimine les compromis grâce à une miniaturisation verticale complète :",
+        roadmap_eyebrow: "Direction Rev B &mdash; Pas encore conçue",
+        roadmap_title: "Rev B : Direction Medici (exploratoire)",
+        roadmap_desc: "La révision A a validé l'étage analogique et la mécanique. La révision B est une direction Medici &mdash; elle n'est pas encore conçue. Ce sont des domaines d'exploration, pas des spécifications de la révision A :",
 
         real_eyebrow: "Preuve Physique • Matériel Fonctionnel",
         real_title: "Qu'est-ce qui est réellement fait ?",
@@ -2676,6 +2740,12 @@
         grant_eyebrow: "La Proposition",
         grant_title: "Allocation de la Bourse Médicis du Fonds 1517",
         grant_builder_title: "Le Parcours d'un Créateur Autodidacte",
+        roadmap_status: "Rev B pas encore conçue &mdash; direction de grant uniquement",
+
+        hero_status: "Rev A fabriqu&eacute;e &mdash; en attente de livraison au Mexique",
+        hero_status_txt: "Rev A fabriqu&eacute;e &bull; En attente de livraison au Mexique pour &eacute;valuation pratique et conception Rev B",
+        carousel_title: "Construction en Vedette &mdash; Unit&e9s de Production Rev A",
+        carousel_caption: "PCB Rev A noir mat ENIG avec sérigraphie Van Gogh, SMD en face inférieure (30x HAL403SO, 4x TMUX1308, AO3401A), et doubles connecteurs de trackpad ambidextres.",
 
         gallery_eyebrow: "Archives d'Ingénierie Ouvertes",
         gallery_title: "Galerie de Ressources Sélectionnées"
@@ -2726,9 +2796,9 @@
         art_desc_1: "Für unsere PCB Rev A bei JLCPCB wählten wir mattschwarzen Lötstopplack mit reinweißem Siebdruck.",
         art_desc_2: "Das Vektorgemälde zeigt Van Goghs berühmte Zugbrücke von Langlois. Wir haben dieses Meisterwerk gewählt, weil eine Brücke die vollendete Verbindung von Ingenieurbau und menschlichem Empfinden darstellt.",
 
-        roadmap_eyebrow: "Architektur-Fahrplan",
-        roadmap_title: "Hardware Rev B: Vollständige Vertikale Integration",
-        roadmap_desc: "Rev A hat die analoge Erfassung und die Mechanik validiert. Rev B beseitigt Prototypen-Kompromisse durch vertikale Miniaturisierung:",
+        roadmap_eyebrow: "Rev B Richtung &mdash; Noch nicht gestaltet",
+        roadmap_title: "Rev B: Medici-Richtung (explorativ)",
+        roadmap_desc: "Rev A hat die analoge Erfassung und die Mechanik validiert. Rev B ist eine Medici-Richtung &mdash; sie ist noch nicht gestaltet. Dies sind Explorationsbereiche, keine Rev-A-Spezifikationen:",
 
         real_eyebrow: "Physischer Beweis • Funktionierende Hardware",
         real_title: "Was ist wirklich real?",
@@ -2755,6 +2825,12 @@
         grant_eyebrow: "Der Pitch",
         grant_title: "Verwendung des 1517 Fund Medici-Stipendiums",
         grant_builder_title: "Der Weg eines autodidaktischen Entwicklers",
+        roadmap_status: "Rev B noch nicht gestaltet &mdash; nur Medici-Richtung",
+
+        hero_status: "Rev A-Fertigstellung abgeschlossen &mdash; Auslieferung nach Mexiko steht aus",
+        hero_status_txt: "Rev A-Fertigstellung abgeschlossen &bull; Auslieferung nach Mexiko steht aus, dann Auswertung und Rev B-Design",
+        carousel_title: "Vorgestellter Build &mdash; Rev A-Produktionsunits",
+        carousel_caption: "Matte schwarze ENIG-PCB mit Van Gogh-Siebdruck, SMD auf der Unterseite (30x HAL403SO, 4x TMUX1308, AO3401A) und ambidextre Dual-Trackpad-Header.",
 
         gallery_eyebrow: "Offenes Engineering-Archiv",
         gallery_title: "Kuratierte Projektgalerie"
@@ -2809,5 +2885,48 @@
     }
   </script>
 
+
+<script>
+  (function(){
+    const track = document.getElementById('carouselTrack');
+    const dotsContainer = document.getElementById('carouselDots');
+    if(!track || !dotsContainer) return;
+    const n = track.children.length;
+    let idx = 0;
+    let timer = null;
+    function buildDots(){
+      dotsContainer.innerHTML='';
+      for(let i=0;i<n;i++){
+        const d=document.createElement('button');
+        d.className='w-2 h-2 rounded-full transition-all '+(i===0?'bg-accent-terracotta':'bg-paper-border/50 hover:bg-paper-border');
+        d.onclick=()=>goTo(i);
+        dotsContainer.appendChild(d);
+      }
+      updateDots();
+    }
+    function updateDots(){
+      [...dotsContainer.children].forEach((d,i)=>{
+        d.className='w-2 h-2 rounded-full transition-all '+(i===idx?'bg-accent-terracotta':'bg-paper-border/50 hover:bg-paper-border');
+      });
+    }
+    function goTo(i){
+      idx=((i%n)+n)%n;
+      track.style.transform='translateX(-'+(idx*100)+'%)';
+      updateDots();
+      resetTimer();
+    }
+    window.carouselNext=function(){goTo(idx+1);};
+    window.carouselPrev=function(){goTo(idx-1);};
+    function start(){timer=setInterval(()=>goTo(idx+1),4500);}
+    function resetTimer(){clearInterval(timer);start();}
+    const wrap=document.getElementById('carouselWrapper');
+    if(wrap){
+      wrap.addEventListener('mouseenter',()=>clearInterval(timer));
+      wrap.addEventListener('mouseleave',start);
+    }
+    buildDots();start();
+  })();
+</script>
 </body>
+
 </html>

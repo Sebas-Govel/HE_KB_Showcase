@@ -2,7 +2,7 @@
 **Project Pitch Documentation for 1517 Fund (Medici Project)**  
 *Author:* Sebastian Gonzalez V.  
 *Date:* November 2026  
-*Status:* Hardware Rev A in Fabrication & Assembly (JLCPCB) | Firmware v0.3.1 Validated | Rev B in Architecture  
+*Status:* Hardware Rev A in Fabrication & Assembly (JLCPCB) | Firmware v0.3.1 Validated | Rev B: Medici grant direction — not yet designed  
 
 ---
 
@@ -62,18 +62,19 @@ Traditional mechanical switches provide a single binary state (0 or 1) determine
 
 ---
 
-### 3.2 Power Management: Rev A Hardware vs Rev B Roadmap
+### 3.2 Power Management: Rev A Hardware vs Rev B Direction (Grant Objective)
 
 #### A. Rev A (Current Fabrication State — SMT Assembly at JLCPCB)
 - **Native SuperMini LiPo Charger:** The SuperMini nRF52840 integrates an onboard LiPo charger (TP4054/SGM4056 with dedicated `B+`/`B-` pads on the underside). Rev A relies directly on this native hardware without redundant silicon.
 - **LED Power Gating (Active in Hardware):** The 30 per-key + underglow reverse-mount SK6812MINI-E LEDs draw ~0.6 mA each in static idle even when displaying black (18–30 mA continuous loss). In Rev A, an **AO3401A P-channel MOSFET** ($R_{\text{DS(on)}} < 85\text{ m}\Omega$) switches the entire `3V3_LED` rail via GPIO `LED_EN` (`P0.08`). Quiescent drain on the LED rail drops to **0.00 µA** when off.
 - **Sensor Rail Reality:** The 30× HAL403SO sensors remain continuously energized on the clean analog rail (`3V3_A`) during operation, drawing **42 mA typ**. On a standard 500 mAh LiPo cell, Rev A delivers **~11–12 hours** of continuous active wireless operation. It is optimized for desk use, firmware validation, and short-duration wireless testing.
 
-#### B. Rev B Roadmap (Medici Project Grant Objective — Production Wireless)
-- **Synchronized Sensor Power Gating:** In Rev B, an ultra-fast high-side P-MOSFET / load switch is added to the sensor rail (`3V3_A`). Firmware strobes the sensors ON only during the ~20 µs SAADC sampling window of each multiplexer scan frame.
-- **Average Sensing Power:** Duty-cycling the 42 mA load drops average sensing current from 42 mA down to **< 1.5 mA**.
-- **True Deep Sleep Mode (< 20 µA):** Inactivity shuts down the analog sensor rail, dropping total system sleep current to **< 20 µA**, unlocking multi-week shelf standby.
-- **Hardware Enhancements:** Integrates a battery voltage divider to `AIN2` (`P0.04`) for battery percentage telemetry and a physical slide switch footprint to disconnect the LiPo during transit.
+#### B. Rev B Direction — Not Yet Designed (Medici Project Grant Objective)
+Rev B has **not been designed or prototyped**. The items below are grant-funded exploration targets; figures are unverified until Rev B exists:
+- **Synchronized Sensor Power Gating:** Explore adding a high-side P-MOSFET / load switch on `3V3_A`, strobing sensors ON only during each SAADC sampling window.
+- **Average Sensing Power Target:** Duty-cycling the 42 mA Rev A load targets **< 1.5 mA average** (objective, not measured).
+- **Deep Sleep Target:** Inactivity shutting off the analog sensor rail targets **< 20 µA** total sleep current (objective, not measured).
+- **Battery Telemetry Direction:** Battery voltage divider to `AIN2` (`P0.04`) and a physical slide switch footprint are Rev B considerations.
 
 ---
 
@@ -136,14 +137,14 @@ Traditional mechanical switches provide a single binary state (0 or 1) determine
 
 ---
 
-## 6. Hardware Roadmap Rev B: True Vertical Integration
+## 6. Rev B Direction — Medici Grant Objective (Not Yet Designed)
 
-Moving beyond the prototyping compromises of Rev A:
+Rev B has not been designed. These are the exploration areas targeted by the Medici grant, to be engineered only after Rev A bring-up:
 
-1. **Custom On-PCB Capacitive Trackpad (Azoteq IC):** Instead of using external breakout boards, Rev B directly etches the capacitive X/Y sensor electrode grid into the copper layers of the keyboard PCB, assembling only the raw Azoteq controller IC.
-2. **Dedicated Left & Right PCBs (Zero-Compromise Ergonomics):** Leaving behind the reversible ambidextrous PCB design from Rev A to create dedicated, perfected asymmetric boards tailored to each hand.
-3. **Bare-Metal nRF52840 SoC On-Board:** Evaluating moving from the SuperMini daughterboard to soldering the bare nRF52840 SoC, crystal network, and ceramic antenna directly on the main PCB.
-4. **Synchronized Sensor Power Gating:** Gating the `3V3_A` analog rail during scan bursts to achieve all-day wireless operation and sub-20 µA deep sleep.
+1. **Custom On-PCB Capacitive Trackpad (Azoteq IC):** Instead of breakout boards, etch the capacitive X/Y electrode grid into PCB copper and assemble only the raw Azoteq controller IC.
+2. **Dedicated Left & Right PCBs:** Move beyond Rev A's reversible ambidextrous compromise to asymmetric boards tailored to each hand.
+3. **Bare-Metal nRF52840 SoC On-Board:** Evaluate soldering the bare nRF52840 SoC, crystal network, and ceramic antenna directly on the main PCB (replacing the SuperMini daughterboard).
+4. **Synchronized Sensor Power Gating:** Explore gating `3V3_A` during scan bursts — targets of all-day wireless operation and sub-20 µA deep sleep are **objectives, not Rev A specs**.
 
 ---
 
@@ -184,4 +185,6 @@ The $1,000 USD Medici grant is deployed with strict cost discipline:
 ├──────────────────────────────────────┼─────────────┼────────────────────────┤
 │ TOTAL                                │  $1,000.00  │ 100% Direct Product R&D│
 └──────────────────────────────────────┴─────────────┴────────────────────────┘
+
+*Note: The $350.00 Rev B allocation is contingent on completing the Rev B design. Rev B is **not yet designed**; figures above are Rev A measured specs only.*
 ```

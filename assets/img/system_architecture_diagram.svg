@@ -63,12 +63,12 @@
     <text x="26" y="300" fill="#cbd5e1" font-size="9">I_load &#8776; 42 mA typ (1.4mA/ea)</text>
     <text x="26" y="316" fill="#94a3b8" font-size="9">~11-12h on 500mAh LiPo</text>
 
-    <!-- Sub-block: Rev B Sensor Strobe (Grant Goal) -->
+    <!-- Sub-block: Rev B Sensor Strobe (Grant Goal - NOT DESIGNED YET) -->
     <rect x="16" y="344" width="208" height="78" rx="6" fill="#0f172a" stroke="#8b5cf6" stroke-dasharray="2,2"/>
-    <text x="26" y="362" fill="#c084fc" font-size="11" font-weight="600">Rev B Goal: Sensor Strobe</text>
+    <text x="26" y="362" fill="#c084fc" font-size="11" font-weight="600">Rev B (not designed): Sensor Strobe</text>
     <text x="26" y="378" fill="#cbd5e1" font-size="9">Fast P-MOSFET on 3V3_A</text>
     <text x="26" y="392" fill="#94a3b8" font-size="9">Pulsed 20 &#181;s per scan burst</text>
-    <text x="26" y="406" fill="#34d399" font-size="9">Average current &lt; 1.5 mA</text>
+    <text x="26" y="406" fill="#94a3b8" font-size="9">Target &lt; 1.5 mA avg (objective)</text>
 
     <!-- Standby Metric Box -->
     <rect x="16" y="430" width="208" height="48" rx="6" fill="#111827" stroke="#374151"/>
@@ -181,7 +181,7 @@
     <rect x="16" y="380" width="258" height="65" rx="6" fill="#111827" stroke="#374151"/>
     <text x="26" y="398" fill="#94a3b8" font-size="9" font-weight="600">TRANSPORTS &amp; MONITORING</text>
     <text x="26" y="416" fill="#f8fafc" font-size="11" font-weight="600">Bluetooth LE 5.3 &#8226; USB HID</text>
-    <text x="26" y="432" fill="#38bdf8" font-size="9">Rev B: Slide Switch + V_BAT Div (AIN2)</text>
+    <text x="26" y="432" fill="#38bdf8" font-size="9">Rev B (not designed): Slide Switch + V_BAT Div (AIN2)</text>
   </g>
 
   <!-- CONNECTING ARROWS & LABELS -->
@@ -204,6 +204,6 @@
   <text x="420" y="512" fill="#f87171" font-size="9">Power Gating Control (LED_EN = P0.08)</text>
 
   <!-- Footer Tag -->
-  <text x="50" y="645" fill="#475569" font-size="11">1517 Fund &#8226; Medici Project Pitch Documentation &#8226; Rev A (Fabrication) &amp; Rev B Roadmap</text>
+  <text x="50" y="645" fill="#475569" font-size="11">1517 Fund &#8226; Medici Project Pitch Documentation &#8226; Rev A (Fabrication) &amp; Rev B Direction</text>
   <text x="1080" y="645" fill="#475569" font-size="11" text-anchor="end">Open-Source Engineering Spec</text>
 </svg>

@@ -56,22 +56,22 @@ The switch mechanism uses a springless **3-magnet repulsion/attraction suspensio
 | **Input Modality** | **Continuous Multimodal Analog** | Continuous pressure-sensitive MIDI expression per key, analog gamepad, adaptive typing |
 | **Switch Suspension** | **100% Springless FloatForce 3-Magnet Suspension** | 2.36 mm travel (+33%), smooth progressive curve, zero metal fatigue |
 | **Active Sensor Current** | **1.4 mA typ** (HAL403SO) | > 4.3× lower active power than legacy SS49E (6–9 mA) |
+| **30-Sensor Matrix (Rev A)** | **42 mA typ** continuous | ~11–12 h on a 500 mAh LiPo at continuous active wireless use |
 | **RGB Power Gating (Rev A)** | **0.00 µA Quiescent** (AO3401A Gated) | Cuts 18–30 mA of parasitic quiescent LED idle drain |
-| **Sensor Power (Rev A vs Rev B)** | **Rev A: 42 mA typ** &bull; **Rev B: < 1.5 mA avg** | Rev A provides ~11–12h on 500mAh; Rev B strobes sensors 20µs |
-| **Standby Current (Rev B)** | **< 20 µA Deep Sleep** | Enables multi-week shelf life via synchronized sensor gating |
-| **Battery Subsystem** | **SuperMini Native LiPo Charger (TP4054)** | Uses onboard charger (B+/B-); Rev B adds divider & slide switch |
+| **Rev B Power Targets** | **Not designed yet** (Medici grant objective) | Sensor strobing and deep sleep are Rev B targets, not Rev A specs |
+| **Battery Subsystem (Rev A)** | **SuperMini Native LiPo Charger (TP4054)** | Onboard B+/B- charger used directly; Rev B divider & switch are roadmap items |
 | **Analog MUX $R_{\text{on}}$** | **59 Ω typ** (TI TMUX1308PWR) | 40 ns delay, dual-bank SAADC reduces capacitance by 34% |
 | **ADC Noise Floor** | **< ±8 mV** (< 10 counts / 4096) | 50 µs settling + 4-sample moving average filter |
 | **Kinematic Collision** | **0.0000 mm³** | 21-step sweep verified; calibrated Bambu Lab A1 press-fits |
 
 ---
 
-## 🗺️ Rev B Vertical Integration Roadmap
-While Rev A validates the analog matrix and mechanical integration with a development breakout module, Rev B achieves complete commercial miniaturization:
-- **On-Board Bare-Metal nRF52840 SoC:** Replaces the development board module with a native SoC, crystal oscillators, and RF matching network on the primary PCB.
-- **Dedicated Left & Right Asymmetric PCBs:** Tailored routing for each hand, maximizing ergonomic geometry and reducing trace lengths.
-- **Custom On-PCB Capacitive Trackpad:** Integrating the Azoteq trackpad controller IC directly onto etched PCB copper electrodes, eliminating breakout daughterboards.
-- **Hardware Sensor Power Gating (`3V3_A`):** Low-leakage P-MOSFET strobes the 30 Hall sensors during 20 µs SAADC sampling windows, cutting average active draw to < 1.5 mA and enabling < 20 µA deep sleep.
+## 🗺️ Rev B Direction — Medici Grant Objective (Not Yet Designed)
+Rev A validates the analog matrix and mechanical integration. Rev B is a grant-funded direction for **after** Rev A bring-up; **it has not been designed or prototyped**, so the figures below are objectives, not measured specs:
+- **On-Board Bare-Metal nRF52840 SoC:** Replace the SuperMini daughterboard with a native SoC, crystal, and RF matching network on the primary PCB.
+- **Dedicated Left & Right Asymmetric PCBs:** Tailored routing per hand, moving beyond Rev A's reversible ambidextrous compromise.
+- **Custom On-PCB Capacitive Trackpad:** Etch the Azoteq X/Y electrode grid into PCB copper; assemble only the raw controller IC.
+- **Hardware Sensor Power Gating (`3V3_A`):** Explore strobing the 30 Hall sensors during SAADC sampling windows — targets < 1.5 mA avg active and < 20 µA deep sleep are **unverified until Rev B exists**.
 
 ---
 
@@ -84,11 +84,11 @@ The HE Keyboard is the foundation of an ambitious, long-term human interface vis
 ---
 
 ## 🎯 1517 Fund Medici Project — $1,000 USD Grant Allocation
-The $1,000 USD grant is allocated with full transparency to sustain development momentum, fund the next hardware spin, and expand open-source educational documentation:
+The $1,000 USD grant is allocated with full transparency to sustain development momentum and expand open-source educational documentation:
 
-- **$450.00 USD — R&D Seed Capital Recovery & Continuity Runway (Rev A -> Rev B):** Re-investing personal savings spent on prototypes, early tooling, and the first manufactured PCBA batch, replenishing working capital to absorb physical testing iterations without stalling momentum.
-- **$350.00 USD — PCB Rev B Fabrication & Interactivity Modules:** Direct fabrication of the Rev B PCB iteration in JLCPCB (Sensor Power Gating on `3V3_A`, battery divider, physical slide switch), plus purchasing OLED displays, I2C touchpads, rotary encoders, LiPo batteries, and N52 magnets for 3 to 5 full working units.
-- **$200.00 USD — Open-Source Ecosystem, Printing Materials & Build Guides:** 3D printing filaments to iterate ergonomic tenting stands, multilingual keycap testing, and open beginner-friendly build guides.
+- **$450.00 USD — R&D Seed Capital Recovery & Continuity Runway:** Re-investing personal savings spent on prototypes, early tooling, and the first manufactured PCBA batch (Rev A), replenishing working capital to absorb physical testing iterations without stalling momentum.
+- **$350.00 USD — Rev B Direction & Interactivity Modules (contingent on Rev B design):** Rev B has **not been designed yet**. If funded, this allocation targets a JLCPCB Rev B iteration (sensor power gating direction on `3V3_A`, battery divider, slide switch footprint) plus OLED displays, I2C touchpads, rotary encoders, LiPo batteries, and N52 magnets for 3 to 5 working units.
+- **$200.00 USD — Open-Source Ecosystem, Printing Materials & Build Guides:** 3D printing filaments for ergonomic tenting stands, multilingual keycap testing, and open beginner-friendly build guides.
 
 ---
 
