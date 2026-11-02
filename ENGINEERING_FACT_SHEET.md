@@ -1,8 +1,8 @@
-# Engineering Fact Sheet — Open-Source Hall Effect Keyboard (Rev A)
+# Engineering Fact Sheet — Open-Source Hall Effect Keyboard
 **Project Pitch Documentation for 1517 Fund (Medici Project)**  
 *Author:* Sebastian Gonzalez V.  
 *Date:* November 2026  
-*Status:* Hardware Rev A in Fabrication & Assembly (JLCPCB) | Firmware v0.3.1 Validated  
+*Status:* Hardware Rev A in Fabrication & Assembly (JLCPCB) | Firmware v0.3.1 Validated | Rev B in Architecture  
 
 ---
 
@@ -14,11 +14,12 @@ Commercial Hall Effect (magnetic) mechanical keyboards (e.g. Wooting, SteelSerie
 By combining:
 1. **Ultra-low power ratiometric Hall sensors** (HAL403SO, 1.4 mA typ vs ~6.5 mA legacy SS49E),
 2. **Dual-bank low-capacitance analog multiplexing** (4× TI TMUX1308 with 59 Ω $R_{\text{on}}$ and split SAADC routing),
-3. **Hard power gating** via low-$R_{\text{DS(on)}}$ P-MOSFET (AO3401A) that cuts parasitic RGB static idle drain,
-4. **Springless 3D-printed magnetic levitation switches** (Switch V5.0 U-Body with 3-magnet repulsive/attractive kinematics), and
-5. **Firmware-level cyclic settling and ratiometric cancellation** on the nRF52840 (Zephyr RTOS),
+3. **P-MOSFET Power Gating on the LED rail (Rev A)**: cutting parasitic RGB static idle drain,
+4. **Synchronized Sensor Strobing / Power Gating (Rev B Roadmap)**: strobing the analog sensor rail for ~20 µs during conversion to slash average sensing current below 1.5 mA and enable true < 20 µA sleep,
+5. **Springless 3D-printed magnetic levitation switches** (Switch V5.0 U-Body with 3-magnet repulsive/attractive kinematics), and
+6. **Firmware-level cyclic settling and ratiometric cancellation** on the nRF52840 (Zephyr RTOS),
 
-we achieve high-precision, sub-0.1 mm rapid trigger actuation with an active scan floor that enables true all-day wireless operation on a lightweight LiPo cell.
+we achieve high-precision, sub-0.1 mm rapid trigger actuation with an active scan floor that enables true wireless portable operation.
 
 ---
 
@@ -36,16 +37,22 @@ we achieve high-precision, sub-0.1 mm rapid trigger actuation with an active sca
 | **Linear Range** | ±650 Gauss | **±390 Gauss** | Matched to N52 magnet stroke geometry |
 | **Package / Mounting** | TO-92S (Through-hole / hand bent) | **SOT-23-3 (SMD)** | Machine-assembled on bottom copper (`B.Cu`) |
 
-### 2.2 Dynamic Power Gating & Star-Topology Rail Isolation
+---
 
-- **Star-Topology Power Rail Split at SuperMini VCC:**  
-  The 3.3 V regulated output of the SuperMini nRF52840 is divided into two physically separate branches:
-  1. `3V3_A` (Clean Analog Rail): Direct connection to the 30× HAL403SO sensors and 4× TMUX1308 multiplexers, heavily decoupled with local 100 nF ceramic capacitors at each switch (< 2 mm trace length).
-  2. `3V3_LED` (Switched Digital Rail): Isolated through an **AO3401A P-channel MOSFET** ($R_{\text{DS(on)}} < 85\text{ m}\Omega$ at $V_{\text{GS}} = -2.5\text{ V}$).
-- **Static Idle Elimination:**  
-  The 30 per-key + perimeter underglow SK6812MINI-E reverse-mount LEDs consume ~0.6 mA per chip in *static idle* even when displaying black. Over 50 LEDs, this represents **30 mA of parasitic drain**. The AO3401A gate is controlled by `LED_EN` (`P0.08`, active LOW with 100 kΩ pull-up); when deactivated, leakage is **< 1 µA**, enabling zero-drain stealth mode.
-- **Deep Sleep Consumption:**  
-  With sensors duty-cycled and LED rail gated, the nRF52840 deep standby current drops to **< 20 µA**.
+### 2.2 Power Gating Architecture: Rev A Reality vs Rev B Roadmap
+
+An honest and rigorous evaluation of power consumption reveals two distinct stages of development:
+
+#### A. Rev A (Current Fabrication State — SMT Assembly at JLCPCB)
+- **Native Battery Charging:** The SuperMini nRF52840 board integrates a native onboard LiPo charger (TP4054/SGM4056 with dedicated `B+`/`B-` pads on the bottom face). Rev A directly leverages this native charger without adding redundant charging silicon.
+- **LED Power Gating (Active in Hardware):** The 30 per-key + underglow reverse-mount SK6812MINI-E LEDs draw ~0.6 mA each in *static idle* even when displaying black (18–30 mA continuous parasitic loss). In Rev A, an **AO3401A P-channel MOSFET** ($R_{\text{DS(on)}} < 85\text{ m}\Omega$) switches the entire `3V3_LED` rail via GPIO `LED_EN` (`P0.08`). When LEDs are turned off, quiescent drain on the LED rail drops to **0.00 µA**.
+- **Sensor Rail Reality:** The 30× HAL403SO sensors remain continuously powered on the clean analog rail (`3V3_A`) during operation, drawing **42 mA typ**. On a standard 500 mAh LiPo battery, Rev A provides **~11–12 hours** of active wireless typing. It is primarily optimized for USB-C desktop use, firmware validation, and short-duration portable testing.
+
+#### B. Rev B (Medici Project Grant Objective — Production Wireless)
+- **Synchronized Sensor Power Gating:** In Rev B, an ultra-fast high-side P-MOSFET / load switch is added to the sensor rail (`3V3_A`). Instead of leaving sensors energized continuously, firmware strobes the sensors ON only during the ~20 µs SAADC sampling window of each multiplexer scan frame.
+- **Dramatically Slashed Sensing Power:** Duty-cycling the 42 mA load reduces the average sensing current from 42 mA down to **< 1.5 mA**.
+- **True Deep Sleep Mode (< 20 µA):** When the keyboard detects inactivity, the sensor rail is held OFF, the nRF52840 enters System ON low-power sleep, and quiescent draw drops to **< 20 µA**, extending wireless shelf standby to **several weeks**.
+- **Hardware Enhancements:** Integrates a battery voltage divider connected to `AIN2` (`P0.04`) for fuel gauge telemetry and a physical slide switch footprint to physically disconnect the LiPo cell during transport.
 
 ---
 
@@ -69,7 +76,7 @@ we achieve high-precision, sub-0.1 mm rapid trigger actuation with an active sca
 - **Switch Capacitance:** $C_{\text{D(OFF)}} = 37\text{ pF}$, $C_{\text{D(ON)}} = 40\text{ pF}$, pin capacitance 9–11 pF.
 - **Propagation Delay / Switching Speed:** $t_{\text{pd}} \sim 40\text{ ns}$ (transition time $t_{\text{TRAN}} \sim 25\text{ ns}$).
 - **Capacitance Reduction via Dual ADC Split:**  
-  By routing Bank A (`U1` + `U2`) to **AIN7 (P0.31)** and Bank B (`U3` + `U4`) to **AIN5 (P0.29)**, each ADC line sees only two multiplexer output nodes in parallel instead of four. This reduces bus parasitic capacitance from **160 pF down to ~80 pF (a 34% reduction)**, shortening $RC$ settling time from > 80 µs to < 20 µs.
+  Routing Bank A (`U1` + `U2`) to **AIN7 (P0.31)** and Bank B (`U3` + `U4`) to **AIN5 (P0.29)** isolates the two pairs. Each ADC node sees only two multiplexer output pins in parallel instead of four, cutting total line capacitance from **160 pF down to ~80 pF (a 34% reduction)** and lowering settling time to < 20 µs.
 - **Hardware Zero-Reference Autocalibration:**  
   Channels 7 of `U3` and `U4` are tied directly to analog `GND`. During every scan frame, the firmware samples these hard-ground channels to measure instantaneous SAADC offset, thermal drift, and reference sag in real time, automatically nulling baseline noise.
 
@@ -88,7 +95,7 @@ we achieve high-precision, sub-0.1 mm rapid trigger actuation with an active sca
 | **Floor Magnet ($S_1$)** | Ø4.00 × 1.50 mm (Socket: **Ø4.06 mm**) | Repels stem magnet; features Ø1.70 mm ejection pin |
 | **Top Bridge Magnet ($S_2$)** | Ø4.00 × 1.50 mm (Socket: **Ø4.16 mm**) | Attracts stem at rest; open dual-jaw cradle (≥0.84 mm walls) |
 | **Stem Magnet (Center)** | Ø4.00 × 1.50 mm (Socket: **Ø4.15 mm**) | Horizontal press-fit in stem center |
-| **Magnetic Barrier Thickness** | **0.45 mm / 0.50 mm** | Thinned from 0.65 mm: +25% magnetic spring force ($F \propto 1/d^4$) |
+| **Magnetic Barrier Thickness** | **0.45 mm / 0.50 mm** | Thinned from 0.65 mm: +25% to 35% magnetic spring force ($F \propto 1/d^4$) |
 | **Stem Guide Tolerance** | 0.10 mm/side ($Y$), 0.16 mm/side ($X$) | 45% reduction in stem wobble; bed-printed flat $-Y$ face |
 | **Static & Kinematic Collisions** | **0.0000 mm³** | Verified by 21-step CAD kinematic raycast sweep |
 
@@ -105,20 +112,16 @@ Empirically derived from iterative micrometer gauge blocks printed on a textured
 
 - **Geometry:** Centered spherical dish (Ø 10.60 mm, 0.70 mm depression, 1.90 mm ergonomic flat rim).
 - **4-Way Reinforced HE Socket:** Quad-buttress reinforced core (`HE_NorthButtress`, `HE_SouthButtress`, lateral ribs tied to skirt, 4 diagonal corner gussets) completely eliminates socket delamination during aggressive stem press-fit.
-- **MX Cross-Stem Compatibility:** Dual-profile socket supports both custom square HE stems and standard Cherry MX cross-stems (Ø 5.25 mm post OD, 1.38 × 1.48 mm cruciform slots with 0.35 mm lead chamfer).
 - **Support-Free Printability:** Pre-angled at $-62^\circ$ with integrated non-removable structural bed foot ($\sim 15\text{ mm}^2$ PEI contact area) allowing clean FDM/SLA printing with **Supports: OFF**.
 
 ---
 
 ## 5. Firmware Architecture & Signal Processing (Zephyr RTOS)
 
-### 5.1 Real-Time Signal Processing Pipeline
-
 1. **Ratiometric SAADC Reference:** Configured with $V_{\text{DD}}/4$ internal reference and $1/4$ input gain. Full scale equals $V_{\text{DD}}$, making ADC counts ratiometrically invariant to battery voltage fluctuations.
 2. **MUX Switching & Settling Time:** Hardware timer enforces a **50 µs settling window** (`CONFIG_KB_MUX_SETTLING_ENABLE=y`) between channel address switching and SAADC sample trigger, eliminating capacitive crosstalk between adjacent multiplexer channels.
 3. **Sliding Circular Moving Average Filter:** 4-sample buffer per channel (`CONFIG_KB_MOVING_AVERAGE_SAMPLES=4`) provides ~4 ms group delay (imperceptible to human typing) while collapsing the noise floor from $\pm 80\text{ mV}$ down to **$< \pm 8\text{ mV}$ ($< 10$ raw counts out of 4096)**.
-4. **Thread-Safe Calibration:** Cyclic sequential scanning synchronized with matrix impedance dynamics eliminates charge-drain droop on high-impedance inputs.
-5. **HID Safe Boot Mode:** USB/BLE HID output defaults to muted upon power-up until baseline auto-calibration completes, preventing phantom keystrokes during boot.
+4. **HID Safe Boot Mode:** USB/BLE HID output defaults to muted upon power-up until baseline auto-calibration completes, preventing phantom keystrokes during boot.
 
 ---
 
@@ -136,26 +139,31 @@ Empirically derived from iterative micrometer gauge blocks printed on a textured
 
 ## 7. Medici Project (1517 Fund) — $1,000 USD Grant Allocation
 
-The $1,000 USD Medici grant will be deployed entirely toward high-precision instrumentation and advanced engineering materials to transition from prototype to production-grade reliability:
+The $1,000 USD Medici grant is deployed with strict cost discipline toward high-precision instrumentation, specialized engineering materials, and the Rev B hardware spin:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ 1517 FUND MEDICI GRANT BUDGET ALLOCATION ($1,000 USD TOTAL)                 │
 ├──────────────────────────────────────┬─────────────┬────────────────────────┤
-│ Category & Item                      │ Cost (USD)  │ Engineering Impact     │
+│ Category & Item                      │ Cost (USD)  │ Engineering Purpose    │
 ├──────────────────────────────────────┼─────────────┼────────────────────────┤
-│ 1. Precision Measurement Instrument  │   $400.00   │ Capture 40 ns TMUX     │
-│    Rigol DHO800 / Kingst LA2016 16-Ch│             │ switching transients & │
-│    Logic Analyzer + Active Probes    │             │ sub-10 µs SAADC ringing│
+│ 1. Precision Measurement Instrument  │   $350.00   │ Portable USB logic     │
+│    Rigol DHO804 / Kingst LA2016 16-Ch│             │ analyzer / scope to    │
+│    Logic Analyzer + Active Probes    │             │ capture 40 ns TMUX     │
+│                                      │             │ transitions & tune     │
+│                                      │             │ settling below 10 µs   │
 ├──────────────────────────────────────┼─────────────┼────────────────────────┤
-│ 2. Technical Low-Friction Polymers   │   $250.00   │ Achieve frictionless,  │
-│    Self-lubricating POM (Delrin),    │             │ zero-wear stem glide   │
-│    PTFE-infused resins, 8K photopolymer│           │ with sub-0.03 mm SLA   │
+│ 2. Technical Low-Friction Polymers   │   $250.00   │ Self-lubricating POM / │
+│    Engineering POM (Delrin), PTFE-   │             │ PTFE resins & Bambu A1 │
+│    infused resin & A1 consumables   │             │ consumables for a zero-│
+│                                      │             │ wear, glass-like glide │
 ├──────────────────────────────────────┼─────────────┼────────────────────────┤
-│ 3. PCB Rev B Iteration & Tooling     │   $350.00   │ Integrated LiPo PMIC,  │
-│    Full wireless battery fuel gauge, │             │ custom solder stencils │
-│    production SMT assembly batch     │             │ and Rev B prototype    │
+│ 3. PCB Rev B Iteration & Pilot Batch │   $400.00   │ Rev B PCBs with Sensor │
+│    JLCPCB Rev B run (Sensor Power    │             │ Power Gating (3V3_A),  │
+│    Gating + slide switch + divider), │             │ slide switch, SMT pass-│
+│    SMT passives & N52 magnets        │             │ ives & pilot batch of  │
+│                                      │             │ 3 to 5 full units      │
 ├──────────────────────────────────────┼─────────────┼────────────────────────┤
-│ TOTAL                                │  $1,000.00  │ Zero overhead / direct │
+│ TOTAL                                │  $1,000.00  │ 100% Direct Hardware   │
 └──────────────────────────────────────┴─────────────┴────────────────────────┘
 ```

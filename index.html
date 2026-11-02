@@ -150,9 +150,9 @@
               <div class="text-[10px] text-slate-400 mt-0.5">&lt;10 counts (4096 SAADC)</div>
             </div>
             <div class="p-3.5 rounded-xl bg-pitch-card border border-pitch-border/70">
-              <div class="text-xs text-slate-400">SLEEP POWER</div>
-              <div class="text-xl font-bold text-indigo-400 mt-1">&lt; 20 &micro;A</div>
-              <div class="text-[10px] text-slate-400 mt-0.5">AO3401A power gating</div>
+              <div class="text-xs text-slate-400">LED IDLE DRAIN</div>
+              <div class="text-xl font-bold text-indigo-400 mt-1">0.00 &micro;A</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">AO3401A gated (Rev B: &lt;20&micro;A)</div>
             </div>
             <div class="p-3.5 rounded-xl bg-pitch-card border border-pitch-border/70">
               <div class="text-xs text-slate-400">VERIFICATION</div>
@@ -264,7 +264,11 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-emerald-400 font-bold">&check;</span>
-              <span><strong>Hard P-MOSFET Power Gating:</strong> An AO3401A switches the entire 3V3_LED digital rail via GPIO. In stealth mode, static idle drops to <strong>0.00 µA</strong>.</span>
+              <span><strong>Hard P-MOSFET Power Gating (Rev A):</strong> An AO3401A switches the entire 3V3_LED digital rail via GPIO, completely eliminating 18–30 mA of quiescent RGB idle drain (0.00 µA when OFF).</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">&check;</span>
+              <span><strong>Synchronized Sensor Strobing (Rev B Roadmap):</strong> Grant goal to strobe 3V3_A for ~20 µs during SAADC sampling, dropping average sensing current to &lt; 1.5 mA and unlocking &lt; 20 µA deep sleep.</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-emerald-400 font-bold">&check;</span>
@@ -317,8 +321,8 @@
 
           <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6 pt-6 border-t border-pitch-border/50 text-xs font-mono">
             <div>
-              <div class="text-sky-400 font-bold">1. Star-Topology Rail</div>
-              <p class="text-slate-400 text-[11px] mt-1">Split at SuperMini VCC into isolated 3V3_A (clean analog) and switched 3V3_LED rails.</p>
+              <div class="text-sky-400 font-bold">1. Native LiPo &amp; Star Rails</div>
+              <p class="text-slate-400 text-[11px] mt-1">Leverages SuperMini native charger. Star split into isolated 3V3_A (analog) and AO3401A-gated 3V3_LED rails.</p>
             </div>
             <div>
               <div class="text-teal-400 font-bold">2. Dual SAADC Partition</div>
@@ -590,10 +594,22 @@
                 <td class="py-3.5 px-4 text-slate-400">4-sample moving average filter (&lt; &plusmn;8 mV noise)</td>
               </tr>
               <tr class="hover:bg-slate-800/30">
-                <td class="py-3.5 px-4 font-semibold text-white">Standby Sleep Current</td>
-                <td class="py-3.5 px-4 text-red-300">> 30 mA (no sleep mode)</td>
-                <td class="py-3.5 px-4 text-emerald-300 font-bold">&lt; 20 &micro;A</td>
-                <td class="py-3.5 px-4 text-slate-400">Weeks of shelf life on 500 mAh battery</td>
+                <td class="py-3.5 px-4 font-semibold text-white">Sensor Power Architecture</td>
+                <td class="py-3.5 px-4 text-red-300">Always un-gated (180–270 mA)</td>
+                <td class="py-3.5 px-4 text-emerald-300 font-bold">Rev A: 42 mA typ &bull; Rev B: &lt; 1.5 mA avg</td>
+                <td class="py-3.5 px-4 text-slate-400">Rev A continuous; Rev B strobed 20µs during SAADC</td>
+              </tr>
+              <tr class="hover:bg-slate-800/30">
+                <td class="py-3.5 px-4 font-semibold text-white">Standby / Sleep Current</td>
+                <td class="py-3.5 px-4 text-red-300">&gt; 30 mA (no low-power mode)</td>
+                <td class="py-3.5 px-4 text-emerald-300 font-bold">Rev A: ~42 mA &bull; Rev B: &lt; 20 &micro;A</td>
+                <td class="py-3.5 px-4 text-slate-400">Rev A for USB/desk test; Rev B achieves multi-week sleep</td>
+              </tr>
+              <tr class="hover:bg-slate-800/30">
+                <td class="py-3.5 px-4 font-semibold text-white">Battery Charging Circuitry</td>
+                <td class="py-3.5 px-4 text-red-300">Custom PMIC / cord-dependent</td>
+                <td class="py-3.5 px-4 text-emerald-300 font-bold">SuperMini Native Charger (TP4054)</td>
+                <td class="py-3.5 px-4 text-slate-400">Zero redundant silicon; Rev B adds divider &amp; slide switch</td>
               </tr>
             </tbody>
           </table>
@@ -691,36 +707,36 @@
             <tbody class="divide-y divide-pitch-border/40 text-slate-300">
               <tr class="hover:bg-slate-800/30">
                 <td class="py-4 px-4 font-bold text-sky-400">
-                  1. High-Bandwidth Logic Analyzer &amp; Differential Oscilloscope
-                  <div class="text-[10px] text-slate-400 font-normal">Rigol DHO804 / Kingst LA2016 + active probes</div>
+                  1. Measurement &amp; Diagnostic Instrumentation
+                  <div class="text-[10px] text-slate-400 font-normal">Portable USB logic analyzer / oscilloscope (Rigol DHO804 / Kingst LA2016)</div>
                 </td>
-                <td class="py-4 px-4 font-bold text-white text-sm">$400.00</td>
+                <td class="py-4 px-4 font-bold text-white text-sm">50.00</td>
                 <td class="py-4 px-4 text-slate-300">
-                  Direct capture of 40 ns TMUX switching transients, SAADC input charge injection, and ringing. Allows optimizing Zephyr MUX settle timer down to sub-10 µs.
+                  Measure real-time TMUX1308 switching transients, SAADC input settling ringing, and optimize the Zephyr MUX settle timer down to sub-10 µs.
                 </td>
-                <td class="py-4 px-4 text-emerald-400">Sub-10µs scan frame rate</td>
+                <td class="py-4 px-4 text-emerald-400">Sub-10µs scan optimization</td>
               </tr>
               <tr class="hover:bg-slate-800/30">
                 <td class="py-4 px-4 font-bold text-purple-400">
-                  2. Technical Low-Friction Polymers &amp; 8K SLA Resins
-                  <div class="text-[10px] text-slate-400 font-normal">Self-lubricating POM (Delrin), PTFE-infused resin, UHMWPE</div>
+                  2. Technical Low-Friction Polymers &amp; Consumables
+                  <div class="text-[10px] text-slate-400 font-normal">Engineering POM (Delrin), PTFE-infused resin &amp; Bambu A1 consumables</div>
                 </td>
-                <td class="py-4 px-4 font-bold text-white text-sm">$250.00</td>
+                <td class="py-4 px-4 font-bold text-white text-sm">50.00</td>
                 <td class="py-4 px-4 text-slate-300">
-                  Produce stem and housing guide channels in self-lubricating POM / 8K micro-SLA resin, eliminating all layer-line friction for an effortless, glass-like magnetic glide.
+                  Optimize the mechanical glide of Switch V5.0 magnetic stems using self-lubricating POM / PTFE to achieve frictionless, zero-wear operation.
                 </td>
                 <td class="py-4 px-4 text-emerald-400">Frictionless MagLev glide</td>
               </tr>
               <tr class="hover:bg-slate-800/30">
                 <td class="py-4 px-4 font-bold text-emerald-400">
-                  3. PCB Rev B Fabrication &amp; Integrated Wireless PCBA
-                  <div class="text-[10px] text-slate-400 font-normal">JLCPCB Rev B spin, LiPo PMIC fuel gauge, custom solder stencils</div>
+                  3. PCB Rev B Iteration &amp; Functional Pilot Batch
+                  <div class="text-[10px] text-slate-400 font-normal">JLCPCB Rev B run (Sensor Gating + slide switch + divider), SMT passives &amp; N52 magnets</div>
                 </td>
-                <td class="py-4 px-4 font-bold text-white text-sm">$350.00</td>
+                <td class="py-4 px-4 font-bold text-white text-sm">00.00</td>
                 <td class="py-4 px-4 text-slate-300">
-                  Next iteration integrating on-board LiPo battery charging/fuel gauge circuitry, ultra-compact split wireless interconnects, and an initial pilot batch of 5 complete keyboards.
+                  Fabrication of Rev B PCBs integrating Sensor Power Gating on 3V3_A, battery monitoring divider, physical slide switch, and full pilot assembly of 3 to 5 units.
                 </td>
-                <td class="py-4 px-4 text-emerald-400">Rev B Wireless Pilot Batch</td>
+                <td class="py-4 px-4 text-emerald-400">Rev B Pilot Batch (3-5 units)</td>
               </tr>
               <tr class="bg-pitch-surface/80 font-bold text-white">
                 <td class="py-4 px-4 text-amber-400">TOTAL GRANT ALLOCATION</td>
@@ -752,7 +768,7 @@
         <div class="p-4 rounded-xl bg-pitch-card border border-purple-500/30">
           <div class="text-purple-400 font-bold text-[11px]">PHASE 4 (NEXT)</div>
           <div class="text-white font-bold mt-1">Rev B Integrated Wireless</div>
-          <p class="text-slate-400 text-[10px] mt-1">Full LiPo PMIC power management, custom injection-molded POM housing, and open-source public release.</p>
+          <p class="text-slate-400 text-[10px] mt-1">Sensor Power Gating on 3V3_A, physical slide switch, battery divider (AIN2), and open-source release.</p>
         </div>
       </div>
 

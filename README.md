@@ -11,20 +11,22 @@
 Explore the full interactive pitch page, 3D raytraced renders, kinematic section cuts, and KiCad schematics at:  
 👉 **[https://sebas-govel.github.io/HE_KB_Showcase/](https://sebas-govel.github.io/HE_KB_Showcase/)**
 
-Detailed hard specifications and mathematical derivations are available in the **[Engineering Fact Sheet](ENGINEERING_FACT_SHEET.md)**.
+Detailed hard specifications, mathematical derivations, and tolerance reports are available in the **[Engineering Fact Sheet](ENGINEERING_FACT_SHEET.md)**.
 
 ---
 
 ## ⚡ Key Engineering Highlights
 
-| Metric | Rev A Specification | Advantage vs Industry Standard |
+| Metric | Specification | Engineering Advantage vs Industry Standard |
 |:---|:---:|:---|
-| **Active Sensor Current** | **1.4 mA typ** (HAL403SO) | > 4.3× lower than legacy SS49E (6–9 mA) |
-| **RGB Static Idle Drain** | **0.00 µA** (AO3401A Gated) | Cuts 18–30 mA of parasitic quiescent draw |
-| **Switch Mechanism** | **100% Springless 3-Magnet MagLev** | 2.36 mm travel, zero metal fatigue, progressive force |
+| **Active Sensor Current** | **1.4 mA typ** (HAL403SO) | > 4.3× lower active power than legacy SS49E (6–9 mA) |
+| **RGB Power Gating (Rev A)** | **0.00 µA Quiescent** (AO3401A Gated) | Cuts 18–30 mA of parasitic quiescent LED idle drain |
+| **Sensor Power (Rev A vs Rev B)** | **Rev A: 42 mA typ** &bull; **Rev B: < 1.5 mA avg** | Rev A provides ~11–12h on 500mAh; Rev B strobes sensors 20µs |
+| **Standby Current (Rev B)** | **< 20 µA Deep Sleep** | Enables multi-week shelf life via synchronized sensor gating |
+| **Battery Subsystem** | **SuperMini Native LiPo Charger (TP4054)** | Uses onboard charger (B+/B-); Rev B adds divider & slide switch |
+| **Switch Mechanism** | **100% Springless 3-Magnet MagLev** | 2.36 mm travel (+33%), zero metal fatigue, progressive curve |
 | **Analog MUX $R_{\text{on}}$** | **59 Ω typ** (TI TMUX1308PWR) | 40 ns delay, dual-bank SAADC reduces capacitance by 34% |
 | **ADC Noise Floor** | **< ±8 mV** (< 10 counts / 4096) | 50 µs settling + 4-sample moving average filter |
-| **Deep Sleep Current** | **< 20 µA** | All-day wireless battery life on lightweight LiPo cell |
 | **Kinematic Collision** | **0.0000 mm³** | 21-step sweep verified; calibrated Bambu Lab A1 press-fits |
 
 ---
@@ -38,9 +40,9 @@ This public showcase repository contains exclusively the presentation layer and 
 ---
 
 ## 🎯 1517 Fund Medici Project — $1,000 USD Grant Allocation
-- **$400 USD:** High-bandwidth USB logic analyzer & differential oscilloscope (Rigol DHO800 / Kingst LA2016) to capture 40 ns TMUX switching transients and tune SAADC settling time below 10 µs.
-- **$250 USD:** Low-friction self-lubricating engineering polymers (POM Delrin, PTFE, micro-SLA 8K resin) for a glass-like frictionless magnetic glide.
-- **$350 USD:** PCB Rev B fabrication spin with integrated LiPo power management IC (PMIC) and wireless pilot production batch.
+- **$350 USD — Measurement & Diagnostic Instrumentation:** Portable USB logic analyzer / oscilloscope (Rigol DHO804 / Kingst LA2016) to measure real-time TMUX1308 switching transients, capture SAADC ringing, and optimize Zephyr settling delay below 10 µs.
+- **$250 USD — Technical Low-Friction Polymers & Consumables:** Engineering POM (Delrin), PTFE-infused resins, and Bambu Lab A1 consumables to eliminate layer friction for the V5.0 magnetic stems.
+- **$400 USD — PCB Rev B Iteration & Pilot Batch:** JLCPCB Rev B run integrating Sensor Power Gating on `3V3_A`, battery monitoring divider, physical slide switch footprint, SMT passives, N52 magnets, and a functional pilot batch of 3 to 5 complete units.
 
 ---
 
