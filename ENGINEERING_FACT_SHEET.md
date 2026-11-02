@@ -1,4 +1,4 @@
-# Engineering Fact Sheet — Open-Source Ergonomic MagLev Keyboard
+# Engineering Fact Sheet — Open-Source FloatForce Ergonomic Keyboard
 **Project Pitch Documentation for 1517 Fund (Medici Project)**  
 *Author:* Sebastian Gonzalez V.  
 *Date:* November 2026  
@@ -8,24 +8,21 @@
 
 ## 1. Executive Summary: Redesigning the Human-Computer Interface
 
-The keyboard is humanity's primary cognitive conduit to the digital world, yet its physical architecture has stagnated for four decades: rigid planar layouts, binary on/off mechanical switches, and high-priced commercial peripherals locked behind artificial software paywalls.
+The computer keyboard is humanity's primary cognitive gateway to digital reality, yet its physical architecture has stagnated for four decades: rigid planar layouts, binary on/off switches, and commercial hardware locked behind closed drivers.
 
 This project is an open-source, human-centered redesign of the computer keyboard from first principles. Rather than chasing competitive gaming marketing hype, our mission focuses on **postural health, expressive multimodal interaction, radical affordability, and global accessibility through 3D printing and AI-assisted engineering**.
 
-### The 7 Core Pillars of the Vision:
-1. **Ergonomic Postural Health:** Split 30-key ambidextrous layout with integrated tenting and an ultra-low profile, drastically reducing wrist extension, ulnar deviation, and repetitive strain injury (RSI).
-2. **Multimodal Analog Expression:** Continuous per-key magnetic sensing transforms every key into a velocity-sensitive, polyphonic aftertouch MIDI instrument, an analog gamepad with 360° motion gradation, and an ergonomically customizable keyboard.
-3. **Integrated Physical Interactivity:** Native hardware support for an AS5600 magnetic rotary encoder, dual thumb trackpads (Azoteq I2C), and an OLED display for live layer/mode monitoring and visual feedback.
-4. **"Endgame for Everyone" (No Paywalls):** High-end features without artificial firmware gating or subscription models. Flagship hardware accessible to students, creators, and tinkerers everywhere.
-5. **Decentralized Global Accessibility:** 100% support-free 3D printable keycaps (Ultimate V3.2) and switches (V5.0), empowering anyone anywhere in the world to print custom linguistic layouts, alphabets, or tactile legends at home.
-6. **Educational Empowerment via AI-Assisted Hardware Design:** Proving that an autodidactic builder outside traditional electrical engineering can build complex physical hardware by leveraging AI for parametric CAD, physics simulation, and PCB design.
-7. **The "Prusa Research" Business Philosophy:** Fostering a free, open-source hardware community while establishing a sustainable peripherals venture from Mexico offering ready-to-use kits and assembled hardware.
+### Community Attribution:
+The foundational idea of using a 3-magnet repulsive/attractive configuration was inspired by open-source maker explorations (notably Riskable). Building upon that inspiration, the **FloatForce V5.0** mechanical architecture (monolithic U-Body, Keyed SideWall, and closed-front flat-printed stem) was modeled, simulated with Magpylib, and calibrated 100% from scratch.
+
+### Art Meets Engineering:
+The front silkscreen of PCB Rev A features a high-resolution vector trace of **"The Langlois Bridge at Arles" (1888) by Vincent van Gogh**, manufactured in matte black solder mask with pure white silkscreen. We chose this bridge because it embodies the intersection of structural engineering and deeply human artistic expression.
 
 ---
 
 ## 2. Multimodal Analog Expression: Beyond Binary Typing
 
-Traditional mechanical switches provide a single binary state (0 or 1) determined by a stamped metal contact leaf. By contrast, the Rev A keyboard continuously tracks the physical displacement of every key across its full 2.36 mm stroke using ratiometric Hall effect sensors.
+Traditional mechanical switches provide a single binary state (0 or 1) determined by a stamped metal contact leaf. FloatForce continuously tracks the physical displacement of every key across its full 2.36 mm stroke using ratiometric Hall effect sensors.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -67,14 +64,12 @@ Traditional mechanical switches provide a single binary state (0 or 1) determine
 
 ### 3.2 Power Management: Rev A Hardware vs Rev B Roadmap
 
-An honest engineering assessment of the power domains:
-
 #### A. Rev A (Current Fabrication State — SMT Assembly at JLCPCB)
 - **Native SuperMini LiPo Charger:** The SuperMini nRF52840 integrates an onboard LiPo charger (TP4054/SGM4056 with dedicated `B+`/`B-` pads on the underside). Rev A relies directly on this native hardware without redundant silicon.
 - **LED Power Gating (Active in Hardware):** The 30 per-key + underglow reverse-mount SK6812MINI-E LEDs draw ~0.6 mA each in static idle even when displaying black (18–30 mA continuous loss). In Rev A, an **AO3401A P-channel MOSFET** ($R_{\text{DS(on)}} < 85\text{ m}\Omega$) switches the entire `3V3_LED` rail via GPIO `LED_EN` (`P0.08`). Quiescent drain on the LED rail drops to **0.00 µA** when off.
 - **Sensor Rail Reality:** The 30× HAL403SO sensors remain continuously energized on the clean analog rail (`3V3_A`) during operation, drawing **42 mA typ**. On a standard 500 mAh LiPo cell, Rev A delivers **~11–12 hours** of continuous active wireless operation. It is optimized for desk use, firmware validation, and short-duration wireless testing.
 
-#### B. Rev B (Medici Project Grant Objective — Production Wireless)
+#### B. Rev B Roadmap (Medici Project Grant Objective — Production Wireless)
 - **Synchronized Sensor Power Gating:** In Rev B, an ultra-fast high-side P-MOSFET / load switch is added to the sensor rail (`3V3_A`). Firmware strobes the sensors ON only during the ~20 µs SAADC sampling window of each multiplexer scan frame.
 - **Average Sensing Power:** Duty-cycling the 42 mA load drops average sensing current from 42 mA down to **< 1.5 mA**.
 - **True Deep Sleep Mode (< 20 µA):** Inactivity shuts down the analog sensor rail, dropping total system sleep current to **< 20 µA**, unlocking multi-week shelf standby.
@@ -108,9 +103,9 @@ An honest engineering assessment of the power domains:
 
 ---
 
-## 5. Mechanical Engineering: MagLev Switch V5.0 & Calibrated Keycaps
+## 5. Mechanical Engineering: FloatForce Switch V5.0 & Calibrated Keycaps
 
-### 5.1 Kinematic Specifications (Switch V5.0 "U-Body + Keyed SideWall + Closed-Front Stem")
+### 5.1 Kinematic Specifications (FloatForce Switch V5.0 "U-Body + Keyed SideWall + Closed-Front Stem")
 
 | Parameter | Value | Engineering Notes |
 |:---|:---:|:---|
@@ -141,21 +136,30 @@ An honest engineering assessment of the power domains:
 
 ---
 
-## 6. Manufacturing & Validation Status
+## 6. Hardware Roadmap Rev B: True Vertical Integration
 
-| Subsystem | Milestone | Current Status | Verification Evidence |
-|:---|:---|:---:|:---|
-| **Protoboard Rig** | 15× SS49E + CD74HC4067 + nRF52840 | **Validated 100%** | Running Zephyr v0.3.1 firmware; real-time Web VIA monitor at 15 Hz |
-| **PCB Layout (Rev A)** | Ambidextrous 30-key bottom-mount PCB | **Completed** | KiCad 10 DRC/ERC passed (0 errors, 0 warnings) |
-| **PCBA Package** | JLCPCB Economic/Standard SMT order | **Production Ready** | Gerbers, CPL, BOM generated (`HE_KB_RevA_Gerbers.zip`, `jlc_cpl.csv`) |
-| **MagLev Switch** | Switch V5.0 CAD & kinematics | **Validated & Printed** | STLs exported, 0.000 mm³ collision, test prints on Bambu A1 verified |
-| **Ergonomic Keycaps** | Keycaps Ultimate V3.2 (HE + MX) | **Validated & Printed** | 4-way reinforced socket, support-free print bed verified |
+Moving beyond the prototyping compromises of Rev A:
+
+1. **Custom On-PCB Capacitive Trackpad (Azoteq IC):** Instead of using external breakout boards, Rev B directly etches the capacitive X/Y sensor electrode grid into the copper layers of the keyboard PCB, assembling only the raw Azoteq controller IC.
+2. **Dedicated Left & Right PCBs (Zero-Compromise Ergonomics):** Leaving behind the reversible ambidextrous PCB design from Rev A to create dedicated, perfected asymmetric boards tailored to each hand.
+3. **Bare-Metal nRF52840 SoC On-Board:** Evaluating moving from the SuperMini daughterboard to soldering the bare nRF52840 SoC, crystal network, and ceramic antenna directly on the main PCB.
+4. **Synchronized Sensor Power Gating:** Gating the `3V3_A` analog rail during scan bursts to achieve all-day wireless operation and sub-20 µA deep sleep.
 
 ---
 
-## 7. Medici Project (1517 Fund) — $1,000 USD Grant Allocation
+## 7. Beyond the Keyboard: The Future of Human-Computer Interaction (HCI)
 
-The $1,000 USD Medici grant is allocated with full transparency to sustain development momentum, fund the next hardware spin, and expand open-source educational documentation:
+The keyboard is only the first chapter of our mission to redefine human-machine synergy:
+
+- **Frictionless Analog Ergonomic Mice:** Applying magnetic Hall sensing to mouse switches and scroll systems for pressure-sensitive analog scrolling and zero-wear actuation.
+- **Spatial Eye-Tracking Glasses with Monitor Bezel Detection:** Lightweight glasses tracking the pupil while front-facing miniature cameras detect physical monitor bezels, mapping natural gaze coordinates directly to the cursor across multi-monitor setups without requiring head turns.
+- **Bio-Subtle Interfaces:** Exploring non-invasive micro-movement detection (e.g. ear canal pressure or micro-facial twitches) for effortless, hands-free accessibility and ambient computing control.
+
+---
+
+## 8. Medici Project (1517 Fund) — $1,000 USD Grant Allocation
+
+The $1,000 USD Medici grant is deployed with strict cost discipline:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -169,9 +173,9 @@ The $1,000 USD Medici grant is allocated with full transparency to sustain devel
 │    PCBA batch & early tooling        │             │ PCBA & testing supplies│
 ├──────────────────────────────────────┼─────────────┼────────────────────────┤
 │ 2. PCB Rev B Fabrication &           │   $350.00   │ Direct JLCPCB Rev B    │
-│    Interactivity Modules             │             │ run (Sensor Gating +   │
-│    OLED displays, I2C touchpads,     │             │ slide switch + divider)│
-│    rotary encoders, LiPos & magnets  │             │ and assembling units   │
+│    Interactivity Modules             │             │ run (Azoteq ICs, OLEDs,│
+│    OLED displays, I2C touchpads,     │             │ encoders, LiPos & N52  │
+│    rotary encoders, LiPos & magnets  │             │ magnets for 3-5 units) │
 ├──────────────────────────────────────┼─────────────┼────────────────────────┤
 │ 3. Open-Source Ecosystem, Printing   │   $200.00   │ Filaments/resins for   │
 │    Materials & Build Guides          │             │ ergonomic tenting,     │

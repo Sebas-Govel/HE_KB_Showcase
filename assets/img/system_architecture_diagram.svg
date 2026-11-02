@@ -97,7 +97,7 @@
 
     <!-- Switch Mechanics Box -->
     <rect x="16" y="231" width="208" height="140" rx="6" fill="#0f172a" stroke="#1e293b"/>
-    <text x="26" y="251" fill="#a78bfa" font-size="11" font-weight="600">3D MagLev Switch V5.0</text>
+    <text x="26" y="251" fill="#a78bfa" font-size="11" font-weight="600">FloatForce Switch V5.0</text>
     <text x="26" y="271" fill="#cbd5e1" font-size="10">&#8226; Stroke: <tspan fill="#a78bfa" font-weight="700">2.36 mm</tspan> (+33%)</text>
     <text x="26" y="289" fill="#cbd5e1" font-size="10">&#8226; Levitation: 3 Neodymium array</text>
     <text x="26" y="307" fill="#cbd5e1" font-size="10">&#8226; Magnetic Barriers: 0.45 mm</text>
