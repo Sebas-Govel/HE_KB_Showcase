@@ -30,9 +30,9 @@ Traditional mechanical switches provide a single binary state (0 or 1) determine
 ├──────────────────────┬──────────────────────┬───────────────────────────────┤
 │ Mode                 │ Input Behavior       │ Real-World Application        │
 ├──────────────────────┼──────────────────────┼───────────────────────────────┤
-│ 1. Expressive MIDI   │ Velocity + Continuous│ Real-time synth modulation,   │
-│    Polyphonic After- │ Pressure (Aftertouch)│ filter cutoff sweeps, vibrato │
-│    touch Controller  │                      │ directly on the home row      │
+│ 1. Expressive MIDI   │ Continuous Pressure- │ Real-time synth modulation,   │
+│    Musical Controller│ Sensitive Expression │ filter cutoff sweeps, vibrato │
+│                      │ per Key              │ directly on the home row      │
 ├──────────────────────┼──────────────────────┼───────────────────────────────┤
 │ 2. Proportional      │ Continuous Travel    │ Smooth acceleration, walking  │
 │    Analog Gamepad    │ (0% to 100% Vector)  │ speed control, stealth pacing │
@@ -132,7 +132,7 @@ Traditional mechanical switches provide a single binary state (0 or 1) determine
 
 - **Geometry:** Centered spherical dish (Ø 10.60 mm, 0.70 mm depression, 1.90 mm ergonomic flat rim).
 - **4-Way Reinforced HE Socket:** Quad-buttress reinforced core (`HE_NorthButtress`, `HE_SouthButtress`, lateral ribs tied to skirt, 4 diagonal corner gussets) eliminates layer delamination during aggressive stem press-fit.
-- **Support-Free Printability:** Pre-angled at $-62^\circ$ with integrated non-removable structural bed foot ($\sim 15\text{ mm}^2$ PEI contact area) allowing clean FDM/SLA printing with **Supports: OFF**.
+- **Support-Free Printability:** Pre-angled at $-62^\circ$ with integrated non-removable structural bed foot ($\sim 15\text{ mm}^2$ PEI contact area) allowing clean FDM 3D printing with **Supports: OFF**.
 
 ---
 
@@ -177,8 +177,8 @@ The $1,000 USD Medici grant is deployed with strict cost discipline:
 │    OLED displays, I2C touchpads,     │             │ encoders, LiPos & N52  │
 │    rotary encoders, LiPos & magnets  │             │ magnets for 3-5 units) │
 ├──────────────────────────────────────┼─────────────┼────────────────────────┤
-│ 3. Open-Source Ecosystem, Printing   │   $200.00   │ Filaments/resins for   │
-│    Materials & Build Guides          │             │ ergonomic tenting,     │
+│ 3. Open-Source Ecosystem, Printing   │   $200.00   │ 3D printing filaments  │
+│    Materials & Build Guides          │             │ for ergonomic tenting, │
 │    Tenting test stands, multilingual │             │ multilingual keycaps & │
 │    keycaps & beginner build guides   │             │ educational tutorials  │
 ├──────────────────────────────────────┼─────────────┼────────────────────────┤

@@ -1,225 +1,559 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth dark">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HE-Keyboard — Open-Source FloatForce Ergonomic Interface</title>
-  <meta name="description" content="Open-source ergonomic keyboard powered by FloatForce magnetic levitation switches. Expressive MIDI controller, analog gamepad, and customizable keyboard. 1517 Fund Medici Project Pitch.">
+  <title>HE-Keyboard — Open-Source FloatForce Interface</title>
+  <meta name="description" content="Open-source ergonomic interface powered by continuous FloatForce magnetic sensing. Expressive musical controller, analog gamepad, and adaptive keyboard. 1517 Fund Medici Project.">
   
-  <!-- Fonts -->
+  <!-- Editorial & Human Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['Fraunces', 'Georgia', 'serif'],
+            sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
-            brand: {
-              base: '#0a0a0c',
-              surface: '#121318',
-              card: '#161820',
-              border: '#242734',
-              accent: '#38bdf8',
-              emerald: '#10b981',
-              amber: '#f59e0b',
+            paper: {
+              base: '#FAF7F2',
+              surface: '#F2EDE4',
+              card: '#FFFFFF',
+              border: '#E5DEC9',
+            },
+            ink: {
+              primary: '#1E1D1A',
+              secondary: '#5C5852',
+              muted: '#8A847C',
+            },
+            accent: {
+              terracotta: '#C85A32',
+              'terracotta-hover': '#B04D28',
+              sage: '#2F6B4F',
+              'sage-soft': '#EBF2EE',
+              ochre: '#C98A2C',
+              'ochre-soft': '#FAF2E4',
             }
           }
         }
       }
     }
   </script>
+  
+  <!-- Three.js & OrbitControls via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
   <style>
     body {
-      background-color: #0a0a0c;
-      color: #e2e8f0;
-      font-family: 'Inter', sans-serif;
+      background-color: #FAF7F2;
+      color: #1E1D1A;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
-    .badge-pulse {
-      animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    
+    ::selection {
+      background: #E5DEC9;
+      color: #1E1D1A;
     }
-    @keyframes pulse-glow {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.7; transform: scale(0.95); }
+
+    /* Scroll Reveal Animations */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 650ms cubic-bezier(0.22, 1, 0.36, 1), transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Custom range slider styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    input[type=range]:focus {
+      outline: none;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 8px;
+      cursor: pointer;
+      background: #E5DEC9;
+      border-radius: 9999px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      background: #C85A32;
+      cursor: pointer;
+      -webkit-appearance: none;
+      margin-top: -8px;
+      box-shadow: 0 2px 6px rgba(200, 90, 50, 0.35);
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.12);
+      background: #B04D28;
     }
   </style>
 </head>
-<body class="bg-brand-base text-slate-200 antialiased selection:bg-sky-500/30 selection:text-sky-200">
+<body class="bg-paper-base text-ink-primary antialiased">
 
-  <!-- Header -->
-  <header class="sticky top-0 z-50 backdrop-blur-xl bg-brand-base/90 border-b border-brand-border/80">
+  <!-- Header / Navigation -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-paper-base/90 border-b border-paper-border transition-all">
     <div class="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
       
-      <div class="flex items-center space-x-4">
-        <div class="w-10 h-10 rounded-xl bg-brand-card border border-brand-border flex items-center justify-center font-mono font-bold text-sky-400 text-sm">
-          HE
-        </div>
-        <div>
-          <span class="font-mono text-base font-bold tracking-tight text-white flex items-center gap-2">
-            HE_KEYBOARD <span class="text-xs px-2.5 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">REV_A</span>
-          </span>
-        </div>
+      <!-- Brand & Version -->
+      <div class="flex items-center space-x-3">
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-paper-surface border border-paper-border flex items-center justify-center font-serif font-bold text-ink-primary text-lg shadow-sm group-hover:border-accent-terracotta transition-colors">
+            H
+          </div>
+          <div class="flex flex-col">
+            <span class="font-serif text-lg font-semibold tracking-tight text-ink-primary flex items-center gap-2">
+              HE-Keyboard
+              <span class="font-mono text-[11px] px-2 py-0.5 rounded-full bg-paper-surface border border-paper-border text-ink-secondary font-medium">
+                Rev A
+              </span>
+            </span>
+            <span class="text-[11px] text-ink-muted -mt-0.5">Open Human Interface</span>
+          </div>
+        </a>
       </div>
 
-      <nav class="hidden md:flex items-center space-x-8 text-sm font-mono text-slate-400">
-        <a href="#vision" class="hover:text-white transition-colors">Vision</a>
-        <a href="#art" class="hover:text-white transition-colors">Art &amp; PCB</a>
-        <a href="#pillars" class="hover:text-white transition-colors">Pillars</a>
-        <a href="#gallery" class="hover:text-white transition-colors">CAD Gallery</a>
-        <a href="#roadmap" class="hover:text-white transition-colors">Rev B</a>
-        <a href="#hci" class="hover:text-white transition-colors">Future HCI</a>
-        <a href="#grant" class="hover:text-white transition-colors">1517 Pitch</a>
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-ink-secondary">
+        <a href="#vision" class="hover:text-accent-terracotta transition-colors">Vision</a>
+        <a href="#interactive-switch" class="hover:text-accent-terracotta transition-colors">FloatForce 3D</a>
+        <a href="#playground" class="hover:text-accent-terracotta transition-colors">Continuous Analog</a>
+        <a href="#art" class="hover:text-accent-terracotta transition-colors">Art &amp; PCB</a>
+        <a href="#gallery" class="hover:text-accent-terracotta transition-colors">Gallery</a>
+        <a href="#roadmap" class="hover:text-accent-terracotta transition-colors">Roadmap</a>
+        <a href="#grant" class="hover:text-accent-terracotta transition-colors">1517 Pitch</a>
       </nav>
 
+      <!-- AS5600 Encoder Dial & GitHub Link -->
       <div class="flex items-center space-x-4">
-        <a href="https://github.com/Sebas-Govel/HE_KB_Showcase" target="_blank" class="px-4 py-2 rounded-xl bg-brand-card hover:bg-slate-800 text-slate-200 border border-brand-border text-xs font-mono transition-all flex items-center gap-2">
+        <!-- Minimalist AS5600 Rotary Dial -->
+        <div class="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-paper-surface border border-paper-border text-xs text-ink-secondary" title="AS5600 Magnetic Rotary Encoder simulation">
+          <svg id="headerEncoder" class="w-5 h-5 text-accent-terracotta transition-transform duration-100 ease-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="9" stroke="#E5DEC9" stroke-width="2.5"/>
+            <circle cx="12" cy="12" r="3" fill="#C85A32" stroke="none"/>
+            <line x1="12" y1="3" x2="12" y2="7" stroke="#C85A32" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <span class="font-mono text-[11px] text-ink-muted" id="encoderAngle">000°</span>
+        </div>
+
+        <a href="https://github.com/Sebas-Govel/HE_KB_Showcase" target="_blank" class="px-4 py-2 rounded-xl bg-paper-surface hover:bg-paper-card text-ink-primary border border-paper-border text-xs font-medium transition-all shadow-sm flex items-center gap-2">
           <span>GitHub</span>
-          <span class="text-emerald-400 font-bold">&bull; Live</span>
+          <span class="w-2 h-2 rounded-full bg-accent-sage animate-pulse"></span>
         </a>
       </div>
 
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="pt-20 pb-24 border-b border-brand-border/60">
+  <!-- Hero Section: Editorial & Warm -->
+  <section class="pt-16 pb-20 sm:pt-24 sm:pb-28 border-b border-paper-border relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-mono mb-8">
-        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-        1517 Fund &bull; Medici Project Candidate &bull; Open-Source Human Interface
+      <!-- Medici Tag -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent-ochre-soft border border-accent-ochre/30 text-ink-primary text-xs font-medium mb-8">
+        <span class="w-2 h-2 rounded-full bg-accent-ochre"></span>
+        <span>1517 Fund &bull; Medici Project Candidate &bull; Open-Source Human Interface</span>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Left: Editorial Headline & Copy -->
         <div class="lg:col-span-7 space-y-6">
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-            Redesigning the human-computer interface from first principles.
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-normal tracking-tight text-ink-primary leading-[1.12]">
+            Redesigning how hands <span class="italic font-normal text-accent-terracotta">feel</span> the digital world.
           </h1>
-          <p class="text-lg sm:text-xl text-slate-300 leading-relaxed font-light">
-            Keyboards have been trapped in rigid, binary 1980s paradigms. We engineered an open-source, ultra-low profile ergonomic interface powered by continuous magnetic sensing.
+          <p class="text-lg sm:text-xl text-ink-secondary leading-relaxed font-light">
+            Computer keyboards have been trapped in rigid, binary 1980s paradigms. We engineered an open-source, ultra-low profile ergonomic interface powered by continuous magnetic sensing.
           </p>
-          <p class="text-base text-slate-400 leading-relaxed">
-            It functions simultaneously as an <strong>expressive MIDI controller</strong> with polyphonic aftertouch, an <strong>analog gamepad</strong> with continuous motion, and an <strong>adaptive mechanical keyboard</strong>—100% support-free 3D printable, built without artificial paywalls, and designed from scratch using AI.
+          <p class="text-base text-ink-secondary leading-relaxed">
+            Every key responds continuously to displacement: an <strong>expressive musical controller</strong> where notes swell and bend with touch, an <strong>analog gamepad</strong> with continuous motion, and an <strong>adaptive keyboard</strong> customized to your biomechanics—100% support-free 3D printable and built with zero paywalls.
           </p>
 
-          <!-- Core Metric Chips -->
-          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 font-mono text-left">
-            <div class="p-4 rounded-xl bg-brand-card border border-brand-border">
-              <div class="text-xs text-slate-400 uppercase">Ergonomics</div>
-              <div class="text-xl font-bold text-white mt-1">Split 30-Key</div>
-              <div class="text-xs text-slate-400 mt-0.5">Tenting + Low Profile</div>
-            </div>
-            <div class="p-4 rounded-xl bg-brand-card border border-brand-border">
-              <div class="text-xs text-slate-400 uppercase">Input Modality</div>
-              <div class="text-xl font-bold text-sky-400 mt-1">3-in-1 Native</div>
-              <div class="text-xs text-slate-400 mt-0.5">MIDI &bull; Gamepad &bull; Typing</div>
-            </div>
-            <div class="p-4 rounded-xl bg-brand-card border border-brand-border">
-              <div class="text-xs text-slate-400 uppercase">Switch Suspension</div>
-              <div class="text-xl font-bold text-purple-400 mt-1">FloatForce V5</div>
-              <div class="text-xs text-slate-400 mt-0.5">2.36mm 3-Magnet Levitation</div>
-            </div>
-            <div class="p-4 rounded-xl bg-brand-card border border-brand-border">
-              <div class="text-xs text-slate-400 uppercase">Interactivity</div>
-              <div class="text-xl font-bold text-emerald-400 mt-1">Knob + Touch</div>
-              <div class="text-xs text-slate-400 mt-0.5">Dual trackpads &bull; OLED</div>
-            </div>
-            <div class="p-4 rounded-xl bg-brand-card border border-brand-border">
-              <div class="text-xs text-slate-400 uppercase">Accessibility</div>
-              <div class="text-xl font-bold text-sky-400 mt-1">No Paywalls</div>
-              <div class="text-xs text-slate-400 mt-0.5">Endgame for everyone</div>
-            </div>
-            <div class="p-4 rounded-xl bg-brand-card border border-brand-border">
-              <div class="text-xs text-slate-400 uppercase">3D Printing</div>
-              <div class="text-xl font-bold text-amber-400 mt-1">0 Supports</div>
-              <div class="text-xs text-slate-400 mt-0.5">Print any layout at home</div>
-            </div>
-          </div>
-
-          <div class="flex flex-wrap gap-4 pt-6 font-mono text-sm">
-            <a href="#vision" class="px-6 py-3.5 rounded-xl bg-white text-black font-bold hover:bg-slate-200 transition-all">
-              Explore The Vision &darr;
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap items-center gap-4 pt-4">
+            <a href="#interactive-switch" class="px-6 py-3.5 rounded-xl bg-accent-terracotta hover:bg-accent-terracotta-hover text-white font-medium transition-all shadow-sm flex items-center gap-2">
+              <span>Explore FloatForce Switch</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
             </a>
-            <a href="ENGINEERING_FACT_SHEET.md" target="_blank" class="px-6 py-3.5 rounded-xl bg-brand-surface hover:bg-slate-800 text-slate-200 border border-brand-border transition-all">
-              Engineering Fact Sheet (MD)
+            <a href="ENGINEERING_FACT_SHEET.md" target="_blank" class="px-6 py-3.5 rounded-xl bg-paper-surface hover:bg-paper-card text-ink-primary border border-paper-border transition-all shadow-sm text-sm font-medium">
+              Engineering Fact Sheet
             </a>
           </div>
 
-        </div>
-
-        <!-- Hero Render: PCB Rev A Matte Black -->
-        <div class="lg:col-span-5 relative">
-          <div class="rounded-2xl bg-brand-card p-4 border border-brand-border">
-            <div class="flex items-center justify-between text-xs font-mono text-slate-400 pb-3 border-b border-brand-border/60">
-              <span class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
-                PCB Rev A — Matte Black &bull; White Silk
-              </span>
-              <span class="text-sky-400">Raytraced 3D</span>
+          <!-- Concise Technical Metrics Bar -->
+          <div class="pt-6 border-t border-paper-border/80 flex flex-wrap gap-y-3 gap-x-8 text-xs text-ink-muted">
+            <div>
+              <span class="block text-ink-primary font-mono font-semibold text-sm">2.36 mm</span>
+              Magnetic Stroke (+33%)
             </div>
-            <div class="mt-4 relative aspect-[16/10] bg-brand-base rounded-xl overflow-hidden flex items-center justify-center cursor-pointer group" onclick="openModal('assets/img/pcb_iso.png', 'PCB Rev A Isometric SMT Assembly — Matte Black Solder Mask with Pure White Silkscreen')">
-              <img src="assets/img/pcb_iso.png" alt="PCB Rev A Matte Black" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-              <div class="absolute bottom-3 right-3 px-2.5 py-1 rounded bg-black/80 text-xs font-mono text-slate-300 backdrop-blur">
-                Click to Enlarge
-              </div>
+            <div>
+              <span class="block text-accent-sage font-mono font-semibold text-sm">1.4 mA</span>
+              Sensor Power (HAL403SO)
             </div>
-            <div class="mt-3 text-xs text-slate-400 font-mono flex justify-between">
-              <span>Ambidextrous 30-Key Grid</span>
-              <span class="text-emerald-400">In Production @ JLCPCB</span>
+            <div>
+              <span class="block text-ink-primary font-mono font-semibold text-sm">0 Supports</span>
+              FDM 3D Printable at Home
+            </div>
+            <div>
+              <span class="block text-accent-terracotta font-mono font-semibold text-sm">0.00 µA</span>
+              RGB Quiescent Gating
             </div>
           </div>
         </div>
+
+        <!-- Right: Studio Presentation of the Matte Black PCB -->
+        <div class="lg:col-span-5">
+          <div class="rounded-3xl bg-paper-surface p-4 border border-paper-border shadow-sm">
+            <div class="relative aspect-[16/11] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center cursor-pointer group" onclick="openModal('assets/img/pcb_iso.png', 'PCB Rev A Isometric SMT Assembly — Matte Black Solder Mask with Pure White Silkscreen')">
+              <img src="assets/img/pcb_iso.png" alt="PCB Rev A Matte Black Isometric" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="mt-4 px-2 flex items-center justify-between text-xs text-ink-secondary">
+              <span class="font-medium text-ink-primary">PCB Rev A — Frente con serigrafía de Van Gogh</span>
+              <span class="font-mono text-accent-sage text-[11px] font-medium bg-accent-sage-soft px-2 py-0.5 rounded-full border border-accent-sage/20">In Production @ JLCPCB</span>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </div>
   </section>
 
-  <!-- SECTION 1: The Vision & HCI Philosophy -->
-  <section id="vision" class="py-24 border-b border-brand-border/60">
+  <!-- SECTION: FloatForce Switch V5.0 Interactive 3D Studio -->
+  <section id="interactive-switch" class="py-24 border-b border-paper-border bg-paper-surface/60">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      
+      <div class="max-w-3xl mb-12">
+        <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold">Kinematic Architecture</span>
+        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2">
+          FloatForce Switch (V5.0): 3-Magnet Levitation
+        </h2>
+        <p class="text-base text-ink-secondary mt-3 leading-relaxed">
+          Springless magnetic suspension engineered for frictionless travel, zero metal fatigue, and natural progressive resistance. Rotate the 3D model, explode the assembly, or press the switch below to experience the displacement.
+        </p>
+      </div>
+
+      <!-- 3D Studio Card -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- 3D Viewport Canvas Container -->
+        <div class="lg:col-span-8 rounded-3xl bg-paper-card border border-paper-border p-3 shadow-sm relative">
+          
+          <!-- Top floating controls overlay -->
+          <div class="absolute top-6 left-6 z-10 flex flex-wrap gap-2">
+            <span class="px-3 py-1 rounded-full bg-paper-surface/90 backdrop-blur border border-paper-border text-xs font-mono text-ink-secondary shadow-sm">
+              FloatForce V5.0 &bull; Real-time 3D
+            </span>
+          </div>
+
+          <div class="absolute top-6 right-6 z-10 flex items-center gap-2">
+            <button id="btnExplodeToggle" class="px-3.5 py-1.5 rounded-xl bg-paper-surface hover:bg-paper-border/80 border border-paper-border text-xs font-medium text-ink-primary transition-all shadow-sm">
+              Explode Assembly
+            </button>
+            <button id="btnResetView" class="px-3.5 py-1.5 rounded-xl bg-paper-surface hover:bg-paper-border/80 border border-paper-border text-xs font-medium text-ink-primary transition-all shadow-sm" title="Reset Camera View">
+              Reset View
+            </button>
+          </div>
+
+          <!-- WebGL Canvas Container -->
+          <div id="switch3DContainer" class="w-full h-[420px] sm:h-[480px] rounded-2xl bg-[#F6F1E8] overflow-hidden cursor-grab active:cursor-grabbing relative flex items-center justify-center">
+            <!-- Canvas is inserted here via Three.js -->
+            <div id="canvasHelper" class="absolute bottom-4 left-4 pointer-events-none text-[11px] text-ink-muted font-sans bg-paper-card/80 backdrop-blur px-2.5 py-1 rounded-md border border-paper-border/60">
+              Drag to rotate &bull; Scroll to explode
+            </div>
+          </div>
+
+          <!-- Bottom Press Bar -->
+          <div class="mt-4 p-4 rounded-2xl bg-paper-surface border border-paper-border flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <button id="btnPressSwitch" class="px-5 py-2.5 rounded-xl bg-accent-terracotta hover:bg-accent-terracotta-hover text-white text-xs font-medium transition-all shadow-sm active:scale-95 select-none">
+                Press Switch (2.36 mm)
+              </button>
+              <span class="text-xs text-ink-muted">Or press <kbd class="px-1.5 py-0.5 bg-paper-card rounded border border-paper-border font-mono text-[11px]">Spacebar</kbd></span>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-mono text-ink-secondary">
+              <span>Displacement: <strong id="switchTravelValue" class="text-accent-terracotta">0.00 mm</strong></span>
+              <span class="text-paper-border">|</span>
+              <span>Collision: <strong class="text-accent-sage">0.000 mm³</strong></span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Side: Architectural Breakdown -->
+        <div class="lg:col-span-4 space-y-4">
+          
+          <div class="p-6 rounded-2xl bg-paper-card border border-paper-border shadow-sm">
+            <h3 class="font-serif text-lg text-ink-primary font-semibold mb-2">Monolithic U-Body</h3>
+            <p class="text-xs text-ink-secondary leading-relaxed">
+              Printed flat on its rear wall for layer lines aligned with stem motion. Integrated base cradle holds the lower neodymium repulsive magnet.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-paper-card border border-paper-border shadow-sm">
+            <h3 class="font-serif text-lg text-ink-primary font-semibold mb-2">Keyed SideWall</h3>
+            <p class="text-xs text-ink-secondary leading-relaxed">
+              Detachable side panel with vertical alignment keys. Allows effortless placement of the center stem magnet before locking the switch into the 3.0 mm plate.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-paper-card border border-paper-border shadow-sm">
+            <h3 class="font-serif text-lg text-ink-primary font-semibold mb-2">Closed-Front Smooth Stem</h3>
+            <p class="text-xs text-ink-secondary leading-relaxed">
+              Smooth 0.68 mm front wall printed directly onto the PEI build plate. Eliminates friction and delivers a silky 2.36 mm stroke with zero lateral wobble.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-accent-ochre-soft border border-accent-ochre/30 text-xs text-ink-secondary leading-relaxed">
+            <strong class="text-ink-primary font-semibold">Community Attribution:</strong> The concept of 3-magnet repulsion/attraction was inspired by open-source maker explorations (notably Riskable). Building upon that inspiration, the FloatForce V5.0 architecture (U-Body, keyed SideWall, closed-front stem) was modeled, simulated with Magpylib, and calibrated 100% from scratch.
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION: Continuous Analog Playground (Interactive Simulation) -->
+  <section id="playground" class="py-24 border-b border-paper-border bg-paper-base">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      
+      <div class="max-w-3xl mb-12">
+        <span class="text-xs font-mono uppercase tracking-widest text-accent-sage font-semibold">Continuous Input Modality</span>
+        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2">
+          Continuous Analog Playground
+        </h2>
+        <p class="text-base text-ink-secondary mt-3 leading-relaxed">
+          Move the slider to simulate key displacement from 0.00 mm (rest) to 2.36 mm (bottom-out). Watch how the magnetic flux transitions smoothly and how a single key powers music, gaming, and typing simultaneously.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Left: Interactive Switch Cutaway & Dynamic Flux Visualizer -->
+        <div class="lg:col-span-5 rounded-3xl bg-paper-surface p-6 border border-paper-border flex flex-col justify-between shadow-sm">
+          
+          <div>
+            <div class="flex items-center justify-between text-xs text-ink-muted mb-4 font-mono">
+              <span>SWITCH CROSS-SECTION</span>
+              <span id="fluxIntensityText" class="text-accent-sage font-medium">B_z: ~125 Gauss (Rest)</span>
+            </div>
+
+            <!-- Dynamic SVG Switch Representation -->
+            <div class="w-full aspect-[4/3] bg-paper-card rounded-2xl border border-paper-border p-4 flex items-center justify-center relative overflow-hidden">
+              <svg id="switchCutawaySVG" class="w-full h-full max-h-[260px]" viewBox="0 0 280 280">
+                <!-- Housing Outline -->
+                <rect x="50" y="30" width="180" height="220" rx="12" fill="#F2EDE4" stroke="#E5DEC9" stroke-width="2"/>
+                
+                <!-- Bottom HAL403SO Hall Sensor on PCB -->
+                <line x1="30" y1="250" x2="250" y2="250" stroke="#1E1D1A" stroke-width="3"/>
+                <rect x="115" y="240" width="50" height="10" rx="2" fill="#1E1D1A"/>
+                <text x="140" y="247" font-size="7" fill="#FAF7F2" font-family="JetBrains Mono" text-anchor="middle">HAL403</text>
+
+                <!-- Fixed Floor Magnet S1 -->
+                <rect x="110" y="215" width="60" height="16" rx="3" fill="#C98A2C"/>
+                <text x="140" y="226" font-size="8" fill="#FFFFFF" font-family="JetBrains Mono" text-anchor="middle">S1 (N)</text>
+
+                <!-- Fixed Ceiling Magnet S3 -->
+                <rect x="110" y="45" width="60" height="16" rx="3" fill="#C98A2C"/>
+                <text x="140" y="56" font-size="8" fill="#FFFFFF" font-family="JetBrains Mono" text-anchor="middle">S3 (S)</text>
+
+                <!-- Moving Stem & Magnet S2 -->
+                <g id="svgMovingStem" transform="translate(0, 0)" style="transition: transform 0.05s linear;">
+                  <!-- Keycap -->
+                  <path d="M 85 20 L 195 20 L 185 45 L 95 45 Z" fill="#E8E2D5" stroke="#D8D0BF" stroke-width="1.5"/>
+                  <rect x="115" y="45" width="50" height="110" rx="6" fill="#2D3238"/>
+                  <!-- Stem Magnet S2 -->
+                  <rect x="110" y="115" width="60" height="18" rx="3" fill="#C85A32"/>
+                  <text x="140" y="127" font-size="8" fill="#FFFFFF" font-family="JetBrains Mono" text-anchor="middle">S2 (N)</text>
+                </g>
+
+                <!-- Dynamic Magnetic Flux Curves -->
+                <path id="svgFluxPath1" d="M 110 140 Q 90 180 115 215" fill="none" stroke="#2F6B4F" stroke-width="2.5" stroke-dasharray="4 3"/>
+                <path id="svgFluxPath2" d="M 170 140 Q 190 180 165 215" fill="none" stroke="#2F6B4F" stroke-width="2.5" stroke-dasharray="4 3"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Displacement Control Slider -->
+          <div class="mt-6 pt-4 border-t border-paper-border">
+            <div class="flex justify-between items-center mb-2">
+              <label for="strokeSlider" class="text-xs font-semibold text-ink-primary">Continuous Travel Depth</label>
+              <span id="sliderValueDisplay" class="font-mono text-sm font-bold text-accent-terracotta">0.00 mm (0%)</span>
+            </div>
+            <input type="range" id="strokeSlider" min="0" max="2.36" step="0.01" value="0" class="w-full">
+            <div class="flex justify-between text-[11px] font-mono text-ink-muted mt-1">
+              <span>0.00 mm (Rest)</span>
+              <span>1.18 mm</span>
+              <span>2.36 mm (Bottom-out)</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: 3 Synchronized Real-World Modality Responses -->
+        <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
+          
+          <!-- Modality 1: Expressive Musical Controller -->
+          <div class="p-6 rounded-2xl bg-paper-card border border-paper-border shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-accent-terracotta"></span>
+                <h3 class="font-serif text-base font-semibold text-ink-primary">Expressive Musical Controller</h3>
+              </div>
+              <button id="btnToggleAudio" class="px-3 py-1 rounded-lg bg-paper-surface hover:bg-paper-border/60 text-ink-primary text-xs font-medium border border-paper-border transition-all">
+                Enable Audio Tone
+              </button>
+            </div>
+            <p class="text-xs text-ink-secondary leading-relaxed mb-4">
+              Every key responds continuously to how softly or deeply you press—letting you swell volume, bend notes, or open synth filter cutoff frequencies seamlessly without separate expression pedals.
+            </p>
+            
+            <!-- Dynamic Soundwave Bars -->
+            <div class="p-3 rounded-xl bg-paper-surface border border-paper-border flex items-end justify-between h-16 px-4 gap-2">
+              <div class="music-bar w-full bg-accent-terracotta/30 rounded-t transition-all duration-75" style="height: 15%;"></div>
+              <div class="music-bar w-full bg-accent-terracotta/40 rounded-t transition-all duration-75" style="height: 25%;"></div>
+              <div class="music-bar w-full bg-accent-terracotta/60 rounded-t transition-all duration-75" style="height: 40%;"></div>
+              <div class="music-bar w-full bg-accent-terracotta/80 rounded-t transition-all duration-75" style="height: 25%;"></div>
+              <div class="music-bar w-full bg-accent-terracotta rounded-t transition-all duration-75" style="height: 15%;"></div>
+              <div class="music-bar w-full bg-accent-terracotta/50 rounded-t transition-all duration-75" style="height: 30%;"></div>
+            </div>
+            <div class="mt-2 flex justify-between text-[11px] font-mono text-ink-muted">
+              <span>Harmonic Filter: <strong id="musicCutoffVal" class="text-ink-primary">440 Hz</strong></span>
+              <span>MIDI Output: <strong id="musicMidiVal" class="text-accent-terracotta">Velocity 0 &bull; Mod 0</strong></span>
+            </div>
+          </div>
+
+          <!-- Modality 2: Proportional Gamepad Motion -->
+          <div class="p-6 rounded-2xl bg-paper-card border border-paper-border shadow-sm">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-accent-sage"></span>
+              <h3 class="font-serif text-base font-semibold text-ink-primary">Proportional Analog Gamepad</h3>
+            </div>
+            <p class="text-xs text-ink-secondary leading-relaxed mb-3">
+              Move slowly at 20% pressure for stealth pacing; sprint fluidly as you press deeper. True 360° analog vector movement without external joysticks.
+            </p>
+            <div class="p-3 rounded-xl bg-paper-surface border border-paper-border flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div id="gamepadAvatar" class="w-8 h-8 rounded-lg bg-accent-sage text-white flex items-center justify-center font-bold text-xs transition-transform duration-100">
+                  &rarr;
+                </div>
+                <div>
+                  <div id="gamepadMotionText" class="text-xs font-semibold text-ink-primary">Standing Still (0%)</div>
+                  <div class="text-[11px] text-ink-muted font-mono" id="gamepadSpeedText">Velocity: 0.0 m/s</div>
+                </div>
+              </div>
+              <div class="w-36 h-2 bg-paper-border rounded-full overflow-hidden">
+                <div id="gamepadSpeedBar" class="h-full bg-accent-sage transition-all duration-75" style="width: 0%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modality 3: Adaptive Actuation & Rapid Trigger -->
+          <div class="p-6 rounded-2xl bg-paper-card border border-paper-border shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-accent-ochre"></span>
+                <h3 class="font-serif text-base font-semibold text-ink-primary">Custom Actuation &amp; Rapid Trigger</h3>
+              </div>
+              <span id="actuationStatusBadge" class="px-2.5 py-0.5 rounded-full bg-paper-surface border border-paper-border text-ink-muted text-xs font-mono">
+                Released
+              </span>
+            </div>
+            <p class="text-xs text-ink-secondary leading-relaxed mb-3">
+              Set your personal actuation threshold anywhere between 0.2 mm and 2.2 mm. Instant reset upon upward movement for lightning-fast double taps.
+            </p>
+            <div class="flex items-center gap-4 text-xs font-mono">
+              <span class="text-ink-secondary">Threshold:</span>
+              <input type="range" id="thresholdSlider" min="0.2" max="2.2" step="0.1" value="1.2" class="w-48">
+              <span id="thresholdDisplay" class="font-bold text-accent-ochre">1.20 mm</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION: The 4 Open Philosophy Pillars -->
+  <section id="vision" class="py-24 border-b border-paper-border bg-paper-surface/40">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       
       <div class="max-w-3xl mb-16">
-        <span class="text-xs font-mono text-sky-400 uppercase tracking-widest">Section 01</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Beyond the 40-year binary keyboard impasse.</h2>
-        <p class="text-base sm:text-lg text-slate-400 mt-4 leading-relaxed">
-          Typing shouldn't cause tendonitis, and physical keys shouldn't be limited to on/off switches. Here is how we redesigned the physical computer interface:
+        <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold">Design Philosophy</span>
+        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2">
+          Four Core Tenets of Open Hardware
+        </h2>
+        <p class="text-base text-ink-secondary mt-3 leading-relaxed">
+          How we bridge ergonomics, advanced mechanics, and worldwide accessibility without commercial paywalls:
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         
-        <div class="p-8 rounded-2xl bg-brand-surface border border-brand-border">
-          <div class="text-xs font-mono text-red-400 uppercase mb-3">The Industry Status Quo</div>
-          <h3 class="text-xl font-bold text-white mb-3">Rigid, Binary &amp; Closed</h3>
-          <p class="text-slate-300 text-base leading-relaxed mb-6">
-            Flat keyboards force severe forearm pronation and wrist extension. Traditional stamped metal switch leaves reduce rich human tactile nuance to a blunt binary switch (0 or 1), while commercial makers lock software features behind cloud subscriptions.
-          </p>
-          <div class="text-sm font-mono text-slate-400 space-y-2">
-            <div>&times; Chronic wrist strain and ulnar deviation</div>
-            <div>&times; Zero velocity or pressure sensitivity</div>
-            <div>&times; $20,000+ tooling barrier for custom language keycaps</div>
+        <!-- Pillar 1 -->
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-accent-sage-soft border border-accent-sage/20 text-accent-sage flex items-center justify-center font-serif font-bold text-lg">
+            1
           </div>
+          <h3 class="text-xl font-serif font-semibold text-ink-primary">Natural Ergonomics &amp; Postural Health</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
+            A split 30-key column-staggered layout with native tenting support. Ultra-low profile footprint eliminates unnatural wrist extension and pronation, preventing repetitive strain injuries (RSI) before they start.
+          </p>
         </div>
 
-        <div class="p-8 rounded-2xl bg-brand-surface border border-sky-500/30">
-          <div class="text-xs font-mono text-sky-400 uppercase mb-3">Our Human-Centered Solution</div>
-          <h3 class="text-xl font-bold text-white mb-3">Natural, Expressive &amp; Open</h3>
-          <p class="text-slate-300 text-base leading-relaxed mb-6">
-            A split 30-key design with native tenting support and ultra-low profile footprint. Continuous magnetic sensing tracks the full 2.36 mm travel stroke, transforming keys into polyphonic MIDI instruments, proportional gamepads, and adaptive typing switches.
-          </p>
-          <div class="text-sm font-mono text-slate-400 space-y-2">
-            <div>&check; Neutral wrist alignment with variable tenting</div>
-            <div>&check; Polyphonic aftertouch &amp; continuous analog travel</div>
-            <div>&check; Support-free 3D printing of any alphabet at home</div>
+        <!-- Pillar 2 -->
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-accent-ochre-soft border border-accent-ochre/20 text-accent-ochre flex items-center justify-center font-serif font-bold text-lg">
+            2
           </div>
+          <h3 class="text-xl font-serif font-semibold text-ink-primary">Support-Free 3D Printing for Any Language</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
+            Keycaps V3.2 pre-angled at -62° and FloatForce switches print 100% support-free on home FDM 3D printers. Anyone across the globe can manufacture custom alphabets, diacritics, and tactile legends without $20,000+ injection mold tooling.
+          </p>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-paper-surface border border-paper-border text-ink-primary flex items-center justify-center font-serif font-bold text-lg">
+            3
+          </div>
+          <h3 class="text-xl font-serif font-semibold text-ink-primary">"Endgame for Everyone" (Zero Paywalls)</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
+            Flagship continuous analog sensing engineered from accessible off-the-shelf components. Zero feature paywalls, zero cloud subscriptions, and zero artificial software tiers. True digital autonomy.
+          </p>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-accent-terracotta/10 border border-accent-terracotta/20 text-accent-terracotta flex items-center justify-center font-serif font-bold text-lg">
+            4
+          </div>
+          <h3 class="text-xl font-serif font-semibold text-ink-primary">The "Prusa Model" from Mexico &amp; AI Engineering</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
+            Inspired by Josef Prusa: lead a free, open-source community where anyone can build, while creating a sustainable hardware business selling official assembled units and DIY kits. Engineered by an autodidactic maker leveraging AI for CAD, physics, and PCBs.
+          </p>
         </div>
 
       </div>
@@ -227,114 +561,39 @@
     </div>
   </section>
 
-  <!-- SECTION 2: Art Meets Engineering (Van Gogh Silkscreen) -->
-  <section id="art" class="py-24 border-b border-brand-border/60 bg-brand-surface/40">
+  <!-- SECTION: Art Meets Engineering (Van Gogh Silkscreen) -->
+  <section id="art" class="py-24 border-b border-paper-border bg-paper-base">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
         <div class="lg:col-span-6 space-y-6">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-300 text-xs font-mono border border-amber-500/20">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-ochre-soft text-ink-primary text-xs font-medium border border-accent-ochre/30">
             Art Meets Engineering &bull; Heritage
           </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+          <h2 class="text-3xl sm:text-4xl font-serif font-normal text-ink-primary leading-tight">
             "The Langlois Bridge at Arles" (1888) by Vincent van Gogh
           </h2>
-          <p class="text-base sm:text-lg text-slate-300 leading-relaxed font-light">
+          <p class="text-base text-ink-secondary leading-relaxed font-light">
             When ordering our PCB Rev A from JLCPCB, we chose <strong>Matte Black solder mask with Pure White silkscreen</strong>.
           </p>
-          <p class="text-base text-slate-400 leading-relaxed">
+          <p class="text-sm text-ink-secondary leading-relaxed">
             The vector art etched into the front copper and silkscreen is Van Gogh’s famous Langlois drawbridge in southern France. We chose this masterpiece because a bridge represents the quintessential union of structural civil engineering and profound human emotion—just as this keyboard bridges electronics with human expression.
           </p>
-          <div class="p-5 rounded-xl bg-brand-card border border-brand-border text-sm font-mono text-slate-300 leading-relaxed">
-            <span class="text-white font-bold">Community Attribution:</span> The concept of using a 3-magnet repulsive/attractive configuration was inspired by open-source maker explorations (notably Riskable). Building upon that inspiration, the <strong>FloatForce Switch (V5.0)</strong> mechanical architecture (monolithic U-Body, Keyed SideWall, and closed-front flat-printed stem) was modeled, simulated with Magpylib, and calibrated 100% from scratch.
+          <div class="p-5 rounded-2xl bg-paper-surface border border-paper-border text-xs text-ink-secondary leading-relaxed">
+            All 30 Hall sensors, multiplexers, and power-gating circuitry reside strictly on the bottom layer. The top surface remains entirely flat and dedicated to tactile stability and art.
           </div>
         </div>
 
         <div class="lg:col-span-6">
-          <div class="rounded-2xl bg-brand-card p-4 border border-brand-border">
-            <div class="aspect-[16/10] bg-brand-base rounded-xl overflow-hidden flex items-center justify-center cursor-pointer group" onclick="openModal('assets/img/pcb_top.png', 'PCB Rev A Top View — Matte Black with Van Gogh Langlois Bridge Silkscreen')">
-              <img src="assets/img/pcb_top.png" alt="PCB Top View Van Gogh Silkscreen" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+          <div class="rounded-3xl bg-paper-surface p-4 border border-paper-border shadow-sm">
+            <div class="aspect-[16/11] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center cursor-pointer group" onclick="openModal('assets/img/pcb_top.png', 'PCB Rev A Top View — Matte Black with Van Gogh Langlois Bridge Silkscreen')">
+              <img src="assets/img/pcb_top.png" alt="PCB Top View Van Gogh Silkscreen" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
             </div>
-            <div class="mt-3 text-xs text-slate-400 font-mono text-center">
-              PCB Rev A Top Surface: Van Gogh Silkscreen &bull; Zero Top SMDs Under Switches
+            <div class="mt-4 px-2 text-xs text-ink-secondary text-center">
+              PCB Rev A — Superficie superior plana con serigrafía de Van Gogh
             </div>
           </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SECTION 3: The 7 Pillars -->
-  <section id="pillars" class="py-24 border-b border-brand-border/60">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      
-      <div class="max-w-3xl mb-16">
-        <span class="text-xs font-mono text-sky-400 uppercase tracking-widest">Section 03</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">The 7 Pillars of Design Philosophy</h2>
-        <p class="text-base text-slate-400 mt-3 leading-relaxed">
-          Core principles guiding our hardware architecture and open ecosystem:
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 font-mono">
-        
-        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border">
-          <div class="text-emerald-400 font-bold text-xs mb-2">01 &bull; ERGONOMICS</div>
-          <h3 class="text-base font-bold text-white mb-2">Postural Health &amp; Tenting</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            Split 30-key column-staggered layout with variable tenting. Ultra-low profile footprint eliminates awkward wrist angles and strain.
-          </p>
-        </div>
-
-        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border">
-          <div class="text-sky-400 font-bold text-xs mb-2">02 &bull; MULTIMODAL</div>
-          <h3 class="text-base font-bold text-white mb-2">Continuous Analog Expression</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            Every key is an analog sensor: expressive MIDI polyphonic aftertouch, proportional gamepad joysticks, and custom typing actuation.
-          </p>
-        </div>
-
-        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border">
-          <div class="text-purple-400 font-bold text-xs mb-2">03 &bull; INTERACTION</div>
-          <h3 class="text-base font-bold text-white mb-2">Expanded Physical Controls</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            Integrated AS5600 magnetic rotary knob, dual thumb trackpads (Azoteq I2C), and an OLED display for real-time layers and status.
-          </p>
-        </div>
-
-        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border">
-          <div class="text-amber-400 font-bold text-xs mb-2">04 &bull; ACCESSIBILITY</div>
-          <h3 class="text-base font-bold text-white mb-2">"Endgame for Everyone"</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            Flagship functionality engineered for radical affordability. Zero feature paywalls, zero subscriptions, and zero artificial limits.
-          </p>
-        </div>
-
-        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border">
-          <div class="text-emerald-400 font-bold text-xs mb-2">05 &bull; 3D MANUFACTURING</div>
-          <h3 class="text-base font-bold text-white mb-2">Global Multilingual Layouts</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            Support-free 3D printable keycaps (V3.2) and FloatForce switches allow anyone worldwide to manufacture custom alphabets at home.
-          </p>
-        </div>
-
-        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border">
-          <div class="text-sky-400 font-bold text-xs mb-2">06 &bull; EDUCATION</div>
-          <h3 class="text-base font-bold text-white mb-2">AI-Assisted Hardware Design</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            Demonstrating how an autodidactic maker outside formal EE can architect complex electronics using AI for CAD, physics, and PCBs.
-          </p>
-        </div>
-
-        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border md:col-span-2 lg:col-span-3">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold text-xs">PILLAR 07</span>
-            <h3 class="text-base font-bold text-white font-mono">The "Prusa Research" Business Model (from Mexico to the World)</h3>
-          </div>
-          <p class="text-slate-300 text-sm leading-relaxed">
-            Inspired by Josef Prusa: lead a free, open-source community where anyone can build and modify the designs, while concurrently building a sustainable hardware peripherals company based in Mexico selling official assembled keyboards and DIY kits worldwide.
-          </p>
         </div>
 
       </div>
@@ -342,173 +601,161 @@
     </div>
   </section>
 
-  <!-- SECTION 4: Interactive Hardware & CAD Gallery (12 Images) -->
-  <section id="gallery" class="py-24 border-b border-brand-border/60">
+  <!-- SECTION: Interactive Hardware & CAD Gallery (12 Assets) -->
+  <section id="gallery" class="py-24 border-b border-paper-border bg-paper-surface/50">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       
       <div class="sm:flex sm:items-end sm:justify-between mb-12">
         <div>
-          <span class="text-xs font-mono text-sky-400 uppercase tracking-widest">Section 04</span>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Interactive Hardware &amp; CAD Gallery</h2>
+          <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold">CAD &amp; Hardware Assets</span>
+          <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2">Engineering &amp; Design Gallery</h2>
         </div>
-        <div class="text-xs font-mono text-slate-400 mt-2 sm:mt-0">
-          Matte Black Raytraces &bull; FloatForce Switch (V5.0) &bull; Schematics
+        <div class="text-xs text-ink-muted mt-2 sm:mt-0 font-mono">
+          PCB Rev A &bull; FloatForce Switch &bull; Schematics
         </div>
       </div>
 
       <!-- Filter Tabs -->
-      <div class="flex flex-wrap gap-3 mb-10 font-mono text-xs" id="galleryTabs">
-        <button onclick="filterGallery('all')" class="tab-btn px-4 py-2 rounded-lg bg-sky-500 text-white font-bold transition-all" data-filter="all">All Assets (12)</button>
-        <button onclick="filterGallery('pcb')" class="tab-btn px-4 py-2 rounded-lg bg-brand-card hover:bg-slate-800 text-slate-300 border border-brand-border transition-all" data-filter="pcb">PCB Rev A (3)</button>
-        <button onclick="filterGallery('switch')" class="tab-btn px-4 py-2 rounded-lg bg-brand-card hover:bg-slate-800 text-slate-300 border border-brand-border transition-all" data-filter="switch">FloatForce Switch (4)</button>
-        <button onclick="filterGallery('schematic')" class="tab-btn px-4 py-2 rounded-lg bg-brand-card hover:bg-slate-800 text-slate-300 border border-brand-border transition-all" data-filter="schematic">KiCad Schematics (3)</button>
-        <button onclick="filterGallery('case')" class="tab-btn px-4 py-2 rounded-lg bg-brand-card hover:bg-slate-800 text-slate-300 border border-brand-border transition-all" data-filter="case">Case &amp; Keycaps (2)</button>
+      <div class="flex flex-wrap gap-2.5 mb-10 text-xs font-medium" id="galleryTabs">
+        <button onclick="filterGallery('all')" class="tab-btn px-4 py-2 rounded-xl bg-accent-terracotta text-white shadow-sm transition-all" data-filter="all">All Assets (12)</button>
+        <button onclick="filterGallery('pcb')" class="tab-btn px-4 py-2 rounded-xl bg-paper-card hover:bg-paper-border text-ink-secondary border border-paper-border transition-all" data-filter="pcb">PCB Rev A (3)</button>
+        <button onclick="filterGallery('switch')" class="tab-btn px-4 py-2 rounded-xl bg-paper-card hover:bg-paper-border text-ink-secondary border border-paper-border transition-all" data-filter="switch">FloatForce Switch (4)</button>
+        <button onclick="filterGallery('schematic')" class="tab-btn px-4 py-2 rounded-xl bg-paper-card hover:bg-paper-border text-ink-secondary border border-paper-border transition-all" data-filter="schematic">KiCad Schematics (3)</button>
+        <button onclick="filterGallery('case')" class="tab-btn px-4 py-2 rounded-xl bg-paper-card hover:bg-paper-border text-ink-secondary border border-paper-border transition-all" data-filter="case">Case &amp; Keycaps (2)</button>
       </div>
 
-      <!-- Grid Cards -->
+      <!-- Gallery Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
         
-        <!-- Card 1: PCB Iso Black -->
-        <div class="gallery-item pcb p-4 rounded-2xl bg-brand-card border border-brand-border cursor-pointer group" onclick="openModal('assets/img/pcb_iso.png', 'PCB Rev A Isometric SMT Assembly — Matte Black solder mask with Pure White silkscreen.')">
-          <div class="aspect-[16/10] bg-brand-base rounded-xl overflow-hidden flex items-center justify-center relative">
-            <img src="assets/img/pcb_iso.png" alt="PCB Isometric Black" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-brand-surface text-slate-300 text-xs font-mono border border-brand-border">Matte Black SMT</span>
+        <!-- Card 1: PCB Iso -->
+        <div class="gallery-item pcb p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/pcb_iso.png', 'PCB Rev A Isometric SMT Assembly — Matte Black solder mask with Pure White silkscreen.')">
+          <div class="aspect-[16/11] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/pcb_iso.png" alt="PCB Isometric Black" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
           </div>
-          <div class="mt-3">
-            <h4 class="text-base font-bold text-white font-mono">PCB Rev A Isometric View</h4>
-            <p class="text-sm text-slate-400 mt-1 leading-relaxed">Raytraced in Matte Black with white silkscreen, showing bottom SMT passives and dual trackpad headers.</p>
-          </div>
-        </div>
-
-        <!-- Card 2: PCB Top Black -->
-        <div class="gallery-item pcb p-4 rounded-2xl bg-brand-card border border-brand-border cursor-pointer group" onclick="openModal('assets/img/pcb_top.png', 'PCB Rev A Top Surface — Van Gogh Langlois Bridge silkscreen in Matte Black FR4.')">
-          <div class="aspect-[16/10] bg-brand-base rounded-xl overflow-hidden flex items-center justify-center relative">
-            <img src="assets/img/pcb_top.png" alt="PCB Top Surface Black" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-brand-surface text-slate-300 text-xs font-mono border border-brand-border">Van Gogh Art</span>
-          </div>
-          <div class="mt-3">
-            <h4 class="text-base font-bold text-white font-mono">PCB Top Surface (Van Gogh)</h4>
-            <p class="text-sm text-slate-400 mt-1 leading-relaxed">Flat top surface with Van Gogh's Langlois Bridge silkscreen art. Zero top SMDs under switches.</p>
+          <div class="mt-4 px-1">
+            <h4 class="text-base font-serif font-semibold text-ink-primary">PCB Rev A Isometric View</h4>
+            <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Matte Black finish with Van Gogh silkscreen, bottom SMT components, and dual trackpad headers.</p>
           </div>
         </div>
 
-        <!-- Card 3: PCB Bottom Black -->
-        <div class="gallery-item pcb p-4 rounded-2xl bg-brand-card border border-brand-border cursor-pointer group" onclick="openModal('assets/img/pcb_bottom.png', 'PCB Rev A Bottom SMT Assembly — 30x HAL403SO sensors, 4x TMUX1308, AO3401A MOSFET.')">
-          <div class="aspect-[16/10] bg-brand-base rounded-xl overflow-hidden flex items-center justify-center relative">
-            <img src="assets/img/pcb_bottom.png" alt="PCB Bottom Black" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-brand-surface text-slate-300 text-xs font-mono border border-brand-border">Bottom SMT</span>
+        <!-- Card 2: PCB Top -->
+        <div class="gallery-item pcb p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/pcb_top.png', 'PCB Rev A Top Surface — Van Gogh Langlois Bridge silkscreen.')">
+          <div class="aspect-[16/11] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/pcb_top.png" alt="PCB Top Surface Black" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
           </div>
-          <div class="mt-3">
-            <h4 class="text-base font-bold text-white font-mono">PCB Bottom SMT Assembly</h4>
-            <p class="text-sm text-slate-400 mt-1 leading-relaxed">All 30 HAL403SO Hall sensors, 4× TMUX1308 analog multiplexers, and AO3401A power switch.</p>
+          <div class="mt-4 px-1">
+            <h4 class="text-base font-serif font-semibold text-ink-primary">PCB Top Surface (Van Gogh)</h4>
+            <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Flat top surface with Van Gogh's Langlois Bridge silkscreen art. All components routed underside.</p>
+          </div>
+        </div>
+
+        <!-- Card 3: PCB Bottom -->
+        <div class="gallery-item pcb p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/pcb_bottom.png', 'PCB Rev A Bottom SMT Assembly — 30x HAL403SO sensors, 4x TMUX1308, AO3401A MOSFET.')">
+          <div class="aspect-[16/11] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/pcb_bottom.png" alt="PCB Bottom Black" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="mt-4 px-1">
+            <h4 class="text-base font-serif font-semibold text-ink-primary">PCB Bottom SMT Assembly</h4>
+            <p class="text-xs text-ink-secondary mt-1 leading-relaxed">All 30 HAL403SO Hall sensors, 4x TMUX1308 analog multiplexers, and AO3401A power gating switch.</p>
           </div>
         </div>
 
         <!-- Card 4: Switch Exploded -->
-        <div class="gallery-item switch p-4 rounded-2xl bg-brand-card border border-brand-border cursor-pointer group" onclick="openModal('assets/img/switch_v5_exploded.png', 'FloatForce Switch (V5.0) Exploded Assembly — U-Housing, Keyed SideWall, Closed-Front Stem, 3 Magnets.')">
-          <div class="aspect-[16/10] bg-brand-base rounded-xl overflow-hidden flex items-center justify-center relative">
-            <img src="assets/img/switch_v5_exploded.png" alt="FloatForce Switch Exploded" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-brand-surface text-slate-300 text-xs font-mono border border-brand-border">FloatForce 3D</span>
+        <div class="gallery-item switch p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/switch_v5_exploded.png', 'FloatForce Switch (V5.0) Exploded Assembly — U-Housing, Keyed SideWall, Closed-Front Stem, 3 Magnets.')">
+          <div class="aspect-[16/11] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/switch_v5_exploded.png" alt="FloatForce Switch Exploded" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
           </div>
-          <div class="mt-3">
-            <h4 class="text-base font-bold text-white font-mono">FloatForce Switch (V5.0) Exploded</h4>
-            <p class="text-sm text-slate-400 mt-1 leading-relaxed">U-Body housing + Keyed SideWall. Calibrated dual-jaw S2 cradle and flat-printed smooth stem wall.</p>
+          <div class="mt-4 px-1">
+            <h4 class="text-base font-serif font-semibold text-ink-primary">FloatForce Switch (V5.0) Exploded</h4>
+            <p class="text-xs text-ink-secondary mt-1 leading-relaxed">U-Body housing + Keyed SideWall. Calibrated dual-jaw cradle and flat-printed smooth stem wall.</p>
           </div>
         </div>
 
         <!-- Card 5: Switch Section -->
-        <div class="gallery-item switch p-4 rounded-2xl bg-brand-card border border-brand-border cursor-pointer group" onclick="openModal('assets/img/switch_v5_section.png', 'FloatForce Switch (V5.0) Section Cut (XZ) — Demonstrates 2.36mm stroke and 3-magnet suspension.')">
-          <div class="aspect-[16/10] bg-brand-base rounded-xl overflow-hidden flex items-center justify-center relative">
-            <img src="assets/img/switch_v5_section.png" alt="FloatForce Section Cut" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-brand-surface text-slate-300 text-xs font-mono border border-brand-border">Section Cut</span>
+        <div class="gallery-item switch p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/switch_v5_section.png', 'FloatForce Switch (V5.0) Section Cut (XZ) — Demonstrates 2.36mm stroke and 3-magnet suspension.')">
+          <div class="aspect-[16/11] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/switch_v5_section.png" alt="FloatForce Section Cut" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
           </div>
-          <div class="mt-3">
-            <h4 class="text-base font-bold text-white font-mono">FloatForce Internal Section Cut</h4>
-            <p class="text-sm text-slate-400 mt-1 leading-relaxed">3-magnet levitation chamber. 0.45 mm magnetic barriers boost repulsive force by 25–35%.</p>
+          <div class="mt-4 px-1">
+            <h4 class="text-base font-serif font-semibold text-ink-primary">FloatForce Internal Section Cut</h4>
+            <p class="text-xs text-ink-secondary mt-1 leading-relaxed">3-magnet levitation chamber. 0.45 mm magnetic barriers boost repulsive force by 25–35%.</p>
           </div>
         </div>
 
         <!-- Card 6: Magpylib Sim -->
-        <div class="gallery-item switch p-4 rounded-2xl bg-brand-card border border-brand-border cursor-pointer group" onclick="openModal('assets/img/slingshot_simulation.png', '3D Magpylib Simulation — Vector flux density across the 2.36mm travel stroke.')">
-          <div class="aspect-[16/10] bg-brand-base rounded-xl overflow-hidden flex items-center justify-center relative">
-            <img src="assets/img/slingshot_simulation.png" alt="Magnetic Simulation" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-brand-surface text-slate-300 text-xs font-mono border border-brand-border">Magpylib Sim</span>
+        <div class="gallery-item switch p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/slingshot_simulation.png', '3D Magpylib Simulation — Vector flux density across the 2.36mm travel stroke.')">
+          <div class="aspect-[16/11] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/slingshot_simulation.png" alt="Magnetic Simulation" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
           </div>
-          <div class="mt-3">
-            <h4 class="text-base font-bold text-white font-mono">3D Magnetic Flux Simulation</h4>
-            <p class="text-sm text-slate-400 mt-1 leading-relaxed">Python Magpylib model calculating flux density ($B_z$) reaching the sensor across the 2.36 mm stroke.</p>
+          <div class="mt-4 px-1">
+            <h4 class="text-base font-serif font-semibold text-ink-primary">3D Magnetic Flux Simulation</h4>
+            <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Python Magpylib model calculating flux density reaching the sensor across the 2.36 mm stroke.</p>
           </div>
         </div>
 
         <!-- Card 7: Switch in Plate -->
-        <div class="gallery-item switch p-4 rounded-2xl bg-brand-card border border-brand-border cursor-pointer group" onclick="openModal('assets/img/switch_v5_assembled.png', 'FloatForce Switch (V5.0) Assembled in 3.0mm Plate.')">
-          <div class="aspect-[16/10] bg-brand-base rounded-xl overflow-hidden flex items-center justify-center relative">
-            <img src="assets/img/switch_v5_assembled.png" alt="Switch Assembled" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-brand-surface text-slate-300 text-xs font-mono border border-brand-border">Assembled</span>
+        <div class="gallery-item switch p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/switch_v5_assembled.png', 'FloatForce Switch (V5.0) Assembled in 3.0mm Plate.')">
+          <div class="aspect-[16/11] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/switch_v5_assembled.png" alt="Switch Assembled" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
           </div>
-          <div class="mt-3">
-            <h4 class="text-base font-bold text-white font-mono">FloatForce Assembled in Plate</h4>
-            <p class="text-sm text-slate-400 mt-1 leading-relaxed">Integrated into the 3.0 mm 3D-printed plate. 8.05 mm square stem connector with zero wobble.</p>
+          <div class="mt-4 px-1">
+            <h4 class="text-base font-serif font-semibold text-ink-primary">FloatForce Assembled in Plate</h4>
+            <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Integrated into the 3.0 mm 3D-printed plate. 8.05 mm square stem connector with zero wobble.</p>
           </div>
         </div>
 
         <!-- Card 8: Analog Bus Schematic -->
-        <div class="gallery-item schematic p-4 rounded-2xl bg-brand-card border border-brand-border cursor-pointer group" onclick="openModal('assets/img/schematic_analog_bus.png', 'KiCad 10 Schematic: 4x TMUX1308PWR Multiplexers to SuperMini nRF52840 SAADC.')">
-          <div class="aspect-[16/10] bg-brand-base rounded-xl overflow-hidden flex items-center justify-center relative">
-            <img src="assets/img/schematic_analog_bus.png" alt="Analog Bus Schematic" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-brand-surface text-slate-300 text-xs font-mono border border-brand-border">Schematic: Bus</span>
+        <div class="gallery-item schematic p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/schematic_analog_bus.png', 'KiCad 10 Schematic: 4x TMUX1308PWR Multiplexers to SuperMini nRF52840 SAADC.')">
+          <div class="aspect-[16/11] bg-paper-surface rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border">
+            <img src="assets/img/schematic_analog_bus.png" alt="Analog Bus Schematic" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
           </div>
-          <div class="mt-3">
-            <h4 class="text-base font-bold text-white font-mono">4× TMUX1308 &amp; SAADC Bus</h4>
-            <p class="text-sm text-slate-400 mt-1 leading-relaxed">KiCad schematic showing the 4 multiplexers, 3-bit address bus A0–A2, and dual SAADC return lines.</p>
+          <div class="mt-4 px-1">
+            <h4 class="text-base font-serif font-semibold text-ink-primary">4x TMUX1308 &amp; SAADC Bus</h4>
+            <p class="text-xs text-ink-secondary mt-1 leading-relaxed">KiCad schematic showing the 4 multiplexers, 3-bit address bus A0–A2, and dual SAADC lines.</p>
           </div>
         </div>
 
         <!-- Card 9: Power Gating Schematic -->
-        <div class="gallery-item schematic p-4 rounded-2xl bg-brand-card border border-brand-border cursor-pointer group" onclick="openModal('assets/img/schematic_power_gating.png', 'KiCad 10 Schematic: AO3401A P-MOSFET Power Gating Block.')">
-          <div class="aspect-[16/10] bg-brand-base rounded-xl overflow-hidden flex items-center justify-center relative">
-            <img src="assets/img/schematic_power_gating.png" alt="Power Gating Schematic" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-brand-surface text-slate-300 text-xs font-mono border border-brand-border">Schematic: Power</span>
+        <div class="gallery-item schematic p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/schematic_power_gating.png', 'KiCad 10 Schematic: AO3401A P-MOSFET Power Gating Block.')">
+          <div class="aspect-[16/11] bg-paper-surface rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border">
+            <img src="assets/img/schematic_power_gating.png" alt="Power Gating Schematic" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
           </div>
-          <div class="mt-3">
-            <h4 class="text-base font-bold text-white font-mono">AO3401A Power Gating Circuit</h4>
-            <p class="text-sm text-slate-400 mt-1 leading-relaxed">P-MOSFET switch cutting 18–30 mA of quiescent RGB drain with active-low GPIO control.</p>
+          <div class="mt-4 px-1">
+            <h4 class="text-base font-serif font-semibold text-ink-primary">AO3401A Power Gating Circuit</h4>
+            <p class="text-xs text-ink-secondary mt-1 leading-relaxed">P-MOSFET switch cutting 18–30 mA of quiescent RGB drain with active-low GPIO control.</p>
           </div>
         </div>
 
         <!-- Card 10: Sensor Unit Schematic -->
-        <div class="gallery-item schematic p-4 rounded-2xl bg-brand-card border border-brand-border cursor-pointer group" onclick="openModal('assets/img/schematic_hall_sensor_unit.png', 'KiCad 10 Schematic: key.kicad_sch Hierarchical Sheet — HAL403SO Sensor.')">
-          <div class="aspect-[16/10] bg-brand-base rounded-xl overflow-hidden flex items-center justify-center relative">
-            <img src="assets/img/schematic_hall_sensor_unit.png" alt="Sensor Unit Schematic" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-brand-surface text-slate-300 text-xs font-mono border border-brand-border">Schematic: Sensor</span>
+        <div class="gallery-item schematic p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/schematic_hall_sensor_unit.png', 'KiCad 10 Schematic: key.kicad_sch Hierarchical Sheet — HAL403SO Sensor.')">
+          <div class="aspect-[16/11] bg-paper-surface rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border">
+            <img src="assets/img/schematic_hall_sensor_unit.png" alt="Sensor Unit Schematic" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
           </div>
-          <div class="mt-3">
-            <h4 class="text-base font-bold text-white font-mono">Hierarchical Key Unit Sheet</h4>
-            <p class="text-sm text-slate-400 mt-1 leading-relaxed">HAL403SO SOT-23 sensor with local 100 nF bypass cap and reverse-mount SK6812MINI-E LED.</p>
+          <div class="mt-4 px-1">
+            <h4 class="text-base font-serif font-semibold text-ink-primary">Hierarchical Key Unit Sheet</h4>
+            <p class="text-xs text-ink-secondary mt-1 leading-relaxed">HAL403SO SOT-23 sensor with local 100 nF bypass cap and reverse-mount SK6812MINI-E LED.</p>
           </div>
         </div>
 
         <!-- Card 11: Keycaps WASD -->
-        <div class="gallery-item case p-4 rounded-2xl bg-brand-card border border-brand-border cursor-pointer group" onclick="openModal('assets/img/keycaps_wasd_v3_2.png', 'Keycaps Ultimate V3.2 WASD Family — Spherical dish Ø10.6mm, 4-way reinforced socket.')">
-          <div class="aspect-[16/10] bg-brand-base rounded-xl overflow-hidden flex items-center justify-center relative">
-            <img src="assets/img/keycaps_wasd_v3_2.png" alt="Keycaps V3.2" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-brand-surface text-slate-300 text-xs font-mono border border-brand-border">Keycaps V3.2</span>
+        <div class="gallery-item case p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/keycaps_wasd_v3_2.png', 'Keycaps Ultimate V3.2 WASD Family — Spherical dish Ø10.6mm, 4-way reinforced socket.')">
+          <div class="aspect-[16/11] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/keycaps_wasd_v3_2.png" alt="Keycaps V3.2" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
           </div>
-          <div class="mt-3">
-            <h4 class="text-base font-bold text-white font-mono">Ultimate Keycaps V3.2 (WASD)</h4>
-            <p class="text-sm text-slate-400 mt-1 leading-relaxed">Ergonomic spherical dish with tactile homing. 4-way buttressed socket prevents layer splitting.</p>
+          <div class="mt-4 px-1">
+            <h4 class="text-base font-serif font-semibold text-ink-primary">Ultimate Keycaps V3.2 (WASD)</h4>
+            <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Ergonomic spherical dish with tactile homing. 4-way buttressed socket prevents layer splitting.</p>
           </div>
         </div>
 
         <!-- Card 12: Unibody Case -->
-        <div class="gallery-item case p-4 rounded-2xl bg-brand-card border border-brand-border cursor-pointer group" onclick="openModal('assets/img/case_exploded.png', 'Unibody Keyboard Case Exploded Assembly.')">
-          <div class="aspect-[16/10] bg-brand-base rounded-xl overflow-hidden flex items-center justify-center relative">
-            <img src="assets/img/case_exploded.png" alt="Case Exploded Assembly" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-            <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-brand-surface text-slate-300 text-xs font-mono border border-brand-border">Case 3D</span>
+        <div class="gallery-item case p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/case_exploded.png', 'Unibody Keyboard Case Exploded Assembly.')">
+          <div class="aspect-[16/11] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center relative">
+            <img src="assets/img/case_exploded.png" alt="Case Exploded Assembly" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
           </div>
-          <div class="mt-3">
-            <h4 class="text-base font-bold text-white font-mono">Unibody Case Exploded 3D</h4>
-            <p class="text-sm text-slate-400 mt-1 leading-relaxed">Ambidextrous case accommodating either hand. Integrated trackpad recess and OLED display enclosure.</p>
+          <div class="mt-4 px-1">
+            <h4 class="text-base font-serif font-semibold text-ink-primary">Unibody Case Exploded 3D</h4>
+            <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Ambidextrous case accommodating either hand. Integrated trackpad recess and OLED enclosure.</p>
           </div>
         </div>
 
@@ -517,49 +764,49 @@
     </div>
   </section>
 
-  <!-- SECTION 5: Hardware Roadmap Rev B (Vertical Integration) -->
-  <section id="roadmap" class="py-24 border-b border-brand-border/60 bg-brand-surface/30">
+  <!-- SECTION: Hardware Roadmap Rev B (Vertical Integration) -->
+  <section id="roadmap" class="py-24 border-b border-paper-border bg-paper-base">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       
       <div class="max-w-3xl mb-16">
-        <span class="text-xs font-mono text-sky-400 uppercase tracking-widest">Engineering Roadmap</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Hardware Rev B: True Vertical Integration</h2>
-        <p class="text-base sm:text-lg text-slate-400 mt-4 leading-relaxed">
-          Rev A validated the analog front-end and physical mechanics. Rev B eliminates prototyping compromises through full vertical integration:
+        <span class="text-xs font-mono uppercase tracking-widest text-accent-sage font-semibold">Engineering Roadmap</span>
+        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2">Hardware Rev B: True Vertical Integration</h2>
+        <p class="text-base text-ink-secondary mt-3 leading-relaxed">
+          Rev A validated the analog front-end and physical mechanics. Rev B eliminates prototyping compromises through full vertical miniaturization:
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 font-mono">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         
-        <div class="p-8 rounded-2xl bg-brand-card border border-brand-border">
-          <div class="text-sky-400 font-bold text-xs mb-2">01 &bull; ON-PCB TOUCHPAD</div>
-          <h3 class="text-base font-bold text-white mb-2">Custom Capacitive Trackpad Copper Grid</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-2">
+          <div class="text-accent-terracotta font-mono font-semibold text-xs">01 &bull; ON-PCB TOUCHPAD</div>
+          <h3 class="text-lg font-serif font-semibold text-ink-primary">Custom Capacitive Trackpad Copper Grid</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
             Instead of buying off-the-shelf breakout modules, Rev B etches the capacitive X/Y sensor electrode grid directly into our PCB copper layers, soldering only the raw Azoteq controller IC in JLCPCB.
           </p>
         </div>
 
-        <div class="p-8 rounded-2xl bg-brand-card border border-brand-border">
-          <div class="text-emerald-400 font-bold text-xs mb-2">02 &bull; ASYMMETRIC ERGONOMICS</div>
-          <h3 class="text-base font-bold text-white mb-2">Dedicated Left &amp; Right PCBs</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-2">
+          <div class="text-accent-sage font-mono font-semibold text-xs">02 &bull; ASYMMETRIC ERGONOMICS</div>
+          <h3 class="text-lg font-serif font-semibold text-ink-primary">Dedicated Left &amp; Right PCBs</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
             Moving beyond the reversible ambidextrous compromise used in Rev A (which minimized early prototyping costs) to dedicated asymmetric Left and Right PCB layouts with perfected thumb cluster sweeps.
           </p>
         </div>
 
-        <div class="p-8 rounded-2xl bg-brand-card border border-brand-border">
-          <div class="text-purple-400 font-bold text-xs mb-2">03 &bull; BARE-METAL MCU</div>
-          <h3 class="text-base font-bold text-white mb-2">On-Board Bare-Metal nRF52840 SoC</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            Evaluating transitioning from the SuperMini daughterboard module to mounting the bare nRF52840 SoC, crystal network, and ceramic antenna directly onto the main keyboard PCB.
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-2">
+          <div class="text-accent-ochre font-mono font-semibold text-xs">03 &bull; BARE-METAL MCU</div>
+          <h3 class="text-lg font-serif font-semibold text-ink-primary">On-Board Bare-Metal nRF52840 SoC</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
+            Transitioning from the SuperMini daughterboard module to mounting the bare nRF52840 SoC, crystal network, and ceramic antenna directly onto the main keyboard PCB.
           </p>
         </div>
 
-        <div class="p-8 rounded-2xl bg-brand-card border border-brand-border">
-          <div class="text-amber-400 font-bold text-xs mb-2">04 &bull; BATTERY OPTIMIZATION</div>
-          <h3 class="text-base font-bold text-white mb-2">Synchronized Sensor Power Gating</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            Strobing the analog sensor rail (`3V3_A`) for ~20 µs during conversion drops active sensing draw below 1.5 mA, unlocking multi-week shelf life with &lt; 20 µA deep sleep.
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-2">
+          <div class="text-ink-primary font-mono font-semibold text-xs">04 &bull; BATTERY OPTIMIZATION</div>
+          <h3 class="text-lg font-serif font-semibold text-ink-primary">Synchronized Sensor Power Gating</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
+            Strobing the analog sensor rail (3V3_A) for ~20 µs during conversion drops active sensing draw below 1.5 mA, unlocking multi-week shelf life with under 20 µA deep sleep.
           </p>
         </div>
 
@@ -568,40 +815,40 @@
     </div>
   </section>
 
-  <!-- SECTION 6: Beyond the Keyboard (Future HCI Vision) -->
-  <section id="hci" class="py-24 border-b border-brand-border/60">
+  <!-- SECTION: Beyond the Keyboard (Future HCI Vision) -->
+  <section id="hci" class="py-24 border-b border-paper-border bg-paper-surface/40">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       
       <div class="max-w-3xl mb-16">
-        <span class="text-xs font-mono text-sky-400 uppercase tracking-widest">Future HCI</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Beyond the Keyboard: The Future of Human Interaction</h2>
-        <p class="text-base sm:text-lg text-slate-400 mt-4 leading-relaxed">
+        <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold">Future HCI</span>
+        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2">Beyond the Keyboard: The Future of Human Interaction</h2>
+        <p class="text-base text-ink-secondary mt-3 leading-relaxed">
           This keyboard is only the first chapter. Our broader vision reimagines how humans interact with machines through three foundational vectors:
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         
-        <div class="p-8 rounded-2xl bg-brand-surface border border-brand-border">
-          <div class="text-xs font-mono text-sky-400 uppercase mb-3">Vector 01</div>
-          <h3 class="text-xl font-bold text-white mb-3">Frictionless Analog Mice</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-3">
+          <div class="text-xs font-mono uppercase text-accent-terracotta font-semibold">Vector 01</div>
+          <h3 class="text-xl font-serif font-semibold text-ink-primary">Frictionless Analog Mice</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
             Applying FloatForce magnetic sensing to ergonomic mice. Continuous pressure-sensitive analog scrolling and frictionless switch actuation without microswitch mechanical failure or contact bounce.
           </p>
         </div>
 
-        <div class="p-8 rounded-2xl bg-brand-surface border border-brand-border">
-          <div class="text-xs font-mono text-purple-400 uppercase mb-3">Vector 02</div>
-          <h3 class="text-xl font-bold text-white mb-3">Spatial Bezel-Tracking Eye Glasses</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-3">
+          <div class="text-xs font-mono uppercase text-accent-sage font-semibold">Vector 02</div>
+          <h3 class="text-xl font-serif font-semibold text-ink-primary">Spatial Bezel-Tracking Eye Glasses</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
             Lightweight glasses that track pupil gaze while outward miniature sensors detect physical monitor bezels, mapping natural gaze coordinates seamlessly across multi-screen setups without head turns.
           </p>
         </div>
 
-        <div class="p-8 rounded-2xl bg-brand-surface border border-brand-border">
-          <div class="text-xs font-mono text-emerald-400 uppercase mb-3">Vector 03</div>
-          <h3 class="text-xl font-bold text-white mb-3">Bio-Subtle Micro Interfaces</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">
+        <div class="p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-3">
+          <div class="text-xs font-mono uppercase text-accent-ochre font-semibold">Vector 03</div>
+          <h3 class="text-xl font-serif font-semibold text-ink-primary">Bio-Subtle Micro Interfaces</h3>
+          <p class="text-sm text-ink-secondary leading-relaxed">
             Exploring minimal-effort biological input (such as ear-canal pressure or micro-facial twitch sensing) to provide effortless, hands-free computing for accessibility and ambient workflows.
           </p>
         </div>
@@ -611,35 +858,35 @@
     </div>
   </section>
 
-  <!-- SECTION 7: 1517 Fund Medici Project Grant ($1,000 USD) -->
-  <section id="grant" class="py-24 border-b border-brand-border/60 bg-brand-surface/40">
+  <!-- SECTION: 1517 Fund Medici Project Grant ($1,000 USD) -->
+  <section id="grant" class="py-24 border-b border-paper-border bg-paper-base">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       
       <div class="sm:flex sm:items-end sm:justify-between mb-12">
         <div>
-          <span class="text-xs font-mono text-amber-400 uppercase tracking-widest">Section 07 &bull; The Pitch</span>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">1517 Fund Medici Grant Allocation</h2>
+          <span class="text-xs font-mono uppercase tracking-widest text-accent-ochre font-semibold">The Pitch</span>
+          <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2">1517 Fund Medici Grant Allocation</h2>
         </div>
-        <div class="text-xs font-mono text-amber-300 bg-amber-500/10 border border-amber-500/20 px-3.5 py-1.5 rounded-lg mt-2 sm:mt-0">
-          Total Request: $1,000 USD &bull; 100% Direct Product R&amp;D
+        <div class="text-xs font-mono text-ink-primary bg-accent-ochre-soft border border-accent-ochre/30 px-3.5 py-1.5 rounded-xl mt-2 sm:mt-0 font-medium">
+          Total Request: &#36;1,000.00 USD &bull; 100% Direct Product R&amp;D
         </div>
       </div>
 
-      <div class="p-8 rounded-2xl bg-brand-card border border-brand-border mb-12">
-        <h3 class="text-lg font-bold text-white mb-3 font-mono">The Autodidactic Builder Journey</h3>
-        <p class="text-base text-slate-300 leading-relaxed font-light">
+      <div class="p-8 rounded-3xl bg-paper-surface border border-paper-border mb-12 shadow-sm">
+        <h3 class="text-lg font-serif font-semibold text-ink-primary mb-3">The Autodidactic Builder Journey</h3>
+        <p class="text-base text-ink-secondary leading-relaxed font-light">
           I am an independent maker based in Mexico. Outside of corporate labs, I have personally self-funded 100% of the initial research, 3D printing tolerance iterations, protoboard validation, and the first manufactured SMT production batch (Rev A) using my personal savings. By leveraging Artificial Intelligence for parametric CAD, magnetic physics simulation, and PCB design, I proved that a non-expert can architect complex physical hardware from first principles.
         </p>
-        <p class="text-sm text-slate-400 mt-4 leading-relaxed font-mono">
-          The $1,000 USD Medici grant will sustain our research runway, fund the Rev B iteration with integrated interactivity, and expand open-source educational build guides for creators worldwide.
+        <p class="text-sm text-ink-secondary mt-4 leading-relaxed">
+          The &#36;1,000.00 USD Medici grant will sustain our research runway, fund the Rev B iteration with integrated interactivity, and expand open-source educational build guides for creators worldwide.
         </p>
       </div>
 
       <!-- Itemized Budget Table -->
-      <div class="rounded-2xl bg-brand-card border border-brand-border overflow-hidden mb-12">
+      <div class="rounded-3xl bg-paper-card border border-paper-border overflow-hidden mb-12 shadow-sm">
         <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm font-mono">
-            <thead class="bg-brand-surface text-slate-400 border-b border-brand-border text-xs">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-paper-surface text-ink-secondary border-b border-paper-border text-xs font-medium">
               <tr>
                 <th class="py-4 px-6">ITEM &amp; CATEGORY</th>
                 <th class="py-4 px-6">COST (USD)</th>
@@ -647,44 +894,44 @@
                 <th class="py-4 px-6">DELIVERABLE</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-brand-border/60 text-slate-300">
-              <tr class="hover:bg-slate-800/20">
-                <td class="py-4 px-6 font-bold text-sky-400">
-                  1. R&amp;D Seed Capital Recovery &amp; Continuity Runway
-                  <div class="text-xs text-slate-400 font-normal mt-0.5">Re-investing personal savings spent on prototypes, early tooling &amp; first PCBA batch</div>
+            <tbody class="divide-y divide-paper-border text-ink-secondary">
+              <tr class="hover:bg-paper-surface/60 transition-colors">
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-ink-primary">1. R&amp;D Seed Capital Recovery &amp; Continuity Runway</span>
+                  <div class="text-xs text-ink-muted mt-0.5">Re-investing personal savings spent on prototypes, early tooling &amp; first PCBA batch</div>
                 </td>
-                <td class="py-4 px-6 font-bold text-white text-sm">&#36;450.00</td>
-                <td class="py-4 px-6 text-slate-300">
+                <td class="py-4 px-6 font-mono font-bold text-ink-primary text-sm">&#36;450.00</td>
+                <td class="py-4 px-6 text-xs text-ink-secondary">
                   Replenishing project working capital to absorb physical testing iterations between Rev A and Rev B without stalling development momentum.
                 </td>
-                <td class="py-4 px-6 text-emerald-400">Rev A &rarr; Rev B Continuity Runway</td>
+                <td class="py-4 px-6 text-xs font-medium text-accent-sage">Rev A &rarr; Rev B Continuity Runway</td>
               </tr>
-              <tr class="hover:bg-slate-800/20">
-                <td class="py-4 px-6 font-bold text-purple-400">
-                  2. PCB Rev B Fabrication &amp; Interactivity Modules
-                  <div class="text-xs text-slate-400 font-normal mt-0.5">JLCPCB Rev B run (Azoteq trackpad ICs, OLEDs, encoders, LiPo batteries &amp; N52 magnets)</div>
+              <tr class="hover:bg-paper-surface/60 transition-colors">
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-ink-primary">2. PCB Rev B Fabrication &amp; Interactivity Modules</span>
+                  <div class="text-xs text-ink-muted mt-0.5">JLCPCB Rev B run (Azoteq trackpad ICs, OLEDs, encoders, LiPo batteries &amp; N52 magnets)</div>
                 </td>
-                <td class="py-4 px-6 font-bold text-white text-sm">&#36;350.00</td>
-                <td class="py-4 px-6 text-slate-300">
+                <td class="py-4 px-6 font-mono font-bold text-ink-primary text-sm">&#36;350.00</td>
+                <td class="py-4 px-6 text-xs text-ink-secondary">
                   Direct cost of manufacturing the second PCB iteration, purchasing OLED displays, I2C touchpads, rotary encoders, LiPo batteries, and N52 magnets for 3 to 5 full units.
                 </td>
-                <td class="py-4 px-6 text-emerald-400">Rev B Complete Working Units</td>
+                <td class="py-4 px-6 text-xs font-medium text-accent-sage">Rev B Complete Working Units</td>
               </tr>
-              <tr class="hover:bg-slate-800/20">
-                <td class="py-4 px-6 font-bold text-emerald-400">
-                  3. Open-Source Ecosystem, Printing Materials &amp; Build Guides
-                  <div class="text-xs text-slate-400 font-normal mt-0.5">Tenting stands, multilingual keycaps, step-by-step guides &amp; AI tutorials</div>
+              <tr class="hover:bg-paper-surface/60 transition-colors">
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-ink-primary">3. Open-Source Ecosystem, 3D Printing Filaments &amp; Build Guides</span>
+                  <div class="text-xs text-ink-muted mt-0.5">Tenting stands, multilingual keycaps, step-by-step guides &amp; AI tutorials</div>
                 </td>
-                <td class="py-4 px-6 font-bold text-white text-sm">&#36;200.00</td>
-                <td class="py-4 px-6 text-slate-300">
-                  Filaments and resins to iterate ergonomic tenting stands, multilingual keycap testing, and producing open beginner-friendly documentation for AI-assisted hardware engineering.
+                <td class="py-4 px-6 font-mono font-bold text-ink-primary text-sm">&#36;200.00</td>
+                <td class="py-4 px-6 text-xs text-ink-secondary">
+                  3D printing filaments to iterate ergonomic tenting stands, custom keycap sets, and open step-by-step build guides for AI-assisted hardware creation.
                 </td>
-                <td class="py-4 px-6 text-emerald-400">Open-Source Build Guides &amp; CAD</td>
+                <td class="py-4 px-6 text-xs font-medium text-accent-sage">Open-Source Build Guides &amp; CAD</td>
               </tr>
-              <tr class="bg-brand-surface font-bold text-white">
-                <td class="py-4 px-6 text-amber-400">TOTAL GRANT ALLOCATION</td>
-                <td class="py-4 px-6 text-amber-400 text-sm">&#36;1,000.00</td>
-                <td class="py-4 px-6 text-slate-400" colspan="2">100% Direct Product R&amp;D &bull; 0% Overhead</td>
+              <tr class="bg-paper-surface font-semibold text-ink-primary">
+                <td class="py-4 px-6 text-accent-ochre">TOTAL GRANT ALLOCATION</td>
+                <td class="py-4 px-6 font-mono text-accent-ochre text-sm font-bold">&#36;1,000.00</td>
+                <td class="py-4 px-6 text-xs text-ink-muted" colspan="2">100% Direct Product R&amp;D &bull; 0% Overhead</td>
               </tr>
             </tbody>
           </table>
@@ -692,26 +939,26 @@
       </div>
 
       <!-- Roadmap Timeline -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 font-mono text-sm">
-        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border">
-          <div class="text-emerald-400 font-bold text-xs mb-1">PHASE 1 (DONE)</div>
-          <div class="text-white font-bold text-base">Protoboard Rig</div>
-          <p class="text-slate-400 text-sm mt-1 leading-relaxed">15x sensors, CD74HC4067, Zephyr RTOS firmware v0.3.1 verified.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+        <div class="p-6 rounded-3xl bg-paper-card border border-paper-border shadow-sm">
+          <div class="text-accent-sage font-mono font-semibold text-xs mb-1">PHASE 1 (DONE)</div>
+          <div class="text-ink-primary font-serif font-semibold text-base">Protoboard Rig</div>
+          <p class="text-ink-secondary text-xs mt-1.5 leading-relaxed">15x sensors, CD74HC4067, Zephyr RTOS firmware v0.3.1 verified.</p>
         </div>
-        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border">
-          <div class="text-sky-400 font-bold text-xs mb-1">PHASE 2 (CURRENT)</div>
-          <div class="text-white font-bold text-base">PCB Rev A SMT</div>
-          <p class="text-slate-400 text-sm mt-1 leading-relaxed">Matte Black board with Van Gogh art sent to JLCPCB SMT production.</p>
+        <div class="p-6 rounded-3xl bg-paper-card border border-paper-border shadow-sm">
+          <div class="text-accent-terracotta font-mono font-semibold text-xs mb-1">PHASE 2 (CURRENT)</div>
+          <div class="text-ink-primary font-serif font-semibold text-base">PCB Rev A SMT</div>
+          <p class="text-ink-secondary text-xs mt-1.5 leading-relaxed">Matte Black board with Van Gogh art sent to JLCPCB SMT production.</p>
         </div>
-        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border">
-          <div class="text-amber-400 font-bold text-xs mb-1">PHASE 3 (MEDICI)</div>
-          <div class="text-white font-bold text-base">Rev B Vertical Integration</div>
-          <p class="text-slate-400 text-sm mt-1 leading-relaxed">On-PCB Azoteq trackpad, dedicated L/R boards, and sensor power gating.</p>
+        <div class="p-6 rounded-3xl bg-paper-card border border-paper-border shadow-sm">
+          <div class="text-accent-ochre font-mono font-semibold text-xs mb-1">PHASE 3 (MEDICI)</div>
+          <div class="text-ink-primary font-serif font-semibold text-base">Rev B Vertical Integration</div>
+          <p class="text-ink-secondary text-xs mt-1.5 leading-relaxed">On-PCB Azoteq trackpad, dedicated L/R boards, and sensor power gating.</p>
         </div>
-        <div class="p-6 rounded-2xl bg-brand-card border border-brand-border">
-          <div class="text-purple-400 font-bold text-xs mb-1">PHASE 4 (NEXT)</div>
-          <div class="text-white font-bold text-base">The Prusa Model</div>
-          <p class="text-slate-400 text-sm mt-1 leading-relaxed">Founding an open-source hardware peripherals company in Mexico.</p>
+        <div class="p-6 rounded-3xl bg-paper-card border border-paper-border shadow-sm">
+          <div class="text-ink-primary font-mono font-semibold text-xs mb-1">PHASE 4 (NEXT)</div>
+          <div class="text-ink-primary font-serif font-semibold text-base">The Prusa Model</div>
+          <p class="text-ink-secondary text-xs mt-1.5 leading-relaxed">Founding an open-source hardware peripherals company in Mexico.</p>
         </div>
       </div>
 
@@ -719,28 +966,28 @@
   </section>
 
   <!-- Footer -->
-  <footer class="py-16 bg-brand-base border-t border-brand-border text-xs font-mono text-slate-400">
+  <footer class="py-16 bg-paper-surface border-t border-paper-border text-xs text-ink-muted">
     <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
       
       <div>
-        <div class="flex items-center gap-2 text-white font-bold text-sm">
-          <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
-          HE-KEYBOARD // OPEN-SOURCE FLOATFORCE HARDWARE
+        <div class="flex items-center gap-2 text-ink-primary font-serif font-semibold text-base">
+          <span class="w-2.5 h-2.5 rounded-full bg-accent-terracotta"></span>
+          HE-Keyboard &bull; Open-Source Human Interface
         </div>
-        <p class="text-slate-500 mt-1">Designed with KiCad 10, Blender, and Zephyr RTOS. Licensed under CERN-OHL-P &bull; 2026</p>
+        <p class="text-ink-secondary mt-1">Designed with KiCad 10, Blender, Magpylib, and Zephyr RTOS. Licensed under CERN-OHL-P &bull; 2026</p>
       </div>
 
       <div class="flex flex-wrap items-center gap-6">
-        <a href="https://github.com/Sebas-Govel/HE_KB_Showcase" target="_blank" class="hover:text-white transition-colors">
+        <a href="https://github.com/Sebas-Govel/HE_KB_Showcase" target="_blank" class="hover:text-ink-primary transition-colors">
           GitHub Showcase
         </a>
-        <a href="ENGINEERING_FACT_SHEET.md" target="_blank" class="hover:text-white transition-colors">
+        <a href="ENGINEERING_FACT_SHEET.md" target="_blank" class="hover:text-ink-primary transition-colors">
           Fact Sheet (MD)
         </a>
-        <a href="assets/img/system_architecture_diagram.svg" target="_blank" class="hover:text-white transition-colors">
+        <a href="assets/img/system_architecture_diagram.svg" target="_blank" class="hover:text-ink-primary transition-colors">
           Architecture SVG
         </a>
-        <a href="mailto:contact@example.com" class="text-sky-400 hover:text-sky-300 font-bold">
+        <a href="mailto:contact@example.com" class="text-accent-terracotta hover:underline font-medium">
           Contact Founder &rarr;
         </a>
       </div>
@@ -749,35 +996,489 @@
   </footer>
 
   <!-- Lightbox Modal -->
-  <div id="imageModal" class="fixed inset-0 z-50 hidden bg-black/95 backdrop-blur-md flex items-center justify-center p-4" onclick="closeModal()">
-    <div class="relative max-w-5xl w-full bg-brand-card border border-brand-border rounded-2xl overflow-hidden shadow-2xl" onclick="event.stopPropagation()">
-      <div class="flex items-center justify-between p-4 border-b border-brand-border bg-brand-surface">
-        <span id="modalCaption" class="text-xs font-mono text-slate-200 font-bold truncate pr-4"></span>
-        <button onclick="closeModal()" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono">
-          &times; Close [ESC]
+  <div id="imageModal" class="fixed inset-0 z-50 hidden bg-[#1E1D1A]/80 backdrop-blur-md flex items-center justify-center p-4" onclick="closeModal()">
+    <div class="relative max-w-5xl w-full bg-paper-card border border-paper-border rounded-3xl overflow-hidden shadow-2xl" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between p-4 border-b border-paper-border bg-paper-surface">
+        <span id="modalCaption" class="text-xs font-serif text-ink-primary font-semibold truncate pr-4"></span>
+        <button onclick="closeModal()" class="px-3 py-1.5 rounded-xl bg-paper-card hover:bg-paper-border text-ink-primary text-xs font-medium border border-paper-border transition-colors">
+          &times; Close
         </button>
       </div>
-      <div class="p-4 flex items-center justify-center max-h-[80vh] overflow-auto bg-brand-base">
-        <img id="modalImage" src="" alt="Modal View" class="max-w-full max-h-[75vh] object-contain rounded-lg">
-      </div>
-      <div class="p-3 border-t border-brand-border bg-brand-surface flex justify-between items-center text-xs font-mono text-slate-400">
-        <span>Click anywhere outside to dismiss</span>
-        <a id="modalDownload" href="" target="_blank" class="text-sky-400 hover:underline">Open Raw File &rarr;</a>
+      <div class="p-4 flex items-center justify-center max-h-[75vh] overflow-auto bg-[#141414]">
+        <img id="modalImage" src="" alt="Modal View" class="max-w-full max-h-[70vh] object-contain rounded-xl">
       </div>
     </div>
   </div>
 
-  <!-- Scripts -->
+  <!-- Scripts: 3D Scene, Audio Synth, Playground, Scroll, Gallery -->
   <script>
+    /* ==========================================================
+       1. AS5600 Scroll Progress Rotary Dial
+       ========================================================== */
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) : 0;
+      const degrees = Math.round(scrolled * 360 * 2);
+      
+      const encoderIcon = document.getElementById('headerEncoder');
+      const angleText = document.getElementById('encoderAngle');
+      if (encoderIcon && angleText) {
+        encoderIcon.style.transform = `rotate(${degrees}deg)`;
+        angleText.innerText = `${(degrees % 360).toString().padStart(3, '0')}°`;
+      }
+    });
+
+    /* ==========================================================
+       2. Three.js Procedural FloatForce Switch V5.0 Studio
+       ========================================================== */
+    let scene, camera, renderer, controls;
+    let switchGroup, uBodyGroup, sideWallGroup, stemGroup;
+    let magnetFloor, magnetTop, magnetStem, keycapMesh;
+    let isExploded = false;
+    let explodeProgress = 0; // 0 (assembled) to 1 (exploded)
+    let targetExplode = 0;
+    let switchTravel = 0; // 0 to 1
+    let targetTravel = 0;
+
+    function initSwitch3D() {
+      const container = document.getElementById('switch3DContainer');
+      if (!container) return;
+
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+      // Scene
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xF6F1E8);
+
+      // Camera
+      camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
+      camera.position.set(22, 18, 26);
+
+      // Renderer
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      container.appendChild(renderer.domElement);
+
+      // OrbitControls
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.minDistance = 15;
+      controls.maxDistance = 50;
+      controls.target.set(0, 4, 0);
+
+      // Lighting
+      const hemiLight = new THREE.HemisphereLight(0xFFF9F0, 0xE5DEC9, 0.7);
+      scene.add(hemiLight);
+
+      const dirLight = new THREE.DirectionalLight(0xFFFFFF, 0.85);
+      dirLight.position.set(15, 25, 20);
+      dirLight.castShadow = true;
+      dirLight.shadow.mapSize.width = 1024;
+      dirLight.shadow.mapSize.height = 1024;
+      scene.add(dirLight);
+
+      const fillLight = new THREE.DirectionalLight(0xD8E2EC, 0.4);
+      fillLight.position.set(-20, 10, -15);
+      scene.add(fillLight);
+
+      // Floor Shadow Plane
+      const shadowGeo = new THREE.PlaneGeometry(60, 60);
+      const shadowMat = new THREE.ShadowMaterial({ opacity: 0.12 });
+      const shadowPlane = new THREE.Mesh(shadowGeo, shadowMat);
+      shadowPlane.rotation.x = -Math.PI / 2;
+      shadowPlane.position.y = -0.05;
+      shadowPlane.receiveShadow = true;
+      scene.add(shadowPlane);
+
+      // Materials
+      const ivoryMat = new THREE.MeshStandardMaterial({
+        color: 0xE8E2D5,
+        roughness: 0.35,
+        metalness: 0.05
+      });
+      const sideWallMat = new THREE.MeshStandardMaterial({
+        color: 0xDFD8CA,
+        roughness: 0.4,
+        metalness: 0.05
+      });
+      const stemMat = new THREE.MeshStandardMaterial({
+        color: 0x2D3238,
+        roughness: 0.4,
+        metalness: 0.1
+      });
+      const magnetGoldMat = new THREE.MeshStandardMaterial({
+        color: 0xD4AF37,
+        roughness: 0.25,
+        metalness: 0.85
+      });
+      const keycapMat = new THREE.MeshStandardMaterial({
+        color: 0xFAF7F2,
+        roughness: 0.5,
+        metalness: 0.05
+      });
+
+      // Switch Master Group
+      switchGroup = new THREE.Group();
+      scene.add(switchGroup);
+
+      // 1. U-Body Housing (Base + Left + Rear Wall)
+      uBodyGroup = new THREE.Group();
+      const baseMesh = new THREE.Mesh(new THREE.BoxGeometry(11, 2, 11), ivoryMat);
+      baseMesh.position.y = 1;
+      baseMesh.castShadow = true;
+      baseMesh.receiveShadow = true;
+      uBodyGroup.add(baseMesh);
+
+      const backWall = new THREE.Mesh(new THREE.BoxGeometry(11, 8, 2), ivoryMat);
+      backWall.position.set(0, 6, -4.5);
+      backWall.castShadow = true;
+      uBodyGroup.add(backWall);
+
+      const leftWall = new THREE.Mesh(new THREE.BoxGeometry(2, 8, 7), ivoryMat);
+      leftWall.position.set(-4.5, 6, 0);
+      leftWall.castShadow = true;
+      uBodyGroup.add(leftWall);
+
+      const topRoof = new THREE.Mesh(new THREE.BoxGeometry(11, 1.8, 11), ivoryMat);
+      topRoof.position.set(0, 10.9, 0);
+      topRoof.castShadow = true;
+      uBodyGroup.add(topRoof);
+
+      // S1 Bottom Floor Magnet
+      magnetFloor = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 1.2, 32), magnetGoldMat);
+      magnetFloor.position.set(0, 2.6, 0);
+      magnetFloor.castShadow = true;
+      uBodyGroup.add(magnetFloor);
+
+      // S3 Top Magnet
+      magnetTop = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 1.2, 32), magnetGoldMat);
+      magnetTop.position.set(0, 9.8, 0);
+      magnetTop.castShadow = true;
+      uBodyGroup.add(magnetTop);
+
+      switchGroup.add(uBodyGroup);
+
+      // 2. Keyed SideWall (Right panel)
+      sideWallGroup = new THREE.Group();
+      const rightWall = new THREE.Mesh(new THREE.BoxGeometry(2, 8, 7), sideWallMat);
+      rightWall.position.set(4.5, 6, 0);
+      rightWall.castShadow = true;
+      sideWallGroup.add(rightWall);
+      switchGroup.add(sideWallGroup);
+
+      // 3. Stem Group
+      stemGroup = new THREE.Group();
+      const stemCore = new THREE.Mesh(new THREE.BoxGeometry(6.4, 7.8, 6.4), stemMat);
+      stemCore.position.set(0, 6.4, 0);
+      stemCore.castShadow = true;
+      stemGroup.add(stemCore);
+
+      const stemCross = new THREE.Mesh(new THREE.BoxGeometry(4.2, 3.5, 4.2), stemMat);
+      stemCross.position.set(0, 11.5, 0);
+      stemCross.castShadow = true;
+      stemGroup.add(stemCross);
+
+      // S2 Center Stem Magnet
+      magnetStem = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 1.2, 32), magnetGoldMat);
+      magnetStem.position.set(0, 6.4, 0);
+      magnetStem.castShadow = true;
+      stemGroup.add(magnetStem);
+
+      // 4. Ergonomic Keycap
+      const keycapBase = new THREE.Mesh(new THREE.CylinderGeometry(6.8, 8.2, 4.5, 4), keycapMat);
+      keycapBase.rotation.y = Math.PI / 4;
+      keycapBase.position.set(0, 14.5, 0);
+      keycapBase.castShadow = true;
+      keycapMesh = keycapBase;
+      stemGroup.add(keycapMesh);
+
+      switchGroup.add(stemGroup);
+
+      // Auto-resize on window resize
+      window.addEventListener('resize', onWindowResize);
+
+      // Scroll-driven explosion observer
+      setupScrollExplode();
+
+      // Start render loop
+      animateSwitch3D();
+    }
+
+    function onWindowResize() {
+      const container = document.getElementById('switch3DContainer');
+      if (!container || !renderer || !camera) return;
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    }
+
+    function setupScrollExplode() {
+      const section = document.getElementById('interactive-switch');
+      if (!section) return;
+
+      window.addEventListener('scroll', () => {
+        const rect = section.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        // Check if section is centered in screen
+        if (rect.top < windowHeight * 0.7 && rect.bottom > windowHeight * 0.3) {
+          const ratio = (windowHeight * 0.7 - rect.top) / (windowHeight * 0.6);
+          const clamped = Math.max(0, Math.min(1, ratio));
+          // If user hasn't locked explode toggle, drive gently with scroll
+          if (!isExploded) {
+            targetExplode = Math.sin(clamped * Math.PI) * 0.65;
+          }
+        }
+      });
+    }
+
+    function animateSwitch3D() {
+      requestAnimationFrame(animateSwitch3D);
+
+      // Smooth interpolation for explode
+      explodeProgress += (targetExplode - explodeProgress) * 0.1;
+      // Smooth interpolation for travel stroke
+      switchTravel += (targetTravel - switchTravel) * 0.15;
+
+      // Apply explode offsets
+      if (uBodyGroup) uBodyGroup.position.x = -explodeProgress * 5;
+      if (sideWallGroup) sideWallGroup.position.x = explodeProgress * 5;
+      if (magnetFloor) magnetFloor.position.y = 2.6 - explodeProgress * 3;
+      if (magnetTop) magnetTop.position.y = 9.8 + explodeProgress * 3;
+      if (keycapMesh) keycapMesh.position.y = 14.5 + explodeProgress * 3.5;
+
+      // Apply keypress travel
+      const travelDisplacement = -switchTravel * 2.36; // mm in scene units
+      if (stemGroup) {
+        stemGroup.position.y = travelDisplacement + (explodeProgress * 2);
+      }
+
+      // Gentle rotation when idle
+      if (!controls.state || controls.state === -1) {
+        switchGroup.rotation.y += 0.003;
+      }
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    // Toggle Explode Button
+    document.getElementById('btnExplodeToggle')?.addEventListener('click', function() {
+      isExploded = !isExploded;
+      targetExplode = isExploded ? 1.0 : 0.0;
+      this.innerText = isExploded ? "Assemble" : "Explode Assembly";
+      if (isExploded) this.classList.add('bg-accent-terracotta', 'text-white');
+      else this.classList.remove('bg-accent-terracotta', 'text-white');
+    });
+
+    // Reset View Button
+    document.getElementById('btnResetView')?.addEventListener('click', function() {
+      camera.position.set(22, 18, 26);
+      controls.target.set(0, 4, 0);
+      switchGroup.rotation.y = 0;
+    });
+
+    // Press Switch Button & Spacebar
+    const btnPress = document.getElementById('btnPressSwitch');
+    const travelDisplay = document.getElementById('switchTravelValue');
+
+    function doPressSwitch() {
+      targetTravel = 1.0;
+      if (travelDisplay) travelDisplay.innerText = "2.36 mm";
+      setTimeout(() => {
+        targetTravel = 0.0;
+        if (travelDisplay) travelDisplay.innerText = "0.00 mm";
+      }, 450);
+    }
+
+    btnPress?.addEventListener('click', doPressSwitch);
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' && e.target === document.body) {
+        e.preventDefault();
+        doPressSwitch();
+      }
+    });
+
+    // Initialize 3D when DOM ready
+    window.addEventListener('DOMContentLoaded', initSwitch3D);
+
+    /* ==========================================================
+       3. Continuous Analog Playground Logic & Web Audio API
+       ========================================================== */
+    const strokeSlider = document.getElementById('strokeSlider');
+    const sliderDisplay = document.getElementById('sliderValueDisplay');
+    const svgStem = document.getElementById('svgMovingStem');
+    const flux1 = document.getElementById('svgFluxPath1');
+    const flux2 = document.getElementById('svgFluxPath2');
+    const fluxText = document.getElementById('fluxIntensityText');
+
+    // Modality 1: Music
+    const musicCutoff = document.getElementById('musicCutoffVal');
+    const musicMidi = document.getElementById('musicMidiVal');
+    const musicBars = document.querySelectorAll('.music-bar');
+
+    // Modality 2: Gamepad
+    const gamepadAvatar = document.getElementById('gamepadAvatar');
+    const gamepadMotionText = document.getElementById('gamepadMotionText');
+    const gamepadSpeedText = document.getElementById('gamepadSpeedText');
+    const gamepadSpeedBar = document.getElementById('gamepadSpeedBar');
+
+    // Modality 3: Actuation
+    const thresholdSlider = document.getElementById('thresholdSlider');
+    const thresholdDisplay = document.getElementById('thresholdDisplay');
+    const actuationBadge = document.getElementById('actuationStatusBadge');
+
+    let audioCtx = null;
+    let synthOsc = null;
+    let synthGain = null;
+    let synthFilter = null;
+    let isAudioActive = false;
+
+    function initWebAudio() {
+      if (audioCtx) return;
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioContext();
+
+      synthOsc = audioCtx.createOscillator();
+      synthOsc.type = 'triangle';
+      synthOsc.frequency.setValueAtTime(130.81, audioCtx.currentTime); // C3
+
+      synthFilter = audioCtx.createBiquadFilter();
+      synthFilter.type = 'lowpass';
+      synthFilter.frequency.setValueAtTime(400, audioCtx.currentTime);
+
+      synthGain = audioCtx.createGain();
+      synthGain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+
+      synthOsc.connect(synthFilter);
+      synthFilter.connect(synthGain);
+      synthGain.connect(audioCtx.destination);
+      synthOsc.start();
+    }
+
+    document.getElementById('btnToggleAudio')?.addEventListener('click', function() {
+      if (!isAudioActive) {
+        initWebAudio();
+        if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+        isAudioActive = true;
+        this.innerText = "Mute Tone";
+        this.classList.add('bg-accent-terracotta', 'text-white');
+      } else {
+        if (synthGain && audioCtx) {
+          synthGain.gain.setTargetAtTime(0.0001, audioCtx.currentTime, 0.05);
+        }
+        isAudioActive = false;
+        this.innerText = "Enable Audio Tone";
+        this.classList.remove('bg-accent-terracotta', 'text-white');
+      }
+    });
+
+    function updatePlayground(travel) {
+      const pct = travel / 2.36; // 0 to 1
+      const pctRound = Math.round(pct * 100);
+
+      // Slider Display
+      if (sliderDisplay) sliderDisplay.innerText = `${travel.toFixed(2)} mm (${pctRound}%)`;
+
+      // SVG Moving Stem (stroke is ~60px max displacement in SVG coords)
+      if (svgStem) {
+        const svgY = pct * 65;
+        svgStem.style.transform = `translateY(${svgY}px)`;
+      }
+
+      // Magnetic Flux Color & Intensity Transition:
+      // Sage (#2F6B4F) -> Ochre (#C98A2C) -> Terracotta (#C85A32)
+      let fluxColor = '#2F6B4F';
+      if (pct > 0.6) fluxColor = '#C85A32';
+      else if (pct > 0.25) fluxColor = '#C98A2C';
+
+      if (flux1 && flux2) {
+        flux1.setAttribute('stroke', fluxColor);
+        flux2.setAttribute('stroke', fluxColor);
+        flux1.setAttribute('stroke-width', (2 + pct * 2.5).toString());
+        flux2.setAttribute('stroke-width', (2 + pct * 2.5).toString());
+      }
+
+      const gaussVal = Math.round(125 + pct * 185);
+      if (fluxText) {
+        fluxText.innerText = `B_z: ~${gaussVal} Gauss (${pct < 0.1 ? 'Rest' : pct > 0.9 ? 'Bottom-out' : 'Stroke'})`;
+        fluxText.style.color = fluxColor;
+      }
+
+      // Modality 1: Music update
+      const cutoffFreq = Math.round(300 + pct * 2400);
+      const midiVel = Math.round(pct * 127);
+      if (musicCutoff) musicCutoff.innerText = `${cutoffFreq} Hz`;
+      if (musicMidi) musicMidi.innerText = `Velocity ${midiVel} \u2022 Mod ${midiVel}`;
+
+      musicBars.forEach((bar, idx) => {
+        const baseH = (idx % 2 === 0 ? 15 : 25);
+        const dynamicH = Math.min(100, Math.round(baseH + pct * 75 * ((idx + 1) / 4)));
+        bar.style.height = `${dynamicH}%`;
+      });
+
+      // Web Audio synth modulation
+      if (isAudioActive && audioCtx && synthFilter && synthGain) {
+        synthFilter.frequency.setTargetAtTime(cutoffFreq, audioCtx.currentTime, 0.05);
+        const vol = pct > 0.01 ? (0.04 + pct * 0.12) : 0.001;
+        synthGain.gain.setTargetAtTime(vol, audioCtx.currentTime, 0.05);
+      }
+
+      // Modality 2: Gamepad velocity update
+      if (gamepadSpeedBar) gamepadSpeedBar.style.width = `${pctRound}%`;
+      const velocityMs = (pct * 8.0).toFixed(1);
+      if (gamepadSpeedText) gamepadSpeedText.innerText = `Velocity: ${velocityMs} m/s`;
+
+      if (gamepadMotionText) {
+        if (pct < 0.05) gamepadMotionText.innerText = "Standing Still (0%)";
+        else if (pct < 0.35) gamepadMotionText.innerText = "Stealth Walk (Pacing)";
+        else if (pct < 0.75) gamepadMotionText.innerText = "Jogging (Subtle Vector)";
+        else gamepadMotionText.innerText = "Full Sprint (100%)";
+      }
+
+      // Modality 3: Actuation Threshold Check
+      const threshold = parseFloat(thresholdSlider?.value || 1.2);
+      if (actuationBadge) {
+        if (travel >= threshold) {
+          actuationBadge.innerText = "ACTUATED";
+          actuationBadge.className = "px-2.5 py-0.5 rounded-full bg-accent-sage text-white text-xs font-mono font-medium shadow-sm";
+        } else {
+          actuationBadge.innerText = "Released";
+          actuationBadge.className = "px-2.5 py-0.5 rounded-full bg-paper-surface border border-paper-border text-ink-muted text-xs font-mono";
+        }
+      }
+    }
+
+    strokeSlider?.addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value);
+      updatePlayground(val);
+    });
+
+    thresholdSlider?.addEventListener('input', (e) => {
+      const th = parseFloat(e.target.value);
+      if (thresholdDisplay) thresholdDisplay.innerText = `${th.toFixed(2)} mm`;
+      updatePlayground(parseFloat(strokeSlider.value));
+    });
+
+    /* ==========================================================
+       4. Gallery Filtering & Lightbox Modal
+       ========================================================== */
     function filterGallery(category) {
       const items = document.querySelectorAll('.gallery-item');
       const buttons = document.querySelectorAll('#galleryTabs .tab-btn');
       
       buttons.forEach(btn => {
         if (btn.getAttribute('data-filter') === category) {
-          btn.className = "tab-btn px-4 py-2 rounded-lg bg-sky-500 text-white font-bold transition-all";
+          btn.className = "tab-btn px-4 py-2 rounded-xl bg-accent-terracotta text-white shadow-sm transition-all";
         } else {
-          btn.className = "tab-btn px-4 py-2 rounded-lg bg-brand-card hover:bg-slate-800 text-slate-300 border border-brand-border transition-all";
+          btn.className = "tab-btn px-4 py-2 rounded-xl bg-paper-card hover:bg-paper-border text-ink-secondary border border-paper-border transition-all";
         }
       });
 
@@ -794,11 +1495,9 @@
       const modal = document.getElementById('imageModal');
       const img = document.getElementById('modalImage');
       const cap = document.getElementById('modalCaption');
-      const dl = document.getElementById('modalDownload');
       
       img.src = src;
       cap.innerText = caption;
-      dl.href = src;
       modal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
     }

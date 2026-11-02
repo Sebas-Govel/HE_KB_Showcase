@@ -22,7 +22,7 @@ Instead of chasing esports latency hype, our mission centers on **postural healt
 
 ### 🌟 The 7 Core Pillars of the Design:
 1. **Real Ergonomics & Postural Health:** Split 30-key ambidextrous layout with native tenting support and ultra-low profile footprint, reducing wrist extension and repetitive strain (RSI).
-2. **Multimodal Analog Expression:** Continuous per-key magnetic sensing transforms keys into a velocity-sensitive MIDI instrument with polyphonic aftertouch, an analog gamepad with 360° proportional movement, and an adaptive mechanical keyboard.
+2. **Multimodal Analog Expression:** Continuous per-key magnetic sensing transforms keys into an expressive musical controller where every key responds continuously to how softly or deeply you press—letting you swell volume, bend notes, or shape sound naturally, an analog gamepad with 360° proportional movement, and an adaptive mechanical keyboard.
 3. **Expanded Interactivity Ecosystem:** Integrated AS5600 magnetic rotary encoder, dual thumb trackpads (Azoteq I2C) for mouse navigation without leaving the home row, and an OLED display for live status.
 4. **"Endgame for Everyone" (No Paywalls):** High-end flagship performance engineered with accessible components. Zero feature paywalls, zero tiered subscriptions, and zero artificial software limits.
 5. **Global Layouts via Support-Free 3D Printing:** 100% support-free 3D printable keycaps (V3.2) and FloatForce switches (V5.0), empowering anyone from Japan to Africa to Latin America to print custom alphabets and tactile legends at home.
@@ -53,7 +53,7 @@ The switch mechanism uses a springless **3-magnet repulsion/attraction suspensio
 
 | Parameter | Specification | Real-World Human / Engineering Impact |
 |:---|:---:|:---|
-| **Input Modality** | **Continuous Multimodal Analog** | Polyphonic MIDI aftertouch, analog gamepad, adaptive typing |
+| **Input Modality** | **Continuous Multimodal Analog** | Continuous pressure-sensitive MIDI expression per key, analog gamepad, adaptive typing |
 | **Switch Suspension** | **100% Springless FloatForce 3-Magnet Suspension** | 2.36 mm travel (+33%), smooth progressive curve, zero metal fatigue |
 | **Active Sensor Current** | **1.4 mA typ** (HAL403SO) | > 4.3× lower active power than legacy SS49E (6–9 mA) |
 | **RGB Power Gating (Rev A)** | **0.00 µA Quiescent** (AO3401A Gated) | Cuts 18–30 mA of parasitic quiescent LED idle drain |
@@ -88,7 +88,7 @@ The $1,000 USD grant is allocated with full transparency to sustain development 
 
 - **$450.00 USD — R&D Seed Capital Recovery & Continuity Runway (Rev A -> Rev B):** Re-investing personal savings spent on prototypes, early tooling, and the first manufactured PCBA batch, replenishing working capital to absorb physical testing iterations without stalling momentum.
 - **$350.00 USD — PCB Rev B Fabrication & Interactivity Modules:** Direct fabrication of the Rev B PCB iteration in JLCPCB (Sensor Power Gating on `3V3_A`, battery divider, physical slide switch), plus purchasing OLED displays, I2C touchpads, rotary encoders, LiPo batteries, and N52 magnets for 3 to 5 full working units.
-- **$200.00 USD — Open-Source Ecosystem, Printing Materials & Build Guides:** Filaments and resins to iterate ergonomic tenting stands, multilingual keycaps testing, and producing open beginner-friendly documentation for AI-assisted hardware engineering.
+- **$200.00 USD — Open-Source Ecosystem, Printing Materials & Build Guides:** 3D printing filaments to iterate ergonomic tenting stands, multilingual keycap testing, and open beginner-friendly build guides.
 
 ---
 
