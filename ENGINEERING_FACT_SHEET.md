@@ -109,7 +109,7 @@ Traditional mechanical switches provide a single binary state (0 or 1) determine
 
 | Parameter | Value | Engineering Notes |
 |:---|:---:|:---|
-| **Outer Envelope** | 12.00 × 12.00 × 8.45 mm | Fits standard 19.00 × 19.00 mm switch grid |
+| **Outer Envelope** | 12.00 × 12.00 × 8.45 mm | Optimized for compact ergonomic 18.00 × 17.00 mm switch spacing (housing 12.00 × 12.00 mm) |
 | **Total Stroke (Travel)** | **2.36 mm** | +32.6% increase over V4.0 (1.78 mm) |
 | **Mounting Plate Thickness** | 3.00 mm | Clamps U-Housing and Keyed SideWall simultaneously |
 | **Magnetic Suspension** | 3 Neodymium N52 Array | 100% springless; progressive repulsive/attractive curve |
