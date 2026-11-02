@@ -187,22 +187,30 @@
       </div>
 
       <!-- Navigation Links -->
-      <nav class="hidden md:flex items-center space-x-7 text-sm font-medium text-ink-secondary">
-        <a href="#tenting-section" class="hover:text-accent-terracotta transition-colors">Ergonomics</a>
-        <a href="#interactive-switch" class="hover:text-accent-terracotta transition-colors">FloatForce 3D</a>
-        <a href="#playground" class="hover:text-accent-terracotta transition-colors">Continuous Analog</a>
-        <a href="#timeline" class="hover:text-accent-terracotta transition-colors">R&amp;D Evolution</a>
-        <a href="#art" class="hover:text-accent-terracotta transition-colors">Art &amp; PCB</a>
-        <a href="#roadmap" class="hover:text-accent-terracotta transition-colors">Rev B</a>
-        <a href="#grant" class="hover:text-accent-terracotta transition-colors font-semibold text-accent-ochre">1517 Pitch</a>
-        <a href="#hci" class="hover:text-accent-terracotta transition-colors text-xs uppercase tracking-wider text-ink-muted">Future HCI</a>
-        <a href="#gallery" class="hover:text-accent-terracotta transition-colors font-medium">Gallery</a>
+      <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-ink-secondary">
+        <a href="#tenting-section" data-i18n="nav_ergo" class="hover:text-accent-terracotta transition-colors">Ergonomics</a>
+        <a href="#interactive-switch" data-i18n="nav_floatforce" class="hover:text-accent-terracotta transition-colors">FloatForce 3D</a>
+        <a href="#playground" data-i18n="nav_analog" class="hover:text-accent-terracotta transition-colors">Continuous Analog</a>
+        <a href="#timeline" data-i18n="nav_rd" class="hover:text-accent-terracotta transition-colors">R&amp;D Evolution</a>
+        <a href="#art" data-i18n="nav_art" class="hover:text-accent-terracotta transition-colors">Art &amp; PCB</a>
+        <a href="#roadmap" data-i18n="nav_revb" class="hover:text-accent-terracotta transition-colors">Rev B</a>
+        <a href="#real-life" data-i18n="nav_real" class="hover:text-accent-terracotta transition-colors font-semibold text-accent-terracotta">What's Real?</a>
+        <a href="#grant" data-i18n="nav_grant" class="hover:text-accent-terracotta transition-colors font-semibold text-accent-ochre">1517 Pitch</a>
+        <a href="#gallery" data-i18n="nav_gallery" class="hover:text-accent-terracotta transition-colors font-medium">Gallery</a>
       </nav>
 
-      <!-- AS5600 Encoder Dial & GitHub Link -->
-      <div class="flex items-center space-x-4">
+      <!-- Language Selector, AS5600 Encoder Dial & GitHub Link -->
+      <div class="flex items-center space-x-3 sm:space-x-4">
+        <!-- Language Switcher Pills -->
+        <div class="flex items-center bg-paper-surface border border-paper-border rounded-xl p-1 text-xs font-mono shadow-sm" role="group" aria-label="Language selection">
+          <button onclick="setLanguage('en')" id="langBtn-en" class="px-2 py-0.5 rounded-lg font-medium transition-all bg-accent-terracotta text-white" title="English">EN</button>
+          <button onclick="setLanguage('es')" id="langBtn-es" class="px-2 py-0.5 rounded-lg font-medium transition-all text-ink-secondary hover:text-ink-primary" title="Español">ES</button>
+          <button onclick="setLanguage('fr')" id="langBtn-fr" class="px-2 py-0.5 rounded-lg font-medium transition-all text-ink-secondary hover:text-ink-primary" title="Français">FR</button>
+          <button onclick="setLanguage('de')" id="langBtn-de" class="px-2 py-0.5 rounded-lg font-medium transition-all text-ink-secondary hover:text-ink-primary" title="Deutsch">DE</button>
+        </div>
+
         <!-- Minimalist AS5600 Rotary Dial -->
-        <div class="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-paper-surface border border-paper-border text-xs text-ink-secondary" title="AS5600 Magnetic Rotary Encoder tracking page progress">
+        <div class="hidden lg:flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-paper-surface border border-paper-border text-xs text-ink-secondary" title="AS5600 Magnetic Rotary Encoder tracking page progress">
           <svg id="headerEncoder" class="w-5 h-5 text-accent-terracotta transition-transform duration-100 ease-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="9" stroke="#E5DEC9" stroke-width="2.5"/>
             <circle cx="12" cy="12" r="3" fill="#C85A32" stroke="none"/>
@@ -211,7 +219,7 @@
           <span class="font-mono text-xs text-ink-muted" id="encoderAngle">000°</span>
         </div>
 
-        <a href="https://github.com/Sebas-Govel/HE_KB_Showcase" target="_blank" class="px-4 py-2 rounded-xl bg-paper-surface hover:bg-paper-card text-ink-primary border border-paper-border text-xs font-medium transition-all shadow-sm flex items-center gap-2">
+        <a href="https://github.com/Sebas-Govel/HE_KB_Showcase" target="_blank" class="px-3.5 py-2 rounded-xl bg-paper-surface hover:bg-paper-card text-ink-primary border border-paper-border text-xs font-medium transition-all shadow-sm flex items-center gap-2">
           <span>GitHub</span>
           <span class="w-2 h-2 rounded-full bg-accent-sage animate-pulse"></span>
         </a>
@@ -229,35 +237,36 @@
       <!-- Medici Candidate Badge -->
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent-ochre-soft border border-accent-ochre/30 text-ink-primary text-xs font-medium mb-8">
         <span class="w-2 h-2 rounded-full bg-accent-ochre"></span>
-        <span>1517 Fund &bull; Medici Project Candidate &bull; Open Hardware Built in Mexico</span>
+        <span data-i18n="hero_badge">1517 Fund &bull; Medici Project Candidate &bull; Open Hardware Built in Mexico</span>
       </div>
 
+      <!-- Top Cover Hero: Triumphal Entrance with Front PCB & Manifesto Side-by-Side -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
         
-        <!-- Left: Punchy Sensory Copy -->
-        <div class="lg:col-span-6 space-y-6">
-          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-ink-primary leading-[1.18]">
+        <!-- Left: Punchy Sensory Copy & Low-Cost Philosophy -->
+        <div class="lg:col-span-7 space-y-6">
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-ink-primary leading-[1.18]" data-i18n-html="hero_title">
             Humans express more than 1 and 0,<br>
             <span class="italic font-normal text-accent-terracotta">FloatForce</span> gives everyone a way to express that.
           </h1>
-          <p class="text-lg sm:text-xl text-ink-secondary leading-relaxed font-light">
+          <p class="text-lg sm:text-xl text-ink-secondary leading-relaxed font-light" data-i18n="hero_p1">
             Meet the low-cost, open-source split keyboard where every key floats on magnets instead of metal springs—turning continuous physical depth into expressive music, 360° analog game vectors, and effortless tactile typing.
           </p>
-          <p class="text-base text-ink-secondary leading-relaxed">
+          <p class="text-base text-ink-secondary leading-relaxed" data-i18n="hero_p2">
             Engineered from scratch for affordable fabrication: a low-cost standard PCBA architecture, 100% support-free 3D printing on everyday desktop printers, and lifted like an architectural drawbridge for natural ergonomic comfort.
           </p>
 
           <!-- Action Buttons -->
           <div class="flex flex-wrap items-center gap-3.5 pt-3">
             <a href="#tenting-section" class="px-6 py-3.5 rounded-xl bg-accent-terracotta hover:bg-accent-terracotta-hover text-white font-medium transition-all shadow-sm flex items-center gap-2 text-sm">
-              <span>Watch It Open &amp; Play &darr;</span>
+              <span data-i18n="hero_btn_watch">Watch It Open &amp; Play &darr;</span>
             </a>
             <button id="btnHeroXray" class="px-5 py-3.5 rounded-xl bg-paper-surface hover:bg-paper-card text-ink-primary border border-paper-border transition-all shadow-sm text-sm font-medium flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-accent-ochre"></span>
-              <span>Toggle X-Ray: Van Gogh PCB</span>
+              <span data-i18n="hero_btn_xray">Toggle X-Ray: Van Gogh PCB</span>
             </button>
             <a href="ENGINEERING_FACT_SHEET.md" target="_blank" class="px-4 py-3.5 rounded-xl hover:text-accent-terracotta transition-colors text-xs font-medium text-ink-muted">
-              Fact Sheet (MD) &rarr;
+              <span data-i18n="hero_btn_sheet">Fact Sheet (MD) &rarr;</span>
             </a>
           </div>
 
@@ -265,47 +274,94 @@
           <div class="pt-6 border-t border-paper-border/80 flex flex-wrap gap-y-3 gap-x-8 text-xs text-ink-muted">
             <div>
               <span class="block text-ink-primary font-mono font-semibold text-sm">30 + 30 Keys</span>
-              Full 60-Key Split Matrix
+              <span data-i18n="hero_stat_matrix">Full 60-Key Split Matrix</span>
             </div>
             <div>
               <span class="block text-accent-terracotta font-mono font-semibold text-sm">2.36 mm</span>
-              Magnetic Stroke (+33%)
+              <span data-i18n="hero_stat_stroke">Magnetic Stroke (+33%)</span>
             </div>
             <div>
               <span class="block text-accent-sage font-mono font-semibold text-sm">1.4 mA</span>
-              Sensor Power (HAL403SO)
+              <span data-i18n="hero_stat_power">Sensor Power (HAL403SO)</span>
             </div>
             <div>
               <span class="block text-ink-primary font-mono font-semibold text-sm">0 Supports</span>
-              Support-Free 3D Printed
+              <span data-i18n="hero_stat_supports">Support-Free 3D Printed</span>
             </div>
           </div>
         </div>
 
-        <!-- Right: 3D Studio of the Full Split Keyboard (Left + Right Halves) -->
-        <div class="lg:col-span-6">
-          <div class="rounded-3xl bg-paper-surface p-3.5 border border-paper-border shadow-sm relative">
-            <div class="absolute top-6 left-6 z-10 flex items-center gap-2">
-              <span class="px-3 py-1 rounded-full bg-paper-card/90 backdrop-blur border border-paper-border text-xs font-mono text-ink-secondary shadow-sm">
-                Full Split 3D Model &bull; Interactive
+        <!-- Right: Triumphal Front PCB Cover Exhibition Card -->
+        <div class="lg:col-span-5">
+          <div class="relative rounded-3xl bg-[#141413] p-4 sm:p-5 border border-paper-border shadow-2xl group overflow-hidden">
+            <!-- Subtle Gold Ambient Backlight -->
+            <div class="absolute -top-12 -right-12 w-64 h-64 bg-accent-ochre/15 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <!-- Exhibition Header Badge -->
+            <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-3 text-xs font-mono">
+              <span class="text-accent-ochre font-medium flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-accent-ochre animate-pulse"></span>
+                <span>ENIG Gold &bull; Matte Black PCB</span>
               </span>
+              <span class="text-stone-400 font-mono text-[11px]" data-i18n="hero_pcb_badge">Physical PCB Art</span>
             </div>
-            <div id="hero3DContainer" class="w-full h-[380px] sm:h-[440px] rounded-2xl bg-[#F6F1E8] overflow-hidden cursor-grab active:cursor-grabbing relative flex items-center justify-center">
-              <div id="heroLoadingIndicator" class="absolute inset-0 flex flex-col items-center justify-center bg-[#F6F1E8] text-xs font-mono text-ink-secondary z-20">
-                <div class="w-7 h-7 rounded-full border-2 border-accent-terracotta border-t-transparent animate-spin mb-2"></div>
-                <span>Loading 3D Split Assembly...</span>
-              </div>
-              <div class="absolute bottom-3 left-3 pointer-events-none text-xs text-ink-muted font-sans bg-paper-card/85 backdrop-blur px-2.5 py-1 rounded-md border border-paper-border/60">
-                Drag to rotate &bull; Click X-Ray to peek inside
-              </div>
+
+            <!-- Front PCB Display Image -->
+            <div class="rounded-2xl overflow-hidden bg-black/60 border border-white/5 relative aspect-[1904/1064] flex items-center justify-center">
+              <img src="assets/img/pcb_top.png" alt="FloatForce Rev A PCB Front Face - Van Gogh Langlois Bridge" class="w-full h-full object-contain filter drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.02]" loading="eager">
             </div>
-            <div class="mt-3 px-2 flex items-center justify-between text-xs text-ink-secondary">
-              <span class="font-medium text-ink-primary">Ambidextrous Unibody Halves with Integrated OLED &amp; Knob</span>
-              <span class="font-mono text-accent-sage text-xs font-medium bg-accent-sage-soft px-2.5 py-0.5 rounded-full border border-accent-sage/20">30 Keys / Half</span>
+
+            <!-- Bottom Label -->
+            <div class="mt-3 px-1 flex items-center justify-between text-xs text-stone-300">
+              <span class="font-serif italic text-sm text-[#F5F2EB]" data-i18n="hero_pcb_sub">Van Gogh’s Langlois Bridge Front Silkscreen</span>
+              <span class="font-mono text-accent-ochre text-xs bg-accent-ochre/10 px-2 py-0.5 rounded border border-accent-ochre/20">Standard PCBA Low-Cost</span>
             </div>
           </div>
         </div>
 
+      </div>
+
+      <!-- Displaced Directly Below: Full 3D Interactive Split Keyboard Stage -->
+      <div class="mt-14 sm:mt-16 pt-12 border-t border-paper-border/80">
+        <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-6">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-paper-surface border border-paper-border text-xs font-mono text-ink-secondary mb-2">
+              <span class="w-2 h-2 rounded-full bg-accent-terracotta"></span>
+              <span data-i18n="hero_3d_stage_badge">Interactive 3D Stage &bull; Dual Halves</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-serif text-ink-primary" data-i18n="hero_3d_stage_title">
+              The Complete Physical Architecture in 3D
+            </h2>
+            <p class="text-sm text-ink-secondary mt-1 max-w-2xl leading-relaxed" data-i18n="hero_3d_stage_desc">
+              Explore both ambidextrous halves elevated in their natural 14° drawbridge tenting posture. Drag to orbit, inspect the integrated OLED displays and rotary dials, or toggle X-Ray mode to see the internal Hall sensors.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button onclick="document.getElementById('btnHeroXray').click()" class="px-4 py-2 rounded-xl bg-paper-surface hover:bg-paper-card text-ink-primary border border-paper-border text-xs font-medium transition-all shadow-sm flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-accent-ochre"></span>
+              <span data-i18n="hero_toggle_xray">Toggle X-Ray View</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="rounded-3xl bg-paper-surface p-3.5 sm:p-5 border border-paper-border shadow-sm relative">
+          <div id="hero3DContainer" class="w-full h-[400px] sm:h-[480px] rounded-2xl bg-[#F6F1E8] overflow-hidden cursor-grab active:cursor-grabbing relative flex items-center justify-center">
+            <div id="heroLoadingIndicator" class="absolute inset-0 flex flex-col items-center justify-center bg-[#F6F1E8] text-xs font-mono text-ink-secondary z-20">
+              <div class="w-7 h-7 rounded-full border-2 border-accent-terracotta border-t-transparent animate-spin mb-2"></div>
+              <span data-i18n="hero_loading_3d">Loading 3D Split Assembly...</span>
+            </div>
+            <div class="absolute bottom-3 left-3 pointer-events-none text-xs text-ink-muted font-sans bg-paper-card/85 backdrop-blur px-2.5 py-1 rounded-md border border-paper-border/60">
+              <span data-i18n="hero_3d_hint">Drag to rotate &bull; Scroll to zoom &bull; Click X-Ray to peek inside</span>
+            </div>
+            <div class="absolute top-3 right-3 pointer-events-none text-xs font-mono text-ink-muted bg-paper-card/85 backdrop-blur px-2.5 py-1 rounded-md border border-paper-border/60">
+              14° Elevated Drawbridge Tenting
+            </div>
+          </div>
+          <div class="mt-3 px-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-ink-secondary">
+            <span class="font-medium text-ink-primary" data-i18n="hero_halves_desc">Ambidextrous Unibody Halves with Integrated OLED, Rotary Encoder &amp; Trackpad Headers</span>
+            <span class="font-mono text-accent-sage text-xs font-medium bg-accent-sage-soft px-2.5 py-0.5 rounded-full border border-accent-sage/20 self-start sm:self-auto">60 Total Keys (30 + 30)</span>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -318,11 +374,11 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       
       <div class="max-w-3xl mb-12">
-        <span class="text-xs font-mono uppercase tracking-widest text-accent-sage font-semibold">Van Gogh’s Drawbridge Metaphor</span>
-        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2">
+        <span class="text-xs font-mono uppercase tracking-widest text-accent-sage font-semibold" data-i18n="drawbridge_eyebrow">Van Gogh’s Drawbridge Metaphor</span>
+        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2" data-i18n="drawbridge_title">
           Like Van Gogh’s Drawbridge: Split &amp; Tenting Ergonomics
         </h2>
-        <p class="text-base text-ink-secondary mt-3 leading-relaxed">
+        <p class="text-base text-ink-secondary mt-3 leading-relaxed" data-i18n="drawbridge_desc">
           Why did we etch a drawbridge onto our PCB? Because ergonomic tenting works just like a drawbridge opening in two: the outer pinky edges stay anchored on your desk while the inner thumb edges rise (0° &rarr; 25°), rotating your forearms out of painful flat twist into a natural, relaxed handshake.
         </p>
       </div>
@@ -434,12 +490,12 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       
       <div class="max-w-3xl mb-12">
-        <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold">Kinematic Architecture</span>
-        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2">
-          FloatForce Switch (V5.0): Real 3D Studio
+        <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold" data-i18n="ff_eyebrow">Parametric Magnetic Kinematics</span>
+        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2" data-i18n="ff_title">
+          FloatForce V5.0: The Springless Magnetic Switch
         </h2>
-        <p class="text-base text-ink-secondary mt-3 leading-relaxed">
-          Springless magnetic suspension engineered for frictionless travel, zero metal fatigue, and natural progressive resistance. Rendered directly from our actual CAD assembly with realistic PBR studio materials and calibrated assembly offsets.
+        <p class="text-base text-ink-secondary mt-3 leading-relaxed" data-i18n="ff_desc">
+          Traditional mechanical switches rely on metal leaf springs that degrade, introduce contact chatter, and limit travel to binary on/off. FloatForce replaces mechanical contact with 3 precision neodymium magnets and a ratiometric Hall sensor.
         </p>
       </div>
 
@@ -536,12 +592,12 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       
       <div class="max-w-3xl mb-14">
-        <span class="text-xs font-mono uppercase tracking-widest text-accent-sage font-semibold">Live Modality Demos</span>
-        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2">
+        <span class="text-xs font-mono uppercase tracking-widest text-accent-sage font-semibold" data-i18n="analog_eyebrow">Real-Time Hardware Emulation</span>
+        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2" data-i18n="analog_title">
           Continuous Analog Playground
         </h2>
-        <p class="text-base text-ink-secondary mt-3 leading-relaxed">
-          Analog keys do not just switch on and off—they measure exact physical depth. Explore three live scenarios demonstrating musical swelling, 360° gamepad movement, and dual-stage shortcut triggers.
+        <p class="text-base text-ink-secondary mt-3 leading-relaxed" data-i18n="analog_desc">
+          Experience how continuous Hall sensor depth transforms typing into three dynamic interaction paradigms. Press and hold your physical keys (W, A, S, D, Space) or drag the switch stem slider below.
         </p>
       </div>
 
@@ -690,11 +746,11 @@
       
       <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-12">
         <div class="max-w-2xl">
-          <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold">R&amp;D Iteration Journey</span>
-          <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2">
+          <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold" data-i18n="timeline_eyebrow">Engineering Log &amp; Milestones</span>
+          <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2" data-i18n="timeline_title">
             Prototype Evolution: First Sketch to Production
           </h2>
-          <p class="text-base text-ink-secondary mt-3 leading-relaxed">
+          <p class="text-base text-ink-secondary mt-3 leading-relaxed" data-i18n="timeline_desc">
             Ten real hardware milestones demonstrating our rigorous physical engineering process—from early FreeCAD geometries and protoboards to sub-millimeter Bambu Lab A1 calibration and final SMT fabrication at JLCPCB.
           </p>
         </div>
@@ -924,16 +980,16 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-24">
         
         <div class="lg:col-span-6 space-y-6">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-ochre-soft text-ink-primary text-xs font-medium border border-accent-ochre/30">
-            Art Meets Engineering &bull; Heritage
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-ochre-soft text-ink-primary text-xs font-medium border border-accent-ochre/30" data-i18n="art_eyebrow">
+            Aesthetic Functionalism
           </div>
-          <h2 class="text-3xl sm:text-4xl font-serif font-normal text-ink-primary leading-tight">
-            "The Langlois Bridge at Arles" (1888) by Vincent van Gogh
+          <h2 class="text-3xl sm:text-4xl font-serif font-normal text-ink-primary leading-tight" data-i18n="art_title">
+            Van Gogh’s Langlois Bridge: High-Art Silkscreen
           </h2>
-          <p class="text-base text-ink-secondary leading-relaxed font-light">
+          <p class="text-base text-ink-secondary leading-relaxed font-light" data-i18n="art_desc_1">
             When ordering our PCB Rev A from JLCPCB, we chose <strong>Matte Black solder mask with Pure White silkscreen</strong>.
           </p>
-          <p class="text-sm text-ink-secondary leading-relaxed">
+          <p class="text-sm text-ink-secondary leading-relaxed" data-i18n="art_desc_2">
             The vector art etched into the front copper and silkscreen is Van Gogh’s famous Langlois drawbridge in southern France. We chose this masterpiece because a bridge represents the quintessential union of structural civil engineering and profound human emotion—just as this keyboard bridges electronics with human expression.
           </p>
           <div class="p-5 rounded-2xl bg-paper-surface border border-paper-border text-xs text-ink-secondary leading-relaxed">
@@ -965,9 +1021,9 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       
       <div class="max-w-3xl mb-16">
-        <span class="text-xs font-mono uppercase tracking-widest text-accent-sage font-semibold">Engineering Roadmap</span>
-        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2">Hardware Rev B: True Vertical Integration</h2>
-        <p class="text-base text-ink-secondary mt-3 leading-relaxed">
+        <span class="text-xs font-mono uppercase tracking-widest text-accent-sage font-semibold" data-i18n="roadmap_eyebrow">Architecture Roadmap</span>
+        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2" data-i18n="roadmap_title">Hardware Rev B: True Vertical Integration</h2>
+        <p class="text-base text-ink-secondary mt-3 leading-relaxed" data-i18n="roadmap_desc">
           Rev A validated the analog front-end and physical mechanics. Rev B eliminates prototyping compromises through full vertical miniaturization:
         </p>
       </div>
@@ -1012,15 +1068,197 @@
   </section>
 
   <!-- ================================================================= -->
-  <!-- 08 · 1517 FUND MEDICI PITCH: $1,000 USD GRANT ALLOCATION          -->
+  <!-- 08 · PHYSICAL VALIDATION: ¿WHAT'S ACTUALLY REAL?                 -->
+  <!-- ================================================================= -->
+  <section id="real-life" class="py-24 border-b border-paper-border bg-paper-surface/40">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="max-w-3xl mb-14">
+        <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold" data-i18n="real_eyebrow">Physical Proof &bull; Working Hardware</span>
+        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2" data-i18n="real_title">
+          &iquest;What&rsquo;s actually real?
+        </h2>
+        <p class="text-base sm:text-lg text-ink-secondary mt-3 leading-relaxed font-light" data-i18n="real_desc">
+          FloatForce was not conceived in pure theory or ungrounded CAD software. Over months of hands-on physical prototyping in Mexico, every kinematic dimension, magnetic gap, and analog sensor response was tested by hand. Below is the unvarnished physical laboratory proof: working prototypes, live switch actuation, and the 16-key macropad that proves this technology works in the real world.
+        </p>
+      </div>
+
+      <!-- Feature Card 01: The 16-Key Functional Macropad -->
+      <div class="rounded-3xl bg-paper-surface border border-paper-border p-6 sm:p-8 mb-12 shadow-sm">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          <!-- Left: Macropad Video Player (Autoplay, Loop, Muted) -->
+          <div class="lg:col-span-7">
+            <div class="rounded-2xl overflow-hidden bg-black/80 border border-paper-border shadow-lg relative aspect-[16/10] sm:aspect-[16/9] flex items-center justify-center">
+              <video src="assets/video/macropad_16key_demo.mp4" class="w-full h-full object-cover" autoplay loop muted playsinline preload="metadata">
+                Your browser does not support the video tag.
+              </video>
+              <div class="absolute top-3 left-3 flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur text-[11px] font-mono text-white/90 border border-white/10 flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-accent-sage animate-pulse"></span>
+                  <span data-i18n="real_video_badge_1">Live Physical Macropad</span>
+                </span>
+              </div>
+              <div class="absolute bottom-3 right-3 pointer-events-none">
+                <span class="px-2 py-0.5 rounded bg-black/60 backdrop-blur text-[10px] font-mono text-white/70">
+                  Continuous Analog Demo &bull; No Audio &bull; Loop
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Deep Narrative Explanation -->
+          <div class="lg:col-span-5 space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-terracotta-soft border border-accent-terracotta/20 text-accent-terracotta text-xs font-mono font-medium">
+              <span class="w-2 h-2 rounded-full bg-accent-terracotta"></span>
+              <span data-i18n="real_macropad_badge">Master Proof of Concept</span>
+            </div>
+            
+            <h3 class="text-xl sm:text-2xl font-serif text-ink-primary font-semibold" data-i18n="real_macropad_title">
+              The 16-Key Functional Macropad: Proving FloatForce in the Real World
+            </h3>
+
+            <p class="text-sm text-ink-secondary leading-relaxed" data-i18n="real_macropad_desc_1">
+              To prove the switch mechanics and continuous analog sensing before fabricating the full split keyboard, we built and hand-assembled this functional 16-key macropad. It features 16 physical 3D-printed FloatForce switches mounted into a rigid plate, wired to an array of analog Hall effect sensors and a multiplexer.
+            </p>
+
+            <p class="text-sm text-ink-secondary leading-relaxed" data-i18n="real_macropad_desc_2">
+              In this video, you can observe real finger typing, keycap stability, smooth vertical travel without jamming, and rapid analog response. It validates that the repulsive magnetic spring eliminates spring wear and leaf degradation entirely.
+            </p>
+
+            <!-- Technical Verification Badges -->
+            <div class="pt-3 border-t border-paper-border/80 flex flex-wrap gap-2 text-xs font-mono text-ink-muted">
+              <span class="px-2.5 py-1 rounded-lg bg-paper-card border border-paper-border text-ink-primary font-medium">16 Working Switches</span>
+              <span class="px-2.5 py-1 rounded-lg bg-paper-card border border-paper-border text-accent-terracotta font-medium">Continuous Hall Sensing</span>
+              <span class="px-2.5 py-1 rounded-lg bg-paper-card border border-paper-border text-accent-sage font-medium">Multiplexed ADC</span>
+              <span class="px-2.5 py-1 rounded-lg bg-paper-card border border-paper-border text-ink-primary font-medium">Zero Metal Springs</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Secondary Video Row: Switch Physical Actuation Loops -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-14">
+        
+        <!-- Video 02: Tactile Travel & Levitation -->
+        <div class="rounded-3xl bg-paper-surface border border-paper-border p-6 shadow-sm flex flex-col justify-between space-y-4">
+          <div class="rounded-2xl overflow-hidden bg-black/80 border border-paper-border relative aspect-[9/14] sm:aspect-[4/5] flex items-center justify-center">
+            <video src="assets/video/switch_physical_action_1.mp4" class="w-full h-full object-cover" autoplay loop muted playsinline preload="metadata">
+              Your browser does not support the video tag.
+            </video>
+            <div class="absolute top-3 left-3">
+              <span class="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur text-[11px] font-mono text-white/90 border border-white/10">
+                Switch Kinematics &bull; Physical Stroke
+              </span>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-lg font-serif font-semibold text-ink-primary" data-i18n="real_switch_title_1">
+              Zero-Friction Magnetic Levitation
+            </h4>
+            <p class="text-xs sm:text-sm text-ink-secondary mt-1.5 leading-relaxed" data-i18n="real_switch_desc_1">
+              Close-up physical test of the 3-magnet repulsive suspension. Watch how the stem glides vertically with zero metallic friction, spring crunch, or binding, producing a naturally smooth, progressive force curve.
+            </p>
+          </div>
+        </div>
+
+        <!-- Video 03: Magnetic Snap & Return -->
+        <div class="rounded-3xl bg-paper-surface border border-paper-border p-6 shadow-sm flex flex-col justify-between space-y-4">
+          <div class="rounded-2xl overflow-hidden bg-black/80 border border-paper-border relative aspect-[9/14] sm:aspect-[4/5] flex items-center justify-center">
+            <video src="assets/video/switch_physical_action_2.mp4" class="w-full h-full object-cover" autoplay loop muted playsinline preload="metadata">
+              Your browser does not support the video tag.
+            </video>
+            <div class="absolute top-3 left-3">
+              <span class="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur text-[11px] font-mono text-white/90 border border-white/10">
+                Snap Reset &bull; High-Speed Return
+              </span>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-lg font-serif font-semibold text-ink-primary" data-i18n="real_switch_title_2">
+              Instant Snap Return &amp; Tactile Stability
+            </h4>
+            <p class="text-xs sm:text-sm text-ink-secondary mt-1.5 leading-relaxed" data-i18n="real_switch_desc_2">
+              Demonstrating the rapid magnetic snap upon release. The magnetic field naturally accelerates the stem back to its home position, ensuring instantaneous key resets with zero mechanical rebound chatter.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Laboratory Bench Gallery Grid -->
+      <div>
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-xl sm:text-2xl font-serif text-ink-primary font-semibold" data-i18n="real_gallery_title">
+            Laboratory Bench &amp; Physical Assembly Log
+          </h3>
+          <span class="text-xs font-mono text-ink-muted">4 Archived Photos</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Photo 1: Macropad Perspective -->
+          <div class="rounded-2xl bg-paper-surface border border-paper-border p-3 shadow-sm group">
+            <div class="rounded-xl overflow-hidden bg-paper-card aspect-square border border-paper-border relative mb-3">
+              <img src="assets/img/real/real_macropad_16key_perspective.jpg" alt="16-key macropad functional prototype" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            </div>
+            <h5 class="text-sm font-serif font-medium text-ink-primary" data-i18n="real_g1_title">16-Key Assembled Bed</h5>
+            <p class="text-xs text-ink-secondary mt-1 leading-normal" data-i18n="real_g1_desc">
+              Functional prototype validating plate stability, switch retention, and keycap ergonomics under typing load.
+            </p>
+          </div>
+
+          <!-- Photo 2: Macropad Top View -->
+          <div class="rounded-2xl bg-paper-surface border border-paper-border p-3 shadow-sm group">
+            <div class="rounded-xl overflow-hidden bg-paper-card aspect-square border border-paper-border relative mb-3">
+              <img src="assets/img/real/real_macropad_16key_top.jpg" alt="16-key macropad top view" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            </div>
+            <h5 class="text-sm font-serif font-medium text-ink-primary" data-i18n="real_g2_title">Standard 19 mm Pitch</h5>
+            <p class="text-xs text-ink-secondary mt-1 leading-normal" data-i18n="real_g2_desc">
+              Top-down view verifying key spacing, clearance margins, and magnetic isolation between adjacent channels.
+            </p>
+          </div>
+
+          <!-- Photo 3: Protoboard Sensors Wiring -->
+          <div class="rounded-2xl bg-paper-surface border border-paper-border p-3 shadow-sm group">
+            <div class="rounded-xl overflow-hidden bg-paper-card aspect-square border border-paper-border relative mb-3">
+              <img src="assets/img/real/real_protoboard_sensors_wiring.jpg" alt="Protoboard sensor validation matrix" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            </div>
+            <h5 class="text-sm font-serif font-medium text-ink-primary" data-i18n="real_g3_title">Analog Sensor Array Rig</h5>
+            <p class="text-xs text-ink-secondary mt-1 leading-normal" data-i18n="real_g3_desc">
+              Hand-soldered Hall sensor matrix validating settling times, decoupling capacitors, and ADC noise floor.
+            </p>
+          </div>
+
+          <!-- Photo 4: 3D Switch Housing & Magnets -->
+          <div class="rounded-2xl bg-paper-surface border border-paper-border p-3 shadow-sm group">
+            <div class="rounded-xl overflow-hidden bg-paper-card aspect-square border border-paper-border relative mb-3">
+              <img src="assets/img/real/real_3d_switch_housing_magnets.jpg" alt="3D printed switch housing and magnet sockets" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            </div>
+            <h5 class="text-sm font-serif font-medium text-ink-primary" data-i18n="real_g4_title">FDM Monolithic U-Body</h5>
+            <p class="text-xs text-ink-secondary mt-1 leading-normal" data-i18n="real_g4_desc">
+              Calibrated press-fit neodymium magnet sockets with zero print supports on everyday desktop 3D printers.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================= -->
+  <!-- 09 · 1517 FUND MEDICI PITCH: $1,000 USD GRANT ALLOCATION          -->
   <!-- ================================================================= -->
   <section id="grant" class="py-24 border-b border-paper-border bg-paper-base">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       
       <div class="sm:flex sm:items-end sm:justify-between mb-12">
         <div>
-          <span class="text-xs font-mono uppercase tracking-widest text-accent-ochre font-semibold">The Pitch</span>
-          <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2">1517 Fund Medici Grant Allocation</h2>
+          <span class="text-xs font-mono uppercase tracking-widest text-accent-ochre font-semibold" data-i18n="grant_eyebrow">The Pitch</span>
+          <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2" data-i18n="grant_title">1517 Fund Medici Grant Allocation</h2>
         </div>
         <div class="text-xs font-mono text-ink-primary bg-accent-ochre-soft border border-accent-ochre/30 px-3.5 py-1.5 rounded-xl mt-2 sm:mt-0 font-medium">
           Total Request: &#36;1,000.00 USD &bull; 100% Direct Product R&amp;D
@@ -1028,7 +1266,7 @@
       </div>
 
       <div class="p-8 rounded-3xl bg-paper-surface border border-paper-border mb-12 shadow-sm">
-        <h3 class="text-lg font-serif font-semibold text-ink-primary mb-3">The Autodidactic Builder Journey</h3>
+        <h3 class="text-lg font-serif font-semibold text-ink-primary mb-3" data-i18n="grant_builder_title">The Autodidactic Builder Journey</h3>
         <p class="text-base text-ink-secondary leading-relaxed font-light">
           I am an independent maker based in Mexico. Outside of corporate labs, I have personally self-funded 100% of the initial research, 3D printing tolerance iterations, protoboard validation, and the first manufactured SMT production batch (Rev A) using my personal savings. By leveraging Artificial Intelligence for parametric CAD, magnetic physics simulation, and PCB design, I proved that a non-expert can architect complex physical hardware from first principles.
         </p>
@@ -1173,8 +1411,8 @@
 
         <div class="sm:flex sm:items-end sm:justify-between mb-10">
           <div>
-            <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold">CAD &amp; Hardware Assets</span>
-            <h2 class="text-3xl font-serif text-ink-primary mt-2">Curated Asset Gallery</h2>
+            <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold" data-i18n="gallery_eyebrow">Open Engineering Archive</span>
+            <h2 class="text-3xl font-serif text-ink-primary mt-2" data-i18n="gallery_title">Curated Asset Gallery</h2>
           </div>
           <div class="text-xs text-ink-muted mt-2 sm:mt-0 font-mono">
             High-Resolution Renders &bull; KiCad 10 Schematics
@@ -2307,6 +2545,406 @@
       btnTimelineNext?.addEventListener('click', () => {
         timelineContainer.scrollBy({ left: 360, behavior: 'smooth' });
       });
+    }
+
+    /* ==========================================================
+       5. INTERNATIONALIZATION (i18n) DICTIONARY: EN, ES, FR, DE
+       ========================================================== */
+    window.translations = {
+      en: {
+        nav_ergo: "Ergonomics",
+        nav_floatforce: "FloatForce 3D",
+        nav_analog: "Continuous Analog",
+        nav_rd: "R&D Evolution",
+        nav_art: "Art & PCB",
+        nav_revb: "Rev B",
+        nav_real: "What's Real?",
+        nav_grant: "1517 Pitch",
+        nav_gallery: "Gallery",
+
+        hero_badge: "1517 Fund • Medici Project Candidate • Open Hardware Built in Mexico",
+        hero_title: "Humans express more than 1 and 0,<br><span class=\"italic font-normal text-accent-terracotta\">FloatForce</span> gives everyone a way to express that.",
+        hero_p1: "Meet the low-cost, open-source split keyboard where every key floats on magnets instead of metal springs—turning continuous physical depth into expressive music, 360° analog game vectors, and effortless tactile typing.",
+        hero_p2: "Engineered from scratch for affordable fabrication: a low-cost standard PCBA architecture, 100% support-free 3D printing on everyday desktop printers, and lifted like an architectural drawbridge for natural ergonomic comfort.",
+        hero_btn_watch: "Watch It Open & Play ↓",
+        hero_btn_xray: "Toggle X-Ray: Van Gogh PCB",
+        hero_btn_sheet: "Fact Sheet (MD) →",
+        hero_stat_matrix: "Full 60-Key Split Matrix",
+        hero_stat_stroke: "Magnetic Stroke (+33%)",
+        hero_stat_power: "Sensor Power (HAL403SO)",
+        hero_stat_supports: "Support-Free 3D Printed",
+        hero_pcb_badge: "Physical PCB Art",
+        hero_pcb_sub: "Van Gogh’s Langlois Bridge Front Silkscreen",
+        hero_3d_stage_badge: "Interactive 3D Stage • Dual Halves",
+        hero_3d_stage_title: "The Complete Physical Architecture in 3D",
+        hero_3d_stage_desc: "Explore both ambidextrous halves elevated in their natural 14° drawbridge tenting posture. Drag to orbit, inspect the integrated OLED displays and rotary dials, or toggle X-Ray mode to see the internal Hall sensors.",
+        hero_toggle_xray: "Toggle X-Ray View",
+        hero_loading_3d: "Loading 3D Split Assembly...",
+        hero_3d_hint: "Drag to rotate • Scroll to zoom • Click X-Ray to peek inside",
+        hero_halves_desc: "Ambidextrous Unibody Halves with Integrated OLED, Rotary Encoder & Trackpad Headers",
+
+        drawbridge_eyebrow: "Van Gogh’s Drawbridge Metaphor",
+        drawbridge_title: "Like Van Gogh’s Drawbridge: Split & Tenting Ergonomics",
+        drawbridge_desc: "Why did we etch a drawbridge onto our PCB? Because ergonomic tenting works just like a drawbridge opening in two: the outer pinky edges stay anchored on your desk while the inner thumb edges rise (0° → 25°), rotating your forearms out of painful flat twist into a natural, relaxed handshake.",
+
+        ff_eyebrow: "Parametric Magnetic Kinematics",
+        ff_title: "FloatForce V5.0: The Springless Magnetic Switch",
+        ff_desc: "Traditional mechanical switches rely on metal leaf springs that degrade, introduce contact chatter, and limit travel to binary on/off. FloatForce replaces mechanical contact with 3 precision neodymium magnets and a ratiometric Hall sensor.",
+
+        analog_eyebrow: "Real-Time Hardware Emulation",
+        analog_title: "Continuous Analog Playground",
+        analog_desc: "Experience how continuous Hall sensor depth transforms typing into three dynamic interaction paradigms. Press and hold your physical keys (W, A, S, D, Space) or drag the switch stem slider below.",
+
+        timeline_eyebrow: "Engineering Log & Milestones",
+        timeline_title: "Prototype Evolution: First Sketch to Production",
+        timeline_desc: "Ten real hardware milestones demonstrating our rigorous physical engineering process—from early FreeCAD geometries and protoboards to sub-millimeter Bambu Lab A1 calibration and final SMT fabrication at JLCPCB.",
+
+        art_eyebrow: "Aesthetic Functionalism",
+        art_title: "Van Gogh’s Langlois Bridge: High-Art Silkscreen",
+        art_desc_1: "When ordering our PCB Rev A from JLCPCB, we chose Matte Black solder mask with Pure White silkscreen.",
+        art_desc_2: "The vector art etched into the front copper and silkscreen is Van Gogh’s famous Langlois drawbridge in southern France. We chose this masterpiece because a bridge represents the quintessential union of structural civil engineering and profound human emotion—just as this keyboard bridges electronics with human expression.",
+
+        roadmap_eyebrow: "Architecture Roadmap",
+        roadmap_title: "Hardware Rev B: True Vertical Integration",
+        roadmap_desc: "Rev A validated the analog front-end and physical mechanics. Rev B eliminates prototyping compromises through full vertical miniaturization:",
+
+        real_eyebrow: "Physical Proof • Working Hardware",
+        real_title: "¿What’s actually real?",
+        real_desc: "FloatForce was not conceived in pure theory or ungrounded CAD software. Over months of hands-on physical prototyping in Mexico, every kinematic dimension, magnetic gap, and analog sensor response was tested by hand. Below is the unvarnished physical laboratory proof: working prototypes, live switch actuation, and the 16-key macropad that proves this technology works in the real world.",
+        real_video_badge_1: "Live Physical Macropad",
+        real_macropad_badge: "Master Proof of Concept",
+        real_macropad_title: "The 16-Key Functional Macropad: Proving FloatForce in the Real World",
+        real_macropad_desc_1: "To prove the switch mechanics and continuous analog sensing before fabricating the full split keyboard, we built and hand-assembled this functional 16-key macropad. It features 16 physical 3D-printed FloatForce switches mounted into a rigid plate, wired to an array of analog Hall effect sensors and a multiplexer.",
+        real_macropad_desc_2: "In this video, you can observe real finger typing, keycap stability, smooth vertical travel without jamming, and rapid analog response. It validates that the repulsive magnetic spring eliminates spring wear and leaf degradation entirely.",
+        real_switch_title_1: "Zero-Friction Magnetic Levitation",
+        real_switch_desc_1: "Close-up physical test of the 3-magnet repulsive suspension. Watch how the stem glides vertically with zero metallic friction, spring crunch, or binding, producing a naturally smooth, progressive force curve.",
+        real_switch_title_2: "Instant Snap Return & Tactile Stability",
+        real_switch_desc_2: "Demonstrating the rapid magnetic snap upon release. The magnetic field naturally accelerates the stem back to its home position, ensuring instantaneous key resets with zero mechanical rebound chatter.",
+        real_gallery_title: "Laboratory Bench & Physical Assembly Log",
+        real_g1_title: "16-Key Assembled Bed",
+        real_g1_desc: "Functional prototype validating plate stability, switch retention, and keycap ergonomics under typing load.",
+        real_g2_title: "Standard 19 mm Pitch",
+        real_g2_desc: "Top-down view verifying key spacing, clearance margins, and magnetic isolation between adjacent channels.",
+        real_g3_title: "Analog Sensor Array Rig",
+        real_g3_desc: "Hand-soldered Hall sensor matrix validating settling times, decoupling capacitors, and ADC noise floor.",
+        real_g4_title: "FDM Monolithic U-Body",
+        real_g4_desc: "Calibrated press-fit neodymium magnet sockets with zero print supports on everyday desktop 3D printers.",
+
+        grant_eyebrow: "The Pitch",
+        grant_title: "1517 Fund Medici Grant Allocation",
+        grant_builder_title: "The Autodidactic Builder Journey",
+
+        gallery_eyebrow: "Open Engineering Archive",
+        gallery_title: "Curated Asset Gallery"
+      },
+
+      es: {
+        nav_ergo: "Ergonomía",
+        nav_floatforce: "FloatForce 3D",
+        nav_analog: "Analógico Continuo",
+        nav_rd: "Evolución I+D",
+        nav_art: "Arte y PCB",
+        nav_revb: "Rev B",
+        nav_real: "¿Qué es Real?",
+        nav_grant: "Pitch 1517",
+        nav_gallery: "Galería",
+
+        hero_badge: "1517 Fund • Candidato al Proyecto Medici • Hardware Abierto Hecho en México",
+        hero_title: "Los humanos expresan más que 1 y 0,<br><span class=\"italic font-normal text-accent-terracotta\">FloatForce</span> le da a todos una forma de expresarlo.",
+        hero_p1: "Conoce el teclado dividido de bajo costo y código abierto donde cada tecla flota sobre imanes en lugar de resortes metálicos, convirtiendo la profundidad física continua en música expresiva, vectores analógicos de 360° para videojuegos y una escritura táctil sin esfuerzo.",
+        hero_p2: "Diseñado desde cero para una fabricación económica: arquitectura PCBA estándar de bajo costo, impresión 3D 100% libre de soportes en impresoras comunes y elevado como un puente levadizo para un confort ergonómico natural.",
+        hero_btn_watch: "Míralo Abrir y Jugar ↓",
+        hero_btn_xray: "Activar Rayos X: PCB Van Gogh",
+        hero_btn_sheet: "Ficha Técnica (MD) →",
+        hero_stat_matrix: "Matriz Dividida 60 Teclas",
+        hero_stat_stroke: "Recorrido Magnético (+33%)",
+        hero_stat_power: "Consumo Sensor (HAL403SO)",
+        hero_stat_supports: "Impresión 3D Sin Soportes",
+        hero_pcb_badge: "Arte Físico en PCB",
+        hero_pcb_sub: "Serigrafía Frontal del Puente Langlois de Van Gogh",
+        hero_3d_stage_badge: "Escenario 3D Interactivo • Ambas Mitades",
+        hero_3d_stage_title: "La Arquitectura Física Completa en 3D",
+        hero_3d_stage_desc: "Explora ambas mitades ambidiestras elevadas en su postura natural de puente levadizo a 14°. Arrastra para orbitar, inspecciona las pantallas OLED y perillas giratorias, o activa el modo Rayos X para ver los sensores Hall internos.",
+        hero_toggle_xray: "Alternar Rayos X",
+        hero_loading_3d: "Cargando Ensamblaje 3D...",
+        hero_3d_hint: "Arrastra para rotar • Rueda para zoom • Clic en Rayos X para ver el interior",
+        hero_halves_desc: "Mitades Ambidiestras con OLED Integrado, Encoder Rotatorio y Conectores de Trackpad",
+
+        drawbridge_eyebrow: "La Metáfora del Puente Levadizo de Van Gogh",
+        drawbridge_title: "Como el Puente Levadizo de Van Gogh: Ergonomía Dividida e Inclinada",
+        drawbridge_desc: "¿Por qué grabamos un puente levadizo en nuestra PCB? Porque la inclinación ergonómica funciona exactamente como un puente levadizo que se abre en dos: los bordes exteriores de los meñiques descansan en el escritorio mientras los bordes interiores de los pulgares se elevan (0° → 25°), rotando los antebrazos hacia un saludo de manos natural y relajado.",
+
+        ff_eyebrow: "Cinemática Magnética Paramétrica",
+        ff_title: "FloatForce V5.0: El Switch Magnético Sin Resortes",
+        ff_desc: "Los switches mecánicos tradicionales dependen de resortes metálicos que se degradan, generan rebotes de contacto y limitan el movimiento a un encendido/apagado binario. FloatForce reemplaza el contacto mecánico con 3 imanes de neodimio y un sensor Hall ratiométrico.",
+
+        analog_eyebrow: "Emulación de Hardware en Tiempo Real",
+        analog_title: "Laboratorio Analógico Continuo",
+        analog_desc: "Experimenta cómo la profundidad continua del sensor Hall transforma la escritura en tres paradigmas interactivos dinámicos. Presiona tus teclas físicas (W, A, S, D, Espacio) o arrastra el control deslizante a continuación.",
+
+        timeline_eyebrow: "Bitácora de Ingeniería e Hitos",
+        timeline_title: "Evolución del Prototipo: Del Boceto a la Producción",
+        timeline_desc: "Diez hitos reales de hardware que demuestran nuestro riguroso proceso de ingeniería física: desde las primeras geometrías en FreeCAD y protoboards hasta la calibración submilimétrica en Bambu Lab A1 y la fabricación SMT final en JLCPCB.",
+
+        art_eyebrow: "Funcionalismo Estético",
+        art_title: "El Puente Langlois de Van Gogh: Serigrafía de Alta Expresión",
+        art_desc_1: "Al ordenar nuestra PCB Rev A en JLCPCB, elegimos máscara de soldadura Negro Mate con serigrafía Blanco Puro.",
+        art_desc_2: "El arte vectorial grabado en el cobre frontal y la serigrafía es el famoso puente levadizo Langlois de Van Gogh en Arlés. Elegimos esta obra maestra porque un puente representa la unión perfecta entre la ingeniería estructural y la emoción humana, al igual que este teclado une la electrónica con la expresión.",
+
+        roadmap_eyebrow: "Hoja de Ruta de Arquitectura",
+        roadmap_title: "Hardware Rev B: Verdadera Integración Vertical",
+        roadmap_desc: "Rev A validó la etapa analógica y la mecánica física. Rev B elimina los compromisos del prototipo mediante una miniaturización vertical completa:",
+
+        real_eyebrow: "Prueba Física • Hardware Funcional",
+        real_title: "¿Qué es realmente real?",
+        real_desc: "FloatForce no fue concebido en pura teoría ni en renders de CAD. Durante meses de prototipado físico en México, cada dimensión cinemática, distancia magnética y respuesta de sensor analógico fue probada a mano. Aquí está la prueba física sin filtros: prototipos funcionales, switches en acción real y el macropad de 16 teclas que demuestra que esta tecnología funciona en el mundo real.",
+        real_video_badge_1: "Macropad Físico en Vivo",
+        real_macropad_badge: "Prueba de Concepto Maestra",
+        real_macropad_title: "El Macropad Funcional de 16 Teclas: Demostrando FloatForce en el Mundo Real",
+        real_macropad_desc_1: "Para demostrar la mecánica del switch y la lectura analógica continua antes de fabricar el teclado dividido completo, construimos y ensamblamos a mano este macropad funcional de 16 teclas. Cuenta con 16 switches FloatForce físicos impresos en 3D montados en una placa rígida, conectados a una matriz de sensores Hall analógicos y un multiplexor.",
+        real_macropad_desc_2: "En este video puedes observar la pulsación real con dedos, estabilidad de las teclas, recorrido vertical suave sin atascos y respuesta analógica inmediata. Comprueba que el resorte magnético por repulsión elimina por completo el desgaste mecánico.",
+        real_switch_title_1: "Levitación Magnética Sin Fricción",
+        real_switch_desc_1: "Prueba física en primer plano de la suspensión de repulsión por 3 imanes. Observa cómo el vástago se desliza verticalmente sin fricción metálica, ruidos de resorte ni fricción de roce, logrando una curva de fuerza progresiva.",
+        real_switch_title_2: "Retorno Rápido Instantáneo y Estabilidad",
+        real_switch_desc_2: "Demostración del rebote magnético instantáneo al soltar. El campo magnético acelera naturalmente el vástago de vuelta a su posición de reposo, asegurando reinicios inmediatos sin rebote de contacto.",
+        real_gallery_title: "Banco de Laboratorio y Registro de Ensamblaje",
+        real_g1_title: "Base de Pruebas de 16 Teclas",
+        real_g1_desc: "Prototipo funcional que valida la estabilidad de la placa, retención de switches y ergonomía de teclas bajo uso continuo.",
+        real_g2_title: "Espaciado Estándar de 19 mm",
+        real_g2_desc: "Vista cenital verificando espaciado entre teclas, márgenes de tolerancia y aislamiento magnético entre canales adyacentes.",
+        real_g3_title: "Matriz de Sensores Analógicos",
+        real_g3_desc: "Matriz de sensores Hall soldada a mano para validar tiempos de asentamiento, capacitores de desacoplo y piso de ruido del ADC.",
+        real_g4_title: "Cuerpo en U Monolítico FDM",
+        real_g4_desc: "Cavidades calibradas para imanes de neodimio por ajuste a presión con cero soportes en impresoras 3D comunes.",
+
+        grant_eyebrow: "La Propuesta",
+        grant_title: "Asignación de la Beca Medici de 1517 Fund",
+        grant_builder_title: "La Trayectoria del Creador Autodidacta",
+
+        gallery_eyebrow: "Archivo de Ingeniería Abierto",
+        gallery_title: "Galería de Recursos Seleccionados"
+      },
+
+      fr: {
+        nav_ergo: "Ergonomie",
+        nav_floatforce: "FloatForce 3D",
+        nav_analog: "Analogique Continu",
+        nav_rd: "Évolution R&D",
+        nav_art: "Art et PCB",
+        nav_revb: "Rev B",
+        nav_real: "Qu'est-ce qui est réel ?",
+        nav_grant: "Présentation 1517",
+        nav_gallery: "Galerie",
+
+        hero_badge: "Fonds 1517 • Candidat au Projet Médicis • Matériel Libre Conçu au Mexique",
+        hero_title: "Les humains expriment plus que des 1 et des 0,<br><span class=\"italic font-normal text-accent-terracotta\">FloatForce</span> offre à chacun le moyen de l'exprimer.",
+        hero_p1: "Découvrez le clavier ergonomique scindé open-source et accessible où chaque touche flotte sur des aimants au lieu de ressorts métalliques, transformant la profondeur physique en musique expressive, vecteurs analogiques 360° pour les jeux et frappe tactile sans effort.",
+        hero_p2: "Conçu pour une fabrication économique : circuit imprimé standard économique, impression 3D 100% sans supports sur imprimantes grand public et inclinaison en pont-levis pour un confort ergonomique naturel.",
+        hero_btn_watch: "Voir le pont s'ouvrir ↓",
+        hero_btn_xray: "Mode Rayons X : PCB Van Gogh",
+        hero_btn_sheet: "Fiche Technique (MD) →",
+        hero_stat_matrix: "Matrice Scindée 60 Touches",
+        hero_stat_stroke: "Course Magnétique (+33%)",
+        hero_stat_power: "Puissance Capteur (HAL403SO)",
+        hero_stat_supports: "Impression 3D Sans Supports",
+        hero_pcb_badge: "Art Physique sur PCB",
+        hero_pcb_sub: "Sérigraphie du Pont de Langlois par Van Gogh",
+        hero_3d_stage_badge: "Scène 3D Interactive • Deux Moitiés",
+        hero_3d_stage_title: "L'Architecture Physique Complète en 3D",
+        hero_3d_stage_desc: "Explorez les deux moitiés ambidextres surélevées à 14° en pont-levis. Faites glisser pour tourner, inspectez les écrans OLED et molettes rotatives, ou activez les Rayons X pour voir les capteurs Hall internes.",
+        hero_toggle_xray: "Basculer Rayons X",
+        hero_loading_3d: "Chargement de l'assemblage 3D...",
+        hero_3d_hint: "Glisser pour pivoter • Défiler pour zoomer • Cliquer Rayons X pour l'intérieur",
+        hero_halves_desc: "Moitiés Ambidextres avec OLED Intégré, Encodeur Rotatif et Connecteurs Trackpad",
+
+        drawbridge_eyebrow: "La Métaphore du Pont-Levis de Van Gogh",
+        drawbridge_title: "Comme le Pont-Levis de Van Gogh : Ergonomie Scindée et Inclinée",
+        drawbridge_desc: "Pourquoi avoir gravé un pont-levis sur notre circuit imprimé ? Parce que l'inclinaison ergonomique fonctionne exactement comme un pont-levis qui s'ouvre : les bords extérieurs restent posés sur le bureau tandis que les pouces s'élèvent (0° → 25°), ramenant vos avant-bras dans une position naturelle et détendue.",
+
+        ff_eyebrow: "Cinématique Magnétique Paramétrique",
+        ff_title: "FloatForce V5.0 : Le Commutateur Magnétique Sans Ressort",
+        ff_desc: "Les commutateurs mécaniques traditionnels dépendent de ressorts métalliques qui s'usent, créent des rebonds et limitent la frappe au binaire. FloatForce remplace les contacts par 3 aimants néodyme et un capteur à effet Hall ratiométrique.",
+
+        analog_eyebrow: "Émulation Matérielle en Temps Réel",
+        analog_title: "Espace Interactif Analogique Continu",
+        analog_desc: "Découvrez comment la profondeur continue du capteur Hall transforme la frappe en trois modes d'interaction dynamiques. Appuyez sur vos touches ou déplacez le curseur ci-dessous.",
+
+        timeline_eyebrow: "Journal d'Ingénierie & Étapes Clés",
+        timeline_title: "Évolution du Prototype : Du Premier Croquis à la Série",
+        timeline_desc: "Dix étapes matérielles réelles démontrant notre processus d'ingénierie physique : des premières géométries FreeCAD aux calibrations submillimétriques sur Bambu Lab A1 et à la fabrication SMT finale chez JLCPCB.",
+
+        art_eyebrow: "Fonctionnalisme Esthétique",
+        art_title: "Le Pont de Langlois de Van Gogh : Sérigraphie Artistique",
+        art_desc_1: "Lors de la commande du circuit imprimé Rev A chez JLCPCB, nous avons choisi un vernis épargne Noir Mat et une sérigraphie Blanc Pur.",
+        art_desc_2: "Le tracé vectoriel gravé sur la face avant représente le célèbre pont-levis de Langlois peint par Van Gogh à Arles. Nous avons choisi ce chef-d'œuvre car un pont incarne l'union entre génie civil et émotion humaine.",
+
+        roadmap_eyebrow: "Feuille de Route d'Architecture",
+        roadmap_title: "Matériel Rev B : Intégration Verticale Totale",
+        roadmap_desc: "La révision A a validé l'étage analogique et la mécanique. La révision B élimine les compromis grâce à une miniaturisation verticale complète :",
+
+        real_eyebrow: "Preuve Physique • Matériel Fonctionnel",
+        real_title: "Qu'est-ce qui est réellement fait ?",
+        real_desc: "FloatForce n'a pas été conçu dans la théorie ou des rendus virtuels. Durant des mois de prototypage manuel au Mexique, chaque dimension cinématique, écartement magnétique et signal de capteur analogique a été testé sur banc d'essai. Voici la preuve physique authentique : des prototypes fonctionnels, l'actionnement réel des commutateurs et le macropad de 16 touches qui prouve que la technologie fonctionne.",
+        real_video_badge_1: "Macropad Physique en Direct",
+        real_macropad_badge: "Preuve de Concept Principale",
+        real_macropad_title: "Le Macropad Fonctionnel 16 Touches : Valider FloatForce dans le Monde Réel",
+        real_macropad_desc_1: "Pour valider la mécanique du commutateur et la détection analogique continue avant de fabriquer le clavier scindé complet, nous avons assemblé à la main ce macropad fonctionnel de 16 touches. Il intègre 16 commutateurs FloatForce imprimés en 3D, reliés à une matrice de capteurs à effet Hall et un multiplexeur.",
+        real_macropad_desc_2: "Dans cette vidéo, observez la frappe réelle, la stabilité des touches, la course verticale fluide sans blocage et la réponse analogique immédiate. Cela valide que la répulsion magnétique élimine toute usure mécanique.",
+        real_switch_title_1: "Lévitation Magnétique Sans Frottement",
+        real_switch_desc_1: "Test physique rapproché de la suspension à 3 aimants. Observez la tige glisser sans frottement métallique ni grincement de ressort, offrant une courbe de résistance douce et progressive.",
+        real_switch_title_2: "Retour Instantané et Stabilité Tactile",
+        real_switch_desc_2: "Démonstration du retour rapide lors du relâchement. Le champ magnétique accélère la tige vers sa position de repos, garantissant une réinitialisation instantanée sans rebond mécanique.",
+        real_gallery_title: "Banc d'Essai et Journal d'Assemblage",
+        real_g1_title: "Banc d'Essai 16 Touches",
+        real_g1_desc: "Prototype fonctionnel validant la stabilité de la plaque, la rétention des touches et l'ergonomie lors de la frappe.",
+        real_g2_title: "Espacement Standard 19 mm",
+        real_g2_desc: "Vue de dessus vérifiant l'espacement des touches, les tolérances et l'isolation magnétique entre canaux.",
+        real_g3_title: "Banc de Capteurs Analogiques",
+        real_g3_desc: "Matrice de capteurs Hall soudée à la main validant les temps de stabilisation, condensateurs et plancher de bruit ADC.",
+        real_g4_title: "Corps en U Monolithique FDM",
+        real_g4_desc: "Logements d'aimants néodyme ajustés à pression sans aucun support d'impression sur imprimante 3D classique.",
+
+        grant_eyebrow: "La Proposition",
+        grant_title: "Allocation de la Bourse Médicis du Fonds 1517",
+        grant_builder_title: "Le Parcours d'un Créateur Autodidacte",
+
+        gallery_eyebrow: "Archives d'Ingénierie Ouvertes",
+        gallery_title: "Galerie de Ressources Sélectionnées"
+      },
+
+      de: {
+        nav_ergo: "Ergonomie",
+        nav_floatforce: "FloatForce 3D",
+        nav_analog: "Kontinuierliches Analog",
+        nav_rd: "F&E-Entwicklung",
+        nav_art: "Kunst & Leiterplatte",
+        nav_revb: "Rev B",
+        nav_real: "Was ist real?",
+        nav_grant: "1517 Pitch",
+        nav_gallery: "Galerie",
+
+        hero_badge: "1517 Fund • Medici-Projekt-Kandidat • Open Hardware Entwickelt in Mexiko",
+        hero_title: "Menschen drücken mehr aus als 1 und 0,<br><span class=\"italic font-normal text-accent-terracotta\">FloatForce</span> gibt jedem die Möglichkeit, das auszudrücken.",
+        hero_p1: "Das kostengünstige, quelloffene Split-Keyboard, bei dem jede Taste auf Magneten statt Metallfedern schwebt – und kontinuierliche Tiefe in ausdrucksstarke Musik, 360°-Analogvektoren für Gaming und müheloses taktiles Tippen verwandelt.",
+        hero_p2: "Entwickelt für erschwingliche Fertigung: Standard-PCBA-Architektur zu geringen Kosten, 100% stützstrukturfreier 3D-Druck auf handelsüblichen Druckern und wie eine Zugbrücke für ergonomischen Komfort geneigt.",
+        hero_btn_watch: "Öffnen & Spielen ansehen ↓",
+        hero_btn_xray: "Röntgenansicht: Van Gogh PCB",
+        hero_btn_sheet: "Datenblatt (MD) →",
+        hero_stat_matrix: "60-Tasten Split-Matrix",
+        hero_stat_stroke: "Magnetischer Hub (+33%)",
+        hero_stat_power: "Sensorstrom (HAL403SO)",
+        hero_stat_supports: "Stützfreier 3D-Druck",
+        hero_pcb_badge: "Physische PCB-Kunst",
+        hero_pcb_sub: "Van Goghs Langlois-Brücke Front-Siebdruck",
+        hero_3d_stage_badge: "Interaktive 3D-Bühne • Beide Hälften",
+        hero_3d_stage_title: "Die vollständige physische Architektur in 3D",
+        hero_3d_stage_desc: "Erkunden Sie beide beidhändigen Hälften in ihrer natürlichen 14°-Zugbrücken-Neigung. Drehen Sie per Maus, inspizieren Sie OLED-Displays und Drehregler oder aktivieren Sie den Röntgenmodus für die internen Hall-Sensoren.",
+        hero_toggle_xray: "Röntgenansicht umschalten",
+        hero_loading_3d: "Lade 3D-Baugruppe...",
+        hero_3d_hint: "Ziehen zum Drehen • Scrollen zum Zoomen • Röntgenblick für Innenansicht",
+        hero_halves_desc: "Beidhändige Hälften mit integriertem OLED, Drehgeber & Trackpad-Anschlüssen",
+
+        drawbridge_eyebrow: "Die Zugbrücken-Metapher von Van Gogh",
+        drawbridge_title: "Wie Van Goghs Zugbrücke: Split- & Neigungsergonomie",
+        drawbridge_desc: "Warum haben wir eine Zugbrücke auf unsere Leiterplatte geätzt? Weil die ergonomische Neigung wie eine zweiflügelige Zugbrücke funktioniert: Die Außenkanten bleiben auf dem Tisch, während sich die Innenkanten anheben (0° → 25°) und Ihre Unterarme in eine entspannte Handhaltung bringen.",
+
+        ff_eyebrow: "Parametrische Magnetkinematik",
+        ff_title: "FloatForce V5.0: Der federlose Magnetschalter",
+        ff_desc: "Herkömmliche mechanische Schalter basieren auf Metallfedern, die verschleißen, Prellen verursachen und den Hub auf binäres Ein/Aus beschränken. FloatForce ersetzt mechanische Kontakte durch 3 Neodym-Magnete und einen ratiometrischen Hall-Sensor.",
+
+        analog_eyebrow: "Echtzeit-Hardware-Emulation",
+        analog_title: "Kontinuierlicher Analog-Spielplatz",
+        analog_desc: "Erleben Sie, wie kontinuierliche Hall-Sensortiefe das Tippen in drei dynamische Interaktionsparadigmen verwandelt. Drücken Sie Ihre Tasten oder nutzen Sie den Schieberegler unten.",
+
+        timeline_eyebrow: "Entwicklungsprotokoll & Meilensteine",
+        timeline_title: "Prototypen-Entwicklung: Von der ersten Skizze zur Serie",
+        timeline_desc: "Zehn echte Hardware-Meilensteine, die unseren rigorosen Entwicklungsprozess belegen: von frühen FreeCAD-Modellen über submillimetergenaue Bambu Lab A1-Kalibrierungen bis zur finalen SMT-Fertigung bei JLCPCB.",
+
+        art_eyebrow: "Ästhetischer Funktionalismus",
+        art_title: "Van Goghs Langlois-Brücke: Kunst auf der Platine",
+        art_desc_1: "Für unsere PCB Rev A bei JLCPCB wählten wir mattschwarzen Lötstopplack mit reinweißem Siebdruck.",
+        art_desc_2: "Das Vektorgemälde zeigt Van Goghs berühmte Zugbrücke von Langlois. Wir haben dieses Meisterwerk gewählt, weil eine Brücke die vollendete Verbindung von Ingenieurbau und menschlichem Empfinden darstellt.",
+
+        roadmap_eyebrow: "Architektur-Fahrplan",
+        roadmap_title: "Hardware Rev B: Vollständige Vertikale Integration",
+        roadmap_desc: "Rev A hat die analoge Erfassung und die Mechanik validiert. Rev B beseitigt Prototypen-Kompromisse durch vertikale Miniaturisierung:",
+
+        real_eyebrow: "Physischer Beweis • Funktionierende Hardware",
+        real_title: "Was ist wirklich real?",
+        real_desc: "FloatForce entstand nicht in reiner Theorie oder Renderings. In monatelangem praktischem Prototyping in Mexiko wurde jede kinematische Abmessung, jeder Magnetspalt und jedes analoge Sensorsignal von Hand getestet. Hier ist der unverfälschte physische Beweis: funktionierende Prototypen, reale Schalterbetätigung und das 16-Tasten-Macropad, das zeigt, dass diese Technologie in der Praxis funktioniert.",
+        real_video_badge_1: "Echtes physisches Macropad",
+        real_macropad_badge: "Haupt-Machbarkeitsnachweis",
+        real_macropad_title: "Das funktionale 16-Tasten-Macropad: FloatForce in der Praxis bewiesen",
+        real_macropad_desc_1: "Um die Schaltermechanik und kontinuierliche Analogerfassung vor der Fertigung der gesamten Split-Tastatur zu beweisen, haben wir dieses funktionale 16-Tasten-Macropad von Hand aufgebaut. Es verfügt über 16 physische, 3D-gedruckte FloatForce-Schalter in einer festen Platte, verbunden mit Hall-Sensoren und Multiplexer.",
+        real_macropad_desc_2: "In diesem Video sehen Sie echtes Tippen, Tastenstabilität, ruckelfreien Hub und blitzschnelle analoge Reaktion. Es beweist, dass die magnetische Abstoßung mechanischen Verschleiß komplett eliminiert.",
+        real_switch_title_1: "Reibungsfreie Magnetlevitation",
+        real_switch_desc_1: "Nahaufnahme des Tests der 3-Magnet-Abstoßung. Beobachten Sie, wie der Stößel ohne Reibung oder Federkratzen gleitet und eine progressive Kraftkurve liefert.",
+        real_switch_title_2: "Sofortiger Rückprall & Taktile Stabilität",
+        real_switch_desc_2: "Demonstration der sofortigen magnetischen Rückstellung. Das Magnetfeld beschleunigt den Schalter sofort in die Ausgangsposition zurück, ohne Prellen.",
+        real_gallery_title: "Laborprüfstand & Montageprotokoll",
+        real_g1_title: "16-Tasten Testaufbau",
+        real_g1_desc: "Funktionsprototyp zur Validierung von Plattenstabilität, Schalterhalt und Tastenkappen-Ergonomie beim Tippen.",
+        real_g2_title: "Standard-19-mm-Raster",
+        real_g2_desc: "Draufsicht zur Überprüfung der Tastenabstände, Toleranzen und magnetischen Isolierung benachbarter Kanäle.",
+        real_g3_title: "Analoge Sensor-Matrix",
+        real_g3_desc: "Handgelötetes Hall-Sensor-Array zur Validierung von Einschwingzeiten, Entkopplungskondensatoren und ADC-Rauschen.",
+        real_g4_title: "FDM Monolithischer U-Körper",
+        real_g4_desc: "Kalibrierte Neodym-Magnetsitze mit Presspassung ohne Stützstrukturen auf handelsüblichen 3D-Druckern.",
+
+        grant_eyebrow: "Der Pitch",
+        grant_title: "Verwendung des 1517 Fund Medici-Stipendiums",
+        grant_builder_title: "Der Weg eines autodidaktischen Entwicklers",
+
+        gallery_eyebrow: "Offenes Engineering-Archiv",
+        gallery_title: "Kuratierte Projektgalerie"
+      }
+    };
+
+    window.setLanguage = function(lang) {
+      if (!window.translations[lang]) lang = 'en';
+      document.documentElement.lang = lang;
+      try {
+        localStorage.setItem('ff_lang', lang);
+      } catch (e) {}
+
+      // Update button active styles
+      ['en', 'es', 'fr', 'de'].forEach(l => {
+        const btn = document.getElementById(`langBtn-${l}`);
+        if (btn) {
+          if (l === lang) {
+            btn.className = "px-2 py-0.5 rounded-lg font-medium transition-all bg-accent-terracotta text-white shadow-xs";
+          } else {
+            btn.className = "px-2 py-0.5 rounded-lg font-medium transition-all text-ink-secondary hover:text-ink-primary";
+          }
+        }
+      });
+
+      // Update all [data-i18n]
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (window.translations[lang] && window.translations[lang][key]) {
+          el.textContent = window.translations[lang][key];
+        }
+      });
+
+      // Update all [data-i18n-html]
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if (window.translations[lang] && window.translations[lang][key]) {
+          el.innerHTML = window.translations[lang][key];
+        }
+      });
+    };
+
+    // Initialize on load
+    try {
+      const savedLang = localStorage.getItem('ff_lang') || 
+        (navigator.language && navigator.language.startsWith('es') ? 'es' :
+        (navigator.language && navigator.language.startsWith('fr') ? 'fr' :
+        (navigator.language && navigator.language.startsWith('de') ? 'de' : 'en')));
+      window.setLanguage(savedLang);
+    } catch(e) {
+      window.setLanguage('en');
     }
   </script>
 
