@@ -1,4 +1,4 @@
-# Engineering Fact Sheet — Open-Source Hall Effect Keyboard
+# Engineering Fact Sheet — Open-Source Ergonomic MagLev Keyboard
 **Project Pitch Documentation for 1517 Fund (Medici Project)**  
 *Author:* Sebastian Gonzalez V.  
 *Date:* November 2026  
@@ -6,26 +6,52 @@
 
 ---
 
-## 1. Executive Summary & Core Engineering Thesis
+## 1. Executive Summary: Redesigning the Human-Computer Interface
 
-Commercial Hall Effect (magnetic) mechanical keyboards (e.g. Wooting, SteelSeries Apex Pro, Razer Huntsman Analog) provide millimetric analog control and dynamic rapid trigger, but remain strictly corded, desktop-bound peripherals. Their architectures rely on power-hungry linear Hall sensors (consuming 6 to 10 mA per key continuously) and un-gated RGB arrays that draw between **350 mA and 1.2 A**. Running such a keyboard on portable battery power results in less than 2 to 4 hours of battery life.
+The keyboard is humanity's primary cognitive conduit to the digital world, yet its physical architecture has stagnated for four decades: rigid planar layouts, binary on/off mechanical switches, and high-priced commercial peripherals locked behind artificial software paywalls.
 
-**Our Core Engineering Thesis:**  
-By combining:
-1. **Ultra-low power ratiometric Hall sensors** (HAL403SO, 1.4 mA typ vs ~6.5 mA legacy SS49E),
-2. **Dual-bank low-capacitance analog multiplexing** (4× TI TMUX1308 with 59 Ω $R_{\text{on}}$ and split SAADC routing),
-3. **P-MOSFET Power Gating on the LED rail (Rev A)**: cutting parasitic RGB static idle drain,
-4. **Synchronized Sensor Strobing / Power Gating (Rev B Roadmap)**: strobing the analog sensor rail for ~20 µs during conversion to slash average sensing current below 1.5 mA and enable true < 20 µA sleep,
-5. **Springless 3D-printed magnetic levitation switches** (Switch V5.0 U-Body with 3-magnet repulsive/attractive kinematics), and
-6. **Firmware-level cyclic settling and ratiometric cancellation** on the nRF52840 (Zephyr RTOS),
+This project is an open-source, human-centered redesign of the computer keyboard from first principles. Rather than chasing competitive gaming marketing hype, our mission focuses on **postural health, expressive multimodal interaction, radical affordability, and global accessibility through 3D printing and AI-assisted engineering**.
 
-we achieve high-precision, sub-0.1 mm rapid trigger actuation with an active scan floor that enables true wireless portable operation.
+### The 7 Core Pillars of the Vision:
+1. **Ergonomic Postural Health:** Split 30-key ambidextrous layout with integrated tenting and an ultra-low profile, drastically reducing wrist extension, ulnar deviation, and repetitive strain injury (RSI).
+2. **Multimodal Analog Expression:** Continuous per-key magnetic sensing transforms every key into a velocity-sensitive, polyphonic aftertouch MIDI instrument, an analog gamepad with 360° motion gradation, and an ergonomically customizable keyboard.
+3. **Integrated Physical Interactivity:** Native hardware support for an AS5600 magnetic rotary encoder, dual thumb trackpads (Azoteq I2C), and an OLED display for live layer/mode monitoring and visual feedback.
+4. **"Endgame for Everyone" (No Paywalls):** High-end features without artificial firmware gating or subscription models. Flagship hardware accessible to students, creators, and tinkerers everywhere.
+5. **Decentralized Global Accessibility:** 100% support-free 3D printable keycaps (Ultimate V3.2) and switches (V5.0), empowering anyone anywhere in the world to print custom linguistic layouts, alphabets, or tactile legends at home.
+6. **Educational Empowerment via AI-Assisted Hardware Design:** Proving that an autodidactic builder outside traditional electrical engineering can build complex physical hardware by leveraging AI for parametric CAD, physics simulation, and PCB design.
+7. **The "Prusa Research" Business Philosophy:** Fostering a free, open-source hardware community while establishing a sustainable peripherals venture from Mexico offering ready-to-use kits and assembled hardware.
 
 ---
 
-## 2. Electrical Architecture & Power Budget
+## 2. Multimodal Analog Expression: Beyond Binary Typing
 
-### 2.1 Sensor Power Comparison: HAL403SO vs Legacy SS49E
+Traditional mechanical switches provide a single binary state (0 or 1) determined by a stamped metal contact leaf. By contrast, the Rev A keyboard continuously tracks the physical displacement of every key across its full 2.36 mm stroke using ratiometric Hall effect sensors.
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ CONTINUOUS ANALOG DISPLACEMENT MAPPING (2.36 mm TRAVEL STROKE)               │
+├──────────────────────┬──────────────────────┬───────────────────────────────┤
+│ Mode                 │ Input Behavior       │ Real-World Application        │
+├──────────────────────┼──────────────────────┼───────────────────────────────┤
+│ 1. Expressive MIDI   │ Velocity + Continuous│ Real-time synth modulation,   │
+│    Polyphonic After- │ Pressure (Aftertouch)│ filter cutoff sweeps, vibrato │
+│    touch Controller  │                      │ directly on the home row      │
+├──────────────────────┼──────────────────────┼───────────────────────────────┤
+│ 2. Proportional      │ Continuous Travel    │ Smooth acceleration, walking  │
+│    Analog Gamepad    │ (0% to 100% Vector)  │ speed control, stealth pacing │
+│                      │                      │ without external joysticks    │
+├──────────────────────┼──────────────────────┼───────────────────────────────┤
+│ 3. Adaptive Keyboard │ Dynamic Actuation    │ Per-key actuation thresholds  │
+│                      │ Points (0.2–2.2 mm)  │ tailored to individual typing │
+│                      │                      │ pressure & ergonomics         │
+└──────────────────────┴──────────────────────┴───────────────────────────────┘
+```
+
+---
+
+## 3. Electrical Architecture & Power Budget
+
+### 3.1 Sensor Power Comparison: HAL403SO vs Legacy SS49E
 
 | Parameter | Legacy Hall Sensor (SS49E) | Rev A Sensor (HAL403SO) | Engineering Advantage |
 |:---|:---:|:---:|:---|
@@ -39,26 +65,26 @@ we achieve high-precision, sub-0.1 mm rapid trigger actuation with an active sca
 
 ---
 
-### 2.2 Power Gating Architecture: Rev A Reality vs Rev B Roadmap
+### 3.2 Power Management: Rev A Hardware vs Rev B Roadmap
 
-An honest and rigorous evaluation of power consumption reveals two distinct stages of development:
+An honest engineering assessment of the power domains:
 
 #### A. Rev A (Current Fabrication State — SMT Assembly at JLCPCB)
-- **Native Battery Charging:** The SuperMini nRF52840 board integrates a native onboard LiPo charger (TP4054/SGM4056 with dedicated `B+`/`B-` pads on the bottom face). Rev A directly leverages this native charger without adding redundant charging silicon.
-- **LED Power Gating (Active in Hardware):** The 30 per-key + underglow reverse-mount SK6812MINI-E LEDs draw ~0.6 mA each in *static idle* even when displaying black (18–30 mA continuous parasitic loss). In Rev A, an **AO3401A P-channel MOSFET** ($R_{\text{DS(on)}} < 85\text{ m}\Omega$) switches the entire `3V3_LED` rail via GPIO `LED_EN` (`P0.08`). When LEDs are turned off, quiescent drain on the LED rail drops to **0.00 µA**.
-- **Sensor Rail Reality:** The 30× HAL403SO sensors remain continuously powered on the clean analog rail (`3V3_A`) during operation, drawing **42 mA typ**. On a standard 500 mAh LiPo battery, Rev A provides **~11–12 hours** of active wireless typing. It is primarily optimized for USB-C desktop use, firmware validation, and short-duration portable testing.
+- **Native SuperMini LiPo Charger:** The SuperMini nRF52840 integrates an onboard LiPo charger (TP4054/SGM4056 with dedicated `B+`/`B-` pads on the underside). Rev A relies directly on this native hardware without redundant silicon.
+- **LED Power Gating (Active in Hardware):** The 30 per-key + underglow reverse-mount SK6812MINI-E LEDs draw ~0.6 mA each in static idle even when displaying black (18–30 mA continuous loss). In Rev A, an **AO3401A P-channel MOSFET** ($R_{\text{DS(on)}} < 85\text{ m}\Omega$) switches the entire `3V3_LED` rail via GPIO `LED_EN` (`P0.08`). Quiescent drain on the LED rail drops to **0.00 µA** when off.
+- **Sensor Rail Reality:** The 30× HAL403SO sensors remain continuously energized on the clean analog rail (`3V3_A`) during operation, drawing **42 mA typ**. On a standard 500 mAh LiPo cell, Rev A delivers **~11–12 hours** of continuous active wireless operation. It is optimized for desk use, firmware validation, and short-duration wireless testing.
 
 #### B. Rev B (Medici Project Grant Objective — Production Wireless)
-- **Synchronized Sensor Power Gating:** In Rev B, an ultra-fast high-side P-MOSFET / load switch is added to the sensor rail (`3V3_A`). Instead of leaving sensors energized continuously, firmware strobes the sensors ON only during the ~20 µs SAADC sampling window of each multiplexer scan frame.
-- **Dramatically Slashed Sensing Power:** Duty-cycling the 42 mA load reduces the average sensing current from 42 mA down to **< 1.5 mA**.
-- **True Deep Sleep Mode (< 20 µA):** When the keyboard detects inactivity, the sensor rail is held OFF, the nRF52840 enters System ON low-power sleep, and quiescent draw drops to **< 20 µA**, extending wireless shelf standby to **several weeks**.
-- **Hardware Enhancements:** Integrates a battery voltage divider connected to `AIN2` (`P0.04`) for fuel gauge telemetry and a physical slide switch footprint to physically disconnect the LiPo cell during transport.
+- **Synchronized Sensor Power Gating:** In Rev B, an ultra-fast high-side P-MOSFET / load switch is added to the sensor rail (`3V3_A`). Firmware strobes the sensors ON only during the ~20 µs SAADC sampling window of each multiplexer scan frame.
+- **Average Sensing Power:** Duty-cycling the 42 mA load drops average sensing current from 42 mA down to **< 1.5 mA**.
+- **True Deep Sleep Mode (< 20 µA):** Inactivity shuts down the analog sensor rail, dropping total system sleep current to **< 20 µA**, unlocking multi-week shelf standby.
+- **Hardware Enhancements:** Integrates a battery voltage divider to `AIN2` (`P0.04`) for battery percentage telemetry and a physical slide switch footprint to disconnect the LiPo during transit.
 
 ---
 
-## 3. Analog Front-End & Multiplexing Topology
+## 4. Analog Front-End & Multiplexing Topology
 
-### 3.1 Dual-Bank 16:1 Partitioned Architecture
+### 4.1 Dual-Bank 16:1 Partitioned Architecture
 
 ```
 [30x HAL403SO Sensors + 2x Hard-GND Channels]
@@ -76,15 +102,15 @@ An honest and rigorous evaluation of power consumption reveals two distinct stag
 - **Switch Capacitance:** $C_{\text{D(OFF)}} = 37\text{ pF}$, $C_{\text{D(ON)}} = 40\text{ pF}$, pin capacitance 9–11 pF.
 - **Propagation Delay / Switching Speed:** $t_{\text{pd}} \sim 40\text{ ns}$ (transition time $t_{\text{TRAN}} \sim 25\text{ ns}$).
 - **Capacitance Reduction via Dual ADC Split:**  
-  Routing Bank A (`U1` + `U2`) to **AIN7 (P0.31)** and Bank B (`U3` + `U4`) to **AIN5 (P0.29)** isolates the two pairs. Each ADC node sees only two multiplexer output pins in parallel instead of four, cutting total line capacitance from **160 pF down to ~80 pF (a 34% reduction)** and lowering settling time to < 20 µs.
+  Routing Bank A (`U1` + `U2`) to **AIN7 (P0.31)** and Bank B (`U3` + `U4`) to **AIN5 (P0.29)** isolates the nodes, reducing total line capacitance from **160 pF down to ~80 pF (a 34% reduction)** and lowering settling time to < 20 µs.
 - **Hardware Zero-Reference Autocalibration:**  
-  Channels 7 of `U3` and `U4` are tied directly to analog `GND`. During every scan frame, the firmware samples these hard-ground channels to measure instantaneous SAADC offset, thermal drift, and reference sag in real time, automatically nulling baseline noise.
+  Channels 7 of `U3` and `U4` are tied directly to analog `GND`. Real-time sampling during every scan frame nulls SAADC offset, thermal drift, and reference sag.
 
 ---
 
-## 4. Mechanical Engineering: MagLev Switch V5.0 & Calibrated Keycaps
+## 5. Mechanical Engineering: MagLev Switch V5.0 & Calibrated Keycaps
 
-### 4.1 Kinematic Specifications (Switch V5.0 "U-Body + Keyed SideWall + Closed-Front Stem")
+### 5.1 Kinematic Specifications (Switch V5.0 "U-Body + Keyed SideWall + Closed-Front Stem")
 
 | Parameter | Value | Engineering Notes |
 |:---|:---:|:---|
@@ -99,29 +125,19 @@ An honest and rigorous evaluation of power consumption reveals two distinct stag
 | **Stem Guide Tolerance** | 0.10 mm/side ($Y$), 0.16 mm/side ($X$) | 45% reduction in stem wobble; bed-printed flat $-Y$ face |
 | **Static & Kinematic Collisions** | **0.0000 mm³** | Verified by 21-step CAD kinematic raycast sweep |
 
-### 4.2 Calibrated Bambu Lab A1 Production Tolerances
+### 5.2 Calibrated Bambu Lab A1 Production Tolerances
 
-Empirically derived from iterative micrometer gauge blocks printed on a textured PEI bed:
 - **Vertical magnet socket (base floor):** **Ø 4.10 mm** (firm press-fit without cracking layer lines).
 - **Horizontal magnet socket (lying stem):** **Ø 4.15 mm** (smooth insertion without splitting delamination).
 - **Housing guide channel (FLAT stem):** **8.10 mm** (+0.10 mm clearance over 8.00 mm stem).
 - **Stem $\leftrightarrow$ Keycap connector:** **8.05 mm** male plug $\leftrightarrow$ **8.05 mm** reinforced square female socket (1:1 zero-slop fit).
 - **Print orientation:** Pre-rotated **$-45^\circ$ in $Z$** so slicer monotonic raster lines align 100% parallel to the travel axis, eliminating stair-step layer friction.
 
-### 4.3 Keycaps Ultimate V3.2 Family
+### 5.3 Keycaps Ultimate V3.2 Family
 
 - **Geometry:** Centered spherical dish (Ø 10.60 mm, 0.70 mm depression, 1.90 mm ergonomic flat rim).
-- **4-Way Reinforced HE Socket:** Quad-buttress reinforced core (`HE_NorthButtress`, `HE_SouthButtress`, lateral ribs tied to skirt, 4 diagonal corner gussets) completely eliminates socket delamination during aggressive stem press-fit.
+- **4-Way Reinforced HE Socket:** Quad-buttress reinforced core (`HE_NorthButtress`, `HE_SouthButtress`, lateral ribs tied to skirt, 4 diagonal corner gussets) eliminates layer delamination during aggressive stem press-fit.
 - **Support-Free Printability:** Pre-angled at $-62^\circ$ with integrated non-removable structural bed foot ($\sim 15\text{ mm}^2$ PEI contact area) allowing clean FDM/SLA printing with **Supports: OFF**.
-
----
-
-## 5. Firmware Architecture & Signal Processing (Zephyr RTOS)
-
-1. **Ratiometric SAADC Reference:** Configured with $V_{\text{DD}}/4$ internal reference and $1/4$ input gain. Full scale equals $V_{\text{DD}}$, making ADC counts ratiometrically invariant to battery voltage fluctuations.
-2. **MUX Switching & Settling Time:** Hardware timer enforces a **50 µs settling window** (`CONFIG_KB_MUX_SETTLING_ENABLE=y`) between channel address switching and SAADC sample trigger, eliminating capacitive crosstalk between adjacent multiplexer channels.
-3. **Sliding Circular Moving Average Filter:** 4-sample buffer per channel (`CONFIG_KB_MOVING_AVERAGE_SAMPLES=4`) provides ~4 ms group delay (imperceptible to human typing) while collapsing the noise floor from $\pm 80\text{ mV}$ down to **$< \pm 8\text{ mV}$ ($< 10$ raw counts out of 4096)**.
-4. **HID Safe Boot Mode:** USB/BLE HID output defaults to muted upon power-up until baseline auto-calibration completes, preventing phantom keystrokes during boot.
 
 ---
 
@@ -139,7 +155,7 @@ Empirically derived from iterative micrometer gauge blocks printed on a textured
 
 ## 7. Medici Project (1517 Fund) — $1,000 USD Grant Allocation
 
-The $1,000 USD Medici grant is deployed with strict cost discipline toward high-precision instrumentation, specialized engineering materials, and the Rev B hardware spin:
+The $1,000 USD Medici grant is allocated with full transparency to sustain development momentum, fund the next hardware spin, and expand open-source educational documentation:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -147,23 +163,21 @@ The $1,000 USD Medici grant is deployed with strict cost discipline toward high-
 ├──────────────────────────────────────┬─────────────┬────────────────────────┤
 │ Category & Item                      │ Cost (USD)  │ Engineering Purpose    │
 ├──────────────────────────────────────┼─────────────┼────────────────────────┤
-│ 1. Precision Measurement Instrument  │   $350.00   │ Portable USB logic     │
-│    Rigol DHO804 / Kingst LA2016 16-Ch│             │ analyzer / scope to    │
-│    Logic Analyzer + Active Probes    │             │ capture 40 ns TMUX     │
-│                                      │             │ transitions & tune     │
-│                                      │             │ settling below 10 µs   │
+│ 1. R&D Seed Capital Recovery &       │   $450.00   │ Re-investing personal  │
+│    Continuity Runway (Rev A -> B)    │             │ savings spent on proto-│
+│    Self-funded prototypes, initial   │             │ boards, initial JLCPCB │
+│    PCBA batch & early tooling        │             │ PCBA & testing supplies│
 ├──────────────────────────────────────┼─────────────┼────────────────────────┤
-│ 2. Technical Low-Friction Polymers   │   $250.00   │ Self-lubricating POM / │
-│    Engineering POM (Delrin), PTFE-   │             │ PTFE resins & Bambu A1 │
-│    infused resin & A1 consumables   │             │ consumables for a zero-│
-│                                      │             │ wear, glass-like glide │
+│ 2. PCB Rev B Fabrication &           │   $350.00   │ Direct JLCPCB Rev B    │
+│    Interactivity Modules             │             │ run (Sensor Gating +   │
+│    OLED displays, I2C touchpads,     │             │ slide switch + divider)│
+│    rotary encoders, LiPos & magnets  │             │ and assembling units   │
 ├──────────────────────────────────────┼─────────────┼────────────────────────┤
-│ 3. PCB Rev B Iteration & Pilot Batch │   $400.00   │ Rev B PCBs with Sensor │
-│    JLCPCB Rev B run (Sensor Power    │             │ Power Gating (3V3_A),  │
-│    Gating + slide switch + divider), │             │ slide switch, SMT pass-│
-│    SMT passives & N52 magnets        │             │ ives & pilot batch of  │
-│                                      │             │ 3 to 5 full units      │
+│ 3. Open-Source Ecosystem, Printing   │   $200.00   │ Filaments/resins for   │
+│    Materials & Build Guides          │             │ ergonomic tenting,     │
+│    Tenting test stands, multilingual │             │ multilingual keycaps & │
+│    keycaps & beginner build guides   │             │ educational tutorials  │
 ├──────────────────────────────────────┼─────────────┼────────────────────────┤
-│ TOTAL                                │  $1,000.00  │ 100% Direct Hardware   │
+│ TOTAL                                │  $1,000.00  │ 100% Direct Product R&D│
 └──────────────────────────────────────┴─────────────┴────────────────────────┘
 ```
