@@ -193,10 +193,10 @@
         <a href="#playground" class="hover:text-accent-terracotta transition-colors">Continuous Analog</a>
         <a href="#timeline" class="hover:text-accent-terracotta transition-colors">R&amp;D Evolution</a>
         <a href="#art" class="hover:text-accent-terracotta transition-colors">Art &amp; PCB</a>
-        <a href="#gallery" class="hover:text-accent-terracotta transition-colors">Gallery</a>
         <a href="#roadmap" class="hover:text-accent-terracotta transition-colors">Rev B</a>
         <a href="#grant" class="hover:text-accent-terracotta transition-colors font-semibold text-accent-ochre">1517 Pitch</a>
         <a href="#hci" class="hover:text-accent-terracotta transition-colors text-xs uppercase tracking-wider text-ink-muted">Future HCI</a>
+        <a href="#gallery" class="hover:text-accent-terracotta transition-colors font-medium">Gallery</a>
       </nav>
 
       <!-- AS5600 Encoder Dial & GitHub Link -->
@@ -236,15 +236,15 @@
         
         <!-- Left: Punchy Sensory Copy -->
         <div class="lg:col-span-6 space-y-6">
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-normal tracking-tight text-ink-primary leading-[1.12]">
-            Your fingers aren’t binary.<br>
-            Neither is <span class="italic font-normal text-accent-terracotta">FloatForce</span>.
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-ink-primary leading-[1.18]">
+            Humans express more than 1 and 0,<br>
+            <span class="italic font-normal text-accent-terracotta">FloatForce</span> gives everyone a way to express that.
           </h1>
           <p class="text-lg sm:text-xl text-ink-secondary leading-relaxed font-light">
-            Meet the open-source split keyboard where every key floats on magnets instead of metal springs—turning touch into expressive music, 360° analog motion, and effortless typing.
+            Meet the low-cost, open-source split keyboard where every key floats on magnets instead of metal springs—turning continuous physical depth into expressive music, 360° analog game vectors, and effortless tactile typing.
           </p>
           <p class="text-base text-ink-secondary leading-relaxed">
-            Split in two and lifted like a drawbridge to keep your wrists pain-free, 100% printable at home with zero supports, and engineered without artificial paywalls.
+            Engineered from scratch for affordable fabrication: a low-cost standard PCBA architecture, 100% support-free 3D printing on everyday desktop printers, and lifted like an architectural drawbridge for natural ergonomic comfort.
           </p>
 
           <!-- Action Buttons -->
@@ -549,16 +549,16 @@
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
         
         <!-- Scenario 1: Expressive Musical Controller -->
-        <div class="p-7 rounded-3xl bg-paper-card border border-paper-border shadow-sm flex flex-col justify-between space-y-6">
-          <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-xs font-mono uppercase text-accent-terracotta font-semibold">01 &bull; Sound Design</span>
-              <button id="btnToggleAudio" class="px-3 py-1 rounded-lg bg-paper-surface hover:bg-paper-border text-ink-primary text-xs font-medium border border-paper-border transition-all">
+        <div class="h-[510px] p-7 rounded-3xl bg-paper-card border border-paper-border shadow-sm flex flex-col justify-between">
+          <div class="h-[148px] flex flex-col justify-start">
+            <div class="flex items-center justify-between gap-2 mb-2 h-7">
+              <span class="text-xs font-mono uppercase text-accent-terracotta font-semibold shrink-0">01 &bull; Sound Design</span>
+              <button id="btnToggleAudio" class="px-3 py-1 rounded-lg bg-paper-surface hover:bg-paper-border text-ink-primary text-xs font-medium border border-paper-border transition-all whitespace-nowrap shrink-0">
                 🔊 Audio Tone
               </button>
             </div>
-            <h3 class="font-serif text-xl font-semibold text-ink-primary mb-2">Expressive Note Swell</h3>
-            <p class="text-xs text-ink-secondary leading-relaxed">
+            <h3 class="font-serif text-xl font-semibold text-ink-primary mb-1.5 h-7 flex items-center overflow-hidden">Expressive Note Swell</h3>
+            <p class="text-xs text-ink-secondary leading-relaxed line-clamp-3">
               Every key responds continuously to pressure. Watch the floating musical note expand, rise in pitch, and open the synth filter as the key descends.
             </p>
           </div>
@@ -578,7 +578,7 @@
           </div>
 
           <!-- Key Stroke Progress Indicator -->
-          <div>
+          <div class="h-12 flex flex-col justify-end">
             <div class="flex justify-between text-xs font-mono text-ink-muted mb-1.5">
               <span>Key Travel Depth</span>
               <span id="musicTravelVal" class="text-accent-terracotta font-semibold">0.00 mm (0%)</span>
@@ -590,14 +590,14 @@
         </div>
 
         <!-- Scenario 2: Proportional 360° WASD Joystick -->
-        <div class="p-7 rounded-3xl bg-paper-card border border-paper-border shadow-sm flex flex-col justify-between space-y-6">
-          <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-xs font-mono uppercase text-accent-sage font-semibold">02 &bull; Analog Gaming</span>
-              <span class="text-xs font-mono text-accent-sage font-medium bg-accent-sage-soft px-2.5 py-0.5 rounded-full border border-accent-sage/20">360° Vector</span>
+        <div class="h-[510px] p-7 rounded-3xl bg-paper-card border border-paper-border shadow-sm flex flex-col justify-between">
+          <div class="h-[148px] flex flex-col justify-start">
+            <div class="flex items-center justify-between gap-2 mb-2 h-7">
+              <span class="text-xs font-mono uppercase text-accent-sage font-semibold shrink-0">02 &bull; Analog Gaming</span>
+              <span class="text-xs font-mono text-accent-sage font-medium bg-accent-sage-soft px-2.5 py-0.5 rounded-full border border-accent-sage/20 whitespace-nowrap shrink-0">360° Vector</span>
             </div>
-            <h3 class="font-serif text-xl font-semibold text-ink-primary mb-2">WASD Analog Joystick</h3>
-            <p class="text-xs text-ink-secondary leading-relaxed">
+            <h3 class="font-serif text-xl font-semibold text-ink-primary mb-1.5 h-7 flex items-center overflow-hidden">WASD Analog Joystick</h3>
+            <p class="text-xs text-ink-secondary leading-relaxed line-clamp-3">
               No joysticks required. Proportional analog travel on W, A, S, D calculates real-time vectors for stealth walking, diagonal jogging, and sprinting.
             </p>
           </div>
@@ -626,7 +626,7 @@
           </div>
 
           <!-- Movement Velocity Readout -->
-          <div>
+          <div class="h-12 flex flex-col justify-end">
             <div class="flex justify-between text-xs font-mono text-ink-muted mb-1.5">
               <span>Vector State: <strong id="gamepadStateText" class="text-ink-primary">Jogging Diagonal</strong></span>
               <span id="gamepadSpeedVal" class="text-accent-sage font-semibold">4.8 m/s</span>
@@ -638,14 +638,14 @@
         </div>
 
         <!-- Scenario 3: Dual-Stage Shortcut Press (Letter vs Screenshot) -->
-        <div class="p-7 rounded-3xl bg-paper-card border border-paper-border shadow-sm flex flex-col justify-between space-y-6">
-          <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-xs font-mono uppercase text-accent-ochre font-semibold">03 &bull; Dual-Stage Trigger</span>
-              <span id="dualStageStatusBadge" class="text-xs font-mono text-accent-ochre font-medium bg-accent-ochre-soft px-2.5 py-0.5 rounded-full border border-accent-ochre/20">Half-Press: Types "a"</span>
+        <div class="h-[510px] p-7 rounded-3xl bg-paper-card border border-paper-border shadow-sm flex flex-col justify-between">
+          <div class="h-[148px] flex flex-col justify-start">
+            <div class="flex items-center justify-between gap-2 mb-2 h-7">
+              <span class="text-xs font-mono uppercase text-accent-ochre font-semibold shrink-0">03 &bull; Dual-Stage</span>
+              <span id="dualStageStatusBadge" class="text-xs font-mono text-accent-ochre font-medium bg-accent-ochre-soft px-2.5 py-0.5 rounded-full border border-accent-ochre/20 whitespace-nowrap shrink-0 text-right">Half: Type 'a'</span>
             </div>
-            <h3 class="font-serif text-xl font-semibold text-ink-primary mb-2">Two Actions, One Key</h3>
-            <p class="text-xs text-ink-secondary leading-relaxed">
+            <h3 class="font-serif text-xl font-semibold text-ink-primary mb-1.5 h-7 flex items-center overflow-hidden">Two Actions, One Key</h3>
+            <p class="text-xs text-ink-secondary leading-relaxed line-clamp-3">
               Set distinct triggers along the stroke. Half-press types a normal letter; pressing through to bottom-out instantly takes a desktop screenshot.
             </p>
           </div>
@@ -666,9 +666,9 @@
           </div>
 
           <!-- Dual Depth Threshold Meter -->
-          <div>
+          <div class="h-12 flex flex-col justify-end">
             <div class="flex justify-between text-xs font-mono text-ink-muted mb-1.5">
-              <span>Thresholds: <strong>0.9mm (Type)</strong> | <strong>2.1mm (Snap)</strong></span>
+              <span>Thresholds: <strong>0.9mm</strong> | <strong>2.1mm</strong></span>
               <span id="dualStageTravelVal" class="text-accent-ochre font-semibold">1.05 mm</span>
             </div>
             <div class="w-full h-2 rounded-full bg-paper-border overflow-hidden relative">
@@ -688,14 +688,21 @@
   <section id="timeline" class="py-24 border-b border-paper-border bg-paper-surface/50">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       
-      <div class="max-w-3xl mb-12">
-        <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold">R&amp;D Iteration Journey</span>
-        <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2">
-          Prototype Evolution: First Sketch to Production
-        </h2>
-        <p class="text-base text-ink-secondary mt-3 leading-relaxed">
-          Ten real hardware milestones demonstrating our rigorous physical engineering process—from early FreeCAD geometries and protoboards to sub-millimeter Bambu Lab A1 calibration and final SMT fabrication at JLCPCB.
-        </p>
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-12">
+        <div class="max-w-2xl">
+          <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold">R&amp;D Iteration Journey</span>
+          <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2">
+            Prototype Evolution: First Sketch to Production
+          </h2>
+          <p class="text-base text-ink-secondary mt-3 leading-relaxed">
+            Ten real hardware milestones demonstrating our rigorous physical engineering process—from early FreeCAD geometries and protoboards to sub-millimeter Bambu Lab A1 calibration and final SMT fabrication at JLCPCB.
+          </p>
+        </div>
+        <div class="flex items-center gap-2 mt-5 sm:mt-0 font-mono text-xs text-ink-muted shrink-0">
+          <span class="hidden md:inline mr-2 text-[12px] bg-paper-card px-2.5 py-1 rounded-lg border border-paper-border">🖱️ Mouse wheel slides timeline</span>
+          <button id="btnTimelinePrev" class="px-3.5 py-2 rounded-xl bg-paper-card hover:bg-paper-border text-ink-primary border border-paper-border transition-all shadow-sm" title="Previous milestone">&larr;</button>
+          <button id="btnTimelineNext" class="px-3.5 py-2 rounded-xl bg-paper-card hover:bg-paper-border text-ink-primary border border-paper-border transition-all shadow-sm" title="Next milestone">&rarr;</button>
+        </div>
       </div>
 
       <!-- Horizontal Scrollable Container (Sticky / Scroll-Driven) -->
@@ -947,168 +954,9 @@
 
       </div>
 
-      <!-- Curated CAD & Hardware Gallery -->
-      <div id="gallery" class="pt-8">
-        <div class="sm:flex sm:items-end sm:justify-between mb-10">
-          <div>
-            <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold">CAD &amp; Hardware Assets</span>
-            <h2 class="text-3xl font-serif text-ink-primary mt-2">Curated Asset Gallery</h2>
-          </div>
-          <div class="text-xs text-ink-muted mt-2 sm:mt-0 font-mono">
-            High-Resolution Renders &bull; KiCad 10 Schematics
-          </div>
-        </div>
-
-        <!-- Filter Tabs -->
-        <div class="flex flex-wrap gap-2.5 mb-10 text-xs font-medium" id="galleryTabs">
-          <button onclick="filterGallery('all')" class="tab-btn px-4 py-2 rounded-xl bg-accent-terracotta text-white shadow-sm transition-all" data-filter="all">All Assets (12)</button>
-          <button onclick="filterGallery('pcb')" class="tab-btn px-4 py-2 rounded-xl bg-paper-card hover:bg-paper-border text-ink-secondary border border-paper-border transition-all" data-filter="pcb">PCB Rev A (3)</button>
-          <button onclick="filterGallery('switch')" class="tab-btn px-4 py-2 rounded-xl bg-paper-card hover:bg-paper-border text-ink-secondary border border-paper-border transition-all" data-filter="switch">FloatForce Switch (4)</button>
-          <button onclick="filterGallery('schematic')" class="tab-btn px-4 py-2 rounded-xl bg-paper-card hover:bg-paper-border text-ink-secondary border border-paper-border transition-all" data-filter="schematic">KiCad Schematics (3)</button>
-          <button onclick="filterGallery('case')" class="tab-btn px-4 py-2 rounded-xl bg-paper-card hover:bg-paper-border text-ink-secondary border border-paper-border transition-all" data-filter="case">Case &amp; Keycaps (2)</button>
-        </div>
-
-        <!-- Gallery Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
-          
-          <!-- Card 1: PCB Iso (Dark) -->
-          <div class="gallery-item pcb p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/pcb_iso.png', 'PCB Rev A Isometric SMT Assembly — Matte Black solder mask with Pure White silkscreen.')">
-            <div class="aspect-[16/11] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center relative">
-              <img src="assets/img/pcb_iso.png" alt="PCB Isometric Black" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="mt-4 px-1">
-              <h4 class="text-base font-serif font-semibold text-ink-primary">PCB Rev A Isometric View</h4>
-              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Matte Black finish with Van Gogh silkscreen, bottom SMT components, and dual trackpad headers.</p>
-            </div>
-          </div>
-
-          <!-- Card 2: PCB Top (Dark) -->
-          <div class="gallery-item pcb p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/pcb_top.png', 'PCB Rev A Top Surface — Van Gogh Langlois Bridge silkscreen.')">
-            <div class="aspect-[16/11] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center relative">
-              <img src="assets/img/pcb_top.png" alt="PCB Top Surface Black" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="mt-4 px-1">
-              <h4 class="text-base font-serif font-semibold text-ink-primary">PCB Top Surface (Van Gogh)</h4>
-              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Flat top surface with Van Gogh's Langlois Bridge silkscreen art. All components routed underside.</p>
-            </div>
-          </div>
-
-          <!-- Card 3: PCB Bottom (Dark) -->
-          <div class="gallery-item pcb p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/pcb_bottom.png', 'PCB Rev A Bottom SMT Assembly — 30x HAL403SO sensors, 4x TMUX1308, AO3401A MOSFET.')">
-            <div class="aspect-[16/11] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center relative">
-              <img src="assets/img/pcb_bottom.png" alt="PCB Bottom Black" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="mt-4 px-1">
-              <h4 class="text-base font-serif font-semibold text-ink-primary">PCB Bottom SMT Assembly</h4>
-              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">All 30 HAL403SO Hall sensors, 4x TMUX1308 analog multiplexers, and AO3401A power gating switch.</p>
-            </div>
-          </div>
-
-          <!-- Card 4: Switch Exploded (White) -->
-          <div class="gallery-item switch p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/switch_v5_exploded.png', 'FloatForce Switch (V5.0) Exploded Assembly — U-Housing, Keyed SideWall, Closed-Front Stem, 3 Magnets.')">
-            <div class="aspect-[16/11] bg-white rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border/50">
-              <img src="assets/img/switch_v5_exploded.png" alt="FloatForce Switch Exploded" class="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="mt-4 px-1">
-              <h4 class="text-base font-serif font-semibold text-ink-primary">FloatForce Switch (V5.0) Exploded</h4>
-              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">U-Body housing + Keyed SideWall. Calibrated dual-jaw cradle and flat-printed smooth stem wall.</p>
-            </div>
-          </div>
-
-          <!-- Card 5: Switch Section (White) -->
-          <div class="gallery-item switch p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/switch_v5_section.png', 'FloatForce Switch (V5.0) Section Cut (XZ) — Demonstrates 2.36mm stroke and 3-magnet suspension.')">
-            <div class="aspect-[16/11] bg-white rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border/50">
-              <img src="assets/img/switch_v5_section.png" alt="FloatForce Section Cut" class="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="mt-4 px-1">
-              <h4 class="text-base font-serif font-semibold text-ink-primary">FloatForce Internal Section Cut</h4>
-              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">3-magnet levitation chamber. 0.45 mm magnetic barriers boost repulsive force by 25–35%.</p>
-            </div>
-          </div>
-
-          <!-- Card 6: Magpylib Sim (White) -->
-          <div class="gallery-item switch p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/slingshot_simulation.png', '3D Magpylib Simulation — Vector flux density across the 2.36mm travel stroke.')">
-            <div class="aspect-[16/11] bg-white rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border/50">
-              <img src="assets/img/slingshot_simulation.png" alt="Magnetic Simulation" class="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="mt-4 px-1">
-              <h4 class="text-base font-serif font-semibold text-ink-primary">3D Magnetic Flux Simulation</h4>
-              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Python Magpylib model calculating flux density reaching the sensor across the 2.36 mm stroke.</p>
-            </div>
-          </div>
-
-          <!-- Card 7: Switch in Plate (White) -->
-          <div class="gallery-item switch p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/switch_v5_assembled.png', 'FloatForce Switch (V5.0) Assembled in 3.0mm Plate.')">
-            <div class="aspect-[16/11] bg-white rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border/50">
-              <img src="assets/img/switch_v5_assembled.png" alt="Switch Assembled" class="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="mt-4 px-1">
-              <h4 class="text-base font-serif font-semibold text-ink-primary">FloatForce Assembled in Plate</h4>
-              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Integrated into the 3.0 mm 3D-printed plate. 8.05 mm square stem connector with zero wobble.</p>
-            </div>
-          </div>
-
-          <!-- Card 8: Analog Bus Schematic -->
-          <div class="gallery-item schematic p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/schematic_analog_bus.png', 'KiCad 10 Schematic: 4x TMUX1308PWR Multiplexers to SuperMini nRF52840 SAADC.')">
-            <div class="aspect-[16/11] bg-paper-surface rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border">
-              <img src="assets/img/schematic_analog_bus.png" alt="Analog Bus Schematic" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="mt-4 px-1">
-              <h4 class="text-base font-serif font-semibold text-ink-primary">4x TMUX1308 &amp; SAADC Bus</h4>
-              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">KiCad schematic showing the 4 multiplexers, 3-bit address bus A0–A2, and dual SAADC lines.</p>
-            </div>
-          </div>
-
-          <!-- Card 9: Power Gating Schematic -->
-          <div class="gallery-item schematic p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/schematic_power_gating.png', 'KiCad 10 Schematic: AO3401A P-MOSFET Power Gating Block.')">
-            <div class="aspect-[16/11] bg-paper-surface rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border">
-              <img src="assets/img/schematic_power_gating.png" alt="Power Gating Schematic" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="mt-4 px-1">
-              <h4 class="text-base font-serif font-semibold text-ink-primary">AO3401A Power Gating Circuit</h4>
-              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">P-MOSFET switch cutting 18–30 mA of quiescent RGB drain with active-low GPIO control.</p>
-            </div>
-          </div>
-
-          <!-- Card 10: Sensor Unit Schematic -->
-          <div class="gallery-item schematic p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/schematic_hall_sensor_unit.png', 'KiCad 10 Schematic: key.kicad_sch Hierarchical Sheet — HAL403SO Sensor.')">
-            <div class="aspect-[16/11] bg-paper-surface rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border">
-              <img src="assets/img/schematic_hall_sensor_unit.png" alt="Sensor Unit Schematic" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="mt-4 px-1">
-              <h4 class="text-base font-serif font-semibold text-ink-primary">Hierarchical Key Unit Sheet</h4>
-              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">HAL403SO SOT-23 sensor with local 100 nF bypass cap and reverse-mount SK6812MINI-E LED.</p>
-            </div>
-          </div>
-
-          <!-- Card 11: Keycaps WASD (White) -->
-          <div class="gallery-item case p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/keycaps_wasd_v3_2.png', 'Keycaps Ultimate V3.2 WASD Family — Spherical dish Ø10.6mm, 4-way reinforced socket.')">
-            <div class="aspect-[16/11] bg-white rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border/50">
-              <img src="assets/img/keycaps_wasd_v3_2.png" alt="Keycaps V3.2" class="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="mt-4 px-1">
-              <h4 class="text-base font-serif font-semibold text-ink-primary">Ultimate Keycaps V3.2 (WASD)</h4>
-              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Ergonomic spherical dish with tactile homing. 4-way buttressed socket prevents layer splitting.</p>
-            </div>
-          </div>
-
-          <!-- Card 12: Unibody Case (White) -->
-          <div class="gallery-item case p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/case_exploded.png', 'Unibody Keyboard Case Exploded Assembly.')">
-            <div class="aspect-[16/11] bg-white rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border/50">
-              <img src="assets/img/case_exploded.png" alt="Case Exploded Assembly" class="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="mt-4 px-1">
-              <h4 class="text-base font-serif font-semibold text-ink-primary">Unibody Case Exploded 3D</h4>
-              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Ambidextrous case accommodating either hand. Integrated trackpad recess and OLED enclosure.</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
     </div>
   </section>
+
 
   <!-- ================================================================= -->
   <!-- 07 · HARDWARE REV B: VERTICAL INTEGRATION                         -->
@@ -1314,6 +1162,170 @@
 
       </div>
 
+    </div>
+  </section>
+
+  <!-- ================================================================= -->
+  <!-- 10 · CURATED ASSET GALLERY: HIGH-RES HARDWARE & SCHEMATICS        -->
+  <!-- ================================================================= -->
+  <section id="gallery" class="py-24 border-b border-paper-border bg-paper-base">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+        <div class="sm:flex sm:items-end sm:justify-between mb-10">
+          <div>
+            <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold">CAD &amp; Hardware Assets</span>
+            <h2 class="text-3xl font-serif text-ink-primary mt-2">Curated Asset Gallery</h2>
+          </div>
+          <div class="text-xs text-ink-muted mt-2 sm:mt-0 font-mono">
+            High-Resolution Renders &bull; KiCad 10 Schematics
+          </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="flex flex-wrap gap-2.5 mb-10 text-xs font-medium" id="galleryTabs">
+          <button onclick="filterGallery('all')" class="tab-btn px-4 py-2 rounded-xl bg-accent-terracotta text-white shadow-sm transition-all" data-filter="all">All Assets (12)</button>
+          <button onclick="filterGallery('pcb')" class="tab-btn px-4 py-2 rounded-xl bg-paper-card hover:bg-paper-border text-ink-secondary border border-paper-border transition-all" data-filter="pcb">PCB Rev A (3)</button>
+          <button onclick="filterGallery('switch')" class="tab-btn px-4 py-2 rounded-xl bg-paper-card hover:bg-paper-border text-ink-secondary border border-paper-border transition-all" data-filter="switch">FloatForce Switch (4)</button>
+          <button onclick="filterGallery('schematic')" class="tab-btn px-4 py-2 rounded-xl bg-paper-card hover:bg-paper-border text-ink-secondary border border-paper-border transition-all" data-filter="schematic">KiCad Schematics (3)</button>
+          <button onclick="filterGallery('case')" class="tab-btn px-4 py-2 rounded-xl bg-paper-card hover:bg-paper-border text-ink-secondary border border-paper-border transition-all" data-filter="case">Case &amp; Keycaps (2)</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
+          
+          <!-- Card 1: PCB Iso (Dark) -->
+          <div class="gallery-item pcb p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/pcb_iso.png', 'PCB Rev A Isometric SMT Assembly — Matte Black solder mask with Pure White silkscreen.')">
+            <div class="aspect-[16/11] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center relative">
+              <img src="assets/img/pcb_iso.png" alt="PCB Isometric Black" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="mt-4 px-1">
+              <h4 class="text-base font-serif font-semibold text-ink-primary">PCB Rev A Isometric View</h4>
+              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Matte Black finish with Van Gogh silkscreen, bottom SMT components, and dual trackpad headers.</p>
+            </div>
+          </div>
+
+          <!-- Card 2: PCB Top (Dark) -->
+          <div class="gallery-item pcb p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/pcb_top.png', 'PCB Rev A Top Surface — Van Gogh Langlois Bridge silkscreen.')">
+            <div class="aspect-[16/11] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center relative">
+              <img src="assets/img/pcb_top.png" alt="PCB Top Surface Black" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="mt-4 px-1">
+              <h4 class="text-base font-serif font-semibold text-ink-primary">PCB Top Surface (Van Gogh)</h4>
+              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Flat top surface with Van Gogh's Langlois Bridge silkscreen art. All components routed underside.</p>
+            </div>
+          </div>
+
+          <!-- Card 3: PCB Bottom (Dark) -->
+          <div class="gallery-item pcb p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/pcb_bottom.png', 'PCB Rev A Bottom SMT Assembly — 30x HAL403SO sensors, 4x TMUX1308, AO3401A MOSFET.')">
+            <div class="aspect-[16/11] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center relative">
+              <img src="assets/img/pcb_bottom.png" alt="PCB Bottom Black" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="mt-4 px-1">
+              <h4 class="text-base font-serif font-semibold text-ink-primary">PCB Bottom SMT Assembly</h4>
+              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">All 30 HAL403SO Hall sensors, 4x TMUX1308 analog multiplexers, and AO3401A power gating switch.</p>
+            </div>
+          </div>
+
+          <!-- Card 4: Switch Exploded (White) -->
+          <div class="gallery-item switch p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/switch_v5_exploded.png', 'FloatForce Switch (V5.0) Exploded Assembly — U-Housing, Keyed SideWall, Closed-Front Stem, 3 Magnets.')">
+            <div class="aspect-[16/11] bg-white rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border/50">
+              <img src="assets/img/switch_v5_exploded.png" alt="FloatForce Switch Exploded" class="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="mt-4 px-1">
+              <h4 class="text-base font-serif font-semibold text-ink-primary">FloatForce Switch (V5.0) Exploded</h4>
+              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">U-Body housing + Keyed SideWall. Calibrated dual-jaw cradle and flat-printed smooth stem wall.</p>
+            </div>
+          </div>
+
+          <!-- Card 5: Switch Section (White) -->
+          <div class="gallery-item switch p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/switch_v5_section.png', 'FloatForce Switch (V5.0) Section Cut (XZ) — Demonstrates 2.36mm stroke and 3-magnet suspension.')">
+            <div class="aspect-[16/11] bg-white rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border/50">
+              <img src="assets/img/switch_v5_section.png" alt="FloatForce Section Cut" class="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="mt-4 px-1">
+              <h4 class="text-base font-serif font-semibold text-ink-primary">FloatForce Internal Section Cut</h4>
+              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">3-magnet levitation chamber. 0.45 mm magnetic barriers boost repulsive force by 25–35%.</p>
+            </div>
+          </div>
+
+          <!-- Card 6: Magpylib Sim (White) -->
+          <div class="gallery-item switch p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/slingshot_simulation.png', '3D Magpylib Simulation — Vector flux density across the 2.36mm travel stroke.')">
+            <div class="aspect-[16/11] bg-white rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border/50">
+              <img src="assets/img/slingshot_simulation.png" alt="Magnetic Simulation" class="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="mt-4 px-1">
+              <h4 class="text-base font-serif font-semibold text-ink-primary">3D Magnetic Flux Simulation</h4>
+              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Python Magpylib model calculating flux density reaching the sensor across the 2.36 mm stroke.</p>
+            </div>
+          </div>
+
+          <!-- Card 7: Switch in Plate (White) -->
+          <div class="gallery-item switch p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/switch_v5_assembled.png', 'FloatForce Switch (V5.0) Assembled in 3.0mm Plate.')">
+            <div class="aspect-[16/11] bg-white rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border/50">
+              <img src="assets/img/switch_v5_assembled.png" alt="Switch Assembled" class="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="mt-4 px-1">
+              <h4 class="text-base font-serif font-semibold text-ink-primary">FloatForce Assembled in Plate</h4>
+              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Integrated into the 3.0 mm 3D-printed plate. 8.05 mm square stem connector with zero wobble.</p>
+            </div>
+          </div>
+
+          <!-- Card 8: Analog Bus Schematic -->
+          <div class="gallery-item schematic p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/schematic_analog_bus.png', 'KiCad 10 Schematic: 4x TMUX1308PWR Multiplexers to SuperMini nRF52840 SAADC.')">
+            <div class="aspect-[16/11] bg-paper-surface rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border">
+              <img src="assets/img/schematic_analog_bus.png" alt="Analog Bus Schematic" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="mt-4 px-1">
+              <h4 class="text-base font-serif font-semibold text-ink-primary">4x TMUX1308 &amp; SAADC Bus</h4>
+              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">KiCad schematic showing the 4 multiplexers, 3-bit address bus A0–A2, and dual SAADC lines.</p>
+            </div>
+          </div>
+
+          <!-- Card 9: Power Gating Schematic -->
+          <div class="gallery-item schematic p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/schematic_power_gating.png', 'KiCad 10 Schematic: AO3401A P-MOSFET Power Gating Block.')">
+            <div class="aspect-[16/11] bg-paper-surface rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border">
+              <img src="assets/img/schematic_power_gating.png" alt="Power Gating Schematic" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="mt-4 px-1">
+              <h4 class="text-base font-serif font-semibold text-ink-primary">AO3401A Power Gating Circuit</h4>
+              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">P-MOSFET switch cutting 18–30 mA of quiescent RGB drain with active-low GPIO control.</p>
+            </div>
+          </div>
+
+          <!-- Card 10: Sensor Unit Schematic -->
+          <div class="gallery-item schematic p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/schematic_hall_sensor_unit.png', 'KiCad 10 Schematic: key.kicad_sch Hierarchical Sheet — HAL403SO Sensor.')">
+            <div class="aspect-[16/11] bg-paper-surface rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border">
+              <img src="assets/img/schematic_hall_sensor_unit.png" alt="Sensor Unit Schematic" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="mt-4 px-1">
+              <h4 class="text-base font-serif font-semibold text-ink-primary">Hierarchical Key Unit Sheet</h4>
+              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">HAL403SO SOT-23 sensor with local 100 nF bypass cap and reverse-mount SK6812MINI-E LED.</p>
+            </div>
+          </div>
+
+          <!-- Card 11: Keycaps WASD (White) -->
+          <div class="gallery-item case p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/keycaps_wasd_v3_2.png', 'Keycaps Ultimate V3.2 WASD Family — Spherical dish Ø10.6mm, 4-way reinforced socket.')">
+            <div class="aspect-[16/11] bg-white rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border/50">
+              <img src="assets/img/keycaps_wasd_v3_2.png" alt="Keycaps V3.2" class="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="mt-4 px-1">
+              <h4 class="text-base font-serif font-semibold text-ink-primary">Ultimate Keycaps V3.2 (WASD)</h4>
+              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Ergonomic spherical dish with tactile homing. 4-way buttressed socket prevents layer splitting.</p>
+            </div>
+          </div>
+
+          <!-- Card 12: Unibody Case (White) -->
+          <div class="gallery-item case p-4 rounded-3xl bg-paper-card border border-paper-border shadow-sm cursor-pointer group" onclick="openModal('assets/img/case_exploded.png', 'Unibody Keyboard Case Exploded Assembly.')">
+            <div class="aspect-[16/11] bg-white rounded-2xl overflow-hidden flex items-center justify-center relative border border-paper-border/50">
+              <img src="assets/img/case_exploded.png" alt="Case Exploded Assembly" class="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="mt-4 px-1">
+              <h4 class="text-base font-serif font-semibold text-ink-primary">Unibody Case Exploded 3D</h4>
+              <p class="text-xs text-ink-secondary mt-1 leading-relaxed">Ambidextrous case accommodating either hand. Integrated trackpad recess and OLED enclosure.</p>
+            </div>
+          </div>
+
+        </div>
     </div>
   </section>
 
@@ -2189,13 +2201,13 @@
 
       if (dualTravel >= 2.05) {
         // Full press triggered screenshot!
-        if (dualBadge) dualBadge.innerText = "Full-Press: Screenshot!";
+        if (dualBadge) dualBadge.innerText = "Full: Screenshot!";
         if (flashEl) flashEl.style.opacity = "0.75";
         if (noticeEl) noticeEl.style.opacity = "1.0";
         if (bufferEl) bufferEl.innerText = "📸 screenshot.png";
       } else if (dualTravel >= 0.85) {
         // Half press typed "a"
-        if (dualBadge) dualBadge.innerText = "Half-Press: Types 'a'";
+        if (dualBadge) dualBadge.innerText = "Half: Type 'a'";
         if (flashEl) flashEl.style.opacity = "0.0";
         if (noticeEl) noticeEl.style.opacity = "0.0";
         if (bufferEl) bufferEl.innerText = "hello a|";
@@ -2263,6 +2275,39 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeModal();
     });
+
+    /* ==========================================================
+       4. TIMELINE NATURAL VERTICAL SCROLL TO HORIZONTAL
+       ========================================================== */
+    const timelineContainer = document.getElementById('timelineScrollContainer');
+    const timelineSection = document.getElementById('timeline');
+    const btnTimelinePrev = document.getElementById('btnTimelinePrev');
+    const btnTimelineNext = document.getElementById('btnTimelineNext');
+
+    if (timelineContainer && timelineSection) {
+      // Natural vertical mouse wheel translates into horizontal scrolling
+      timelineSection.addEventListener('wheel', (e) => {
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          const maxScroll = timelineContainer.scrollWidth - timelineContainer.clientWidth - 4;
+          const atEnd = timelineContainer.scrollLeft >= maxScroll;
+          const atStart = timelineContainer.scrollLeft <= 4;
+
+          // If scrolling down and not at end, or scrolling up and not at start: scroll timeline horizontally
+          if ((e.deltaY > 0 && !atEnd) || (e.deltaY < 0 && !atStart)) {
+            e.preventDefault();
+            timelineContainer.scrollLeft += e.deltaY * 1.35;
+          }
+        }
+      }, { passive: false });
+
+      btnTimelinePrev?.addEventListener('click', () => {
+        timelineContainer.scrollBy({ left: -360, behavior: 'smooth' });
+      });
+
+      btnTimelineNext?.addEventListener('click', () => {
+        timelineContainer.scrollBy({ left: 360, behavior: 'smooth' });
+      });
+    }
   </script>
 
 </body>
