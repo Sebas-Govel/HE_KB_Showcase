@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1517 Fund Medici Project Pitch — HE-Keyboard</title>
+  <meta name="description" content="1517 Fund Medici Grant application ($1,000 USD) and future HCI roadmap for the open-source FloatForce magnetic keyboard.">
+  <link rel="canonical" href="https://sebas-govel.github.io/HE_KB_Showcase/grant.html">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <!-- Editorial Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="assets/app.css">
+  <style>
+    body {
+      background-color: #FAF7F2;
+      color: #1E1D1A;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    ::selection {
+      background: #E5DEC9;
+      color: #1E1D1A;
+    }
+  </style>
+</head>
+<body class="bg-paper-base text-ink-primary antialiased">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-paper-base/90 border-b border-paper-border">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-paper-surface border border-paper-border flex items-center justify-center font-serif font-bold text-ink-primary text-lg shadow-sm group-hover:border-accent-terracotta transition-colors">
+          H
+        </div>
+        <div class="flex flex-col">
+          <span class="font-serif text-lg font-semibold tracking-tight text-ink-primary flex items-center gap-2">
+            HE-Keyboard
+            <span class="font-mono text-xs px-2 py-0.5 rounded-full bg-paper-surface border border-paper-border text-ink-secondary font-medium">
+              Grant Doc
+            </span>
+          </span>
+          <span class="text-xs text-ink-muted -mt-0.5">&larr; Back to Main Showcase</span>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-4">
+        <a href="ENGINEERING_FACT_SHEET.md" target="_blank" class="text-xs font-mono text-ink-secondary hover:text-ink-primary">
+          Fact Sheet (MD)
+        </a>
+        <a href="https://github.com/Sebas-Govel/HE_KB_Showcase" target="_blank" class="px-3.5 py-2 rounded-xl bg-paper-surface hover:bg-paper-card text-ink-primary border border-paper-border text-xs font-medium transition-all shadow-sm">
+          GitHub Repo &rarr;
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 lg:px-8 py-16">
+    
+    <!-- Hero Pitch Header -->
+    <div class="mb-12">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent-ochre-soft border border-accent-ochre/30 text-ink-primary text-xs font-medium mb-6">
+        <span class="w-2 h-2 rounded-full bg-accent-ochre"></span>
+        1517 Fund &bull; Medici Project Candidate Submission
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-serif text-ink-primary tracking-tight leading-[1.15]">
+        1517 Fund Medici Grant Allocation
+      </h1>
+      <p class="text-lg text-ink-secondary mt-4 leading-relaxed font-light">
+        A proposal for a &#36;1,000 USD micro-grant to sustain autodidactic open-source physical computing research, hardware manufacturing, and global maker guides.
+      </p>
+      <div class="mt-4 inline-block text-xs font-mono text-ink-primary bg-accent-ochre-soft border border-accent-ochre/30 px-3.5 py-1.5 rounded-xl font-medium">
+        Total Request: &#36;1,000.00 USD &bull; 100% Direct Product R&amp;D
+      </div>
+    </div>
+
+    <!-- The Autodidactic Builder Journey -->
+    <div class="p-8 sm:p-10 rounded-3xl bg-paper-surface border border-paper-border mb-12 shadow-sm space-y-4">
+      <h2 class="text-2xl font-serif font-semibold text-ink-primary">The Autodidactic Builder Journey</h2>
+      <p class="text-base text-ink-secondary leading-relaxed">
+        I am an independent maker based in Mexico. Outside corporate research laboratories, I have personally self-funded 100% of the initial research, 3D printing tolerance iterations, protoboard validation, and the first SMT production batch (Rev A) using personal savings (~&#36;500 USD). This past investment serves as tangible proof of builder commitment and execution capacity&mdash;<strong>not</strong> as a request for reimbursement.
+      </p>
+      <p class="text-base text-ink-secondary leading-relaxed">
+        By leveraging Artificial Intelligence for parametric CAD, magnetic physics simulation, and PCB design, I proved that a non-expert can architect complex physical hardware from first principles.
+      </p>
+      <p class="text-base text-ink-secondary leading-relaxed">
+        The &#36;1,000.00 USD Medici grant is 100% forward-looking: sustaining active continuity runway between Rev A and Rev B, funding the Rev B iteration once designed, and expanding open-source educational build guides for creators worldwide.
+      </p>
+    </div>
+
+    <!-- Itemized Budget Table -->
+    <div class="rounded-3xl bg-paper-card border border-paper-border overflow-hidden mb-16 shadow-sm">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead class="bg-paper-surface text-ink-secondary border-b border-paper-border text-xs font-medium">
+            <tr>
+              <th class="py-4 px-6">ITEM &amp; CATEGORY</th>
+              <th class="py-4 px-6">COST (USD)</th>
+              <th class="py-4 px-6">PURPOSE &amp; ENGINEERING IMPACT</th>
+              <th class="py-4 px-6">DELIVERABLE</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-paper-border text-ink-secondary">
+            <tr class="hover:bg-paper-surface/60 transition-colors">
+              <td class="py-4 px-6">
+                <span class="font-semibold text-ink-primary">1. Rev B Prototyping</span>
+                <div class="text-xs text-ink-muted mt-0.5">Fund a Rev B PCB iteration informed by Rev A testing, plus sensors, OLEDs, encoders, batteries and magnets for working test units</div>
+              </td>
+              <td class="py-4 px-6 font-mono font-bold text-ink-primary text-sm">&#36;250.00</td>
+              <td class="py-4 px-6 text-xs text-ink-secondary">
+                Funding a refined Rev B PCB fabrication run informed by Rev A bench testing, plus precision Hall sensors, OLEDs, rotary encoders, LiPo batteries, and neodymium magnets for working test units.
+              </td>
+              <td class="py-4 px-6 text-xs font-medium text-accent-sage">Rev B Iteration &amp; Working Units</td>
+            </tr>
+            <tr class="hover:bg-paper-surface/60 transition-colors">
+              <td class="py-4 px-6">
+                <span class="font-semibold text-ink-primary">2. Brand, Legal Protection &amp; Tax Advisory</span>
+                <div class="text-xs text-ink-muted mt-0.5">Register project trademark in Mexico (IMPI), prior-art search, IP consultation, and tax advisory for third-party build certification</div>
+              </td>
+              <td class="py-4 px-6 font-mono font-bold text-ink-primary text-sm">&#36;300.00</td>
+              <td class="py-4 px-6 text-xs text-ink-secondary">
+                Registering the official FloatForce / HE-Keyboard trademark with the Mexican Patent and Trademark Office (IMPI), conducting a prior-art search, and obtaining professional IP and tax advisory to establish an official, legally compliant third-party certification program.
+              </td>
+              <td class="py-4 px-6 text-xs font-medium text-accent-sage">IMPI Trademark Registration, IP &amp; Tax Advisory</td>
+            </tr>
+            <tr class="hover:bg-paper-surface/60 transition-colors">
+              <td class="py-4 px-6">
+                <span class="font-semibold text-ink-primary">3. Materials R&amp;D, 3D Tooling &amp; Creator Setup</span>
+                <div class="text-xs text-ink-muted mt-0.5">Specialized engineering filaments, custom nozzles, BMCU 370C multicolor keycap setup / resin 3D outsourcing, plus creator audio gear for Patreon</div>
+              </td>
+              <td class="py-4 px-6 font-mono font-bold text-ink-primary text-sm">&#36;450.00</td>
+              <td class="py-4 px-6 text-xs text-ink-secondary">
+                Testing specialized filaments and precision nozzles to dial in mechanical tolerances, exploring a BMCU 370C multicolor keycap setup or resin printing with third-party labs for tactile R&amp;D, and acquiring extra hardware including a dedicated microphone for the Patreon community setup and open build tutorials.
+              </td>
+              <td class="py-4 px-6 text-xs font-medium text-accent-sage">Specialized 3D Tooling, Resin/Multicolor R&amp;D &amp; Audio Setup</td>
+            </tr>
+            <tr class="bg-paper-surface font-semibold text-ink-primary">
+              <td class="py-4 px-6 text-accent-ochre">TOTAL GRANT ALLOCATION</td>
+              <td class="py-4 px-6 font-mono text-accent-ochre text-sm font-bold">&#36;1,000.00</td>
+              <td class="py-4 px-6 text-xs text-ink-muted" colspan="2">100% Direct Product R&amp;D &bull; Zero Reimbursement</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Long-term Roadmap: The 4 Phases -->
+    <div class="mb-20">
+      <h2 class="text-2xl font-serif font-semibold text-ink-primary mb-6">Execution Roadmap</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+        <div class="p-6 rounded-3xl bg-paper-card border border-paper-border shadow-sm">
+          <div class="text-accent-sage font-mono font-semibold text-xs mb-1">PHASE 1 (DONE)</div>
+          <div class="text-ink-primary font-serif font-semibold text-base">Protoboard Rig</div>
+          <p class="text-ink-secondary text-xs mt-1.5 leading-relaxed">15x sensors, CD74HC4067, Zephyr RTOS firmware v0.3.1 verified on real hardware.</p>
+        </div>
+        <div class="p-6 rounded-3xl bg-paper-card border border-paper-border shadow-sm">
+          <div class="text-accent-terracotta font-mono font-semibold text-xs mb-1">PHASE 2 (CURRENT)</div>
+          <div class="text-ink-primary font-serif font-semibold text-base">PCB Rev A SMT</div>
+          <p class="text-ink-secondary text-xs mt-1.5 leading-relaxed">Matte Black board ordered at JLCPCB; in production with estimated delivery in ~3-4 weeks.</p>
+        </div>
+        <div class="p-6 rounded-3xl bg-paper-card border border-paper-border shadow-sm">
+          <div class="text-accent-ochre font-mono font-semibold text-xs mb-1">PHASE 3 (MEDICI)</div>
+          <div class="text-ink-primary font-serif font-semibold text-base">Rev B Direction</div>
+          <p class="text-ink-secondary text-xs mt-1.5 leading-relaxed">On-PCB Azoteq trackpad, dedicated L/R boards, and sensor power gating &mdash; grant direction only.</p>
+        </div>
+        <div class="p-6 rounded-3xl bg-paper-card border border-paper-border shadow-sm">
+          <div class="text-ink-primary font-mono font-semibold text-xs mb-1">PHASE 4 (NEXT)</div>
+          <div class="text-ink-primary font-serif font-semibold text-base">The Prusa Model &amp; Monetization</div>
+          <p class="text-ink-secondary text-xs mt-1.5 leading-relaxed">Open hardware under CERN-OHL-W v2, monetized through: 1) IMPI trademark certification for 3rd-party builds, 2) Official Patreon, and 3) Direct donations.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Epilogue: Beyond the Keyboard (Future HCI) -->
+    <div class="p-8 sm:p-12 rounded-3xl bg-paper-surface/60 border border-paper-border shadow-sm space-y-8">
+      <div>
+        <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold">Future HCI</span>
+        <h2 class="text-3xl font-serif text-ink-primary mt-2">Beyond the Keyboard: The Future of Human Interaction</h2>
+        <p class="text-base text-ink-secondary mt-3 leading-relaxed">
+          This keyboard is only our opening chapter. Our broader vision reimagines how humans interact with machines through three foundational vectors:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-paper-card border border-paper-border shadow-sm space-y-2">
+          <div class="text-xs font-mono uppercase text-accent-terracotta font-semibold">Vector 01</div>
+          <h3 class="text-lg font-serif font-semibold text-ink-primary">Frictionless Analog Mice</h3>
+          <p class="text-xs text-ink-secondary leading-relaxed">
+            Applying FloatForce magnetic sensing to ergonomic mice. Continuous pressure-sensitive analog scrolling and frictionless switch actuation without microswitch mechanical failure or contact bounce.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-paper-card border border-paper-border shadow-sm space-y-2">
+          <div class="text-xs font-mono uppercase text-accent-sage font-semibold">Vector 02</div>
+          <h3 class="text-lg font-serif font-semibold text-ink-primary">Spatial Bezel-Tracking Eye Glasses</h3>
+          <p class="text-xs text-ink-secondary leading-relaxed">
+            Lightweight glasses tracking pupil gaze while outward miniature sensors detect monitor bezels, mapping natural gaze coordinates seamlessly across multi-screen setups.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-paper-card border border-paper-border shadow-sm space-y-2">
+          <div class="text-xs font-mono uppercase text-accent-ochre font-semibold">Vector 03</div>
+          <h3 class="text-lg font-serif font-semibold text-ink-primary">Non-Invasive Continuous Bio-Interfaces</h3>
+          <p class="text-xs text-ink-secondary leading-relaxed">
+            Wrist-worn optical and acoustic sensors reading fine tendon deflection before physical keystrokes occur, providing predictive tactile input for cognitive typing flow.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-16 text-center">
+      <a href="index.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-accent-terracotta text-white font-medium hover:bg-accent-terracotta-hover transition-colors shadow-sm">
+        &larr; Return to Interactive Keyboard Showcase
+      </a>
+    </div>
+
+  </main>
+
+  <footer class="py-12 border-t border-paper-border mt-20 text-center text-xs text-ink-muted">
+    <p>HE-Keyboard &bull; Open-Source FloatForce Interface &bull; Licensed under <a href="https://spdx.org/licenses/CERN-OHL-W-2.0.html" target="_blank" rel="noopener noreferrer" class="underline hover:text-ink-primary">CERN-OHL-W v2 (Weakly Reciprocal Open Hardware)</a></p>
+  </footer>
+
+</body>
+</html>

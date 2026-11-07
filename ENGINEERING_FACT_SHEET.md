@@ -2,7 +2,7 @@
 **Project Pitch Documentation for 1517 Fund (Medici Project)**  
 *Author:* Sebastian Gonzalez V.  
 *Date:* November 2026  
-*Status:* Hardware Rev A in Fabrication & Assembly (JLCPCB) | Firmware v0.3.1 Validated | Rev B: Medici grant direction — not yet designed  
+*Status:* Hardware Rev A Ordered at JLCPCB, in production (Estimated delivery in ~3-4 weeks. Hardware bring-up starts on delivery) | Firmware v0.3.1 Validated on protoboard & 16-key macropad | Rev B: Medici grant direction — not yet designed  
 
 ---
 
@@ -160,7 +160,7 @@ The keyboard is only the first chapter of our mission to redefine human-machine 
 
 ## 8. Medici Project (1517 Fund) — $1,000 USD Grant Allocation
 
-The $1,000 USD Medici grant is deployed with strict cost discipline:
+The $1,000 USD Medici grant is deployed with strict cost discipline. Past R&D expenditures (~$500 USD) were 100% self-funded by the author using personal savings as proof of builder commitment and execution capacity, and are **not** requested for reimbursement. The entire $1,000 USD grant is forward-looking capital dedicated to R&D continuity, Rev B exploration, trademark protection, and open maker guides:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -168,23 +168,37 @@ The $1,000 USD Medici grant is deployed with strict cost discipline:
 ├──────────────────────────────────────┬─────────────┬────────────────────────┤
 │ Category & Item                      │ Cost (USD)  │ Engineering Purpose    │
 ├──────────────────────────────────────┼─────────────┼────────────────────────┤
-│ 1. R&D Seed Capital Recovery &       │   $450.00   │ Re-investing personal  │
-│    Continuity Runway (Rev A -> B)    │             │ savings spent on proto-│
-│    Self-funded prototypes, initial   │             │ boards, initial JLCPCB │
-│    PCBA batch & early tooling        │             │ PCBA & testing supplies│
+│ 1. Rev B Prototyping                 │   $250.00   │ Fund a Rev B PCB       │
+│    PCB run, sensors, OLEDs, encoders,│             │ iteration informed by  │
+│    LiPo batteries & N52 magnets      │             │ Rev A testing; units   │
 ├──────────────────────────────────────┼─────────────┼────────────────────────┤
-│ 2. PCB Rev B Fabrication &           │   $350.00   │ Direct JLCPCB Rev B    │
-│    Interactivity Modules             │             │ run (Azoteq ICs, OLEDs,│
-│    OLED displays, I2C touchpads,     │             │ encoders, LiPos & N52  │
-│    rotary encoders, LiPos & magnets  │             │ magnets for 3-5 units) │
+│ 2. Brand, Legal & Tax Advisory       │   $300.00   │ Register trademark in  │
+│    IMPI trademark registration,      │             │ Mexico, prior-art, IP  │
+│    prior-art search & tax consulting │             │ & fiscal certification │
 ├──────────────────────────────────────┼─────────────┼────────────────────────┤
-│ 3. Open-Source Ecosystem, Printing   │   $200.00   │ 3D printing filaments  │
-│    Materials & Build Guides          │             │ for ergonomic tenting, │
-│    Tenting test stands, multilingual │             │ multilingual keycaps & │
-│    keycaps & beginner build guides   │             │ educational tutorials  │
+│ 3. Materials R&D, Tooling & Creator  │   $450.00   │ Specialized filaments, │
+│    Specialized filaments, nozzles,   │             │ custom nozzles, BMCU   │
+│    BMCU multicolor / resin 3D & mic  │             │ multicolor, resin & mic│
 ├──────────────────────────────────────┼─────────────┼────────────────────────┤
 │ TOTAL                                │  $1,000.00  │ 100% Direct Product R&D│
 └──────────────────────────────────────┴─────────────┴────────────────────────┘
 
-*Note: The $350.00 Rev B allocation is contingent on completing the Rev B design. Rev B is **not yet designed**; figures above are Rev A measured specs only.*
+*Note: Rev B prototyping is informed by Rev A physical bring-up. Rev B is not yet designed; figures above represent targeted allocations.*
 ```
+
+---
+
+## 9. Open-Source Licensing (CERN-OHL-W) & Monetization Model
+
+### 9.1 Open Hardware License: CERN-OHL-W
+All schematic captures, board layouts, firmware source code, and 3D CAD models are released under the **CERN-OHL-W v2 (Weakly Reciprocal Open Hardware License)**. This allows makers and creators worldwide to study, replicate, modify, and build upon our designs freely, ensuring hardware modifications remain open while allowing flexible modular integration.
+
+### 9.2 Long-Term Monetization Roadmap
+To ensure long-term independence and financial sustainability without closing the source code, the project establishes three complementary revenue streams:
+
+1. **Third-Party Product Certification (Protected Trademark):**  
+   While the design files are freely licensed under CERN-OHL-W, the project name and brand mark will be formally registered (IMPI in Mexico). Third-party vendors and commercial makers can freely produce and sell compatible hardware, but can apply for an **Official Quality Certification Mark** (validating electrical safety, sensor calibration tolerances, and build quality), creating a high-trust commercial ecosystem and licensing revenue.
+2. **Official Patreon Community:**  
+   A dedicated community tier providing supporters and hardware enthusiasts with early-access CAD drops, experimental devlogs, raw firmware test branches, and direct advisory input on next-generation physical interfaces.
+3. **Simple Direct Donations:**  
+   Frictionless direct community support channels (GitHub Sponsors, Ko-fi, Stripe) for builders and developers who benefit from the open CAD models, Zephyr firmware, and KiCad designs.

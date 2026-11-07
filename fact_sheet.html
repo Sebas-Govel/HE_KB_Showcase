@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering Fact Sheet — Open-Source FloatForce Keyboard</title>
+  <meta name="description" content="Comprehensive engineering, mechanical, and analog sensing fact sheet for the FloatForce ergonomic keyboard.">
+  <link rel="canonical" href="https://sebas-govel.github.io/HE_KB_Showcase/fact_sheet.html">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <!-- Fonts & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/app.css">
+  <style>
+    body {
+      background-color: #FAF7F2;
+      color: #1E1D1A;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-paper-base text-ink-primary antialiased">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-paper-base/90 border-b border-paper-border">
+    <div class="max-w-5xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-paper-surface border border-paper-border flex items-center justify-center font-serif font-bold text-ink-primary text-lg shadow-sm group-hover:border-accent-terracotta transition-colors">
+          H
+        </div>
+        <div class="flex flex-col">
+          <span class="font-serif text-lg font-semibold tracking-tight text-ink-primary flex items-center gap-2">
+            HE-Keyboard
+            <span class="font-mono text-xs px-2 py-0.5 rounded-full bg-paper-surface border border-paper-border text-ink-secondary font-medium">
+              Engineering Specs
+            </span>
+          </span>
+          <span class="text-xs text-ink-muted -mt-0.5">&larr; Return to Interactive Showcase</span>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-4">
+        <a href="ENGINEERING_FACT_SHEET.md" target="_blank" class="text-xs font-mono text-ink-secondary hover:text-ink-primary">
+          Raw Markdown
+        </a>
+        <a href="grant.html" class="text-xs font-mono text-accent-ochre hover:underline font-medium">
+          1517 Grant Pitch &rarr;
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-6 lg:px-8 py-12">
+<h1 class="text-3xl sm:text-4xl font-serif font-bold text-ink-primary mt-10 mb-4 tracking-tight">Engineering Fact Sheet — Open-Source FloatForce Ergonomic Keyboard</h1>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3"><strong>Project Pitch Documentation for 1517 Fund (Medici Project)</strong></p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3"><em>Author:</em> Sebastian Gonzalez V.</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3"><em>Date:</em> November 2026</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3"><em>Status:</em> Hardware Rev A Ordered at JLCPCB, in production (Estimated delivery in ~3-4 weeks. Hardware bring-up starts on delivery) | Firmware v0.3.1 Validated on protoboard & 16-key macropad | Rev B: Medici grant direction — not yet designed</p>
+<hr class="my-8 border-paper-border">
+<h2 class="text-2xl font-serif font-semibold text-ink-primary mt-8 mb-3 pb-2 border-b border-paper-border">1. Executive Summary: Redesigning the Human-Computer Interface</h2>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">The computer keyboard is humanity's primary cognitive gateway to digital reality, yet its physical architecture has stagnated for four decades: rigid planar layouts, binary on/off switches, and commercial hardware locked behind closed drivers.</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">This project is an open-source, human-centered redesign of the computer keyboard from first principles. Rather than chasing competitive gaming marketing hype, our mission focuses on <strong>postural health, expressive multimodal interaction, radical affordability, and global accessibility through 3D printing and AI-assisted engineering</strong>.</p>
+<h3 class="text-lg font-serif font-semibold text-ink-primary mt-6 mb-2">Community Attribution:</h3>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">The foundational idea of using a 3-magnet repulsive/attractive configuration was inspired by open-source maker explorations (notably Riskable). Building upon that inspiration, the <strong>FloatForce Switch (V5.0)</strong> mechanical architecture (monolithic U-Body, Keyed SideWall, and closed-front flat-printed stem) was modeled, simulated with Magpylib, and calibrated 100% from scratch.</p>
+<h3 class="text-lg font-serif font-semibold text-ink-primary mt-6 mb-2">Art Meets Engineering:</h3>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">The front silkscreen of PCB Rev A features a high-resolution vector trace of <strong>"The Langlois Bridge at Arles" (1888) by Vincent van Gogh</strong>, manufactured in matte black solder mask with pure white silkscreen. We chose this bridge because it embodies the intersection of structural engineering and deeply human artistic expression.</p>
+<hr class="my-8 border-paper-border">
+<h2 class="text-2xl font-serif font-semibold text-ink-primary mt-8 mb-3 pb-2 border-b border-paper-border">2. Multimodal Analog Expression: Beyond Binary Typing</h2>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">Traditional mechanical switches provide a single binary state (0 or 1) determined by a stamped metal contact leaf. FloatForce continuously tracks the physical displacement of every key across its full 2.36 mm stroke using ratiometric Hall effect sensors.</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">```</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">┌─────────────────────────────────────────────────────────────────────────────┐</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│ CONTINUOUS ANALOG DISPLACEMENT MAPPING (2.36 mm TRAVEL STROKE)               │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">├──────────────────────┬──────────────────────┬───────────────────────────────┤</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│ Mode                 │ Input Behavior       │ Real-World Application        │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">├──────────────────────┼──────────────────────┼───────────────────────────────┤</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│ 1. Expressive MIDI   │ Continuous Pressure- │ Real-time synth modulation,   │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│    Musical Controller│ Sensitive Expression │ filter cutoff sweeps, vibrato │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│                      │ per Key              │ directly on the home row      │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">├──────────────────────┼──────────────────────┼───────────────────────────────┤</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│ 2. Proportional      │ Continuous Travel    │ Smooth acceleration, walking  │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│    Analog Gamepad    │ (0% to 100% Vector)  │ speed control, stealth pacing │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│                      │                      │ without external joysticks    │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">├──────────────────────┼──────────────────────┼───────────────────────────────┤</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│ 3. Adaptive Keyboard │ Dynamic Actuation    │ Per-key actuation thresholds  │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│                      │ Points (0.2–2.2 mm)  │ tailored to individual typing │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│                      │                      │ pressure & ergonomics         │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">└──────────────────────┴──────────────────────┴───────────────────────────────┘</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">```</p>
+<hr class="my-8 border-paper-border">
+<h2 class="text-2xl font-serif font-semibold text-ink-primary mt-8 mb-3 pb-2 border-b border-paper-border">3. Electrical Architecture & Power Budget</h2>
+<h3 class="text-lg font-serif font-semibold text-ink-primary mt-6 mb-2">3.1 Sensor Power Comparison: HAL403SO vs Legacy SS49E</h3>
+<div class="rounded-2xl border border-paper-border bg-paper-card overflow-x-auto my-6 shadow-sm"><table class="w-full text-left text-sm">
+<thead class="bg-paper-surface text-ink-primary font-serif font-semibold border-b border-paper-border text-xs"><tr><th class="py-3 px-5">Parameter</th><th class="py-3 px-5">Legacy Hall Sensor (SS49E)</th><th class="py-3 px-5">Rev A Sensor (HAL403SO)</th><th class="py-3 px-5">Engineering Advantage</th></tr></thead><tbody class="divide-y divide-paper-border text-ink-secondary text-xs">
+<tr class="hover:bg-paper-surface/40 transition-colors"><td class="py-3 px-5"><strong>Operating Voltage</strong></td><td class="py-3 px-5">4.5 V – 6.0 V (Needs boost or 5V VBUS)</td><td class="py-3 px-5"><strong>1.6 V – 3.6 V</strong> (Native 3.3 V rail)</td><td class="py-3 px-5">Eliminates boost converter noise & losses</td></tr>
+<tr class="hover:bg-paper-surface/40 transition-colors"><td class="py-3 px-5"><strong>Supply Current ($I_{\text{DD}}$)</strong></td><td class="py-3 px-5">6.0 mA – 10.0 mA (8.0 mA typ)</td><td class="py-3 px-5"><strong>1.4 mA typ / 2.0 mA max</strong></td><td class="py-3 px-5"><strong>> 4.3× reduction in active sensing power</strong></td></tr>
+<tr class="hover:bg-paper-surface/40 transition-colors"><td class="py-3 px-5"><strong>30-Key Matrix Current</strong></td><td class="py-3 px-5">180 mA – 240 mA continuous</td><td class="py-3 px-5"><strong>42 mA typ</strong></td><td class="py-3 px-5">Cuts 140–200 mA off the power bus</td></tr>
+<tr class="hover:bg-paper-surface/40 transition-colors"><td class="py-3 px-5"><strong>Output Resistance ($R_{\text{OUT}}$)</strong></td><td class="py-3 px-5">~50 Ω</td><td class="py-3 px-5"><strong>10 kΩ</strong></td><td class="py-3 px-5">Low output loading; fast $RC$ settling with 100 nF</td></tr>
+<tr class="hover:bg-paper-surface/40 transition-colors"><td class="py-3 px-5"><strong>Sensitivity</strong></td><td class="py-3 px-5">1.4 – 1.8 mV/Gauss @ 5V</td><td class="py-3 px-5"><strong>4.1 mV/Gauss @ 3.3V</strong></td><td class="py-3 px-5">High magnetic resolution without external preamps</td></tr>
+<tr class="hover:bg-paper-surface/40 transition-colors"><td class="py-3 px-5"><strong>Linear Range</strong></td><td class="py-3 px-5">±650 Gauss</td><td class="py-3 px-5"><strong>±390 Gauss</strong></td><td class="py-3 px-5">Matched to N52 magnet stroke geometry</td></tr>
+<tr class="hover:bg-paper-surface/40 transition-colors"><td class="py-3 px-5"><strong>Package / Mounting</strong></td><td class="py-3 px-5">TO-92S (Through-hole / hand bent)</td><td class="py-3 px-5"><strong>SOT-23-3 (SMD)</strong></td><td class="py-3 px-5">Machine-assembled on bottom copper (<code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">B.Cu</code>)</td></tr>
+</tbody></table></div>
+<hr class="my-8 border-paper-border">
+<h3 class="text-lg font-serif font-semibold text-ink-primary mt-6 mb-2">3.2 Power Management: Rev A Hardware vs Rev B Direction (Grant Objective)</h3>
+<h4 class="text-base font-serif font-semibold text-ink-primary mt-4 mb-1">A. Rev A (Current Fabrication State — SMT Assembly at JLCPCB)</h4>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Native SuperMini LiPo Charger:</strong> The SuperMini nRF52840 integrates an onboard LiPo charger (TP4054/SGM4056 with dedicated <code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">B+</code>/<code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">B-</code> pads on the underside). Rev A relies directly on this native hardware without redundant silicon.</li>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>LED Power Gating (Active in Hardware):</strong> The 30 per-key + underglow reverse-mount SK6812MINI-E LEDs draw ~0.6 mA each in static idle even when displaying black (18–30 mA continuous loss). In Rev A, an <strong>AO3401A P-channel MOSFET</strong> ($R_{\text{DS(on)}} < 85\text{ m}\Omega$) switches the entire <code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">3V3_LED</code> rail via GPIO <code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">LED_EN</code> (<code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">P0.08</code>). Quiescent drain on the LED rail drops to <strong>0.00 µA</strong> when off.</li>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Sensor Rail Reality:</strong> The 30× HAL403SO sensors remain continuously energized on the clean analog rail (<code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">3V3_A</code>) during operation, drawing <strong>42 mA typ</strong>. On a standard 500 mAh LiPo cell, Rev A delivers <strong>~11–12 hours</strong> of continuous active wireless operation. It is optimized for desk use, firmware validation, and short-duration wireless testing.</li>
+<h4 class="text-base font-serif font-semibold text-ink-primary mt-4 mb-1">B. Rev B Direction — Not Yet Designed (Medici Project Grant Objective)</h4>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">Rev B has <strong>not been designed or prototyped</strong>. The items below are grant-funded exploration targets; figures are unverified until Rev B exists:</p>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Synchronized Sensor Power Gating:</strong> Explore adding a high-side P-MOSFET / load switch on <code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">3V3_A</code>, strobing sensors ON only during each SAADC sampling window.</li>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Average Sensing Power Target:</strong> Duty-cycling the 42 mA Rev A load targets <strong>< 1.5 mA average</strong> (objective, not measured).</li>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Deep Sleep Target:</strong> Inactivity shutting off the analog sensor rail targets <strong>< 20 µA</strong> total sleep current (objective, not measured).</li>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Battery Telemetry Direction:</strong> Battery voltage divider to <code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">AIN2</code> (<code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">P0.04</code>) and a physical slide switch footprint are Rev B considerations.</li>
+<hr class="my-8 border-paper-border">
+<h2 class="text-2xl font-serif font-semibold text-ink-primary mt-8 mb-3 pb-2 border-b border-paper-border">4. Analog Front-End & Multiplexing Topology</h2>
+<h3 class="text-lg font-serif font-semibold text-ink-primary mt-6 mb-2">4.1 Dual-Bank 16:1 Partitioned Architecture</h3>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">```</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">[30x HAL403SO Sensors + 2x Hard-GND Channels]</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">├── Bank A (Keys 1-16) ──> [U1: TMUX1308] (0-7) ─┐</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│                         [U2: TMUX1308] (0-7) ─┴─> MUX_OUT   ──> AIN7 (P0.31)</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">└── Bank B (Keys 17-30 + 2 GND)</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">──> [U3: TMUX1308] (0-7) ─┐</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">[U4: TMUX1308] (0-7) ─┴─> MUX_OUT_B ──> AIN5 (P0.29)</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">```</p>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Multiplexer IC:</strong> Texas Instruments <strong>TMUX1308PWR</strong> (8:1 Analog Multiplexer, TSSOP-16).</li>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>On-Resistance ($R_{\text{on}}$):</strong> 59 Ω typ (120 Ω max at 3.3 V, flatness 1.5 Ω).</li>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Switch Capacitance:</strong> $C_{\text{D(OFF)}} = 37\text{ pF}$, $C_{\text{D(ON)}} = 40\text{ pF}$, pin capacitance 9–11 pF.</li>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Propagation Delay / Switching Speed:</strong> $t_{\text{pd}} \sim 40\text{ ns}$ (transition time $t_{\text{TRAN}} \sim 25\text{ ns}$).</li>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Capacitance Reduction via Dual ADC Split:</strong></li>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">Routing Bank A (<code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">U1</code> + <code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">U2</code>) to <strong>AIN7 (P0.31)</strong> and Bank B (<code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">U3</code> + <code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">U4</code>) to <strong>AIN5 (P0.29)</strong> isolates the nodes, reducing total line capacitance from <strong>160 pF down to ~80 pF (a 34% reduction)</strong> and lowering settling time to < 20 µs.</p>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Hardware Zero-Reference Autocalibration:</strong></li>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">Channels 7 of <code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">U3</code> and <code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">U4</code> are tied directly to analog <code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">GND</code>. Real-time sampling during every scan frame nulls SAADC offset, thermal drift, and reference sag.</p>
+<hr class="my-8 border-paper-border">
+<h2 class="text-2xl font-serif font-semibold text-ink-primary mt-8 mb-3 pb-2 border-b border-paper-border">5. Mechanical Engineering: FloatForce Switch (V5.0) & Calibrated Keycaps</h2>
+<h3 class="text-lg font-serif font-semibold text-ink-primary mt-6 mb-2">5.1 Kinematic Specifications (FloatForce Switch (V5.0) "U-Body + Keyed SideWall + Closed-Front Stem")</h3>
+<div class="rounded-2xl border border-paper-border bg-paper-card overflow-x-auto my-6 shadow-sm"><table class="w-full text-left text-sm">
+<thead class="bg-paper-surface text-ink-primary font-serif font-semibold border-b border-paper-border text-xs"><tr><th class="py-3 px-5">Parameter</th><th class="py-3 px-5">Value</th><th class="py-3 px-5">Engineering Notes</th></tr></thead><tbody class="divide-y divide-paper-border text-ink-secondary text-xs">
+<tr class="hover:bg-paper-surface/40 transition-colors"><td class="py-3 px-5"><strong>Outer Envelope</strong></td><td class="py-3 px-5">12.00 × 12.00 × 8.45 mm</td><td class="py-3 px-5">Optimized for compact ergonomic 18.00 × 17.00 mm switch spacing (housing 12.00 × 12.00 mm)</td></tr>
+<tr class="hover:bg-paper-surface/40 transition-colors"><td class="py-3 px-5"><strong>Total Stroke (Travel)</strong></td><td class="py-3 px-5"><strong>2.36 mm</strong></td><td class="py-3 px-5">+32.6% increase over V4.0 (1.78 mm)</td></tr>
+<tr class="hover:bg-paper-surface/40 transition-colors"><td class="py-3 px-5"><strong>Mounting Plate Thickness</strong></td><td class="py-3 px-5">3.00 mm</td><td class="py-3 px-5">Clamps U-Housing and Keyed SideWall simultaneously</td></tr>
+<tr class="hover:bg-paper-surface/40 transition-colors"><td class="py-3 px-5"><strong>Magnetic Suspension</strong></td><td class="py-3 px-5">3 Neodymium N52 Array</td><td class="py-3 px-5">100% springless; progressive repulsive/attractive curve</td></tr>
+<tr class="hover:bg-paper-surface/40 transition-colors"><td class="py-3 px-5"><strong>Floor Magnet ($S_1$)</strong></td><td class="py-3 px-5">Ø4.00 × 1.50 mm (Socket: <strong>Ø4.06 mm</strong>)</td><td class="py-3 px-5">Repels stem magnet; features Ø1.70 mm ejection pin</td></tr>
+<tr class="hover:bg-paper-surface/40 transition-colors"><td class="py-3 px-5"><strong>Top Bridge Magnet ($S_2$)</strong></td><td class="py-3 px-5">Ø4.00 × 1.50 mm (Socket: <strong>Ø4.16 mm</strong>)</td><td class="py-3 px-5">Attracts stem at rest; open dual-jaw cradle (≥0.84 mm walls)</td></tr>
+<tr class="hover:bg-paper-surface/40 transition-colors"><td class="py-3 px-5"><strong>Stem Magnet (Center)</strong></td><td class="py-3 px-5">Ø4.00 × 1.50 mm (Socket: <strong>Ø4.15 mm</strong>)</td><td class="py-3 px-5">Horizontal press-fit in stem center</td></tr>
+<tr class="hover:bg-paper-surface/40 transition-colors"><td class="py-3 px-5"><strong>Magnetic Barrier Thickness</strong></td><td class="py-3 px-5"><strong>0.45 mm / 0.50 mm</strong></td><td class="py-3 px-5">Thinned from 0.65 mm: +25% to 35% magnetic spring force ($F \propto 1/d^4$)</td></tr>
+<tr class="hover:bg-paper-surface/40 transition-colors"><td class="py-3 px-5"><strong>Stem Guide Tolerance</strong></td><td class="py-3 px-5">0.10 mm/side ($Y$), 0.16 mm/side ($X$)</td><td class="py-3 px-5">45% reduction in stem wobble; bed-printed flat $-Y$ face</td></tr>
+<tr class="hover:bg-paper-surface/40 transition-colors"><td class="py-3 px-5"><strong>Static & Kinematic Collisions</strong></td><td class="py-3 px-5"><strong>0.0000 mm³</strong></td><td class="py-3 px-5">Verified by 21-step CAD kinematic raycast sweep</td></tr>
+</tbody></table></div>
+<h3 class="text-lg font-serif font-semibold text-ink-primary mt-6 mb-2">5.2 Calibrated Bambu Lab A1 Production Tolerances</h3>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Vertical magnet socket (base floor):</strong> <strong>Ø 4.10 mm</strong> (firm press-fit without cracking layer lines).</li>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Horizontal magnet socket (lying stem):</strong> <strong>Ø 4.15 mm</strong> (smooth insertion without splitting delamination).</li>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Housing guide channel (FLAT stem):</strong> <strong>8.10 mm</strong> (+0.10 mm clearance over 8.00 mm stem).</li>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Stem $\leftrightarrow$ Keycap connector:</strong> <strong>8.05 mm</strong> male plug $\leftrightarrow$ <strong>8.05 mm</strong> reinforced square female socket (1:1 zero-slop fit).</li>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Print orientation:</strong> Pre-rotated <strong>$-45^\circ$ in $Z$</strong> so slicer monotonic raster lines align 100% parallel to the travel axis, eliminating stair-step layer friction.</li>
+<h3 class="text-lg font-serif font-semibold text-ink-primary mt-6 mb-2">5.3 Keycaps Ultimate V3.2 Family</h3>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Geometry:</strong> Centered spherical dish (Ø 10.60 mm, 0.70 mm depression, 1.90 mm ergonomic flat rim).</li>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>4-Way Reinforced HE Socket:</strong> Quad-buttress reinforced core (<code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">HE_NorthButtress</code>, <code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">HE_SouthButtress</code>, lateral ribs tied to skirt, 4 diagonal corner gussets) eliminates layer delamination during aggressive stem press-fit.</li>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Support-Free Printability:</strong> Pre-angled at $-62^\circ$ with integrated non-removable structural bed foot ($\sim 15\text{ mm}^2$ PEI contact area) allowing clean FDM 3D printing with <strong>Supports: OFF</strong>.</li>
+<hr class="my-8 border-paper-border">
+<h2 class="text-2xl font-serif font-semibold text-ink-primary mt-8 mb-3 pb-2 border-b border-paper-border">6. Rev B Direction — Medici Grant Objective (Not Yet Designed)</h2>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">Rev B has not been designed. These are the exploration areas targeted by the Medici grant, to be engineered only after Rev A bring-up:</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">1. <strong>Custom On-PCB Capacitive Trackpad (Azoteq IC):</strong> Instead of breakout boards, etch the capacitive X/Y electrode grid into PCB copper and assemble only the raw Azoteq controller IC.</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">2. <strong>Dedicated Left & Right PCBs:</strong> Move beyond Rev A's reversible ambidextrous compromise to asymmetric boards tailored to each hand.</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">3. <strong>Bare-Metal nRF52840 SoC On-Board:</strong> Evaluate soldering the bare nRF52840 SoC, crystal network, and ceramic antenna directly on the main PCB (replacing the SuperMini daughterboard).</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">4. <strong>Synchronized Sensor Power Gating:</strong> Explore gating <code class="px-1.5 py-0.5 rounded bg-paper-surface border border-paper-border text-xs font-mono font-medium text-ink-primary">3V3_A</code> during scan bursts — targets of all-day wireless operation and sub-20 µA deep sleep are <strong>objectives, not Rev A specs</strong>.</p>
+<hr class="my-8 border-paper-border">
+<h2 class="text-2xl font-serif font-semibold text-ink-primary mt-8 mb-3 pb-2 border-b border-paper-border">7. Beyond the Keyboard: The Future of Human-Computer Interaction (HCI)</h2>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">The keyboard is only the first chapter of our mission to redefine human-machine synergy:</p>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Frictionless Analog Ergonomic Mice:</strong> Applying magnetic Hall sensing to mouse switches and scroll systems for pressure-sensitive analog scrolling and zero-wear actuation.</li>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Spatial Eye-Tracking Glasses with Monitor Bezel Detection:</strong> Lightweight glasses tracking the pupil while front-facing miniature cameras detect physical monitor bezels, mapping natural gaze coordinates directly to the cursor across multi-monitor setups without requiring head turns.</li>
+<li class="ml-4 list-disc text-sm text-ink-secondary leading-relaxed mb-1.5"><strong>Bio-Subtle Interfaces:</strong> Exploring non-invasive micro-movement detection (e.g. ear canal pressure or micro-facial twitches) for effortless, hands-free accessibility and ambient computing control.</li>
+<hr class="my-8 border-paper-border">
+<h2 class="text-2xl font-serif font-semibold text-ink-primary mt-8 mb-3 pb-2 border-b border-paper-border">8. Medici Project (1517 Fund) — $1,000 USD Grant Allocation</h2>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">The $1,000 USD Medici grant is deployed with strict cost discipline. Past R&D expenditures (~$500 USD) were 100% self-funded by the author using personal savings as proof of builder commitment and execution capacity, and are <strong>not</strong> requested for reimbursement. The entire $1,000 USD grant is forward-looking capital dedicated to R&D continuity, Rev B exploration, trademark protection, and open maker guides:</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">```</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">┌─────────────────────────────────────────────────────────────────────────────┐</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│ 1517 FUND MEDICI GRANT BUDGET ALLOCATION ($1,000 USD TOTAL)                 │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">├──────────────────────────────────────┬─────────────┬────────────────────────┤</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│ Category & Item                      │ Cost (USD)  │ Engineering Purpose    │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">├──────────────────────────────────────┼─────────────┼────────────────────────┤</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│ 1. Rev B Prototyping                 │   $250.00   │ Fund a Rev B PCB       │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│    PCB run, sensors, OLEDs, encoders,│             │ iteration informed by  │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│    LiPo batteries & N52 magnets      │             │ Rev A testing; units   │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">├──────────────────────────────────────┼─────────────┼────────────────────────┤</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│ 2. Brand, Legal & Tax Advisory       │   $300.00   │ Register trademark in  │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│    IMPI trademark registration,      │             │ Mexico, prior-art, IP  │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│    prior-art search & tax consulting │             │ & fiscal certification │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">├──────────────────────────────────────┼─────────────┼────────────────────────┤</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│ 3. Materials R&D, Tooling & Creator  │   $450.00   │ Specialized filaments, │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│    Specialized filaments, nozzles,   │             │ custom nozzles, BMCU   │</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│    BMCU multicolor / resin 3D & mic  │             │ multicolor, resin & mic│</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">├──────────────────────────────────────┼─────────────┼────────────────────────┤</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">│ TOTAL                                │  $1,000.00  │ 100% Direct Product R&D│</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">└──────────────────────────────────────┴─────────────┴────────────────────────┘</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3"><em>Note: Rev B prototyping is informed by Rev A physical bring-up. Rev B is not yet designed; figures above represent targeted allocations.</em></p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">```</p>
+<hr class="my-8 border-paper-border">
+<h2 class="text-2xl font-serif font-semibold text-ink-primary mt-8 mb-3 pb-2 border-b border-paper-border">9. Open-Source Licensing (CERN-OHL-W) & Monetization Model</h2>
+<h3 class="text-lg font-serif font-semibold text-ink-primary mt-6 mb-2">9.1 Open Hardware License: CERN-OHL-W</h3>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">All schematic captures, board layouts, firmware source code, and 3D CAD models are released under the <strong>CERN-OHL-W v2 (Weakly Reciprocal Open Hardware License)</strong>. This allows makers and creators worldwide to study, replicate, modify, and build upon our designs freely, ensuring hardware modifications remain open while allowing flexible modular integration.</p>
+<h3 class="text-lg font-serif font-semibold text-ink-primary mt-6 mb-2">9.2 Long-Term Monetization Roadmap</h3>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">To ensure long-term independence and financial sustainability without closing the source code, the project establishes three complementary revenue streams:</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">1. <strong>Third-Party Product Certification (Protected Trademark):</strong></p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">While the design files are freely licensed under CERN-OHL-W, the project name and brand mark will be formally registered (IMPI in Mexico). Third-party vendors and commercial makers can freely produce and sell compatible hardware, but can apply for an <strong>Official Quality Certification Mark</strong> (validating electrical safety, sensor calibration tolerances, and build quality), creating a high-trust commercial ecosystem and licensing revenue.</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">2. <strong>Official Patreon Community:</strong></p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">A dedicated community tier providing supporters and hardware enthusiasts with early-access CAD drops, experimental devlogs, raw firmware test branches, and direct advisory input on next-generation physical interfaces.</p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">3. <strong>Simple Direct Donations:</strong></p>
+<p class="text-sm text-ink-secondary leading-relaxed mb-3">Frictionless direct community support channels (GitHub Sponsors, Ko-fi, Stripe) for builders and developers who benefit from the open CAD models, Zephyr firmware, and KiCad designs.</p>
+  </main>
+
+  <footer class="py-12 border-t border-paper-border mt-20 text-center text-xs text-ink-muted">
+    <p>HE-Keyboard &bull; Open-Source FloatForce Interface &bull; Licensed under CERN-OHL-W v2</p>
+  </footer>
+
+</body>
+</html>
