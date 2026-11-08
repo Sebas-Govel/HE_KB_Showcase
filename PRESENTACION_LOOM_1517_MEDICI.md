@@ -81,9 +81,9 @@
 > *"Up to this point, I have personally self-funded 100% of this journey with over $500 of my personal savings as proof of builder commitment and execution capacity—not for reimbursement.*  
 > *The $1,000 Medici grant is 100% forward-looking runway allocated across three concrete targets:*  
 > *$250 for Rev B prototyping informed by Rev A testing, building working test units with sensors, OLEDs, and batteries;*  
-> *$300 to register the project's trademark with IMPI in Mexico, prior-art search, and IP and tax advisory to establish a solid legal foundation for certified third-party builds; and*  
-> *$450 for specialized filaments, precision nozzles to dial in tolerances, exploring BMCU 370C multicolor setups or resin printing, plus extra hardware like a dedicated microphone for our Patreon community and build guides.*  
-> *Everything is licensed under CERN-OHL-W v2, with a sustainable open-source hardware model: monetized through third-party trademark certification, an official Patreon, and direct community donations.*  
+> *$300 to register the project trademark (name finalized after clearance search) with IMPI in Mexico, prior-art search, and IP and tax advisory to establish a solid legal foundation for certified third-party builds; and*  
+> *$450 for specialized engineering filaments and precision nozzles to dial in switch friction and magnetic tolerances, testing high-detail resin keycaps, and a dedicated microphone for open build tutorials—because switch mechanics demand rigorous material physics to feel truly frictionless.*  
+> *Everything is licensed under CERN-OHL-W v2, with a sustainable open-source hardware model releasing as soon as Rev A is validated: monetized through third-party trademark certification, an official Patreon, and direct community donations.*  
 > *And this keyboard is only chapter one—we have bigger designs for ergonomic analog mice and spatial human-computer interfaces."*
 
 ---

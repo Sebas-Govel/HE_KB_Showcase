@@ -284,7 +284,7 @@
             </a>
             <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-sage-soft border border-accent-sage/30 text-accent-sage text-[11px] sm:text-xs font-medium">
               <span class="w-1.5 h-1.5 rounded-full bg-accent-sage animate-pulse"></span>
-              <span data-i18n-html="hero_status_txt">PCB Rev A: SMT production complete • In international air transit from Hong Kong to Mexico</span>
+              <span data-i18n-html="hero_status_txt">PCB Rev A: SMT complete &bull; In international air transit (Hong Kong &rarr; Mexico)</span>
             </div>
           </div>
 
@@ -455,8 +455,8 @@
               <div class="text-ink-muted text-[11px] mt-0.5">Self-funded past R&amp;D (proof of commitment)</div>
             </div>
             <div class="p-4 rounded-2xl bg-paper-surface border border-paper-border shadow-xs">
-              <div class="text-accent-sage font-bold text-lg leading-tight">+6 Months</div>
-              <div class="text-ink-muted text-[11px] mt-0.5" data-i18n="about_stat_time">Ideation, R&amp;D &amp; learning</div>
+              <div class="text-accent-sage font-bold text-lg leading-tight" data-i18n="about_stat_iter_val">10 Iterations</div>
+              <div class="text-ink-muted text-[11px] mt-0.5" data-i18n="about_stat_iter_lbl">Physical prototypes built</div>
             </div>
           </div>
         </div>
@@ -794,7 +794,7 @@
                 <th class="py-3.5 px-6">COMPONENT / SUBSYSTEM</th>
                 <th class="py-3.5 px-6">FORMAT / TOOL</th>
                 <th class="py-3.5 px-6">STATUS</th>
-                <th class="py-3.5 px-6 text-right">REPOSITORY LINK</th>
+                <th class="py-3.5 px-6 text-right">RELEASE / AVAILABILITY</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-paper-border text-ink-secondary">
@@ -802,34 +802,38 @@
                 <td class="py-4 px-6 font-medium text-ink-primary">FloatForce Switch V5.0 (U-Body, Stem, Wall)</td>
                 <td class="py-4 px-6 font-mono text-xs">OpenSCAD / Python &bull; STL</td>
                 <td class="py-4 px-6"><span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-accent-sage-soft text-accent-sage text-xs font-medium">&check; Validated</span></td>
-                <td class="py-4 px-6 text-right"><a href="https://github.com/Sebas-Govel/HE_Keyboard_Plan" target="_blank" class="text-accent-terracotta hover:underline font-mono text-xs font-medium">View STL &rarr;</a></td>
+                <td class="py-4 px-6 text-right"><span class="text-xs font-mono text-ink-muted">CERN-OHL-W v2 &bull; Release upon Rev A validation</span></td>
               </tr>
               <tr class="hover:bg-paper-surface/40 transition-colors">
                 <td class="py-4 px-6 font-medium text-ink-primary">Ultimate Keycaps V3.2 (Reinforced WASD Family)</td>
                 <td class="py-4 px-6 font-mono text-xs">Support-Free STL &bull; 3MF</td>
                 <td class="py-4 px-6"><span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-accent-sage-soft text-accent-sage text-xs font-medium">&check; Validated</span></td>
-                <td class="py-4 px-6 text-right"><a href="https://github.com/Sebas-Govel/HE_Keyboard_Plan" target="_blank" class="text-accent-terracotta hover:underline font-mono text-xs font-medium">View Keycaps &rarr;</a></td>
+                <td class="py-4 px-6 text-right"><span class="text-xs font-mono text-ink-muted">CERN-OHL-W v2 &bull; Release upon Rev A validation</span></td>
               </tr>
               <tr class="hover:bg-paper-surface/40 transition-colors">
                 <td class="py-4 px-6 font-medium text-ink-primary">Zephyr RTOS Firmware v0.3.1</td>
                 <td class="py-4 px-6 font-mono text-xs">C / Zephyr &bull; CMake</td>
                 <td class="py-4 px-6"><span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-accent-sage-soft text-accent-sage text-xs font-medium">&check; Tested on Rig</span></td>
-                <td class="py-4 px-6 text-right"><a href="https://github.com/Sebas-Govel/HE_Keyboard_Plan" target="_blank" class="text-accent-terracotta hover:underline font-mono text-xs font-medium">View Firmware &rarr;</a></td>
+                <td class="py-4 px-6 text-right"><span class="text-xs font-mono text-ink-muted">MIT &bull; Release upon Rev A validation</span></td>
               </tr>
               <tr class="hover:bg-paper-surface/40 transition-colors">
                 <td class="py-4 px-6 font-medium text-ink-primary">PCB Rev A (30-Key Matte Black &amp; Gold ENIG)</td>
                 <td class="py-4 px-6 font-mono text-xs">KiCad 10 &bull; Gerbers</td>
-                <td class="py-4 px-6"><span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-accent-ochre-soft text-accent-ochre text-xs font-medium">&bull; Fabricated (in transit)</span></td>
-                <td class="py-4 px-6 text-right"><a href="fact_sheet.html" target="_blank" class="text-ink-secondary hover:text-ink-primary font-mono text-xs">Read Specs &rarr;</a></td>
+                <td class="py-4 px-6"><span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-accent-ochre-soft text-accent-ochre text-xs font-medium">&bull; In international air transit</span></td>
+                <td class="py-4 px-6 text-right"><a href="fact_sheet.html" target="_blank" class="text-accent-terracotta hover:underline font-mono text-xs font-medium">Read Specs &rarr;</a></td>
               </tr>
               <tr class="hover:bg-paper-surface/40 transition-colors">
                 <td class="py-4 px-6 font-medium text-ink-primary">Low-Profile Ergonomic Split Enclosure</td>
                 <td class="py-4 px-6 font-mono text-xs">STEP / STL</td>
-                <td class="py-4 px-6"><span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-paper-surface text-ink-muted text-xs font-medium">Coming Soon</span></td>
+                <td class="py-4 px-6"><span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-paper-surface text-ink-muted text-xs font-medium">In CAD Design</span></td>
                 <td class="py-4 px-6 text-right text-xs font-mono text-ink-muted">&mdash;</td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="mt-3 text-xs text-ink-muted font-mono flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent-ochre"></span>
+          <span>Open-Source release scheduled immediately upon PCB Rev A physical validation to ensure a rock-solid, fully bench-tested design for the community.</span>
         </div>
       </div>
 
@@ -1037,7 +1041,7 @@
       <div class="max-w-3xl mb-14">
         <span class="text-xs font-mono uppercase tracking-widest text-accent-terracotta font-semibold" data-i18n="real_eyebrow">Physical Proof &bull; Working Hardware</span>
         <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2" data-i18n="real_title">
-          &iquest;What&rsquo;s actually real?
+          What&rsquo;s actually real?
         </h2>
         <p class="text-base sm:text-lg text-ink-secondary mt-3 leading-relaxed font-light" data-i18n="real_desc">
           FloatForce was not conceived in pure theory or ungrounded CAD software. Over months of hands-on physical prototyping in Mexico, every kinematic dimension, magnetic gap, and analog sensor response was tested by hand. Below is the unvarnished physical laboratory proof: working prototypes, live switch actuation, and the 16-key macropad that proves this technology works in the real world.
@@ -1468,7 +1472,7 @@
                 <img src="assets/img/timeline/01_freecad_v10.png" alt="FreeCAD V10 Initial Switch" class="w-full h-full object-contain p-2 hover:scale-105 transition-transform duration-300">
               </div>
               <div class="flex items-center justify-between text-xs font-mono text-ink-muted mb-2">
-                <span class="text-accent-terracotta font-bold">HITO 01</span>
+                <span class="text-accent-terracotta font-bold">MILESTONE 01</span>
                 <span>Oct 2026</span>
               </div>
               <h4 class="font-serif text-lg font-semibold text-ink-primary mb-1">FreeCAD V10 Switch Concept</h4>
@@ -1488,7 +1492,7 @@
                 <img src="assets/img/timeline/02_parametric_rig.png" alt="Parametric Blender Rig" class="w-full h-full object-contain p-2 hover:scale-105 transition-transform duration-300">
               </div>
               <div class="flex items-center justify-between text-xs font-mono text-ink-muted mb-2">
-                <span class="text-accent-terracotta font-bold">HITO 02</span>
+                <span class="text-accent-terracotta font-bold">MILESTONE 02</span>
                 <span>Oct 2026</span>
               </div>
               <h4 class="font-serif text-lg font-semibold text-ink-primary mb-1">Parametric Blender Switch Rig</h4>
@@ -1508,7 +1512,7 @@
                 <img src="assets/img/timeline/03_nextgen_switch_knob.png" alt="NextGen Switch with Micro-Rails" class="w-full h-full object-contain p-2 hover:scale-105 transition-transform duration-300">
               </div>
               <div class="flex items-center justify-between text-xs font-mono text-ink-muted mb-2">
-                <span class="text-accent-terracotta font-bold">HITO 03</span>
+                <span class="text-accent-terracotta font-bold">MILESTONE 03</span>
                 <span>Oct 2026</span>
               </div>
               <h4 class="font-serif text-lg font-semibold text-ink-primary mb-1">NextGen Rails &amp; AS5600 Knob</h4>
@@ -1528,7 +1532,7 @@
                 <img src="assets/img/timeline/04_magnet_topologies.png" alt="Slingshot Magnet Topology" class="w-full h-full object-contain p-2 hover:scale-105 transition-transform duration-300">
               </div>
               <div class="flex items-center justify-between text-xs font-mono text-ink-muted mb-2">
-                <span class="text-accent-terracotta font-bold">HITO 04</span>
+                <span class="text-accent-terracotta font-bold">MILESTONE 04</span>
                 <span>Oct 2026</span>
               </div>
               <h4 class="font-serif text-lg font-semibold text-ink-primary mb-1">Magnetic Topologies (Magpylib)</h4>
@@ -1548,7 +1552,7 @@
                 <img src="assets/img/timeline/05_handbuilt_proto.png" alt="Handbuilt Protoboard Rig" class="w-full h-full object-contain p-2 hover:scale-105 transition-transform duration-300">
               </div>
               <div class="flex items-center justify-between text-xs font-mono text-ink-muted mb-2">
-                <span class="text-accent-terracotta font-bold">HITO 05</span>
+                <span class="text-accent-terracotta font-bold">MILESTONE 05</span>
                 <span>Oct 2026</span>
               </div>
               <h4 class="font-serif text-lg font-semibold text-ink-primary mb-1">Handbuilt Protoboard Rig</h4>
@@ -1568,7 +1572,7 @@
                 <img src="assets/img/timeline/06_bambu_tolerance_calibration.png" alt="Bambu Tolerance Calibration Plate" class="w-full h-full object-contain p-2 hover:scale-105 transition-transform duration-300">
               </div>
               <div class="flex items-center justify-between text-xs font-mono text-ink-muted mb-2">
-                <span class="text-accent-terracotta font-bold">HITO 06</span>
+                <span class="text-accent-terracotta font-bold">MILESTONE 06</span>
                 <span>Nov 2026</span>
               </div>
               <h4 class="font-serif text-lg font-semibold text-ink-primary mb-1">Bambu Lab A1 Calibration</h4>
@@ -1588,7 +1592,7 @@
                 <img src="assets/img/timeline/07_v3_trimode.png" alt="Switch V3 Tri-Mode" class="w-full h-full object-contain p-2 hover:scale-105 transition-transform duration-300">
               </div>
               <div class="flex items-center justify-between text-xs font-mono text-ink-muted mb-2">
-                <span class="text-accent-terracotta font-bold">HITO 07</span>
+                <span class="text-accent-terracotta font-bold">MILESTONE 07</span>
                 <span>Nov 2026</span>
               </div>
               <h4 class="font-serif text-lg font-semibold text-ink-primary mb-1">Switch V3 Tri-Mode</h4>
@@ -1608,7 +1612,7 @@
                 <img src="assets/img/timeline/08_v4_ubody_keycaps_v3.png" alt="Switch V4 U-Body and SideWall" class="w-full h-full object-contain p-2 hover:scale-105 transition-transform duration-300">
               </div>
               <div class="flex items-center justify-between text-xs font-mono text-ink-muted mb-2">
-                <span class="text-accent-terracotta font-bold">HITO 08</span>
+                <span class="text-accent-terracotta font-bold">MILESTONE 08</span>
                 <span>Nov 2026</span>
               </div>
               <h4 class="font-serif text-lg font-semibold text-ink-primary mb-1">Switch V4 U-Body Architecture</h4>
@@ -1628,7 +1632,7 @@
                 <img src="assets/img/timeline/09_keycaps_v3_1_bed.png" alt="Keycaps V3.1 Support-Free Print Bed" class="w-full h-full object-contain p-2 hover:scale-105 transition-transform duration-300">
               </div>
               <div class="flex items-center justify-between text-xs font-mono text-ink-muted mb-2">
-                <span class="text-accent-terracotta font-bold">HITO 09</span>
+                <span class="text-accent-terracotta font-bold">MILESTONE 09</span>
                 <span>Nov 2026</span>
               </div>
               <h4 class="font-serif text-lg font-semibold text-ink-primary mb-1">Keycaps V3.1 Support-Free</h4>
@@ -1648,7 +1652,7 @@
                 <img src="assets/img/timeline/10_v5_floatforce_revA.png" alt="FloatForce V5.0 Assembly" class="w-full h-full object-contain p-2 hover:scale-105 transition-transform duration-300">
               </div>
               <div class="flex items-center justify-between text-xs font-mono text-ink-muted mb-2">
-                <span class="text-accent-terracotta font-bold">HITO 10 &bull; ORDERED AT JLCPCB</span>
+                <span class="text-accent-terracotta font-bold">MILESTONE 10 &bull; SMT IN TRANSIT</span>
                 <span>Current</span>
               </div>
               <h4 class="font-serif text-lg font-semibold text-ink-primary mb-1">FloatForce V5.0 &amp; PCB Rev A</h4>
@@ -1657,7 +1661,7 @@
               </p>
             </div>
             <div class="mt-4 pt-3 border-t border-accent-terracotta/20 text-xs font-mono text-accent-terracotta font-semibold">
-              Current state: Rev A ordered at JLCPCB, in production. Estimated delivery in ~3-4 weeks. Rev B direction is grant exploration.
+              Current state: SMT production complete at JLCPCB. In international air transit (Hong Kong &rarr; Mexico). Bench bring-up starts upon delivery.
             </div>
           </div>
 
@@ -1883,7 +1887,7 @@
                 </td>
                 <td class="py-4 px-6 font-mono font-bold text-ink-primary text-sm">&#36;300.00</td>
                 <td class="py-4 px-6 text-xs text-ink-secondary" data-i18n="grant_row2_desc">
-                  Registering the official FloatForce / HE-Keyboard trademark with the Mexican Patent and Trademark Office (IMPI), conducting a prior-art search, and obtaining professional IP and tax advisory to establish an official, legally compliant third-party certification program.
+                  Registering the project trademark (name finalized after clearance search) with the Mexican Patent and Trademark Office (IMPI), conducting a prior-art search, and obtaining professional IP and tax advisory to establish an official, legally compliant third-party certification program.
                 </td>
                 <td class="py-4 px-6 text-xs font-medium text-accent-sage" data-i18n="grant_row2_del">IMPI Trademark Registration, IP &amp; Tax Advisory</td>
               </tr>
@@ -1896,7 +1900,7 @@
                 </td>
                 <td class="py-4 px-6 font-mono font-bold text-ink-primary text-sm">&#36;450.00</td>
                 <td class="py-4 px-6 text-xs text-ink-secondary" data-i18n="grant_row3_desc">
-                  Testing specialized filaments and precision nozzles to dial in mechanical tolerances, exploring a BMCU 370C multicolor keycap setup or resin printing with third-party labs for tactile R&amp;D, and acquiring extra hardware including a dedicated microphone for the Patreon community setup and open build tutorials.
+                  Testing specialized engineering filaments and precision nozzles to dial in switch friction and magnetic tolerances, exploring BMCU 370C multicolor setups or resin test prints for tactile keycap R&amp;D, and acquiring extra hardware including a dedicated microphone for open build tutorials.
                 </td>
                 <td class="py-4 px-6 text-xs font-medium text-accent-sage" data-i18n="grant_row3_del">Specialized 3D Tooling, Resin/Multicolor R&amp;D &amp; Audio Setup</td>
               </tr>
@@ -1927,7 +1931,7 @@
           </div>
         </div>
         <p class="text-sm sm:text-base text-ink-secondary leading-relaxed font-light" data-i18n="grant_open_model_desc">
-          Following an open-core philosophy: 100% of the CAD files, circuit schematics, and Zephyr RTOS firmware remain permanently free and open-source under CERN-OHL-W v2. To build a sustainable, self-funding business, we plan three concrete monetization streams: 1) Official Certification of third-party products under a protected trademark owned by the author (IMPI), ensuring quality and compatibility; 2) An official Patreon community offering early design access and technical build logs; and 3) Simple direct donations from enthusiasts who support open human interface hardware.
+          Following a 100% open-source hardware philosophy: all CAD files, circuit schematics, and Zephyr RTOS firmware will be published under CERN-OHL-W v2 immediately upon physical validation of PCB Rev A (ensuring a solid, bench-tested release for makers rather than unverified files). To build a sustainable, self-funding business, we plan three concrete monetization streams: 1) Official Certification of third-party products under a protected project trademark (name finalized after clearance search) registered with IMPI, ensuring quality and compatibility; 2) An official Patreon community offering early design access and technical build logs; and 3) Simple direct donations from enthusiasts who support open human interface hardware.
         </p>
         <div class="pt-2 flex flex-wrap items-center gap-4 text-xs font-medium">
           <a href="grant.html" class="px-4 py-2 rounded-xl bg-accent-ochre text-ink-primary font-medium hover:bg-accent-ochre/80 transition-colors shadow-xs">
@@ -2020,8 +2024,9 @@
           <p class="text-ink-secondary mt-1">Designed with KiCad 10, Python, Blender, and Zephyr RTOS. Licensed under <a href="https://spdx.org/licenses/CERN-OHL-W-2.0.html" target="_blank" rel="noopener noreferrer" class="underline hover:text-ink-primary">CERN-OHL-W v2 (Weakly Reciprocal Open Hardware)</a>.</p>
         </div>
 
-        <div class="flex flex-wrap items-center justify-center gap-6 font-medium"><a href="https://github.com/Sebas-Govel/HE_Keyboard_Plan" target="_blank" rel="noopener noreferrer" class="hover:text-ink-primary transition-colors">
-            GitHub Repo
+        <div class="flex flex-wrap items-center justify-center gap-6 font-medium">
+          <a href="https://github.com/Sebas-Govel/HE_KB_Showcase" target="_blank" rel="noopener noreferrer" class="hover:text-ink-primary transition-colors">
+            Showcase GitHub
           </a>
           <a href="fact_sheet.html" class="hover:text-ink-primary transition-colors">
             Engineering Fact Sheet
@@ -2029,10 +2034,10 @@
           <a href="grant.html" class="text-accent-ochre hover:underline font-medium">
             1517 Medici Pitch
           </a>
-          <a href="https://github.com/Sebas-Govel/HE_Keyboard_Plan/issues" target="_blank" rel="noopener noreferrer" class="text-accent-terracotta hover:underline font-medium">
-            Issues &amp; Discussions &rarr;
+          <a href="mailto:sebasgonzalezvelarde@outlook.com" class="text-accent-terracotta hover:underline font-medium">
+            Contact &amp; Feedback &rarr;
           </a>
-          <a href="mailto:sebasgonzalezvelarde@outlook.com" class="text-accent-terracotta hover:underline font-medium">Contact Founder (sebasgonzalezvelarde@outlook.com)</a></div>
+        </div>
 
       </div>
 

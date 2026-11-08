@@ -201,7 +201,7 @@ All schematic captures, board layouts, firmware source code, and 3D CAD models a
 To ensure long-term independence and financial sustainability without closing the source code, the project establishes three complementary revenue streams:
 
 1. **Third-Party Product Certification (Protected Trademark):**  
-   While the design files are freely licensed under CERN-OHL-W, the project name and brand mark will be formally registered (IMPI in Mexico). Third-party vendors and commercial makers can freely produce and sell compatible hardware, but can apply for an **Official Quality Certification Mark** (validating electrical safety, sensor calibration tolerances, and build quality), creating a high-trust commercial ecosystem and licensing revenue.
+   While the design files are freely licensed under CERN-OHL-W (publicly released upon PCB Rev A physical validation to ensure a robust, verified build), the project trademark (finalized after clearance search) will be formally registered (IMPI in Mexico). Third-party vendors and commercial makers can freely produce and sell compatible hardware, but can apply for an **Official Quality Certification Mark** (validating electrical safety, sensor calibration tolerances, and build quality), creating a high-trust commercial ecosystem and licensing revenue.
 2. **Official Patreon Community:**  
    A dedicated community tier providing supporters and hardware enthusiasts with early-access CAD drops, experimental devlogs, raw firmware test branches, and direct advisory input on next-generation physical interfaces.
 3. **Simple Direct Donations:**  
