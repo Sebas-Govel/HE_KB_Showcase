@@ -238,24 +238,43 @@ import * as THREE from 'three';
     });
 
     /* ==========================================================
-       SCENE 3: FLOATFORCE SWITCH V5.0 STUDIO (INITPOS BUG FIXED)
+       SCENE 3: FLOATFORCE SWITCH V5.0 STUDIO & HERO CANVAS RE-PARENTING
        ========================================================== */
+    window.FFSync = {
+      stroke: 0,
+      explode: 0,
+      phaseLabel: 'Smooth Travel',
+      userInteracting: false
+    };
+
     let switchScene, switchCamera, switchRenderer, switchControls;
     let switchParts = {};
-    let isSwitchVisible = false;
+    let isSwitchVisible = true;
     let isExploded = false;
     let explodeProgress = 0;
     let targetExplode = 0;
     let strokeTravel = 0;
     let targetStroke = 0;
     let switchModelLoaded = false;
+    let currentSwitchSlot = null;
+
+    let userInteractTimer = null;
+    function flagUserInteraction() {
+      window.FFSync.userInteracting = true;
+      if (userInteractTimer) clearTimeout(userInteractTimer);
+      userInteractTimer = setTimeout(() => {
+        window.FFSync.userInteracting = false;
+      }, 5000);
+    }
 
     function initSwitch3D() {
-      const container = document.getElementById('switch3DContainer');
-      if (!container) return;
+      const heroSlot = document.getElementById('heroSwitch3DSlot');
+      const sectionSlot = document.getElementById('switch3DContainer');
+      currentSwitchSlot = heroSlot || sectionSlot;
+      if (!currentSwitchSlot) return;
 
-      const w = container.clientWidth;
-      const h = container.clientHeight;
+      const w = currentSwitchSlot.clientWidth || 400;
+      const h = currentSwitchSlot.clientHeight || 400;
 
       switchScene = new THREE.Scene();
       switchScene.background = new THREE.Color(0xF6F1E8);
@@ -270,7 +289,7 @@ import * as THREE from 'three';
       switchRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
       switchRenderer.toneMapping = THREE.ACESFilmicToneMapping;
       switchRenderer.toneMappingExposure = 1.05;
-      container.appendChild(switchRenderer.domElement);
+      currentSwitchSlot.appendChild(switchRenderer.domElement);
 
       const pmrem = new THREE.PMREMGenerator(switchRenderer);
       switchScene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
@@ -280,8 +299,9 @@ import * as THREE from 'three';
       switchControls.dampingFactor = 0.05;
       switchControls.minDistance = 20;
       switchControls.maxDistance = 90;
-      // Centered on full assembled switch with keycap
       switchControls.target.set(0, 7.5, 0);
+
+      switchControls.addEventListener('start', flagUserInteraction);
 
       // Studio Lighting
       const hemi = new THREE.HemisphereLight(0xFFFAF2, 0xE5DEC9, 0.75);
@@ -316,7 +336,6 @@ import * as THREE from 'three';
           if (child.isMesh) {
             child.castShadow = true;
             child.receiveShadow = true;
-            // CRUCIAL BUG FIX: Record true assembly positions
             child.userData.initPos = child.position.clone();
             switchParts[child.name] = child;
           }
@@ -325,19 +344,49 @@ import * as THREE from 'three';
         switchRoot.add(gltfScene);
         switchModelLoaded = true;
 
-        const loaderEl = document.getElementById('switchLoadingIndicator');
-        if (loaderEl) loaderEl.style.display = 'none';
+        const heroLoader = document.getElementById('heroSwitchLoadingIndicator');
+        const switchLoader = document.getElementById('switchLoadingIndicator');
+        if (heroLoader) heroLoader.style.display = 'none';
+        if (switchLoader) switchLoader.style.display = 'none';
       }, undefined, (err) => {
         console.warn('Switch GLB load failed:', err);
       });
 
-      // Visibility Observer
-      const obs = new IntersectionObserver(([entry]) => {
-        isSwitchVisible = entry.isIntersecting;
-      }, { threshold: 0.1 });
-      obs.observe(container);
+      // DOM Reparenting & Visibility via IntersectionObserver
+      function attachToSlot(targetSlot) {
+        if (!targetSlot || !switchRenderer || switchRenderer.domElement.parentElement === targetSlot) return;
+        targetSlot.appendChild(switchRenderer.domElement);
+        currentSwitchSlot = targetSlot;
+        resizeSwitch();
+      }
 
-      // Helper function for relative explosion offsets
+      function resizeSwitch() {
+        if (!currentSwitchSlot || !switchRenderer || !switchCamera) return;
+        const nw = currentSwitchSlot.clientWidth || 400;
+        const nh = currentSwitchSlot.clientHeight || 400;
+        switchCamera.aspect = nw / nh;
+        switchCamera.updateProjectionMatrix();
+        switchRenderer.setSize(nw, nh);
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        const secEntry = entries.find(e => e.target === sectionSlot);
+        const heroEntry = entries.find(e => e.target === heroSlot);
+
+        if (sectionSlot && secEntry && secEntry.isIntersecting) {
+          attachToSlot(sectionSlot);
+          isSwitchVisible = true;
+        } else if (heroSlot && heroEntry && heroEntry.isIntersecting) {
+          attachToSlot(heroSlot);
+          isSwitchVisible = true;
+        } else {
+          isSwitchVisible = entries.some(e => e.isIntersecting);
+        }
+      }, { threshold: 0.1 });
+
+      if (heroSlot) observer.observe(heroSlot);
+      if (sectionSlot) observer.observe(sectionSlot);
+
       function setPartOffset(name, dx, dy, dz) {
         const p = switchParts[name];
         if (!p || !p.userData.initPos) return;
@@ -345,9 +394,58 @@ import * as THREE from 'three';
         p.position.set(b.x + dx, b.y + dy, b.z + dz);
       }
 
+      let choreoClock = 0;
       function animateSwitch() {
         requestAnimationFrame(animateSwitch);
         if (!isSwitchVisible) return;
+
+        if (!window.FFSync.userInteracting) {
+          choreoClock += 0.016;
+          const cycle = choreoClock % 14.0;
+          let s = 0;
+          let exp = 0;
+          let pLabel = 'Smooth Travel';
+
+          if (cycle < 3.5) {
+            // Phase 0: Smooth travel (sinusoidal stroke 0 -> 1.0 -> 0)
+            const u = cycle / 3.5;
+            s = Math.sin(u * Math.PI);
+            exp = 0;
+            pLabel = 'Smooth Travel';
+          } else if (cycle < 7.0) {
+            // Phase 1: Rapid Trigger (oscillations around actuation point)
+            const u = (cycle - 3.5) / 3.5;
+            s = 0.55 + Math.sin(u * Math.PI * 6) * 0.22;
+            exp = 0;
+            pLabel = 'Rapid Trigger';
+          } else if (cycle < 10.5) {
+            // Phase 2: Kinematic Inspection (explode and return)
+            const u = (cycle - 7.0) / 3.5;
+            s = 0;
+            exp = Math.sin(u * Math.PI) * 0.75;
+            pLabel = 'Kinematic Inspection';
+          } else {
+            // Phase 3: Dual-Stage (half press -> hold -> full press -> release)
+            const u = (cycle - 10.5) / 3.5;
+            if (u < 0.4) {
+              s = (u / 0.4) * 0.42;
+            } else if (u < 0.6) {
+              s = 0.42;
+            } else if (u < 0.85) {
+              s = 0.42 + ((u - 0.6) / 0.25) * 0.58;
+            } else {
+              s = 1.0 - ((u - 0.85) / 0.15) * 1.0;
+            }
+            exp = 0;
+            pLabel = 'Dual-Stage Action';
+          }
+
+          targetStroke = Math.max(0, Math.min(1, s));
+          targetExplode = Math.max(0, Math.min(1, exp));
+          window.FFSync.stroke = targetStroke;
+          window.FFSync.explode = targetExplode;
+          window.FFSync.phaseLabel = pLabel;
+        }
 
         explodeProgress += (targetExplode - explodeProgress) * 0.1;
         strokeTravel += (targetStroke - strokeTravel) * 0.16;
@@ -372,12 +470,17 @@ import * as THREE from 'three';
           }
         }
 
+        const travelDisplay = document.getElementById('switchTravelValue');
+        if (travelDisplay) {
+          travelDisplay.innerText = `${(strokeTravel * 2.36).toFixed(2)} mm`;
+        }
+
         switchControls.update();
         switchRenderer.render(switchScene, switchCamera);
       }
       animateSwitch();
 
-      // Scroll Explode Interaction
+      // Scroll Explode Interaction in Interactive Switch section
       window.addEventListener('scroll', () => {
         const section = document.getElementById('interactive-switch');
         if (!section) return;
@@ -386,24 +489,18 @@ import * as THREE from 'three';
         if (rect.top < winH * 0.75 && rect.bottom > winH * 0.25) {
           const ratio = (winH * 0.75 - rect.top) / (winH * 0.55);
           const clamped = Math.max(0, Math.min(1, ratio));
-          if (!isExploded) {
+          if (!isExploded && window.FFSync.userInteracting) {
             targetExplode = Math.sin(clamped * Math.PI) * 0.65;
           }
         }
       });
 
-      window.addEventListener('resize', () => {
-        if (!container || !switchRenderer || !switchCamera) return;
-        const width = container.clientWidth;
-        const height = container.clientHeight;
-        switchCamera.aspect = width / height;
-        switchCamera.updateProjectionMatrix();
-        switchRenderer.setSize(width, height);
-      });
+      window.addEventListener('resize', resizeSwitch);
     }
 
     // Explode Toggle Button
     document.getElementById('btnExplodeToggle')?.addEventListener('click', function() {
+      flagUserInteraction();
       isExploded = !isExploded;
       targetExplode = isExploded ? 1.0 : 0.0;
       this.innerText = isExploded ? "Assemble" : "Explode Assembly";
@@ -413,20 +510,20 @@ import * as THREE from 'three';
 
     // Reset View Button
     document.getElementById('btnResetView')?.addEventListener('click', function() {
+      flagUserInteraction();
       switchCamera.position.set(28, 24, 34);
       switchControls.target.set(0, 7.5, 0);
     });
 
     // Press Switch Trigger
     const btnPress = document.getElementById('btnPressSwitch');
-    const travelDisplay = document.getElementById('switchTravelValue');
-
     function triggerSwitchPress() {
+      flagUserInteraction();
       targetStroke = 1.0;
+      const travelDisplay = document.getElementById('switchTravelValue');
       if (travelDisplay) travelDisplay.innerText = "2.36 mm";
       setTimeout(() => {
         targetStroke = 0.0;
-        if (travelDisplay) travelDisplay.innerText = "0.00 mm";
       }, 450);
     }
 

@@ -1,8 +1,8 @@
 # Engineering Fact Sheet — Open-Source FloatForce Ergonomic Keyboard
 **Project Pitch Documentation for 1517 Fund (Medici Project)**  
-*Author:* Sebastian Gonzalez V.  
+*Author:* GV (Jalisco, Mexico)  
 *Date:* November 2026  
-*Status:* Hardware Rev A Ordered at JLCPCB, in production (Estimated delivery in ~3-4 weeks. Hardware bring-up starts on delivery) | Firmware v0.3.1 Validated on protoboard & 16-key macropad | Rev B: Medici grant direction — not yet designed  
+*Status:* Hardware Rev A SMT manufacturing complete at JLCPCB; currently in international air transit from Hong Kong to Mexico (hardware bring-up starts upon delivery) | Firmware v0.3.1 Validated on protoboard & 16-key macropad | Rev B: Medici grant direction — not yet designed  
 
 ---
 
@@ -41,6 +41,10 @@ Traditional mechanical switches provide a single binary state (0 or 1) determine
 │ 3. Adaptive Keyboard │ Dynamic Actuation    │ Per-key actuation thresholds  │
 │                      │ Points (0.2–2.2 mm)  │ tailored to individual typing │
 │                      │                      │ pressure & ergonomics         │
+├──────────────────────┼──────────────────────┼───────────────────────────────┤
+│ 4. Precision Analog  │ Firmware-Level Micro-│ Multi-speed mouse navigation, │
+│    Mouse Emulation   │ Velocity Scaling per │ micro-stepping in CAD & sniper│
+│    (Planned Firmware)│ Key Travel Depth     │ aiming without third-party apps│
 └──────────────────────┴──────────────────────┴───────────────────────────────┘
 ```
 

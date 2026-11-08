@@ -257,7 +257,6 @@
       }
 
       // Scenario 3: Dual-Stage Shortcut Press (Letter vs Screenshot)
-      // Alternates every ~3 seconds
       const dualCycle = (playgroundTime * 0.7) % (Math.PI * 2);
       const isFullPressCycle = dualCycle > Math.PI;
       const dualProgress = Math.sin(dualCycle) * 0.5 + 0.5;
@@ -273,15 +272,16 @@
       if (dualBar) dualBar.style.width = `${Math.round((dualTravel / 2.36) * 100)}%`;
       if (dualVal) dualVal.innerText = `${dualTravel.toFixed(2)} mm`;
 
+      let dualStageText = "Ready / Rest";
       if (dualTravel >= 2.05) {
-        // Full press triggered screenshot!
-        if (dualBadge) dualBadge.innerText = "Full: Screenshot!";
+        dualStageText = "Full: Screenshot!";
+        if (dualBadge) dualBadge.innerText = dualStageText;
         if (flashEl) flashEl.style.opacity = "0.75";
         if (noticeEl) noticeEl.style.opacity = "1.0";
         if (bufferEl) bufferEl.innerText = "screenshot.png";
       } else if (dualTravel >= 0.85) {
-        // Half press typed "a"
-        if (dualBadge) dualBadge.innerText = "Half: Type 'a'";
+        dualStageText = "Half: Type 'a'";
+        if (dualBadge) dualBadge.innerText = dualStageText;
         if (flashEl) flashEl.style.opacity = "0.0";
         if (noticeEl) noticeEl.style.opacity = "0.0";
         if (bufferEl) bufferEl.innerText = "hello a|";
@@ -290,6 +290,62 @@
         if (flashEl) flashEl.style.opacity = "0.0";
         if (noticeEl) noticeEl.style.opacity = "0.0";
         if (bufferEl) bufferEl.innerText = "hello |";
+      }
+
+      // Scenario 4: Precision Analog Mouse Emulation
+      const mouseCycle = Math.sin(playgroundTime * 1.1) * 0.5 + 0.5;
+      const mouseTravelMm = mouseCycle * 2.36;
+      const mousePct = Math.round(mouseCycle * 100);
+
+      let speedPx = 0;
+      let mouseModeText = "Rest";
+      if (mouseCycle < 0.15) {
+        speedPx = Math.round(mouseCycle * 200);
+        mouseModeText = "Sub-pixel Deadband";
+      } else if (mouseCycle < 0.6) {
+        speedPx = Math.round(40 + (mouseCycle - 0.15) * 600);
+        mouseModeText = "Micro-Precision (Sniper / CAD)";
+      } else {
+        speedPx = Math.round(310 + (mouseCycle - 0.6) * 1800);
+        mouseModeText = "High-Velocity Flick (Firmware PID)";
+      }
+
+      const mouseX = Math.cos(playgroundTime * 0.9) * (55 * (0.35 + mouseCycle * 0.65));
+      const mouseY = Math.sin(playgroundTime * 1.3) * (35 * (0.35 + mouseCycle * 0.65));
+
+      const cursorEl = document.getElementById('mouseSimCursor');
+      const mouseSpeedValEl = document.getElementById('mouseSpeedVal');
+      const mouseTravelValEl = document.getElementById('mouseTravelVal');
+      const mouseTravelBarEl = document.getElementById('mouseTravelBar');
+      const vectorStateEl = document.getElementById('mouseVectorState');
+
+      if (cursorEl) {
+        cursorEl.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        cursorEl.style.backgroundColor = mouseCycle > 0.65 ? '#C85A32' : mouseCycle > 0.25 ? '#2F6B4F' : '#C98A2C';
+      }
+      if (mouseSpeedValEl) mouseSpeedValEl.innerText = `${speedPx} px/s`;
+      if (mouseTravelValEl) mouseTravelValEl.innerText = `${mouseTravelMm.toFixed(2)} mm (${mousePct}%)`;
+      if (mouseTravelBarEl) mouseTravelBarEl.style.width = `${mousePct}%`;
+      if (vectorStateEl) vectorStateEl.innerText = mouseModeText;
+
+      // Hero Live Continuous Telemetry updates
+      const heroDepthEl = document.getElementById('heroLiveDepth');
+      const heroMusicEl = document.getElementById('heroLiveMusic');
+      const heroVectorEl = document.getElementById('heroLiveVector');
+      const heroDualEl = document.getElementById('heroLiveDual');
+      const heroPhaseEl = document.getElementById('heroTelePhase');
+
+      if (window.FFSync) {
+        const currentDepth = (window.FFSync.stroke * 2.36).toFixed(2);
+        if (heroDepthEl) heroDepthEl.innerText = `${currentDepth} mm`;
+        if (heroPhaseEl) heroPhaseEl.innerText = window.FFSync.phaseLabel || 'Smooth Travel';
+      } else {
+        if (heroDepthEl) heroDepthEl.innerText = `${(musicCycle * 2.36).toFixed(2)} mm`;
+      }
+      if (heroMusicEl) heroMusicEl.innerText = `${cutoffHz} Hz`;
+      if (heroVectorEl) heroVectorEl.innerText = `${joySpeed} m/s`;
+      if (heroDualEl) {
+        heroDualEl.innerText = dualTravel >= 2.05 ? "Screenshot" : dualTravel >= 0.85 ? "Type 'a'" : "Rest";
       }
 
       requestAnimationFrame(animatePlayground);

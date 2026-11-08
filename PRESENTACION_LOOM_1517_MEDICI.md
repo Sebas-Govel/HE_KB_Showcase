@@ -16,7 +16,7 @@
 | **3. Switches Analógicos** | 0:55 - 1:25 | Sección Continuous Analog Playground (o video de demostración) | Teclas analógicas continuas: no es solo binario, es MIDI, gamepad 360°, navegación CAD 3D, rapid trigger. |
 | **4. IA + Democratización** | 1:25 - 1:45 | Cámara mostrando el switch impreso en la mano / slicer | Democratizar la creación de hardware fuera de Silicon Valley: un maker en México usando IA para CAD y física. |
 | **5. Lo Real & PCB Rev A** | 1:45 - 2:15 | Video del macropad de 16 teclas + foto/render de PCB Rev A | Pruebas físicas reales: macropad funcional de 16 teclas; Rev A ordenada a JLCPCB en producción; arte de Van Gogh. |
-| **6. Fondos Medici, Rev B & Prusa** | 2:15 - 2:50 | Sección 1517 Pitch (tabla de presupuesto y roadmap) | Autoinversión como prueba de compromiso; $1,000 USD de runway forward-looking hacia Rev B; modelo Prusa; visión HCI. |
+| **6. Fondos Medici, Rev B & Modelo Sostenible** | 2:15 - 2:50 | Sección 1517 Pitch (tabla de presupuesto y roadmap) | Autoinversión como prueba de compromiso; $1,000 USD de runway forward-looking hacia Rev B; modelo sostenible; visión HCI. |
 | **7. Cierre & Call to Action** | 2:50 - 3:00 | Cámara completa o despedida con link | Agradecimiento a 1517 y visión de impacto. |
 
 ---
@@ -27,9 +27,9 @@
 > **Visual:** Tu cara en la burbuja de Loom + en pantalla el Hero del showcase (`index.html`) con la PCB y el manifiesto.
 
 **Audio (Spoken English):**
-> *"Hi 1517 team, I’m Sebastian from Mexico, and this is HE-Keyboard—an open-source project designed to disrupt a stagnant, multi-billion-dollar keyboard market.*  
+> *"Hi 1517 team, I’m Sebas GV from Jalisco, Mexico, and this is FloatForce—an open-source project designed to disrupt a stagnant, multi-billion-dollar keyboard market.*  
 > *For decades, big tech brands have charged massive price premiums for features that literally cost pennies to manufacture, locking continuous sensing behind closed firmware and artificial product tiers.*  
-> *Commercial keyboards are treated like black boxes: impossible to repair, impossible to customize, and leaving massive potential for human expression and productivity completely untapped.*  
+> *Commercial keyboards are treated like black boxes: replacement switches are expensive on AliExpress, there is zero ability to customize the switch at the design stage, and companies create artificial tiers not just in software, but by locking physical ergonomics—split layouts, tenting, low-profile, and wireless—behind luxury paywalls.*  
 > *By making this 100% open-source and 3D-printable for any language or alphabet in the world, we force the industry to innovate and give creators everywhere true ownership of their tools."*
 
 ---
@@ -50,7 +50,7 @@
 **Audio (Spoken English):**
 > *"Under each key sits FloatForce: a springless magnetic switch powered by Hall-effect sensors.*  
 > *Our fingers aren't binary switches, and keyboards shouldn't be either.*  
-> *Because we read the full 2.36 millimeters of continuous displacement, a single key can act as a pressure-sensitive MIDI controller for music production, a 360-degree analog joystick for gaming and stealth movement, or a 3D orbit navigation tool for CAD and engineering software—alongside esports features like Rapid Trigger and dual-stage actuations."*
+> *Because we read the full 2.36 millimeters of continuous displacement, a single key can act as a pressure-sensitive MIDI controller for music production, a 360-degree analog joystick for gaming, or precision firmware-level mouse emulation without third-party apps—alongside esports features like Rapid Trigger and dual-stage actuations."*
 
 ---
 
@@ -69,12 +69,12 @@
 
 **Audio (Spoken English):**
 > *"This is not theoretical render-ware. Here is our functional 16-key bench macropad running our custom Zephyr RTOS firmware, proving continuous Hall sensing and springless magnetic repulsion.*  
-> *Our first board—PCB Rev A—is currently in production at JLCPCB, with estimated delivery in about 3 to 4 weeks for full hardware bring-up and stress testing.*  
+> *Our first board—PCB Rev A—has completed SMT assembly at JLCPCB and is currently in international air transit from Hong Kong to Mexico for full hardware bring-up and stress testing.*  
 > *On the front silkscreen, we etched Vincent van Gogh’s 'Langlois Bridge' in matte black and gold ENIG—a tangible reminder that structural engineering and human art belong together."*
 
 ---
 
-### 2:15 - 2:50 | Bloque 6: Medici Grant Budget, The Prusa Model & Rev B
+### 2:15 - 2:50 | Bloque 6: Medici Grant Budget, Sustainable Open Model & Rev B
 > **Visual:** Scroll a la sección `#grant` (mostrando la tabla de $1,000 USD y el roadmap).
 
 **Audio (Spoken English):**
@@ -83,7 +83,7 @@
 > *$250 for Rev B prototyping informed by Rev A testing, building working test units with sensors, OLEDs, and batteries;*  
 > *$300 to register the project's trademark with IMPI in Mexico, prior-art search, and IP and tax advisory to establish a solid legal foundation for certified third-party builds; and*  
 > *$450 for specialized filaments, precision nozzles to dial in tolerances, exploring BMCU 370C multicolor setups or resin printing, plus extra hardware like a dedicated microphone for our Patreon community and build guides.*  
-> *Everything is licensed under CERN-OHL-W v2, with a sustainable business model inspired by Prusa: monetized through third-party trademark certification, an official Patreon, and direct community donations.*  
+> *Everything is licensed under CERN-OHL-W v2, with a sustainable open-source hardware model: monetized through third-party trademark certification, an official Patreon, and direct community donations.*  
 > *And this keyboard is only chapter one—we have bigger designs for ergonomic analog mice and spatial human-computer interfaces."*
 
 ---

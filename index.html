@@ -42,7 +42,7 @@
       "priceCurrency": "USD",
       "availability": "https://schema.org/PreOrder"
     },
-    "license": "https://spdx.org/licenses/CERN-OHL-P-2.0.html",
+    "license": "https://spdx.org/licenses/CERN-OHL-W-2.0.html",
     "url": "https://sebas-govel.github.io/HE_KB_Showcase/"
   }
   </script>
@@ -284,7 +284,7 @@
             </a>
             <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-sage-soft border border-accent-sage/30 text-accent-sage text-[11px] sm:text-xs font-medium">
               <span class="w-1.5 h-1.5 rounded-full bg-accent-sage animate-pulse"></span>
-              <span data-i18n-html="hero_status_txt">Rev A ordered at JLCPCB (~3-4 wks delivery)</span>
+              <span data-i18n-html="hero_status_txt">PCB Rev A: SMT production complete • In international air transit from Hong Kong to Mexico</span>
             </div>
           </div>
 
@@ -299,84 +299,82 @@
             Engineered from scratch for affordable fabrication: a low-cost standard PCBA architecture, 100% support-free 3D printing on everyday desktop printers, and lifted like an architectural drawbridge for natural ergonomic comfort.
           </p>
 
-          <!-- Action Buttons -->
-          <div class="flex flex-wrap items-center gap-3.5 pt-3">
-            <a href="#interactive-switch" class="px-6 py-3.5 rounded-xl bg-accent-terracotta hover:bg-accent-terracotta-hover text-white font-medium transition-all shadow-sm flex items-center gap-2 text-sm">
-              <span data-i18n="hero_btn_watch">Watch It Open &amp; Play &darr;</span>
-            </a>
-            <a href="ENGINEERING_FACT_SHEET.md" target="_blank" class="px-5 py-3.5 rounded-xl bg-paper-surface hover:bg-paper-card text-ink-primary border border-paper-border transition-all shadow-sm text-sm font-medium flex items-center gap-2">
-              <span data-i18n="hero_btn_sheet">Fact Sheet (MD) &rarr;</span>
+          <!-- Navigation Link -->
+          <div class="pt-2">
+            <a href="#about" class="inline-flex items-center gap-2 text-sm font-medium text-accent-terracotta hover:text-accent-terracotta-hover transition-colors group">
+              <span data-i18n="hero_cta_about">Meet the builder &amp; see how it works</span>
+              <span class="transform group-hover:translate-y-0.5 transition-transform">&darr;</span>
             </a>
           </div>
 
-          <!-- Concise Technical Metrics Bar -->
-          <div class="pt-6 border-t border-paper-border/80 flex flex-wrap gap-y-3 gap-x-8 text-xs text-ink-muted">
-            <div>
-              <span class="block text-ink-primary font-mono font-semibold text-sm">30 + 30 Keys</span>
-              <span data-i18n="hero_stat_matrix">Full 60-Key Split Matrix</span>
+          <!-- Live Analog Telemetry Panel (Synchronized with 3D Switch) -->
+          <div class="pt-4 border-t border-paper-border/80">
+            <div class="flex items-center justify-between mb-2.5">
+              <span class="text-[11px] font-mono uppercase tracking-wider text-ink-muted flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-accent-terracotta animate-pulse"></span>
+                <span data-i18n="hero_telemetry_title">Live Analog Telemetry (Synced with Switch)</span>
+              </span>
+              <span id="heroTelePhase" class="text-[11px] font-mono text-accent-terracotta font-semibold bg-accent-terracotta-soft px-2 py-0.5 rounded-md border border-accent-terracotta/20">
+                Smooth Press
+              </span>
             </div>
-            <div>
-              <span class="block text-accent-terracotta font-mono font-semibold text-sm">2.36 mm</span>
-              <span data-i18n="hero_stat_stroke">Magnetic Stroke (+33%)</span>
-            </div>
-            <div>
-              <span class="block text-accent-sage font-mono font-semibold text-sm">1.4 mA</span>
-              <span data-i18n="hero_stat_power">Sensor Power (HAL403SO)</span>
-            </div>
-            <div>
-              <span class="block text-ink-primary font-mono font-semibold text-sm">0 Supports</span>
-              <span data-i18n="hero_stat_supports">Support-Free 3D Printed</span>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs font-mono">
+              <div class="p-2.5 rounded-xl bg-paper-surface border border-paper-border">
+                <span class="text-[10px] text-ink-muted block uppercase">Stroke Depth</span>
+                <span id="heroLiveDepth" class="font-semibold text-accent-terracotta text-sm">0.00 mm (0%)</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-paper-surface border border-paper-border">
+                <span class="text-[10px] text-ink-muted block uppercase">Synth Audio</span>
+                <span id="heroLiveMusic" class="font-semibold text-ink-primary truncate block">C4 Soft • 350 Hz</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-paper-surface border border-paper-border">
+                <span class="text-[10px] text-ink-muted block uppercase">360° Game/Mouse</span>
+                <span id="heroLiveVector" class="font-semibold text-accent-sage truncate block">0.0 m/s • Idle</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-paper-surface border border-paper-border">
+                <span class="text-[10px] text-ink-muted block uppercase">Dual-Stage Act</span>
+                <span id="heroLiveDual" class="font-semibold text-accent-ochre truncate block">Rest • Ready</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Right: Monumental Interactive Canvas-to-Copper Stage -->
+        <!-- Right: 3D FloatForce Switch Studio (Master Stage) -->
         <div class="lg:col-span-6 flex flex-col items-center">
           <div class="relative w-full max-w-2xl group">
             
-            <!-- Píldoras de Control Superior e Indicador -->
+            <!-- Top Controls Overlay & Telemetry Pill -->
             <div class="flex items-center justify-between mb-3 px-2">
               <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-accent-terracotta animate-pulse"></span>
-                <span class="text-xs font-mono text-ink-muted uppercase tracking-wider" data-i18n="hero_canvas_tag">
-                  Artistic Silkscreen &bull; Van Gogh 1888
+                <span class="w-2 h-2 rounded-full bg-accent-sage animate-pulse"></span>
+                <span class="text-xs font-mono text-ink-muted uppercase tracking-wider" data-i18n="hero_switch_stage_tag">
+                  Real CAD Geometry &bull; Decimated for Web
                 </span>
               </div>
-              <!-- Selector Interactivo: Ver PCB / Mezcla / Pintura -->
               <div class="inline-flex p-1 rounded-xl bg-paper-surface border border-paper-border text-xs font-mono">
-                <button id="btnViewPcb" onclick="setHeroOverlayMode('pcb')" class="px-2.5 py-1 rounded-lg bg-paper-card text-ink-primary font-medium transition-all shadow-sm">PCB SMT</button>
-                <button id="btnViewBlend" onclick="setHeroOverlayMode('blend')" class="px-2.5 py-1 rounded-lg text-ink-secondary hover:text-ink-primary transition-all">50% Blend</button>
-                <button id="btnViewArt" onclick="setHeroOverlayMode('art')" class="px-2.5 py-1 rounded-lg text-ink-secondary hover:text-ink-primary transition-all">Painting</button>
+                <span id="heroStageModeBadge" class="px-2.5 py-1 rounded-lg bg-paper-card text-ink-primary font-medium shadow-xs">Auto 3D Cycle</span>
               </div>
             </div>
 
-            <!-- Escenario de Superposición con Drop Shadow Cálido sobre Papel -->
-            <div class="relative aspect-[4/3] w-full rounded-3xl bg-gradient-to-b from-[#1C1B18] to-[#12110F] p-4 sm:p-6 shadow-2xl border border-paper-border/80 overflow-hidden flex items-center justify-center cursor-pointer select-none" id="heroArtStage" onclick="toggleHeroBlendCycle()">
-              
-              <!-- Capa 1: Pintura al óleo de Van Gogh (1888) -->
-              <img id="heroPaintingLayer" src="assets/img/vangogh_bridge_1888.jpg" alt="Vincent van Gogh - The Langlois Bridge at Arles (1888)" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out opacity-0 filter saturate-110">
-
-              <!-- Capa 2: PCB Top View con Silkscreen Blanco y Pads Oro ENIG (Fondo Transparente) -->
-              <img id="heroPcbLayer" src="assets/img/pcb_top_transparent.png" alt="PCB Rev A Matte Black &amp; Gold ENIG with Van Gogh Silkscreen" class="relative z-10 w-full h-full object-contain filter drop-shadow-[0_16px_28px_rgba(0,0,0,0.6)] transition-all duration-700 ease-in-out group-hover:scale-[1.02]">
-
-              <!-- Capa 3: Gradiente de viñeta sutil para enmarcar el arte -->
-              <div class="absolute inset-0 pointer-events-none rounded-3xl ring-1 ring-inset ring-white/10"></div>
-              
-              <!-- Overlay Textual flotante -->
-              <div class="absolute bottom-4 inset-x-6 z-20 flex items-center justify-between text-xs font-mono text-white/80 pointer-events-none">
-                <span class="bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10" id="heroOverlayStatus">
-                  Mode: PCB Rev A (Matte Black + Pure White Silkscreen)
-                </span>
-                <span class="hidden sm:inline bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10 text-white/60">
-                  Click or hover to morph
-                </span>
+            <!-- Master 3D Viewport Slot -->
+            <div id="heroSwitch3DSlot" class="relative aspect-[4/3] w-full rounded-3xl bg-[#F6F1E8] p-2 sm:p-3 shadow-2xl border border-paper-border/80 overflow-hidden flex items-center justify-center cursor-grab active:cursor-grabbing">
+              <!-- Loading Indicator -->
+              <div id="heroSwitchLoadingIndicator" class="absolute inset-0 flex flex-col items-center justify-center bg-[#F6F1E8] text-xs font-mono text-ink-secondary z-20">
+                <div class="w-8 h-8 rounded-full border-2 border-accent-terracotta border-t-transparent animate-spin mb-3"></div>
+                <span>Loading FloatForce V5.0 CAD Model...</span>
               </div>
-
+              <!-- Floating Help & Travel Overlay -->
+              <div class="absolute bottom-4 left-4 pointer-events-none text-xs text-ink-muted font-sans bg-paper-card/85 backdrop-blur px-3 py-1.5 rounded-md border border-paper-border/60 z-10">
+                Drag to rotate &bull; Auto-cycling kinematics
+              </div>
+              <div class="absolute bottom-4 right-4 pointer-events-none text-xs font-mono text-ink-secondary bg-paper-card/85 backdrop-blur px-3 py-1.5 rounded-md border border-paper-border/60 z-10">
+                Displacement: <strong id="heroSwitchDisplacement" class="text-accent-terracotta font-semibold">0.00 mm</strong>
+              </div>
             </div>
 
-            <!-- Subtítulo explicativo -->
-            <p class="mt-3 text-xs text-ink-muted text-center leading-relaxed" data-i18n="hero_canvas_caption">
-              Physical PCB Rev A (JLCPCB Standard SMT): All 30 Hall sensors, multiplexers, and power-gating circuitry reside exclusively on the bottom layer. The top surface is a monolithic tactile canvas dedicated to Van Gogh's drawbridge.
+            <!-- Explanatory Subtitle -->
+            <p class="mt-3 text-xs text-ink-muted text-center leading-relaxed" data-i18n="hero_switch_caption">
+              FloatForce V5.0: 100% springless magnetic levitation switch. 3 neodymium N52 magnets create a progressive force curve read continuously by a ratiometric Hall sensor.
             </p>
 
           </div>
@@ -409,10 +407,13 @@
         <div class="lg:col-span-5 space-y-6">
           <div class="rounded-3xl bg-paper-card border border-paper-border p-4 shadow-sm overflow-hidden">
             <div class="aspect-square rounded-2xl overflow-hidden bg-paper-surface border border-paper-border relative">
-              <img src="assets/img/sebas_portrait.jpg" alt="Sebastián González V. - Hardware Maker" class="w-full h-full object-cover">
+              <picture>
+                <source srcset="assets/img/real/real_protoboard_sensors_wiring.webp" type="image/webp">
+                <img src="assets/img/real/real_protoboard_sensors_wiring.jpg" alt="Hand-soldered Hall sensor matrix and workbench in Jalisco, Mexico" class="w-full h-full object-cover">
+              </picture>
               <div class="absolute bottom-3 inset-x-3 bg-black/70 backdrop-blur-md px-3.5 py-2 rounded-xl border border-white/10 text-white text-xs flex items-center justify-between">
-                <span class="font-semibold font-serif">Sebastián González V.</span>
-                <span class="font-mono text-[11px] text-white/80">Mexico City</span>
+                <span class="font-semibold font-serif">Sebas GV</span>
+                <span class="font-mono text-[11px] text-white/80">Jalisco, Mexico</span>
               </div>
             </div>
             
@@ -447,7 +448,7 @@
           <div class="p-6 sm:p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-3">
             <h3 class="text-xl font-serif font-semibold text-ink-primary">The Origin: Breaking Closed Black Boxes</h3>
             <p class="text-sm text-ink-secondary leading-relaxed font-light" data-i18n="about_p1">
-              I am an independent maker based in Mexico City. I started this project out of frustration with the commercial keyboard industry: multi-hundred dollar price tags on closed black boxes with proprietary switches, fragile mechanical leaves, and artificial software tiers. I wanted a keyboard with continuous analog sensing, true ergonomic tenting, and zero mechanical wear—designed so anyone with an everyday 3D printer can build, customize, and repair it anywhere in the world.
+              I am an independent maker based in Jalisco, Mexico. I started this project out of frustration with the commercial keyboard market: essential physical ergonomics—like split layouts, tenting, low-profile bodies, and wireless connectivity—are artificially split across expensive product tiers alongside software locks. Even worse, replacement magnetic switches are pricey on AliExpress, and commercial boards only allow post-purchase modding rather than true design-stage customization. I wanted an open-source interface where anyone with a desktop 3D printer can modify the switch, case, or layout at the CAD level and build it anywhere in the world.
             </p>
           </div>
 
@@ -661,9 +662,9 @@
           <div class="w-10 h-10 rounded-xl bg-paper-surface border border-paper-border text-ink-primary flex items-center justify-center font-serif font-bold text-lg">
             3
           </div>
-          <h3 class="text-xl font-serif font-semibold text-ink-primary">"Endgame for Everyone" (Zero Paywalls)</h3>
+          <h3 class="text-xl font-serif font-semibold text-ink-primary">"Endgame for Everyone" (No Artificial Tiers)</h3>
           <p class="text-sm text-ink-secondary leading-relaxed">
-            Flagship continuous analog sensing engineered from accessible off-the-shelf components. Zero feature paywalls, zero cloud subscriptions, and zero artificial software tiers. True digital autonomy.
+            Split ergonomics, drawbridge tenting, low-profile comfort, wireless readiness, and continuous analog sensing united in one accessible architecture—instead of being split across five overpriced product tiers or locked behind software paywalls.
           </p>
         </div>
 
@@ -672,9 +673,9 @@
           <div class="w-10 h-10 rounded-xl bg-accent-terracotta/10 border border-accent-terracotta/20 text-accent-terracotta flex items-center justify-center font-serif font-bold text-lg">
             4
           </div>
-          <h3 class="text-xl font-serif font-semibold text-ink-primary">The "Prusa Model" from Mexico &amp; AI Engineering</h3>
+          <h3 class="text-xl font-serif font-semibold text-ink-primary">Sustainable Open Hardware &amp; AI-Assisted Engineering</h3>
           <p class="text-sm text-ink-secondary leading-relaxed">
-            Inspired by Josef Prusa: lead a free, open-source community where anyone can build, while creating a sustainable hardware business selling official assembled units and DIY kits. Engineered by an autodidactic maker leveraging AI for CAD, physics, and PCBs.
+            100% open-source community where anyone can download, modify, and print the hardware at home, paired with a sustainable creator model: official certification of third-party builds, a Patreon engineering log, and community support. Engineered in Jalisco leveraging AI for CAD, physics, and PCBs.
           </p>
         </div>
 
@@ -705,7 +706,7 @@
             </div>
             <h3 class="font-serif text-xl font-semibold text-ink-primary mb-2">Standard FDM Printing</h3>
             <p class="text-sm text-ink-secondary leading-relaxed">
-              Printable on standard consumer beds (Bambu Lab A1, Prusa MK3/MK4, Ender 3) using standard 0.4mm nozzles, 0.16mm layer height, in PLA or PETG. 100% support-free switch housing and keycaps.
+              Printable on standard consumer beds (Bambu Lab A1, Ender 3, or any standard 0.4mm desktop FDM printer) using standard 0.4mm nozzles, 0.16mm layer height, in PLA or PETG. 100% support-free switch housing and keycaps.
             </p>
           </div>
           <div class="mt-6 pt-4 border-t border-paper-border text-xs font-mono text-ink-muted">
@@ -751,7 +752,7 @@
       <div class="rounded-3xl bg-paper-card border border-paper-border overflow-hidden shadow-sm">
         <div class="px-8 py-5 bg-paper-surface border-b border-paper-border flex items-center justify-between">
           <span class="font-serif font-semibold text-ink-primary text-base">Repository Design Deliverables</span>
-          <span class="text-xs font-mono text-accent-sage font-medium bg-accent-sage-soft px-3 py-1 rounded-full border border-accent-sage/20">CERN-OHL-P v2 Open Hardware</span>
+          <span class="text-xs font-mono text-accent-sage font-medium bg-accent-sage-soft px-3 py-1 rounded-full border border-accent-sage/20">CERN-OHL-W v2 Open Hardware</span>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-left text-sm">
@@ -786,7 +787,7 @@
                 <td class="py-4 px-6 font-medium text-ink-primary">PCB Rev A (30-Key Matte Black &amp; Gold ENIG)</td>
                 <td class="py-4 px-6 font-mono text-xs">KiCad 10 &bull; Gerbers</td>
                 <td class="py-4 px-6"><span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-accent-ochre-soft text-accent-ochre text-xs font-medium">&bull; Fabricated (in transit)</span></td>
-                <td class="py-4 px-6 text-right"><a href="ENGINEERING_FACT_SHEET.md" target="_blank" class="text-ink-secondary hover:text-ink-primary font-mono text-xs">Read Specs &rarr;</a></td>
+                <td class="py-4 px-6 text-right"><a href="fact_sheet.html" target="_blank" class="text-ink-secondary hover:text-ink-primary font-mono text-xs">Read Specs &rarr;</a></td>
               </tr>
               <tr class="hover:bg-paper-surface/40 transition-colors">
                 <td class="py-4 px-6 font-medium text-ink-primary">Low-Profile Ergonomic Split Enclosure</td>
@@ -811,12 +812,12 @@
           Continuous Analog Playground
         </h2>
         <p class="text-base text-ink-secondary mt-3 leading-relaxed" data-i18n="analog_desc">
-          Experience how continuous Hall sensor depth transforms typing into three dynamic interaction paradigms. Press and hold your physical keys (W, A, S, D, Space) or drag the switch stem slider below.
+          Experience how continuous Hall sensor depth transforms typing into four dynamic interaction paradigms. Press and hold your physical keys (W, A, S, D, Space) or drag the switch stem slider below.
         </p>
       </div>
 
       <!-- 3 Auto-Animated Scenarios in Responsive Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
         
         <!-- Scenario 1: Expressive Musical Controller -->
         <div class="h-[510px] p-7 rounded-3xl bg-paper-card border border-paper-border shadow-sm flex flex-col justify-between">
@@ -943,6 +944,50 @@
             </div>
             <div class="w-full h-2 rounded-full bg-paper-border overflow-hidden relative">
               <div id="dualStageBar" class="h-full bg-accent-ochre transition-all duration-100" style="width: 45%;"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Scenario 4: Precision Analog Mouse Emulation -->
+        <div class="h-[510px] p-7 rounded-3xl bg-paper-card border border-paper-border shadow-sm flex flex-col justify-between">
+          <div class="h-[148px] flex flex-col justify-start">
+            <div class="flex items-center justify-between gap-2 mb-2 h-7">
+              <span class="text-xs font-mono uppercase text-accent-terracotta font-semibold shrink-0">04 &bull; Native OS Mouse</span>
+              <span class="text-xs font-mono text-accent-terracotta font-medium bg-accent-terracotta-soft px-2.5 py-0.5 rounded-full border border-accent-terracotta/20 whitespace-nowrap shrink-0">Planned Firmware Feature</span>
+            </div>
+            <h3 class="font-serif text-xl font-semibold text-ink-primary mb-1.5 h-7 flex items-center overflow-hidden" data-i18n="analog_mouse_title">Precision Analog Mouse</h3>
+            <p class="text-xs text-ink-secondary leading-relaxed line-clamp-3" data-i18n="analog_mouse_desc">
+              No third-party apps required. Continuous depth translates into proportional USB/BLE HID cursor reports across any OS—light pressure for pixel nudges, deep press for rapid screen sweeps.
+            </p>
+          </div>
+
+          <!-- Visual Stage: Screen Grid with Moving Cursor & Target -->
+          <div class="w-full h-44 rounded-2xl bg-paper-surface border border-paper-border relative overflow-hidden p-3 flex items-center justify-center">
+            <!-- Subtle Screen Grid -->
+            <div class="absolute inset-0 bg-[radial-gradient(#E5DEC9_1px,transparent_1px)] [background-size:16px_16px] opacity-60"></div>
+            <!-- Precision Target Box -->
+            <div class="absolute w-12 h-12 rounded-xl border border-dashed border-accent-sage/60 flex items-center justify-center pointer-events-none">
+              <span class="text-[9px] font-mono text-accent-sage uppercase">Target</span>
+            </div>
+            <!-- Dynamic Simulated Mouse Cursor with Trail -->
+            <div id="mouseSimCursor" class="absolute transition-transform duration-100 ease-out z-10" style="transform: translate(0px, 0px);">
+              <svg class="w-6 h-6 text-accent-terracotta drop-shadow-md" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4 2l16 11.5-6.8 1.4 3.8 7.1-3 1.6-3.8-7.1L4 21V2z"/>
+              </svg>
+            </div>
+            <div class="absolute bottom-2 inset-x-4 flex justify-between text-xs font-mono text-ink-muted">
+              <span>Velocity: <strong id="mouseSpeedVal" class="text-accent-terracotta">0 px/s (Sub-pixel)</strong></span>
+              <span>Driver: <strong class="text-ink-primary">Native HID</strong></span>
+            </div>
+          </div>
+
+          <!-- Cursor Depth & Mode Readout -->
+          <div class="h-12 flex flex-col justify-end">
+            <div class="flex justify-between text-xs font-mono text-ink-muted mb-1.5">
+              <span>Dynamic Cursor Speed</span>
+              <span id="mouseTravelVal" class="text-accent-terracotta font-semibold">0.00 mm (0%)</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-paper-border overflow-hidden">
+              <div id="mouseTravelBar" class="h-full bg-accent-terracotta transition-all duration-100" style="width: 0%;"></div>
             </div>
           </div>
         </div>
@@ -1167,7 +1212,7 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-accent-sage font-bold">&check;</span>
-              <span><strong>FloatForce V5.0 switch:</strong> 2.36mm magnetic stroke, 3-magnet repulsive suspension, zero stem binding.</span>
+              <span><strong>FloatForce V5.0 switch:</strong> 2.36mm magnetic stroke, 3-magnet repulsive suspension, progressive force curve.</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-accent-sage font-bold">&check;</span>
@@ -1175,7 +1220,7 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-accent-sage font-bold">&check;</span>
-              <span><strong>Zephyr RTOS v0.3.1:</strong> MUX settling time (50&micro;s) &amp; moving average filter (&lt; &plusmn;8 mV noise).</span>
+              <span><strong>Zephyr RTOS v0.3.1:</strong> MUX settling time (50&micro;s) &amp; moving average filter tested on protoboard.</span>
             </li>
           </ul>
         </div>
@@ -1237,6 +1282,10 @@
               <span class="text-accent-ochre font-bold">&bull;</span>
               <span><strong>Power gating:</strong> Gating analog sensor rail to explore ultra-low-power wireless targets.</span>
             </li>
+            <li class="flex items-start gap-2">
+              <span class="text-accent-ochre font-bold">&bull;</span>
+              <span><strong>Native HID Analog Mouse:</strong> Firmware-level proportional cursor control from key depth without third-party OS apps.</span>
+            </li>
           </ul>
         </div>
 
@@ -1252,16 +1301,16 @@
           <div class="p-6 rounded-2xl bg-paper-card border border-paper-border space-y-2.5">
             <div class="font-mono font-semibold text-xs uppercase text-accent-ochre">Commercial Hall-Effect Keyboards</div>
             <p>&bull; <strong>Spring-loaded switches:</strong> Traditional helical metal coil springs that create mechanical friction and metallic spring ping.</p>
-            <p>&bull; <strong>Proprietary tooling:</strong> Injection-molded switch housings requiring multi-thousand dollar industrial steel molds.</p>
-            <p>&bull; <strong>Rigid planar layouts:</strong> Flat, non-split keyboards that force continuous forearm pronation and repetitive strain.</p>
-            <p>&bull; <strong>Closed ecosystems:</strong> Proprietary firmware, closed configurators, and vendor-locked switch replacements.</p>
+            <p>&bull; <strong>High replacement &amp; import costs:</strong> Buying replacement magnetic switches (even on AliExpress) quickly adds up, with zero ability to print your own.</p>
+            <p>&bull; <strong>Post-purchase mods only:</strong> You can lube or swap parts after buying, but you cannot modify the switch geometry, travel, or housing at the design stage.</p>
+            <p>&bull; <strong>Artificial hardware &amp; software tiers:</strong> Ergonomic tenting, low-profile cases, wireless split layouts, and advanced analog features are segmented into separate premium product lines.</p>
           </div>
           <div class="p-6 rounded-2xl bg-paper-card border border-paper-border space-y-2.5">
             <div class="font-mono font-semibold text-xs uppercase text-accent-sage">FloatForce Open-Source Keyboard</div>
             <p>&bull; <strong>100% Springless:</strong> 3-Magnet repulsive levitation suspension with no mechanical springs or contact leaf friction.</p>
             <p>&bull; <strong>Desktop 3D Printable:</strong> 100% support-free monolithic switch and keycap design printable on any standard consumer FDM bed.</p>
-            <p>&bull; <strong>Van Gogh Drawbridge Tenting:</strong> Ergonomic split halves with natural 0&deg;&ndash;25&deg; forearm-aligned tenting.</p>
-            <p>&bull; <strong>CERN-OHL-P Open Hardware:</strong> Fully open schematics, Zephyr RTOS firmware, and standard web-serial tools.</p>
+            <p>&bull; <strong>Design-Stage Freedom:</strong> Parametric CAD allows adjusting travel, magnet sockets, or tenting angle directly before printing.</p>
+            <p>&bull; <strong>CERN-OHL-W v2 Open Hardware:</strong> Fully open schematics, Zephyr RTOS firmware, native analog mouse mode, and web tools.</p>
           </div>
         </div>
       </div>
@@ -1292,25 +1341,61 @@
           </div>
         </div>
 
-        <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <!-- Tarjeta Izquierda: Pintura Original 1888 -->
-          <div class="rounded-3xl bg-paper-surface p-3.5 border border-paper-border shadow-sm flex flex-col justify-between">
-            <div class="aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group bg-black/40 border border-paper-border" onclick="openModal('assets/img/vangogh_bridge_1888.jpg', 'Vincent van Gogh — The Langlois Bridge at Arles (1888)')">
-              <img src="assets/img/vangogh_bridge_1888.jpg" alt="Vincent van Gogh - The Langlois Bridge at Arles (1888)" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        <!-- Canvas-to-Copper Interactive Stage (Van Gogh 1888 Silkscreen & PCB Top View) -->
+        <div class="lg:col-span-6 flex flex-col items-center">
+          <div class="relative w-full max-w-2xl group">
+            
+            <!-- Controls Bar -->
+            <div class="flex items-center justify-between mb-3 px-2">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-accent-terracotta animate-pulse"></span>
+                <span class="text-xs font-mono text-ink-muted uppercase tracking-wider" data-i18n="hero_canvas_tag">
+                  Artistic Silkscreen &bull; Van Gogh 1888
+                </span>
+              </div>
+              <!-- Selector: PCB / Blend / Painting -->
+              <div class="inline-flex p-1 rounded-xl bg-paper-surface border border-paper-border text-xs font-mono">
+                <button id="btnViewPcb" onclick="setHeroOverlayMode('pcb')" class="px-2.5 py-1 rounded-lg bg-paper-card text-ink-primary font-medium transition-all shadow-sm">PCB SMT</button>
+                <button id="btnViewBlend" onclick="setHeroOverlayMode('blend')" class="px-2.5 py-1 rounded-lg text-ink-secondary hover:text-ink-primary transition-all">50% Blend</button>
+                <button id="btnViewArt" onclick="setHeroOverlayMode('art')" class="px-2.5 py-1 rounded-lg text-ink-secondary hover:text-ink-primary transition-all">Painting</button>
+              </div>
             </div>
-            <div class="mt-3 px-1 text-xs text-ink-secondary text-center font-serif">
-              Vincent van Gogh &mdash; The Langlois Bridge at Arles (1888)
-            </div>
-          </div>
 
-          <!-- Tarjeta Derecha: PCB Rev A Silkscreen Vectorial -->
-          <div class="rounded-3xl bg-paper-surface p-3.5 border border-paper-border shadow-sm flex flex-col justify-between">
-            <div class="aspect-[4/3] bg-[#141414] rounded-2xl overflow-hidden flex items-center justify-center cursor-pointer group border border-white/5" onclick="openModal('assets/img/pcb_top_transparent.png', 'PCB Rev A Top View — Matte Black with Van Gogh Langlois Bridge Silkscreen & Gold ENIG')">
-              <img src="assets/img/pcb_top_transparent.png" alt="PCB Rev A Top View Van Gogh Silkscreen" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500 filter drop-shadow-md">
+            <!-- Overlay Stage -->
+            <div class="relative aspect-[4/3] w-full rounded-3xl bg-gradient-to-b from-[#1C1B18] to-[#12110F] p-4 sm:p-6 shadow-2xl border border-paper-border/80 overflow-hidden flex items-center justify-center cursor-pointer select-none" id="heroArtStage" onclick="toggleHeroBlendCycle()">
+              
+              <!-- Layer 1: Van Gogh Painting (1888) -->
+              <picture>
+                <source srcset="assets/img/vangogh_bridge_1888.webp" type="image/webp">
+                <img id="heroPaintingLayer" src="assets/img/vangogh_bridge_1888.jpg" alt="Vincent van Gogh - The Langlois Bridge at Arles (1888)" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out opacity-0 filter saturate-110">
+              </picture>
+
+              <!-- Layer 2: PCB Top View with Silkscreen & ENIG Gold Pads -->
+              <picture class="relative z-10 w-full h-full flex items-center justify-center">
+                <source srcset="assets/img/pcb_top_transparent.webp" type="image/webp">
+                <img id="heroPcbLayer" src="assets/img/pcb_top_transparent.png" alt="PCB Rev A Matte Black &amp; Gold ENIG with Van Gogh Silkscreen" class="w-full h-full object-contain filter drop-shadow-[0_16px_28px_rgba(0,0,0,0.6)] transition-all duration-700 ease-in-out group-hover:scale-[1.02]">
+              </picture>
+
+              <!-- Vignette Gradient -->
+              <div class="absolute inset-0 pointer-events-none rounded-3xl ring-1 ring-inset ring-white/10"></div>
+              
+              <!-- Text Overlay -->
+              <div class="absolute bottom-4 inset-x-6 z-20 flex items-center justify-between text-xs font-mono text-white/80 pointer-events-none">
+                <span class="bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10" id="heroOverlayStatus">
+                  Mode: PCB Rev A (Matte Black + Pure White Silkscreen)
+                </span>
+                <span class="hidden sm:inline bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10 text-white/60">
+                  Click or hover to morph
+                </span>
+              </div>
+
             </div>
-            <div class="mt-3 px-1 text-xs text-ink-secondary text-center font-mono text-xs">
-              PCB Rev A &mdash; Matte Black + Pure White Silk + Gold ENIG
-            </div>
+
+            <!-- Caption -->
+            <p class="mt-3 text-xs text-ink-muted text-center leading-relaxed" data-i18n="hero_canvas_caption">
+              Physical PCB Rev A (JLCPCB Standard SMT): All 30 Hall sensors, multiplexers, and power-gating circuitry reside exclusively on the bottom layer. The top surface is a monolithic tactile canvas dedicated to Van Gogh's drawbridge.
+            </p>
+
           </div>
         </div>
 
@@ -1711,7 +1796,7 @@
   </section>
 
   <!-- ================================================================= -->
-  <!-- 07 · 1517 FUND MEDICI GRANT PITCH & THE PRUSA MODEL               -->
+  <!-- 07 · 1517 FUND MEDICI GRANT PITCH & SUSTAINABLE OPEN HARDWARE MODEL -->
   <!-- ================================================================= -->
   <section id="grant" class="py-24 border-b border-paper-border bg-paper-base">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
@@ -1723,7 +1808,7 @@
           <span data-i18n="grant_sec_eyebrow">1517 Fund &bull; Medici Project Candidate</span>
         </div>
         <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary mt-2" data-i18n="grant_sec_title">
-          &#36;1,000 USD Medici Grant: Forward Runway &amp; The Prusa Model
+          &#36;1,000 USD Medici Grant: Forward Runway &amp; The Sustainable Open Model
         </h2>
         <p class="text-base sm:text-lg text-ink-secondary mt-3 leading-relaxed font-light" data-i18n="grant_sec_desc">
           1517 backs unorthodox builders tackling difficult physical challenges. All past R&amp;D (~&#36;500 USD) was self-funded from personal savings as tangible proof of commitment and execution capacity&mdash;not for reimbursement. This &#36;1,000 USD grant provides 100% forward-looking continuity runway to validate Rev A, iterate toward Rev B, and publish open-source build guides.
@@ -1795,21 +1880,21 @@
         </div>
       </div>
 
-      <!-- The Prusa Business Model Card -->
+      <!-- Sustainable Open Hardware Business Model Card -->
       <div class="p-8 sm:p-10 rounded-3xl bg-paper-surface border border-paper-border shadow-sm space-y-4">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-xl bg-accent-terracotta/10 border border-accent-terracotta/20 text-accent-terracotta flex items-center justify-center font-serif font-bold text-lg">
             P
           </div>
           <div>
-            <h3 class="text-xl sm:text-2xl font-serif font-semibold text-ink-primary" data-i18n="grant_prusa_title">
-              The Prusa Open-Source Business Model from Mexico
+            <h3 class="text-xl sm:text-2xl font-serif font-semibold text-ink-primary" data-i18n="grant_open_model_title">
+              The Sustainable Open-Source Business Model from Mexico
             </h3>
             <span class="text-xs font-mono text-ink-muted">CERN-OHL-W Open Hardware &bull; Sustainable Manufacturing</span>
           </div>
         </div>
-        <p class="text-sm sm:text-base text-ink-secondary leading-relaxed font-light" data-i18n="grant_prusa_desc">
-          Following Josef Prusa’s philosophy: 100% of the CAD files, circuit schematics, and Zephyr RTOS firmware remain permanently free and open-source under CERN-OHL-W v2. To build a sustainable, self-funding business, we plan three concrete monetization streams: 1) Official Certification of third-party products under a protected trademark owned by the author (IMPI), ensuring quality and compatibility; 2) An official Patreon community offering early design access and technical build logs; and 3) Simple direct donations from enthusiasts who support open human interface hardware.
+        <p class="text-sm sm:text-base text-ink-secondary leading-relaxed font-light" data-i18n="grant_open_model_desc">
+          Following an open-core philosophy: 100% of the CAD files, circuit schematics, and Zephyr RTOS firmware remain permanently free and open-source under CERN-OHL-W v2. To build a sustainable, self-funding business, we plan three concrete monetization streams: 1) Official Certification of third-party products under a protected trademark owned by the author (IMPI), ensuring quality and compatibility; 2) An official Patreon community offering early design access and technical build logs; and 3) Simple direct donations from enthusiasts who support open human interface hardware.
         </p>
         <div class="pt-2 flex flex-wrap items-center gap-4 text-xs font-medium">
           <a href="grant.html" class="px-4 py-2 rounded-xl bg-accent-ochre text-ink-primary font-medium hover:bg-accent-ochre/80 transition-colors shadow-xs">

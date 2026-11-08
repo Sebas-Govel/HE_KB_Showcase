@@ -2,9 +2,9 @@
 > **Open-Source Showcase & Project Pitch for the 1517 Fund Medici Project**
 
 [![Live Pitch Site](https://img.shields.io/badge/Live_Pitch_Site-GitHub_Pages-38bdf8?style=for-the-badge&logo=github)](https://sebas-govel.github.io/HE_KB_Showcase/)
-[![Fabrication Status](https://img.shields.io/badge/Status-Rev_A_In_SMT_Fabrication-10b981?style=for-the-badge)](https://sebas-govel.github.io/HE_KB_Showcase/)
+[![Fabrication Status](https://img.shields.io/badge/Status-Rev_A_In_Air_Transit-10b981?style=for-the-badge)](https://sebas-govel.github.io/HE_KB_Showcase/)
 [![Firmware](https://img.shields.io/badge/Firmware-Zephyr_RTOS_v0.3.1-a855f7?style=for-the-badge)](https://sebas-govel.github.io/HE_KB_Showcase/)
-[![Hardware License](https://img.shields.io/badge/License-CERN--OHL--P-amber?style=for-the-badge)](https://sebas-govel.github.io/HE_KB_Showcase/)
+[![Hardware License](https://img.shields.io/badge/License-CERN--OHL--W_v2-amber?style=for-the-badge)](https://sebas-govel.github.io/HE_KB_Showcase/)
 
 ---
 
@@ -27,7 +27,7 @@ Instead of chasing esports latency hype, our mission centers on **postural healt
 4. **"Endgame for Everyone" (No Paywalls):** High-end flagship performance engineered with accessible components. Zero feature paywalls, zero tiered subscriptions, and zero artificial software limits.
 5. **Global Layouts via Support-Free 3D Printing:** 100% support-free 3D printable keycaps (V3.2) and FloatForce switches (V5.0), empowering anyone from Japan to Africa to Latin America to print custom alphabets and tactile legends at home.
 6. **Educational AI-Assisted Hardware Engineering:** Demonstrating how an autodidactic maker outside professional electrical engineering can create complex hardware from scratch leveraging AI for parametric CAD, physics simulation, and PCB design.
-7. **The "Prusa Research" Business Model:** Leading a free open-source hardware community while establishing a sustainable hardware peripherals venture from Mexico selling official assembled keyboards and DIY kits worldwide.
+7. **Sustainable Open Hardware Model:** Leading a free open-source hardware community while establishing a sustainable maker hardware venture from Mexico based on official certified kits, pre-soldered assemblies, and custom parts.
 
 ---
 
@@ -84,14 +84,14 @@ The HE Keyboard is the foundation of an ambitious, long-term human interface vis
 ---
 
 ## 🎯 1517 Fund Medici Project — $1,000 USD Grant Allocation
-The $1,000 USD grant is allocated with full transparency to sustain development momentum and expand open-source educational documentation:
+The $1,000 USD grant is forward-looking capital dedicated to R&D continuity, Rev B exploration, trademark protection, and open maker guides (past R&D was 100% self-funded by the author):
 
-- **$450.00 USD — R&D Seed Capital Recovery & Continuity Runway:** Re-investing personal savings spent on prototypes, early tooling, and the first manufactured PCBA batch (Rev A), replenishing working capital to absorb physical testing iterations without stalling momentum.
-- **$350.00 USD — Rev B Direction & Interactivity Modules (contingent on Rev B design):** Rev B has **not been designed yet**. If funded, this allocation targets a JLCPCB Rev B iteration (sensor power gating direction on `3V3_A`, battery divider, slide switch footprint) plus OLED displays, I2C touchpads, rotary encoders, LiPo batteries, and N52 magnets for 3 to 5 working units.
-- **$200.00 USD — Open-Source Ecosystem, Printing Materials & Build Guides:** 3D printing filaments for ergonomic tenting stands, multilingual keycap testing, and open beginner-friendly build guides.
+- **$250.00 USD — Rev B Prototyping:** Funding a refined Rev B PCB fabrication run informed by Rev A bench testing, plus precision Hall sensors, OLEDs, rotary encoders, LiPo batteries, and neodymium magnets for working test units.
+- **$300.00 USD — Brand, Legal & Tax Advisory:** Registering the project trademark with IMPI in Mexico, conducting formal prior-art searches, and obtaining IP/tax advice to establish the legal framework for certified third-party builds.
+- **$450.00 USD — Materials R&D, Tooling & Creator Ecosystem:** Specialized filaments (PETG/CF), precision hardened nozzles, BMCU multicolor / resin 3D experimentation, and community creator tooling.
 
 ---
 
-*Author:* Sebastian Gonzalez V.  
-*Origin:* Mexico  
-*Hardware License:* CERN-OHL-P Open-Source Hardware
+*Author:* GV  
+*Origin:* Jalisco, Mexico  
+*Hardware License:* CERN-OHL-W v2 Open-Source Hardware
