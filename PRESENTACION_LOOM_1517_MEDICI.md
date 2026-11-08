@@ -29,7 +29,7 @@
 **Audio (Spoken English):**
 > *"Hi 1517 team, I’m Sebas GV from Jalisco, Mexico, and this is FloatForce—an open-source project designed to disrupt a stagnant, multi-billion-dollar keyboard market.*  
 > *For decades, big tech brands have charged massive price premiums for features that literally cost pennies to manufacture, locking continuous sensing behind closed firmware and artificial product tiers.*  
-> *Commercial keyboards are treated like black boxes: replacement switches are expensive on AliExpress, there is zero ability to customize the switch at the design stage, and companies create artificial tiers not just in software, but by locking physical ergonomics—split layouts, tenting, low-profile, and wireless—behind luxury paywalls.*  
+> *Commercial keyboards are treated like black boxes: sourcing the perfect switch is tough with rigid trade-offs and proprietary footprints, and companies lock physical ergonomics—split layouts, tenting, low-profile, and wireless—behind luxury paywalls. With our architecture, you can 3D print custom magnetic switches for pennies or use virtually any commercial magnetic switch you like with simple software recalibration.*  
 > *By making this 100% open-source and 3D-printable for any language or alphabet in the world, we force the industry to innovate and give creators everywhere true ownership of their tools."*
 
 ---

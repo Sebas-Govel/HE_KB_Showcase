@@ -1,6 +1,12 @@
 // Multilingual Dictionary & Localization Engine (EN, ES, FR, DE)
 window.translations = {
       en: {
+        hero_pcb_card_desc: "Monolithic front art canvas with zero top-side SMD parts. All 30 Hall sensors, multiplexers, and power-gating circuitry reside exclusively on the bottom layer.",
+        hero_pcb_card_title: "Matte Black • Van Gogh\'s Drawbridge (1888)",
+        hero_pcb_card_tag: "Physical PCB Rev A Canvas",
+        tenting_notice_text: "The physical tenting mechanism is currently under active design. Once PCB Rev A arrives from JLCPCB, testing the board physically in hand will allow evaluating the exact tactile feel to select the optimal solution: choosing an ideal fixed-angle tenting stand, building a folding mechanism with variable angles, or creating dedicated mounting options for desks or chair armrests.",
+        tenting_notice_tag: "Engineering Status • Active Design Stage",
+        about_stat_time: "Ideation, R&D & learning",
         analog_mouse_desc: "Firmware-level cursor velocity and micro-positioning directly proportional to physical press depth. True multi-speed navigation without third-party desktop tools across any OS.",
         analog_mouse_title: "Precision Analog Mouse Emulation",
         hero_switch_caption: "3-magnet springless magnetic levitation switch (2.36 mm travel). Drag or click to interact.",
@@ -110,7 +116,7 @@ window.translations = {
         about_eyebrow: "The Builder Behind FloatForce • Solo Maker in Mexico",
         about_title: "Why I’m Building an Unorthodox Hardware Interface",
         about_badge: "Sebas GV • Jalisco, Mexico • Independent Hardware Maker",
-        about_p1: "I am an independent maker based in Jalisco, Mexico. I started this project out of frustration with the commercial keyboard industry: multi-hundred dollar price tags on closed black boxes, expensive AliExpress replacement parts, zero ability to customize the switch at the design stage (relying on post-purchase modding), and artificial tier segmentation—not just in software, but by locking physical ergonomics (split layouts, tenting, low-profile, and wireless) behind luxury price tiers. I wanted a keyboard with continuous analog sensing, true ergonomic tenting, and zero mechanical wear—designed so anyone with an everyday 3D printer can build, customize, and repair it anywhere in the world.",
+        about_p1: "I am an independent maker based in Jalisco, Mexico. I started this project out of frustration with the commercial keyboard market: essential physical ergonomics—like split layouts, tenting, low-profile bodies, and wireless connectivity—are artificially split across luxury tiers alongside software locks. Furthermore, sourcing the perfect magnetic switch is difficult: while many commercial switches exist, almost all have rigid trade-offs or proprietary footprints that won\'t fit your board. With this setup, not only can you design and 3D print your own custom magnetic switches for pennies with radical customizability, but you also have the versatility to use virtually any commercial magnetic switch you like: the ratiometric Hall sensors simply recalibrate in software for different magnet sizes, and the 3D-printed plate can be adapted in CAD to fit any switch style.",
         about_ai_label: "AI as an Engineering Copilot",
         about_ai_txt: "Historically, designing custom analog hardware required venture capital and a specialized team in Silicon Valley. By using modern AI as an engineering copilot (Magpylib for magnetic simulation, KiCad 10 for multi-channel PCB routing, Python for procedural CAD, Zephyr RTOS for embedded firmware), I designed, calibrated, and sent to fabrication this entire physical stack as a solo maker in Mexico—demonstrating a new paradigm for decentralized hardware innovation.",
         grant_sec_eyebrow: "1517 Fund • Medici Project Candidate",
@@ -141,6 +147,12 @@ window.translations = {
       },
 
       es: {
+        hero_pcb_card_desc: "Lienzo artístico frontal monolítico sin componentes SMD arriba. Todos los 30 sensores Hall, multiplexores y conmutación residen en la cara inferior.",
+        hero_pcb_card_title: "Negro Mate • Puente de Van Gogh (1888)",
+        hero_pcb_card_tag: "Lienzo Físico PCB Rev A",
+        tenting_notice_text: "El mecanismo físico de tenting se encuentra actualmente bajo diseño. Cuando llegue la PCB Rev A de JLCPCB, probarla físicamente en mano permitirá evaluar la ergonomía exacta para definir la mejor solución: escoger el ángulo óptimo para un soporte fijo, diseñar un mecanismo plegable de ángulo variable, o crear opciones de montaje directo al escritorio o reposabrazos de la silla.",
+        tenting_notice_tag: "Estado de Ingeniería • Etapa Activa de Diseño",
+        about_stat_time: "De ideación, I+D y aprendizaje",
         analog_mouse_desc: "Velocidad de cursor y microposicionamiento a nivel de firmware directamente proporcional a la profundidad de presión física. Navegación multivelocidad real sin apps de terceros en cualquier SO.",
         analog_mouse_title: "Emulación de Ratón Analógico de Precisión",
         hero_switch_caption: "Switch de levitación magnética sin resorte de 3 imanes (recorrido de 2.36 mm). Arrastra o haz clic para interactuar.",
@@ -250,7 +262,7 @@ window.translations = {
         about_eyebrow: "El creador detrás de FloatForce • Maker en México",
         about_title: "Por qué construyo una interfaz de hardware no convencional",
         about_badge: "Sebas GV • Jalisco, México • Maker de Hardware Independiente",
-        about_p1: "Soy un maker independiente basado en Jalisco, México. Empecé este proyecto por frustración con la industria comercial de teclados: precios de cientos de dólares en cajas negras cerradas, repuestos caros en AliExpress, nula capacidad de modificar el switch en etapa de diseño (dependiendo de mods post-compra) y segmentación artificial de gamas—no solo por software, sino bloqueando ergonomía física (diseño split, tenting, perfil bajo e inalámbrico) detrás de categorías de lujo. Quería un teclado con sensado analógico continuo, tenting ergonómico real y cero desgaste mecánico—diseñado para que cualquiera con una impresora 3D común pueda fabricarlo, personalizarlo y repararlo en cualquier lugar del mundo.",
+        about_p1: "Soy un maker independiente basado en Jalisco, México. Empecé este proyecto por frustración con la industria comercial de teclados: la ergonomía esencial—diseño split, tenting, perfil bajo y conectividad inalámbrica—se segmenta artificialmente en gamas de lujo con bloqueos de software. Además, conseguir el switch magnético perfecto es difícil: existen muchas opciones en el mercado, pero casi todas tienen limitaciones rígidas o no encajan en el footprint de tu teclado. Con esta arquitectura, no solo puedes diseñar y fabricar en 3D tus propios switches por unos centavos y con total libertad, sino que también tienes la versatilidad de usar cualquier switch magnético comercial que prefieras: el sensor Hall se recalibra fácilmente por software para imanes más pequeños, y el plate impreso en 3D se rediseña en minutos para alojar cualquier formato de switch.",
         about_ai_label: "La IA como copiloto de ingeniería",
         about_ai_txt: "Históricamente, diseñar hardware analógico personalizado requería capital de riesgo y un equipo en Silicon Valley. Usando la IA como copiloto de ingeniería (Magpylib para simulación magnética, KiCad 10 para diseño de PCB multicanal, Python para CAD procedural, Zephyr RTOS para firmware embebido), diseñé, calibré y mandé a fabricar toda esta pila física como maker en solitario desde México, demostrando un nuevo paradigma de innovación en hardware descentralizado.",
         grant_sec_eyebrow: "Fondo 1517 • Candidatura Proyecto Medici",
@@ -281,6 +293,12 @@ window.translations = {
       },
 
       fr: {
+        hero_pcb_card_desc: "Toile artistique frontale sans composants CMS sur le dessus. Tous les 30 capteurs Hall, multiplexeurs et circuits de puissance résident dessous.",
+        hero_pcb_card_title: "Noir Mat • Pont de Van Gogh (1888)",
+        hero_pcb_card_tag: "Toile Physique PCB Rev A",
+        tenting_notice_text: "Le mécanisme physique d\'inclinaison tenting est actuellement en cours de conception. Dès la réception de la PCB Rev A de JLCPCB, le test physique en main permettra d\'évaluer l\'ergonomie exacte pour choisir la solution optimale : définir l\'angle idéal d\'un support fixe, concevoir un support pliable à angle variable, ou intégrer des options de montage pour bureau ou accoudoirs de siège.",
+        tenting_notice_tag: "État d\'Ingénierie • Étape Active de Conception",
+        about_stat_time: "Idéation, R&D et apprentissage",
         analog_mouse_desc: "Vitesse de curseur et micro-positionnement au niveau du firmware proportionnels à la profondeur de frappe physique. Vraie navigation multi-vitesse sans applications tierces sur tout OS.",
         analog_mouse_title: "Émulation de Souris Analogique de Précision",
         hero_switch_caption: "Switch à lévitation magnétique sans ressort à 3 aimants (course de 2,36 mm). Glissez ou cliquez pour interagir.",
@@ -390,7 +408,7 @@ window.translations = {
         about_eyebrow: "Le créateur derrière FloatForce • Maker au Mexique",
         about_title: "Pourquoi je crée une interface matérielle non conventionnelle",
         about_badge: "Sebas GV • Jalisco, Mexique • Créateur de Matériel Indépendant",
-        about_p1: "Je suis un maker indépendant basé à Jalisco, au Mexique. J'ai lancé ce projet face à la frustration envers l'industrie commerciale du clavier : des tarifs de plusieurs centaines de dollars pour des boîtes noires fermées, des pièces détachées coûteuses sur AliExpress, l'impossibilité de modifier le switch dès la conception (dépendant de mods post-achat), et une segmentation artificielle des gammes—non seulement logicielle, mais en réservant l'ergonomie physique (split, inclinaison tenting, profil bas et sans fil) aux gammes de luxe. Je voulais un clavier à détection analogique continue, véritable inclinaison ergonomique et sans usure mécanique—conçu pour que quiconque possède une imprimante 3D grand public puisse le fabriquer, le personnaliser et le réparer partout dans le monde.",
+        about_p1: "Je suis un maker indépendant basé à Jalisco, au Mexique. J\'ai lancé ce projet face à la frustration envers le marché commercial : l\'ergonomie essentielle—split, inclinaison tenting, profil bas et sans fil—est artificiellement réservée aux gammes de luxe avec des verrous logiciels. De plus, trouver le switch magnétique parfait est difficile : de nombreuses options existent, mais presque toutes imposent des compromis rigides ou des formats propriétaires. Avec cette architecture, non seulement vous pouvez concevoir et imprimer en 3D vos propres switches pour quelques centimes avec une personnalisation totale, mais vous pouvez aussi utiliser n\'importe quel switch magnétique commercial : les capteurs Hall se recalibrent par logiciel et la plaque d\'assemblage en 3D s\'adapte en CAO à tous les formats.",
         about_ai_label: "L'IA comme copilote d'ingénierie",
         about_ai_txt: "Historiquement, la conception de matériel analogique sur mesure exigeait d'importants capitaux et une équipe dans la Silicon Valley. En utilisant l'IA comme copilote (Magpylib pour la simulation magnétique, KiCad 10 pour le routage PCB, Python pour la CAO procédurale, Zephyr RTOS pour le firmware), j'ai conçu, calibré et lancé la fabrication de cet ensemble en tant que créateur solo au Mexique.",
         grant_sec_eyebrow: "Fonds 1517 • Candidature Projet Medici",
@@ -421,6 +439,12 @@ window.translations = {
       },
 
       de: {
+        hero_pcb_card_desc: "Monolithische Kunst-Vorderseite ohne SMD-Bauteile oben. Alle 30 Hall-Sensoren, Multiplexer und Stromsteuerungen liegen auf der Unterseite.",
+        hero_pcb_card_title: "Mattschwarz • Van Goghs Zugbrücke (1888)",
+        hero_pcb_card_tag: "Physisches PCB-Rev-A-Design",
+        tenting_notice_text: "Der physische Tenting-Mechanismus befindet sich derzeit in der aktiven Designphase. Sobald die Rev-A-Platine von JLCPCB eintrifft, wird das direkte haptische Testen der Hardware die Wahl der optimalen Lösung ermöglichen: die Festlegung des besten Winkels für einen festen Standfuß, ein faltbarer Mechanismus mit variablem Winkel oder Montageoptionen für Schreibtisch oder Stuhlarmlehnen.",
+        tenting_notice_tag: "Entwicklungsstatus • Aktive Designphase",
+        about_stat_time: "Ideenfindung, F&E und Lernen",
         analog_mouse_desc: "Cursor-Geschwindigkeit und Mikro-Positionierung auf Firmware-Ebene direkt proportional zum physischen Tastenhub. Echte Mehrgeschwindigkeits-Navigation ohne Drittanbieter-Tools unter jedem Betriebssystem.",
         analog_mouse_title: "Präzise Analoge Mausemulation",
         hero_switch_caption: "Federloser Magnetschwebeschalter mit 3 Magneten (2,36 mm Hub). Ziehen oder klicken zum Interagieren.",
@@ -530,7 +554,7 @@ window.translations = {
         about_eyebrow: "Der Entwickler hinter FloatForce • Maker in Mexiko",
         about_title: "Warum ich eine unkonventionelle Hardware-Schnittstelle baue",
         about_badge: "Sebas GV • Jalisco, Mexiko • Unabhängiger Hardware-Entwickler",
-        about_p1: "Ich bin ein unabhängiger Maker aus Jalisco, Mexiko. Ich habe dieses Projekt aus Frustration über die kommerzielle Tastaturindustrie gestartet: Hunderte Dollar teure, geschlossene Blackboxes, teure Ersatzteile auf AliExpress, keinerlei Möglichkeit zur Schalteranpassung in der Designphase (Abhängigkeit von nachträglichen Modifikationen) und künstliche Segmentierung—nicht nur per Software, sondern indem physische Ergonomie (Split-Design, Tenting, flaches Profil und kabellos) hinter Luxus-Preiskategorien gesperrt wird. Ich wollte eine Tastatur mit kontinuierlicher analoger Erfassung, echtem ergonomischem Tenting und null mechanischem Verschleiß—so konzipiert, dass jeder mit einem gewöhnlichen 3D-Drucker sie überall auf der Welt bauen, anpassen und reparieren kann.",
+        about_p1: "Ich bin ein unabhängiger Maker aus Jalisco, Mexiko. Ich habe dieses Projekt aus Frustration über die kommerzielle Tastaturindustrie gestartet: Grundlegende Ergonomie—Split-Layouts, Tenting, flache Profile und drahtlose Konnektivität—wird künstlich in Luxus-Preiskategorien gesperrt. Zudem ist es schwierig, den perfekten Magnetschalter zu beschaffen: Es gibt viele Varianten, doch fast alle haben starre Einschränkungen oder proprietäre Footprints. Mit unserem Setup kann man nicht nur eigene 3D-Magnetschalter für Centbeträge mit radikaler Anpassbarkeit drucken, sondern auch jeden beliebigen kommerziellen Magnetschalter nutzen: Der Hall-Sensor wird per Software für unterschiedliche Magnete kalibriert, und die 3D-gedruckte Switch-Platte lässt sich im CAD an jede Schalterbauform anpassen.",
         about_ai_label: "KI als Entwicklungs-Copilot",
         about_ai_txt: "Bisher erforderte die Entwicklung kundenspezifischer analoger Hardware Risikokapital und ein Team im Silicon Valley. Durch den Einsatz von KI als Entwicklungs-Copilot (Magpylib für Magnetsimulationen, KiCad 10 für PCB-Routing, Python für prozedurales CAD, Zephyr RTOS für Embedded-Firmware) habe ich diesen gesamten Hardware-Stack als Solo-Maker in Mexiko entworfen, kalibriert und in die Fertigung geschickt.",
         grant_sec_eyebrow: "1517 Fonds • Medici-Projekt-Kandidat",

@@ -156,9 +156,9 @@ Rev B has not been designed. These are the exploration areas targeted by the Med
 
 The keyboard is only the first chapter of our mission to redefine human-machine synergy:
 
-- **Frictionless Analog Ergonomic Mice:** Applying magnetic Hall sensing to mouse switches and scroll systems for pressure-sensitive analog scrolling and zero-wear actuation.
-- **Spatial Eye-Tracking Glasses with Monitor Bezel Detection:** Lightweight glasses tracking the pupil while front-facing miniature cameras detect physical monitor bezels, mapping natural gaze coordinates directly to the cursor across multi-monitor setups without requiring head turns.
-- **Bio-Subtle Interfaces:** Exploring non-invasive micro-movement detection (e.g. ear canal pressure or micro-facial twitches) for effortless, hands-free accessibility and ambient computing control.
+- **Spatial Eye-Tracking Glasses with Monitor Bezel Detection:** Lightweight open-hardware glasses tracking pupil gaze while front-facing miniature sensors detect physical monitor bezels, mapping natural gaze coordinates directly to the cursor across multi-monitor setups without requiring head turns.
+- **Capacitive Surface (Touchpad) Lightweight Mouse:** An ultra-light ergonomic mouse integrating a capacitive touchpad surface on the shell for fluid gesture navigation, panning, and continuous analog actuation without mechanical switch fatigue.
+- **Non-Invasive Continuous Input Devices:** Exploring subtle wearable interfaces—such as gyroscopic spatial rings, gestural smart wristbands, and micro-movement sensors—for effortless, ambient, and hands-free computing control.
 
 ---
 

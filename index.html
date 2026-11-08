@@ -377,6 +377,26 @@
               FloatForce V5.0: 100% springless magnetic levitation switch. 3 neodymium N52 magnets create a progressive force curve read continuously by a ratiometric Hall sensor.
             </p>
 
+            <!-- Physical PCB Rev A Artwork Preview Card -->
+            <a href="#art" class="mt-3.5 w-full rounded-2xl bg-paper-surface border border-paper-border hover:border-accent-terracotta/40 p-3 flex items-center gap-3.5 shadow-xs transition-all group block">
+              <div class="w-24 sm:w-28 h-16 sm:h-18 rounded-xl bg-paper-card border border-paper-border overflow-hidden shrink-0 flex items-center justify-center p-1">
+                <picture>
+                  <source srcset="assets/img/pcb_top_transparent.webp" type="image/webp">
+                  <img src="assets/img/pcb_top_transparent.png" alt="Physical PCB Rev A - Van Gogh Drawbridge Art" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                </picture>
+              </div>
+              <div class="flex-1 min-w-0 space-y-0.5">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-accent-terracotta"></span>
+                  <span class="text-[11px] font-mono uppercase tracking-wider text-accent-terracotta font-semibold" data-i18n="hero_pcb_card_tag">Physical PCB Rev A Canvas</span>
+                </div>
+                <h4 class="text-xs sm:text-sm font-serif font-semibold text-ink-primary truncate group-hover:text-accent-terracotta transition-colors" data-i18n="hero_pcb_card_title">Matte Black • Van Gogh's Drawbridge (1888)</h4>
+                <p class="text-[11px] text-ink-secondary leading-snug line-clamp-2 font-light" data-i18n="hero_pcb_card_desc">
+                  Monolithic front art canvas with zero top-side SMD parts. All 30 Hall sensors, multiplexers, and power-gating circuitry reside exclusively on the bottom layer.
+                </p>
+              </div>
+            </a>
+
           </div>
         </div>
 
@@ -435,8 +455,8 @@
               <div class="text-ink-muted text-[11px] mt-0.5">Self-funded past R&amp;D (proof of commitment)</div>
             </div>
             <div class="p-4 rounded-2xl bg-paper-surface border border-paper-border shadow-xs">
-              <div class="text-accent-sage font-bold text-lg leading-tight">500+ hrs</div>
-              <div class="text-ink-muted text-[11px] mt-0.5">3D printing &amp; Magpylib physics iterations</div>
+              <div class="text-accent-sage font-bold text-lg leading-tight">+6 Months</div>
+              <div class="text-ink-muted text-[11px] mt-0.5" data-i18n="about_stat_time">Ideation, R&amp;D &amp; learning</div>
             </div>
           </div>
         </div>
@@ -448,7 +468,7 @@
           <div class="p-6 sm:p-8 rounded-3xl bg-paper-card border border-paper-border shadow-sm space-y-3">
             <h3 class="text-xl font-serif font-semibold text-ink-primary">The Origin: Breaking Closed Black Boxes</h3>
             <p class="text-sm text-ink-secondary leading-relaxed font-light" data-i18n="about_p1">
-              I am an independent maker based in Jalisco, Mexico. I started this project out of frustration with the commercial keyboard market: essential physical ergonomics—like split layouts, tenting, low-profile bodies, and wireless connectivity—are artificially split across expensive product tiers alongside software locks. Even worse, replacement magnetic switches are pricey on AliExpress, and commercial boards only allow post-purchase modding rather than true design-stage customization. I wanted an open-source interface where anyone with a desktop 3D printer can modify the switch, case, or layout at the CAD level and build it anywhere in the world.
+              I am an independent maker based in Jalisco, Mexico. I started this project out of frustration with the commercial keyboard market: essential physical ergonomics—like split layouts, tenting, low-profile bodies, and wireless connectivity—are artificially split across luxury tiers alongside software locks. Furthermore, sourcing the perfect magnetic switch is difficult: while many commercial switches exist, almost all have rigid trade-offs or proprietary footprints that won't fit your board. With this setup, not only can you design and 3D print your own custom magnetic switches for pennies with radical customizability, but you also have the versatility to use virtually any commercial magnetic switch you like: the ratiometric Hall sensors simply recalibrate in software for different magnet sizes, and the 3D-printed plate can be adapted in CAD to fit any switch style.
             </p>
           </div>
 
@@ -628,6 +648,19 @@
             <span>25° (Neutral Handshake Pose)</span>
           </div>
           <input type="range" id="drawbridgeSlider" min="0" max="25" step="0.5" value="15" class="w-full">
+        </div>
+
+        <!-- Tenting Design Stage Notice -->
+        <div class="mt-6 p-4 sm:p-5 rounded-2xl bg-paper-card border border-paper-border/80 flex flex-col sm:flex-row items-start sm:items-center gap-3.5 shadow-xs">
+          <div class="w-8 h-8 rounded-xl bg-accent-sage-soft border border-accent-sage/20 text-accent-sage flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div class="space-y-0.5">
+            <div class="text-xs font-mono uppercase tracking-wider text-accent-sage font-semibold" data-i18n="tenting_notice_tag">Engineering Status • Active Design Stage</div>
+            <p class="text-xs text-ink-secondary leading-relaxed font-light" data-i18n="tenting_notice_text">
+              The physical tenting mechanism is currently under active design. Once PCB Rev A arrives from JLCPCB, testing the board physically in hand will allow evaluating the exact tactile feel to select the optimal solution: choosing an ideal fixed-angle tenting stand, building a folding mechanism with variable angles, or creating dedicated mounting options for desks or chair armrests.
+            </p>
+          </div>
         </div>
 
       </div>
